@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Miscelleneous</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/spacelab.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
+<link href="site_libs/ionicons-2.0.1/css/ionicons.min.css" rel="stylesheet" />
+
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="css_site/style_site.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 52px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+
+.section h2 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+.section h3 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+.section h4 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+.section h5 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+.section h6 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = false;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://marinedatascience.co">
+        <img id="mds_logo" alt="" src="img_site/mds_logo_grey@2x.png" width="30" height="30" >
+        MDS
+      </a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+          <a href="index.html">
+            <span class="fa fa-home"></span>
+              Data Analysis with R
+          </a>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+            <span class="fa fa-graduation-cap"></span>
+              Lectures
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu" role="menu">
+            <li class="dropdown-header">Programming in R</li>
+            <li class="dropdown-item">
+              <a href="lecture01_intro2data_science_and_r.html ">1-Introduction to data science and R</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture02_r_basics.html">2-Basics in R</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture03_data_structures.html">3-Data structures and basic calculations</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture04_operators.html">4-Operators</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture05_data_wrangling_import.html">5-Data wrangling - 1.Import</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture06_data_wrangling_tidy_data.html">6-Data wrangling - 2.Tidy Data</a>
+            </li>
+            <li class="dropdown-header">Data exploration &amp; visualization</li>
+            <li class="dropdown-item">
+              <a href="lecture07_data_wrangling_transformation.html">7-Data wrangling - 3.Transformation</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture08_intro2visualization_1.html">8-Intro2Visualization - Part 1</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture09_intro2visualization_2.html">9-Intro2Visualization - Part 2(Adjusting plots)</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture10_categorical_data.html">10-Handling and visualization of categorical data</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture11_rmarkdown.html">11-R Markdown for communication</a>
+            </li>
+            <li class="dropdown-header">Statistical Modelling</li>
+            <li class="dropdown-item">
+              <a href="lecture12_stat_modelling_1.html">12-Intro2Statistical Modelling - Part 1</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture13_stat_modelling_2.html">13-Intro2Statistical Modelling - Part 2</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture14_stat_modelling_3.html">14-Model building and selection</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture15_stat_modelling_4.html">15-Modelling demonstration</a>
+            </li>
+            <li class="dropdown-header">Programming in R</li>
+            <li class="dropdown-item">
+              <a href="lecture16_string_manipulation.html">16-String manipulation and regular expressions</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture17_functionsniterations_1.html">17-Functions and Iteration 1 (Loops)</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture18_iterations_2.html">18-Iteration 2 (purrr and the map family)</a>
+            </li>
+            <li class="divider"></li>
+            <li class="dropdown-header">slides, keyboard shortcuts:</li>
+            <li class="dropdown-header">o: outline</li>
+            <li class="dropdown-header">w: widescreen on/off</li>
+            <li class="dropdown-header">f: fullscreen on/off</li>
+            <li class="dropdown-header">ctrl +/ ctrl -: zoom in/out</li>
+            <li class="dropdown-header">p: presenter mode with additional info (NOT in Safari)</li>
+          </ul>
+        </li>
+        <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+          <span class="fa fa-gear"></span>
+            Exercises
+          <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu" role="menu">
+          <li class="dropdown-header">Practicals</li>
+          <li class="dropdown-item">
+            <a href="ex_resources.html">Resources</a>
+          </li>
+          <li class="dropdown-item">
+            <a href="ex_swirl.html">Quizzes with swirl</a>
+          </li>
+          <li class="divider"></li>
+          <li class="dropdown-header">Case studies</li>
+          <li class="dropdown-item">
+            <a href="ex_case_study_1.html">Case study 1</a>
+          </li>
+          <li class="dropdown-item">
+            <a href="ex_case_study_2.html">Case study 2</a>
+          </li>
+          <li class="dropdown-item">
+            <a href="ex_case_study_1_solutions.html">Case study 1 - solution</a>
+          </li>
+          <li class="dropdown-item">
+            <a href="ex_case_study_2_solutions.html">Case study 2 - solution</a>
+          </li>
+          <li class="divider"></li>
+          <li class="dropdown-header">Demo Code</li>
+          <li class="dropdown-item">
+            <a href="ex_lecture08_code_geom_functions.html">Lecture 8 - Geom functions</a>
+          </li>
+          <li class="dropdown-item">
+            <a href="ex_lecture08_code_ggplots_in_slides.html">Lecture 8 - Code for ggplots in lecture</a>
+          </li>
+          <li class="dropdown-item">
+            <a href="ex_lecture14_code_find_the_model.html">Lecture 14 - Find the model</a>
+          </li>
+          <li class="dropdown-item">
+            <a href="ex_lecture15_model_building_demo.html">Lecture 15 - Model building demo</a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="misc.html">
+          <span class="ion ion-wrench"></span>
+            Misc
+        </a>
+      </li>
+      <li>
+        <a href="video.html">
+          <span class="ion ion-ios-videocam"></span>
+            Videos
+        </a>
+      </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li>
+        <a href="about.html">
+          <span class="fa fa-newspaper"></span>
+            About
+        </a>
+      </li>
+      <li>
+        <a href="mailto:saskia.otto@uni-hamburg.de">
+          <span class="fa fa-send"></span>
+            Contact
+        </a>
+      </li>
+    </ul>
+   </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Miscelleneous</h1>
+
+</div>
+
+
+<div id="recommended-literature" class="section level1">
+<h1>Recommended literature</h1>
+<div id="books" class="section level2">
+<h2>Books</h2>
+<div id="general" class="section level4">
+<h4>General</h4>
+<p><img src="img_site/Book_r4ds.png" alt="Wickham & Grolemund (2017)" style="float:right;clear:left;width:100px;border:0;"></p>
+<ul>
+<li>Hadley Wickham &amp; Garret Grolemund (2017): <strong>R for Data Science</strong>, O’Reilly Media Inc., CA, U.S.A, 494p. Online accessible at <a href="http://r4ds.had.co.nz/" class="uri">http://r4ds.had.co.nz/</a><br> → <small>This book covers pretty much the topics taught in this course, is THE tidyverse book and also reads really nice.</small> <br> <br> <br> <br></li>
+</ul>
+</div>
+<div id="books-on-visualisations-i.e.ggplots" class="section level4">
+<h4>Books on visualisations (i.e. ggplots)</h4>
+<p><img src="img_site/Book_ggplot2.jpg" alt="Wickham (2016)" style="float:right;clear:left;width:100px;border:0;"></p>
+<ul>
+<li>Hadley Wickham (2016): <strong>ggplot2 - Elegant Graphics for Data Analysis</strong>, 2nd edition, Springer International Publishing, Switzerland, 260p. The code and text behind the book can be accessed at github: <a href="https://github.com/hadley/ggplot2-book" class="uri">https://github.com/hadley/ggplot2-book</a> <br> <br> <br> <br> <br> <br></li>
+</ul>
+<p><img src="img_site/Book_beautiful_graphics_kassambara.png" alt="Kassambara (2013)" style="float:right;clear:left;width:100px;border:0;"></p>
+<ul>
+<li>Alboukadel Kassambara (2013): <a href="http://www.sthda.com/english/download/3-ebooks/5-guide-to-create-beautiful-graphics-in-r-book/">Guide to Create Beautiful Graphics in R</a>, 2nd edition, STHDA, 237p. <br> <br> <br> <br></li>
+</ul>
+</div>
+<div id="books-on-statistical-modelling" class="section level4">
+<h4>Books on statistical modelling</h4>
+<p><img src="img_site/Book_r_crawley.jpg" alt="Crawley (2013)" style="float:right;clear:left;width:100px;border:0;"></p>
+<ul>
+<li>Michael J. Crawley (2013): <strong>The R Book</strong>, 2nd edition, Wiley &amp; Sons, Ltd., West Sussex, UK, 975p. An online pdf version is freely available <a href="https://www.cs.upc.edu/~robert/teaching/estadistica/TheRBook.pdf">here</a>.<br> → <small>This book is very comprehensive (almost 1000p.!) and covers basic statistics as well as many different statistical modelling approaches (which were beyond the scope of this course). However, it does not built on the tidyverse framework so all the graphics are created with the basis packages.</small> <br> <br> <br> <br></li>
+</ul>
+<p><img src="img_site/Book_mixed_models.jpg" alt="Zuur et al. (2009)" style="float:right;clear:left;width:100px;border:0;"></p>
+<ul>
+<li>Alain F. Zuur, Elena N. Ieno, Neil J. Walker, Anatoly A. Saveliev, Graham M. Smith (2009): <strong>Mixed Effects Models and Extensions in Ecology with R</strong>, Springer Science+Business Media, LLC, NewYork, U.S.A., 574p. For more information and data files see here: <a href="http://highstat.com/index.php/mixed-effects-models-and-extensions-in-ecology-with-r">http://highstat.com</a><br> → <small>This book covers simple linear regression models and their limitations and describes than alternative approaches (appendix A is a good start!). It includes various ecological case studies where the EDA (Exploratory Data Analayis) cycle is well described. But again, this book does not incorporate the tidyverse framework.</small> <br> <br> <br> <br> <br></li>
+</ul>
+<p><img src="img_site/Book_IFAR.jpg" alt="Ogle (2015)" style="float:right;clear:left;width:100px;border:0;"></p>
+<ul>
+<li>Derek H. Ogle (2015): <a href="https://www.crcpress.com/Introductory-Fisheries-Analyses-with-R/Ogle/p/book/9781482235203">Introductory Fisheries Analysis with R</a>, Chapman &amp; Hall/CRC The R Series, UK, 317p.<br> → <small>This is a good R book for fishery ecologist, which is built on the tidyverse framework. It provides detailed instructions on performing basic fisheries stock assessment analyses in the R environment but also includes basics on linear regression and ANOVA within a fisheries context.</small> <br> <br> <br> <br></li>
+</ul>
+</div>
+<div id="programming-in-r" class="section level4">
+<h4>Programming in R</h4>
+<p><img src="img_site/Books_advanced_r.jpg" alt="Wickham (2014)" style="float:right;clear:left;width:100px;border:0;"></p>
+<ul>
+<li>Hadley Wickham (2014): <strong>Advanced R</strong>, Chapman &amp; Hall/CRC The R Series, UK, 456p. Online accessible at <a href="http://adv-r.had.co.nz" class="uri">http://adv-r.had.co.nz</a>.<br> → <small>If you want to learn more on how to program and write R functions I highly recommend this book.</small> <br> <br> <br> <br> <br> <br></li>
+</ul>
+<p>This is just a selection of books that are using R as statistical software. there are many more books on the market, which might be similarly useful for your purposes… Some statistic books also not cover R but are, nevertheless, extremely helpful for understanding the mathematics behind. For instance, for biologists I can recommend</p>
+<ul>
+<li>Gerald Peter Quinn and Michael J. Keough (2002): <strong>Experimental Design and Data Analysis for Biologists</strong>, Cambridge, UK, 553p. An online pdf version is freely available <a href="http://www.cambridge.org/de/academic/subjects/life-sciences/ecology-and-conservation/experimental-design-and-data-analysis-biologists?format=PB&amp;isbn=9780521009768#Pq0cPIFm91XhGxdS.97">here</a></li>
+</ul>
+<p><br></p>
+</div>
+</div>
+<div id="websites" class="section level2">
+<h2>Websites</h2>
+<p>Again, the following suggested websites represent only a small subset of websites you can find in the internet. With the recent advances in R Markdown, Blogdown, Bookdown, etc. the number of online tutorials is tremendously increasing.</p>
+<div id="general-1" class="section level4">
+<h4>General</h4>
+<ul>
+<li><a href="https://www.rstudio.com/resources/cheatsheets/">RStudio Cheatsheets</a> → well made overviews of packages and R operations summarised on 1 or 2 pages.</li>
+<li><a href="https://www.r-bloggers.com/">R-bloggers</a> → a blog with news on latest advances, package presentations and online tutorials.</li>
+<li><a href="tryr.codeschool.com/levels/1/challenges/1">Try R</a> → an interactive online tutorial from Coda School</li>
+<li><a href="https://www.datacamp.com/">DataCamp</a> → this website provides various online tutorials, which are partly free of charge.</li>
+<li>To read up on R operators check this very nice tutorial provided on the tutorialcart website:<a href="https://www.tutorialkart.com/r-tutorial/r-operators/" class="uri">https://www.tutorialkart.com/r-tutorial/r-operators/</a>.</li>
+<li>For fisheries-related infos on R, e.g. overviews on fishy packages and courses see the <a href="http://derekogle.com/fishR/">fishR</a> website</li>
+</ul>
+</div>
+<div id="visalizationggplot2" class="section level4">
+<h4>Visalization/ggplot2</h4>
+<ul>
+<li>ggplot2 documentation
+<ul>
+<li><a href="http://ggplot2.org" class="uri">http://ggplot2.org</a></li>
+<li><a href="http://ggplot2.tidyverse.org" class="uri">http://ggplot2.tidyverse.org</a></li>
+</ul></li>
+<li>Getting help: <a href="https://groups.google.com/forum/?fromgroups#!forum/ggplot2">ggplot2 mailing list</a></li>
+<li>Overview of all geom_functions: <a href="http://ggplot2.tidyverse.org/reference/" class="uri">http://ggplot2.tidyverse.org/reference/</a></li>
+<li>For a list of theme components see also <a href="https://github.com/wch/ggplot2/wiki/New-theme-system">Winston Chang’s wiki</a> on github</li>
+<li>Overview of ggplot2 extensions: <a href="http://www.ggplot2-exts.org" class="uri">http://www.ggplot2-exts.org</a></li>
+<li>The brewer scales provides nice colour schemes from the ColorBrewer particularly tailored for maps: <a href="http://colorbrewer2.org" class="uri">http://colorbrewer2.org</a></li>
+<li>The Stowers Institute provides a <a href="http://research.stowers.org/mcm/efg/R/Color/Chart/ColorChart.pdf">printable pdf</a> that lists all colours.</li>
+</ul>
+</div>
+<div id="r-markdown" class="section level4">
+<h4>R Markdown</h4>
+<ul>
+<li>Look at the <a href="https://rmarkdown.rstudio.com">R Markdown Webside</a> from R Studio for a first start.</li>
+<li>R Studio provides a useful <a href="https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf">reference guide</a>.</li>
+<li>To dig deeper you will find many youtube videos and online tutorials.<br> → A good one is for instance: <a href="https://www.uvm.edu/rsenr/vtcfwru/R/fledglings/08_Markdown.html">R for fledglings</a></li>
+</ul>
+</div>
+<div id="strings" class="section level4">
+<h4>Strings</h4>
+<ul>
+<li>To learn more about regex I recommend the excellent website <a href="http://www.regular-expressions.info" class="uri">http://www.regular-expressions.info</a>. It contains many different topics, resources, examples, and tutorials at both beginner and advanced levels.</li>
+</ul>
+</div>
+<div id="iterations" class="section level4">
+<h4>Iterations</h4>
+<ul>
+<li>A good tutorial for purrr is available on this webpage: <a href="https://jennybc.github.io/purrr-tutorial/" class="uri">https://jennybc.github.io/purrr-tutorial/</a></li>
+</ul>
+<p><br> <br> <br></p>
+</div>
+</div>
+</div>
+
+</div> <!-- articleBandContent -->
+</div> <!-- pageContent -->
+
+<footer class="site_footer">
+<div id="maredsFooter" class="footer">
+  <div class="footerContent">
+
+    <!-- column 1 -->
+    <div class="col-md-2" style="padding-top:.25%; text-align:center; color:#626262;">
+      <a href="https://github.com/mareds">
+        <i class="fa fa-github fa-lg"></i> MARinE Data Science</a> 
+    </div>
+    
+    <!-- column 1 -->
+    <div class="col-md-2" style="padding-top:.25%; text-align:center; color:#626262;">
+      <a href="https://github.com/saskiaotto">
+        <i class="fa fa-github fa-lg"></i> saskiaotto</a>
+    </div>
+
+    <!-- column 2 -->
+    <div class="col-md-6">
+      <!-- <blockquote style="line-height:10px;border-left: 2px solid #999999;"> -->
+          <p style="font-size:15px;color:#626262;border-left: 2px solid #999999;padding-left:5px; padding-top:.25%; font-style:italic;">
+            The difference between stupidity and genius is that genius has its limits.
+            <span style="font-size:11px;color:#909090">A.E.</span></p>
+      <!-- </blockquote> -->
+    </div>
+    
+      <!-- column 3 -->
+    <div class="col-md-2" style="padding-top:.25%; text-align:right; color:#626262;">
+      <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+          CC-BY-SA 4.0</a>
+    </div>
+
+  </div> <!-- footerContent -->
+</div> <!-- footer -->
+
+
+</footer>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

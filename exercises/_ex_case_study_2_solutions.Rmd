@@ -1,0 +1,407 @@
+---
+title: "Case study 2:<br>Distributions of demersal fish in the Western and Central Baltic Sea"
+subtitle: "SOLUTION SCRIPT"
+output:
+  html_document:
+    toc: yes
+      toc_float:
+      collapsed: true
+      smooth_scroll: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(tidy=FALSE, warning=FALSE, message=FALSE, cache=TRUE, dev.args=list(bg="transparent"), fig.retina = 2, fig.path = "case_study02_solution_plotting_files/")
+```
+
+***
+
+<div class="img-with-text" >
+  <a href="https://earthobservatory.nasa.gov/IOTD/view.php?id=84047">
+    <img src="img_site/Baltic_satellite.jpg" alt="Darst"style="width:900px;height:300px;border:0;" >
+  </a>
+  <p><span class="source-img" style = "float:right; font-size:10px;">Foto: ISS Crew Earth Observations Facility and the Earth Science and Remote Sensing Unit, Johnson Space Center (under CC0)</span></p>
+</div>
+
+<br>
+
+<div class="img-with-text">
+  <a href="http://www.fishbase.org" style="white-space: nowrap;">
+    <img src="http://www.fishbase.de/images/thumbnails/jpg/tn_Gamor_u3.jpg" alt="Gadus     morhua"style="width:150px;height:85px;border:0;">
+    <img src="http://www.fishbase.de/images/species/Clhar_u5.jpg" alt="Clupea harengus"style="width:150px;height:85px;border:0;">
+    <img src="http://www.fishbase.de/images/thumbnails/jpg/tn_Spspr_u2.jpg" alt="Sprattus sprattus"style="width:150px;height:85px;border:0;">
+    <img src="http://www.fishbase.de/images/thumbnails/jpg/tn_Lilim_f0.jpg" alt="Limanda limanda"style="width:150px;height:85px;border:0;"><br>
+    <img src="http://www.fishbase.de/images/thumbnails/jpg/tn_Memer_u0.jpg" alt="Merlangius merlangus"style="width:150px;height:85px;border:0;">
+    <img src="http://www.fishbase.de/images/thumbnails/jpg/tn_Plfle_u2.jpg" alt="Platichthys flesus"style="width:150px;height:85px;border:0;">
+    <img src="http://www.fishbase.de/images/thumbnails/jpg/tn_Plpla_u8.jpg" alt="Pleuronectes platessa"style="width:150px;height:85px;border:0;">
+    <img src="http://www.fishbase.de/images/species/Hipla_u3.jpg" alt="Hippoglossoides platessoides"style="width:150px;height:85px;border:0;">
+  </a>
+<p><span class="source-img" style = "float:right; font-size:10px;">Fotos: <a href='http://www.fishbase.org' title=''>Fishbase</a> (under <a href='https://creativecommons.org/licenses/by-nc/3.0/' title=''>CC-BY-NC 3.0</a>)</span></p>
+</div> 
+
+<br>
+
+# Your task
+
+Study the effects of latitude, longitude, depth and hydrography on the number of caught fish - in areas where the species are present (since we use presence-only data). You can also download the data and do the data wrangling yourself and compare with the one provided here (although it will not contain the salinity and temperature then). Some instructions for this are below.
+
+## Data wrangling
+
+```{r}
+# Loading relevant libraries
+library(tidyverse)
+
+# Set your working directory if you haven't before (should be the same than 
+# for the R Markdown file) and LOAD the data
+load("data/data_case_study_2.R") # I have the data in a subfolder called 'data'
+
+# Check what objects the file contains
+ls() # only one called `cpue15`
+names(cpue15)
+
+# Transform data
+spec_df <- tibble(species = unique(cpue15$species), 
+  common_name = c("herring", "cod", "dab", "whiting", "flounder", "plaice",
+     "sprat", "am_plaice"))
+spec_df$species <- as.character(spec_df$species)
+str(spec_df)
+cpue15 <- cpue15 %>%
+  left_join(spec_df, by = "species")
+spec <- spec_df$common_name
+```
+
+***
+
+
+## A. Distribution along the latitude/longitude gradient
+
+- A1. For which species seems to be no latitudinal and longitudinal effect on the CPUE?
+- A2. For which species is the spatial effect greatest? Which model describes best the relationship?
+- A3. Which species has an increasing CPUE with increasing latitude and decreasing longitude?
+
+
+```{r, fig.width = 15, fig.height=8}
+world <- map_data("world")
+worldmap <- ggplot(world, aes(x = long, y = lat)) +
+  geom_polygon(aes(group = group), fill = "ivory3", colour = "black") 
+baltic <- worldmap + coord_map("ortho",  xlim = c(10, 30), ylim = c(54,59))
+
+baltic + geom_point(data = cpue15, aes(x = long, y = lat, 
+  colour = cpue_total_log), size = 1) +
+  scale_colour_gradient2(low = "blue", mid = "yellow", 
+    high = "red", midpoint = 7.5) +
+  guides(colour = guide_colourbar(title = "Total log(CPUE) per hour")) +
+  facet_wrap(~species, labeller = label_both) +
+  ggtitle(label = "Spatial distribution of most abundant species",
+    subtitle = "Jan-March 2015") +
+  xlab("Longitude") + ylab("Latitude") 
+```
+
+
+### Individual scatterplots for spatial trends (lat/long separately)
+
+```{r, fig.width=12, fig.height=2.5}
+for (i in 1:8) { 
+  dat <- cpue15 %>% filter(common_name == spec[i] )
+  p_long <- ggplot(data = dat, aes(long, cpue_total)) + 
+    geom_point() +
+    geom_smooth(se = FALSE) +  
+    geom_smooth(se = FALSE, method = "lm") + #coord_trans(y = "sqrt") +
+    ggtitle(spec[i])
+  
+  p_lat <- ggplot(data = dat, aes(lat, cpue_total)) + 
+    geom_point() +
+    geom_smooth(se = FALSE) +  
+    geom_smooth(se = FALSE, method = "lm") + #coord_trans(y = "sqrt") +
+    ggtitle(spec[i])
+  
+  p_long_log <- ggplot(data = dat, aes(long, cpue_total_log)) + 
+    geom_point() +
+    geom_smooth(se = FALSE) +  
+    geom_smooth(se = FALSE, method = "lm") + 
+    ggtitle(spec[i])
+  
+  p_lat_log <- ggplot(data = dat, aes(lat, cpue_total_log)) + 
+    geom_point() +
+    geom_smooth(se = FALSE) +  
+    geom_smooth(se = FALSE, method = "lm") + 
+    ggtitle(spec[i])
+  
+  gridExtra::grid.arrange(grobs = 
+      list(p_long, p_lat, p_long_log, p_lat_log), ncol = 4)
+}
+```
+
+Since the relationship and scatter around the predictions looks much better for the log-transformed data, we will continue modelling only this data (model diagnostic plots for the untrasnformed data would also indicate violations of the homogeneity assumptions).
+
+### Now the models
+
+For simplicity I will demonstrate the model comparison without models including polynomials.
+
+```{r}
+m_coord_aic <- vector("list", length=8)
+names(m_coord_aic) <- spec
+spec_df$m_coord_1 <- vector("list", length=8)
+spec_df$m_coord_2 <- vector("list", length=8)
+spec_df$m_coord_3 <- vector("list", length=8)
+spec_df$m_coord_4 <- vector("list", length=8)
+spec_df$m_coord_5 <- vector("list", length=8)
+spec_df$m_coord_best <- vector(length=8)
+spec_df$m_coord_r2 <- vector(length=8)
+
+
+for (i in 1:8){
+  dat <- cpue15 %>% filter(common_name == spec[i] )
+  m1 <- lm(cpue_total_log  ~ 1, data = dat)
+  m2 <- lm(cpue_total_log  ~ long, data = dat)
+  m3 <- lm(cpue_total_log  ~ lat, data = dat)
+  m4 <- lm(cpue_total_log  ~ long + lat, data = dat)
+  m5 <- lm(cpue_total_log  ~ long * lat, data = dat)
+  
+  aic_temp <- as_tibble(AIC(m1,m2,m3,m4,m5)) %>%
+    mutate(model = rownames(.)) %>%
+    mutate(m_object = list(m1,m2,m3,m4,m5)) %>%
+    arrange(AIC) 
+  
+  m_coord_aic[[i]] <- aic_temp
+  spec_df$m_coord_1[[i]] <- m1
+  spec_df$m_coord_2[[i]] <- m2
+  spec_df$m_coord_3[[i]] <- m3
+  spec_df$m_coord_4[[i]] <- m4
+  spec_df$m_coord_5[[i]] <- m5
+  spec_df$m_coord_best[[i]] <- aic_temp$model[1]
+  spec_df$m_coord_r2[[i]] <- round(summary(aic_temp$m_object[[1]])$adj.r.squared,2)
+}
+```
+
+### Complete AIC comparison
+```{r}
+m_coord_aic
+```
+
+### Overview of best models based on the AIC
+```{r}
+spec_df %>% select(species, common_name, m_coord_best, m_coord_r2)
+```
+
+### Numerical output of best models
+```{r}
+#herring
+summary(spec_df$m_coord_3[[1]]) 
+# cod
+summary(spec_df$m_coord_5[[2]]) 
+# dab
+summary(spec_df$m_coord_4[[3]]) 
+# whiting
+summary(spec_df$m_coord_4[[4]]) 
+# flounder
+summary(spec_df$m_coord_2[[5]]) 
+# plaice
+summary(spec_df$m_coord_2[[6]]) 
+# sprat - nothing (m1)
+# American plaice
+summary(spec_df$m_coord_5[[8]]) 
+```
+
+### Residual diagnostics of best models
+
+```{r, fig.width=12, fig.height=20}
+par(mfrow = c(7,4))
+plot(spec_df$m_coord_3[[1]], main = "herring") 
+plot(spec_df$m_coord_5[[2]], main = "cod") 
+plot(spec_df$m_coord_4[[3]], main = "dab") 
+plot(spec_df$m_coord_4[[4]], main = "whiting") 
+plot(spec_df$m_coord_2[[5]], main = "flounder") 
+plot(spec_df$m_coord_2[[6]], main = "plaice") 
+plot(spec_df$m_coord_5[[8]], main = "American plaice") 
+```
+
+The resdiual plots look for some models not ideal but acceptable.
+
+### Back to the questions
+
+- A1. For which species seems to be no latitudinal and longitudinal effect on the CPUE? <span style="color:red;font-weight:bold;">Sprattus sprattus</span>
+- A2. For which species is the spatial effect greatest? Which model describes best the relationship? <span style="color:red;font-weight:bold;">Limanda limanda: ~ long+lat</span>
+- A3. Which species has an increasing CPUE with increasing latitude and decreasing longitude? <span style="color:red;font-weight:bold;">Limanda limanda and Merlangius merlangus</span>
+
+***
+
+## B. Depth preferences
+
+- B1. For which species does the bottom depth have no effect on the CPUE?
+- B2. Which species responds strongest to the depth in terms of CPUE? Is the relationship positive or negative here?
+
+### Visualization
+
+```{r, fig.width=12, fig.height=5}
+plot_list <- vector("list", length = 8)
+for (i in 1:8) { 
+  dat <- cpue15 %>% filter(common_name == spec[i] )
+  plot_list[[i]] <- ggplot(data = dat, aes(depth, cpue_total_log)) + 
+    geom_point() +
+    geom_smooth(se = FALSE) +  
+    geom_smooth(se = FALSE, method = "lm") +
+    ggtitle(spec[i])
+}
+gridExtra::grid.arrange(grobs = plot_list, ncol = 4)
+```
+
+### Models
+
+The models contain here only an intercept or an intercept and depth as covariate:
+
+```{r}
+spec_df$m_depth <- vector("list", length=8)
+spec_df$m_depth_best <- vector(length=8)
+spec_df$m_depth_r2 <- vector(length=8)
+
+for (i in 1:8){
+  dat <- cpue15 %>% filter(common_name == spec[i] )
+  m0 <- lm(cpue_total_log ~ 1, data = dat)
+  m1 <- lm(cpue_total_log  ~ depth, data = dat)
+  
+  aic_temp <- as_tibble(AIC(m0,m1)) %>%
+    mutate(model = rownames(.)) %>%
+    mutate(m_object = list(m0,m1)) %>%
+    arrange(AIC) 
+  
+  spec_df$m_depth[[i]] <- m1
+  spec_df$m_depth_best[[i]] <- aic_temp$model[1]
+  spec_df$m_depth_r2[[i]] <- round(summary(aic_temp$m_object[[1]])$adj.r.squared,2)
+}
+
+spec_df %>% select(species, m_depth_best, m_depth_r2)
+```
+
+### Overview of best models based on the AIC
+```{r}
+spec_df %>% select(species, m_depth_best, m_depth_r2)
+```
+
+### Numerical output of best model 
+The model for Limanda limanda shows the highest proportion of variance explained by depth:
+```{r}
+summary(spec_df$m_depth[[3]])
+```
+
+### Residual diagnostics of best model
+
+```{r, fig.width=12, fig.height=2.5}
+par(mfrow = c(1,4))
+plot(spec_df$m_depth[[3]], main = "dab") 
+```
+
+### Back to the questions
+- B1. For which species does the bottom depth have no effect on the CPUE?   
+<span style="color:red;font-weight:bold;">Clupea harengus</span>
+- B2. Which species responds strongest to the depth in terms of CPUE? Is the relationship positive or negative here?    
+<span style="color:red;font-weight:bold;">Limanda limanda: negative</span>
+
+
+***
+
+## C. Effect of salinity and temperature
+
+- C1. Is there any species that seems to not respond to salinity and temperature?
+- C2. Which species shows the strongest response to temperature and salinity? Does that fit to what we know about the species thermal and salinity preferences?
+
+```{r, echo = TRUE}
+m_hydro_aic <- vector("list", length=8)
+names(m_hydro_aic) <- spec
+spec_df$m_hydro_1 <- vector("list", length=8)
+spec_df$m_hydro_2 <- vector("list", length=8)
+spec_df$m_hydro_3 <- vector("list", length=8)
+spec_df$m_hydro_4 <- vector("list", length=8)
+spec_df$m_hydro_5 <- vector("list", length=8)
+spec_df$m_hydro_best <- vector(length=8)
+spec_df$m_hydro_r2 <- vector(length=8)
+
+for (i in 1:8){
+  dat <- cpue15 %>% filter(common_name == spec[i] )
+  m1 <- lm(cpue_total_log  ~ 1, data = dat)
+  m2 <- lm(cpue_total_log  ~ temp_pred, data = dat)
+  m3 <- lm(cpue_total_log  ~ sal_pred, data = dat)
+  m4 <- lm(cpue_total_log  ~ temp_pred + sal_pred, data = dat)
+  m5 <- lm(cpue_total_log  ~ temp_pred * sal_pred, data = dat)
+  
+  aic_temp <- as_tibble(AIC(m1,m2,m3,m4,m5)) %>%
+    mutate(model = rownames(.)) %>%
+    mutate(m_object = list(m1,m2,m3,m4,m5)) %>%
+    arrange(AIC) 
+  
+  m_hydro_aic[[i]] <- aic_temp
+  spec_df$m_hydro_1[[i]] <- m1
+  spec_df$m_hydro_2[[i]] <- m2
+  spec_df$m_hydro_3[[i]] <- m3
+  spec_df$m_hydro_4[[i]] <- m4
+  spec_df$m_hydro_5[[i]] <- m5
+  spec_df$m_hydro_best[[i]] <- aic_temp$model[1]
+  spec_df$m_hydro_r2[[i]] <- round(summary(aic_temp$m_object[[1]])$adj.r.squared,2)
+}
+
+```
+
+### Complete AIC comparison
+```{r}
+m_hydro_aic
+```
+
+### Overview of best models based on the AIC
+```{r}
+spec_df %>% select(common_name, m_hydro_best, m_hydro_r2)
+```
+
+### Numerical output of best models
+```{r}
+#herring
+summary(spec_df$m_hydro_5[[1]]) 
+# cod
+summary(spec_df$m_hydro_5[[2]]) 
+# dab
+summary(spec_df$m_hydro_5[[3]]) 
+# whiting
+summary(spec_df$m_hydro_4[[4]]) 
+# flounder
+summary(spec_df$m_hydro_5[[5]]) 
+# plaice
+summary(spec_df$m_hydro_5[[6]]) 
+# sprat
+summary(spec_df$m_hydro_4[[7]]) 
+# American plaice
+summary(spec_df$m_hydro_4[[8]]) 
+```
+
+### Residual diagnostics of best models
+
+```{r, fig.width=12, fig.height=20}
+par(mfrow = c(7,4))
+plot(spec_df$m_hydro_5[[1]], main = "herring") 
+plot(spec_df$m_hydro_5[[2]], main = "cod") 
+plot(spec_df$m_hydro_5[[3]], main = "dab") 
+plot(spec_df$m_hydro_4[[4]], main = "whiting") 
+plot(spec_df$m_hydro_5[[5]], main = "flounder") 
+plot(spec_df$m_hydro_5[[6]], main = "plaice") 
+plot(spec_df$m_hydro_4[[5]], main = "sprat") 
+plot(spec_df$m_hydro_4[[8]], main = "American plaice") 
+```
+
+
+
+
+
+
+
+
+### Back to the questions
+- C1. Is there any species that seems to not respond to salinity and temperature?    <span style="color:red;font-weight:bold;">No</span>
+- C2. Which species shows the strongest response to temperature and salinity? Does that fit to what we know about the species thermal and salinity preferences?    
+<span style="color:red;font-weight:bold;">Limanda limanda</span>
+
+
+
+  
+
+
+
+
+
+

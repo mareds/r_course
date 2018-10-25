@@ -1,0 +1,239 @@
+/* Several text box styles defined here */
+
+/*  ------- GREEN and ORANGE BOXES: half/full width  ------- */
+
+slide:not(.segue) .boxgreen1,
+slide:not(.segue) .boxgreen2,
+slide:not(.segue) .boxorange1,
+slide:not(.segue) .boxorange2 {
+  background-repeat: no-repeat !important;
+  background-attachment: scroll left bottom!important;
+  /*background-position: cen bottom;*/
+  margin-bottom: 10px!important;
+  padding: 0!important;
+  border-radius: 5px!important;
+  box-shadow: 10px 10px 8px 1px rgba(0, 0, 0, 0.2), 1px 3px 3px 2px rgba(0, 0, 0, 0.5)!important;
+}
+
+slide:not(.segue) .boxgreen1 {
+  background: #228B22;
+  width: 440px!important;
+}
+
+slide:not(.segue) .boxgreen2 {
+  background: #228B22;
+  width: 980px!important;
+}
+
+slide:not(.segue) .boxorange1 {
+  background: #FFA500;
+  width: 440px!important;
+}
+
+slide:not(.segue) .boxorange2 {
+  background: #FFA500;
+  width: 980px!important;
+}
+
+slide:not(.segue) .boxgreen1 h3,
+slide:not(.segue) .boxgreen1 h4,
+slide:not(.segue) .boxgreen2 h3,
+slide:not(.segue) .boxgreen2 h4,
+slide:not(.segue) .boxorange1 h3,
+slide:not(.segue) .boxorange1 h4,
+slide:not(.segue) .boxorange2 h3,
+slide:not(.segue) .boxorange2 h4 {
+  color: #F8F8FF!important;
+  font-family: Helvetica, Arial, sans-serif;
+  margin-top: 5px !important;
+  margin-bottom: 1px !important;
+  margin-right: 0 !important;
+  margin-left: 0 !important;
+  padding-top: 0 !important;
+  padding-bottom: 1px !important;
+  padding-right: 10px !important;
+  padding-left: 10px !important;
+  border-radius: 5px 5px 0 0!important;
+}
+
+slide:not(.segue) .boxgreen1 h3,
+slide:not(.segue) .boxgreen2 h3 {
+   background: #228B22 repeat scroll 0 0!important;
+   font-size: 20px !important;
+   font-weight: bold!important;
+   font-style: normal!important;
+   height: 25px!important;
+   line-height: 25px!important;
+}
+
+slide:not(.segue) .boxgreen1 h4,
+slide:not(.segue) .boxgreen2 h4 {
+   background: #228B22 repeat scroll 0 0!important;
+   font-size: 18px !important;
+   font-style: normal!important;
+   height: 19px!important;
+   line-height: 19px!important;
+}
+
+slide:not(.segue) .boxorange1 h3,
+slide:not(.segue) .boxorange2 h3 {
+   background: #FFA500 repeat scroll 0 0!important;
+   font-size: 20px !important;
+   font-weight: bold!important;
+   font-style: normal!important;
+   height: 25px!important;
+   line-height: 25px!important;
+}
+
+slide:not(.segue) .boxorange1 h4 ,
+slide:not(.segue) .boxorange2 h4 {
+   background: #FFA500 repeat scroll 0 0!important;
+   font-size: 18px !important;
+   font-style: normal!important;
+   height: 19px!important;
+   line-height: 19px!important;
+}
+
+
+slide:not(.segue) .boxgreen1 p,
+slide:not(.segue) .boxgreen2 p,
+slide:not(.segue) .boxorange1 p,
+slide:not(.segue) .boxorange2 p {
+   border-style: solid!important;
+   font-family: Helvetica, Arial, sans-serif;
+   color: #444444!important;
+   font-size: 18px !important;
+   line-height: 110%;
+   margin: 0;
+   padding: 10px;
+   border-radius: 0 0 5px 5px ;
+}
+
+slide:not(.segue) .boxgreen1 p,
+slide:not(.segue) .boxgreen2 p {
+   background: #B4EEB4 none repeat scroll 0 0!important;
+}
+
+slide:not(.segue) .boxorange1 p,
+slide:not(.segue) .boxorange2 p {
+   background: #FFFAF0 none repeat scroll 0 0!important;
+}
+
+slide:not(.segue) .boxgreen1 p,
+slide:not(.segue) .boxgreen2 p {
+   background: #B4EEB4 none repeat scroll 0 0!important;
+}
+
+slide:not(.segue) .boxgreen1 p,
+slide:not(.segue) .boxorange1 p {
+   width: 440px;
+}
+
+slide:not(.segue) .boxgreen2 p,
+slide:not(.segue) .boxorange2 p {
+   width: 980px;
+}
+
+
+
+/* ------ Modified alert box in green and orange and red ----- */
+
+
+.alert {
+  padding: 8px 35px 8px 14px;
+  margin-bottom: 20px;
+  /*text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);*/
+  font-size:19px;
+  font-family: 'Helvetica';
+  line-height: 110%;
+  background-color: #ff7518;
+  border: 1px solid transparent;
+  -webkit-border-radius: 0;
+     -moz-border-radius: 0;
+          border-radius: 0;
+  border-radius: 5px!important;
+  box-shadow: 10px 10px 8px 1px rgba(0, 0, 0, 0.2), 1px 3px 3px 2px rgba(0, 0, 0, 0.5)!important;
+}
+
+.alert,
+.alert h4 {
+  color: #ffffff;
+}
+
+.alert h4 {
+  margin: 0;
+}
+
+.alert .close {
+  position: relative;
+  top: -2px;
+  right: -21px;
+  line-height: 20px;
+}
+
+.alert-green {
+  color: #ffffff;
+  background-color: #228B22;
+  border-color: transparent;
+}
+
+.alert-green h4 {
+  color: #ffffff;
+}
+
+
+.alert-lightgreen {
+  color: #444444;
+  background-color: #B4EEB4;
+  border-color: transparent;
+}
+
+.alert-lightgreen h4 {
+  color: #444444;
+}
+
+
+.alert-red {
+  color: #ffffff;
+  background-color: #ff0039;
+  border-color: transparent;
+}
+
+.alert-red {
+  color: #ffffff;
+}
+
+.alert-orange {
+  color: #ffffff;
+  background-color: #FFA500;
+  border-color: transparent;
+}
+
+.alert-orange h4 {
+  color: #ffffff;
+}
+
+
+.alert-lightorange h4 {
+  color: #444444;
+}
+
+.alert-lightorange {
+  color: #444444;
+  background-color: #F6E5C6;
+  border-color: transparent;
+}
+
+.alert-block {
+  padding-top: 14px;
+  padding-bottom: 14px;
+}
+
+.alert-block > p,
+.alert-block > ul {
+  margin-bottom: 0;
+}
+
+.alert-block p + p {
+  margin-top: 5px;
+}

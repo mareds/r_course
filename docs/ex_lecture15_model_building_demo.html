@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Lecture 15</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/spacelab.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
+<link href="site_libs/ionicons-2.0.1/css/ionicons.min.css" rel="stylesheet" />
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; background-color: #f8f8f8; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+pre, code { background-color: #f8f8f8; }
+code > span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code > span.dt { color: #204a87; } /* DataType */
+code > span.dv { color: #0000cf; } /* DecVal */
+code > span.bn { color: #0000cf; } /* BaseN */
+code > span.fl { color: #0000cf; } /* Float */
+code > span.ch { color: #4e9a06; } /* Char */
+code > span.st { color: #4e9a06; } /* String */
+code > span.co { color: #8f5902; font-style: italic; } /* Comment */
+code > span.ot { color: #8f5902; } /* Other */
+code > span.al { color: #ef2929; } /* Alert */
+code > span.fu { color: #000000; } /* Function */
+code > span.er { color: #a40000; font-weight: bold; } /* Error */
+code > span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #000000; } /* Constant */
+code > span.sc { color: #000000; } /* SpecialChar */
+code > span.vs { color: #4e9a06; } /* VerbatimString */
+code > span.ss { color: #4e9a06; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #000000; } /* Variable */
+code > span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code > span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code > span.ex { } /* Extension */
+code > span.at { color: #c4a000; } /* Attribute */
+code > span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code > span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="css_site/style_site.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 52px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+
+.section h2 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+.section h3 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+.section h4 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+.section h5 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+.section h6 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = false;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://marinedatascience.co">
+        <img id="mds_logo" alt="" src="img_site/mds_logo_grey@2x.png" width="30" height="30" >
+        MDS
+      </a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+          <a href="index.html">
+            <span class="fa fa-home"></span>
+              Data Analysis with R
+          </a>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+            <span class="fa fa-graduation-cap"></span>
+              Lectures
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu" role="menu">
+            <li class="dropdown-header">Programming in R</li>
+            <li class="dropdown-item">
+              <a href="lecture01_intro2data_science_and_r.html ">1-Introduction to data science and R</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture02_r_basics.html">2-Basics in R</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture03_data_structures.html">3-Data structures and basic calculations</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture04_operators.html">4-Operators</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture05_data_wrangling_import.html">5-Data wrangling - 1.Import</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture06_data_wrangling_tidy_data.html">6-Data wrangling - 2.Tidy Data</a>
+            </li>
+            <li class="dropdown-header">Data exploration &amp; visualization</li>
+            <li class="dropdown-item">
+              <a href="lecture07_data_wrangling_transformation.html">7-Data wrangling - 3.Transformation</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture08_intro2visualization_1.html">8-Intro2Visualization - Part 1</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture09_intro2visualization_2.html">9-Intro2Visualization - Part 2(Adjusting plots)</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture10_categorical_data.html">10-Handling and visualization of categorical data</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture11_rmarkdown.html">11-R Markdown for communication</a>
+            </li>
+            <li class="dropdown-header">Statistical Modelling</li>
+            <li class="dropdown-item">
+              <a href="lecture12_stat_modelling_1.html">12-Intro2Statistical Modelling - Part 1</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture13_stat_modelling_2.html">13-Intro2Statistical Modelling - Part 2</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture14_stat_modelling_3.html">14-Model building and selection</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture15_stat_modelling_4.html">15-Modelling demonstration</a>
+            </li>
+            <li class="dropdown-header">Programming in R</li>
+            <li class="dropdown-item">
+              <a href="lecture16_string_manipulation.html">16-String manipulation and regular expressions</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture17_functionsniterations_1.html">17-Functions and Iteration 1 (Loops)</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture18_iterations_2.html">18-Iteration 2 (purrr and the map family)</a>
+            </li>
+            <li class="divider"></li>
+            <li class="dropdown-header">slides, keyboard shortcuts:</li>
+            <li class="dropdown-header">o: outline</li>
+            <li class="dropdown-header">w: widescreen on/off</li>
+            <li class="dropdown-header">f: fullscreen on/off</li>
+            <li class="dropdown-header">ctrl +/ ctrl -: zoom in/out</li>
+            <li class="dropdown-header">p: presenter mode with additional info (NOT in Safari)</li>
+          </ul>
+        </li>
+        <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+          <span class="fa fa-gear"></span>
+            Exercises
+          <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu" role="menu">
+          <li class="dropdown-header">Practicals</li>
+          <li class="dropdown-item">
+            <a href="ex_resources.html">Resources</a>
+          </li>
+          <li class="dropdown-item">
+            <a href="ex_swirl.html">Quizzes with swirl</a>
+          </li>
+          <li class="divider"></li>
+          <li class="dropdown-header">Case studies</li>
+          <li class="dropdown-item">
+            <a href="ex_case_study_1.html">Case study 1</a>
+          </li>
+          <li class="dropdown-item">
+            <a href="ex_case_study_2.html">Case study 2</a>
+          </li>
+          <li class="dropdown-item">
+            <a href="ex_case_study_1_solutions.html">Case study 1 - solution</a>
+          </li>
+          <li class="dropdown-item">
+            <a href="ex_case_study_2_solutions.html">Case study 2 - solution</a>
+          </li>
+          <li class="divider"></li>
+          <li class="dropdown-header">Demo Code</li>
+          <li class="dropdown-item">
+            <a href="ex_lecture08_code_geom_functions.html">Lecture 8 - Geom functions</a>
+          </li>
+          <li class="dropdown-item">
+            <a href="ex_lecture08_code_ggplots_in_slides.html">Lecture 8 - Code for ggplots in lecture</a>
+          </li>
+          <li class="dropdown-item">
+            <a href="ex_lecture14_code_find_the_model.html">Lecture 14 - Find the model</a>
+          </li>
+          <li class="dropdown-item">
+            <a href="ex_lecture15_model_building_demo.html">Lecture 15 - Model building demo</a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="misc.html">
+          <span class="ion ion-wrench"></span>
+            Misc
+        </a>
+      </li>
+      <li>
+        <a href="video.html">
+          <span class="ion ion-ios-videocam"></span>
+            Videos
+        </a>
+      </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li>
+        <a href="about.html">
+          <span class="fa fa-newspaper"></span>
+            About
+        </a>
+      </li>
+      <li>
+        <a href="mailto:saskia.otto@uni-hamburg.de">
+          <span class="fa fa-send"></span>
+            Contact
+        </a>
+      </li>
+    </ul>
+   </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Lecture 15</h1>
+
+</div>
+
+
+<div id="model-building-demonstration-with-plaice-cpue-in-the-baltic" class="section level1">
+<h1>Model building demonstration with plaice CPUE in the Baltic</h1>
+<div id="research-question" class="section level2">
+<h2>Research question:</h2>
+<p><strong>What factors explain best the pattern in age-specific Catch-Per-Unit-Effort (CPUE) of <em>Pleuronectes platessa</em> (plaice) in the first quarter of 2015?</strong></p>
+<p>Since we have longitude, latitude, and age in our dataset we can test whether these variables have any effect. Lets start with longitude as it is commonly known that plaice is more frequent in the Western Baltic Sea.</p>
+<p>Data import and transformation</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
+<span class="kw">library</span>(lubridate)
+<span class="kw">library</span>(forcats)
+<span class="kw">library</span>(modelr)
+
+<span class="co"># Import the downloaded data (set your own working directory) --</span>
+cpue &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/CPUE per age per area_2017-11-20 06_48_16.csv&quot;</span>)
+
+<span class="co"># Transform the data (which is already tidy) -----------------</span>
+
+<span class="co"># Subset data and convert to long format --</span>
+<span class="co"># (so that CPUE is grouped for all age classes)</span>
+plaice &lt;-<span class="st"> </span>cpue <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Area =</span> <span class="kw">factor</span>(Area, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="dv">21</span>,<span class="dv">22</span>,
+    <span class="dv">23</span>,<span class="dv">24</span>,<span class="dv">25</span>,<span class="dv">26</span>,<span class="dv">27</span>,<span class="dv">28</span>,<span class="dv">29</span>,<span class="dv">30</span>,<span class="dv">31</span>,<span class="dv">32</span>))) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(Year <span class="op">==</span><span class="st"> </span><span class="dv">2015</span>, Quarter <span class="op">==</span><span class="st"> </span><span class="dv">1</span>, Species <span class="op">==</span><span class="st"> &quot;Pleuronectes platessa&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(Area, Quarter, Species, <span class="kw">contains</span>(<span class="st">&quot;Age&quot;</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">gather</span>(<span class="dt">key =</span> <span class="st">&quot;Age&quot;</span>, <span class="dt">value =</span> <span class="st">&quot;CPUE&quot;</span>, Age_<span class="dv">0</span><span class="op">:</span>Age_<span class="dv">10</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Age =</span> <span class="kw">factor</span>(Age, <span class="dt">levels =</span> <span class="kw">paste0</span>(<span class="st">&quot;Age_&quot;</span>, <span class="dv">0</span><span class="op">:</span><span class="dv">10</span>),
+    <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;0&quot;</span>,<span class="st">&quot;1&quot;</span>,<span class="st">&quot;2&quot;</span>,<span class="st">&quot;3&quot;</span>,<span class="st">&quot;4&quot;</span>,<span class="st">&quot;5&quot;</span>,<span class="st">&quot;6&quot;</span>,<span class="st">&quot;7&quot;</span>,<span class="st">&quot;8&quot;</span>,<span class="st">&quot;9&quot;</span>,<span class="st">&quot;10&quot;</span>)))
+
+<span class="co"># Create a tibble wiht central coordinates for each area (ICES subdivision) --</span>
+sd_coord &lt;-<span class="st"> </span><span class="kw">tibble</span>(
+  <span class="dt">Area =</span> <span class="kw">factor</span>(<span class="kw">c</span>(<span class="dv">21</span>,<span class="dv">22</span>,<span class="dv">23</span>,<span class="dv">24</span>,<span class="dv">25</span>,<span class="dv">26</span>,<span class="dv">27</span>,<span class="dv">28</span>,<span class="dv">29</span>,<span class="dv">30</span>,<span class="dv">31</span>,<span class="dv">32</span>)),
+  <span class="dt">Lat =</span> <span class="kw">c</span>(<span class="dv">57</span>,<span class="dv">55</span>,<span class="fl">55.75</span>,<span class="dv">55</span>,<span class="fl">55.5</span>,<span class="fl">55.5</span>,<span class="dv">58</span>,<span class="fl">57.5</span>,<span class="fl">59.5</span>,<span class="dv">62</span>,<span class="fl">64.75</span>,<span class="dv">60</span>),
+  <span class="dt">Long =</span> <span class="kw">c</span>(<span class="fl">11.5</span>,<span class="dv">11</span>,<span class="fl">12.5</span>,<span class="fl">13.5</span>,<span class="dv">16</span>,<span class="fl">19.5</span>,<span class="dv">18</span>,<span class="dv">20</span>,<span class="dv">21</span>,<span class="fl">19.5</span>,<span class="fl">22.5</span>,<span class="dv">26</span>)
+  )
+
+<span class="co"># Merge this table into the cpue data --</span>
+plaice &lt;-<span class="st"> </span><span class="kw">left_join</span>(plaice, sd_coord, <span class="dt">by =</span> <span class="st">&quot;Area&quot;</span>)</code></pre></div>
+<hr />
+</div>
+<div id="round-1" class="section level2">
+<h2>Round 1</h2>
+<div id="step-1-specification-of-model-family" class="section level3">
+<h3>Step 1: Specification of model family</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">plaice <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Long, <span class="dt">y =</span> CPUE)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_jitter</span>(<span class="kw">aes</span>(<span class="dt">colour =</span> Age)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_colour_brewer</span>(
+    <span class="dt">palette =</span> <span class="st">&quot;Paired&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">guides</span>(<span class="dt">colour =</span> <span class="st">&quot;none&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Plaice CPUE ~ Longitude (1.Quarter in 2015)&quot;</span>)</code></pre></div>
+<p><img src="ex_lecture15_code_plotting_files/unnamed-chunk-1-1.png" width="1248" style="display: block; margin: auto auto auto 0;" /> Since a straight line seems less appropriate we will compare different model families including polynomials and transformation of Y.</p>
+</div>
+<div id="step-2-model-fitting" class="section level3">
+<h3>Step 2: Model fitting</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">plaice &lt;-<span class="st"> </span>plaice <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">CPUE_log =</span> <span class="kw">log</span>(CPUE <span class="op">+</span><span class="st"> </span><span class="fl">0.001</span>))
+
+m_lm &lt;-<span class="st"> </span><span class="kw">lm</span>(CPUE <span class="op">~</span><span class="st"> </span>Long, <span class="dt">data =</span> plaice)
+m_poly2 &lt;-<span class="st"> </span><span class="kw">lm</span>(CPUE <span class="op">~</span><span class="st"> </span><span class="kw">poly</span>(Long,<span class="dv">2</span>), <span class="dt">data =</span> plaice)
+m_poly3 &lt;-<span class="st"> </span><span class="kw">lm</span>(CPUE <span class="op">~</span><span class="st"> </span><span class="kw">poly</span>(Long,<span class="dv">3</span>), <span class="dt">data =</span> plaice)
+m_log_y &lt;-<span class="st"> </span><span class="kw">lm</span>(CPUE_log <span class="op">~</span><span class="st"> </span>Long, <span class="dt">data =</span> plaice)</code></pre></div>
+</div>
+<div id="step-3-model-partitioning---predicted-values-model-fit" class="section level3">
+<h3>Step 3: Model partitioning - <strong>predicted values</strong> → model fit</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pred_dat &lt;-<span class="st"> </span>plaice <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">data_grid</span>(<span class="dt">Long =</span> <span class="kw">seq_range</span>(Long, <span class="dv">20</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># generates an evenly spaced grid of data points with </span>
+<span class="st">  </span><span class="kw">spread_predictions</span>(m_lm, m_poly2, m_poly3, m_log_y) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">gather</span>(m_lm<span class="op">:</span>m_log_y, <span class="dt">key =</span> <span class="st">&quot;Model&quot;</span>, <span class="dt">value =</span> <span class="st">&quot;Pred&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Model =</span> <span class="kw">factor</span>(Model))
+
+p1 &lt;-<span class="st"> </span>pred_dat <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(Model <span class="op">!=</span><span class="st">  &quot;m_log_y&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Long, <span class="dt">y =</span> Pred)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">linetype =</span> Model)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_jitter</span>(<span class="dt">data =</span> plaice, <span class="kw">aes</span>(<span class="dt">y =</span> CPUE, <span class="dt">colour =</span> Age)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">scale_colour_brewer</span>(<span class="dt">palette =</span> <span class="st">&quot;Paired&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">ylab</span>(<span class="st">&quot;CPUE&quot;</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">ggtitle</span>(<span class="st">&quot;Models with untransformed data&quot;</span>)
+
+p2 &lt;-<span class="st"> </span>pred_dat <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(Model <span class="op">==</span><span class="st">  &quot;m_log_y&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Long, <span class="dt">y =</span> Pred)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">linetype =</span> Model)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_jitter</span>(<span class="dt">data =</span> plaice, <span class="kw">aes</span>(<span class="dt">y =</span> CPUE_log, <span class="dt">colour =</span> Age)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">scale_colour_brewer</span>(<span class="dt">palette =</span> <span class="st">&quot;Paired&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">ylab</span>(<span class="st">&quot;log(CPUE)&quot;</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">ggtitle</span>(<span class="st">&quot;Model with log-transformed CPUE data&quot;</span>)
+
+gridExtra<span class="op">::</span><span class="kw">grid.arrange</span>(p1, p2, <span class="dt">ncol =</span> <span class="dv">2</span>)</code></pre></div>
+<p><img src="ex_lecture15_code_plotting_files/unnamed-chunk-3-1.png" width="1248" style="display: block; margin: auto;" /></p>
+<p>Which model do you prefer? Which models are misfitting the data? Which problem becomes more apparent when log-transforming CPUE?</p>
+<ul>
+<li>There are too <strong>many zeros</strong> in the CPUE data!</li>
+</ul>
+</div>
+<div id="step-3-residuals-model-assumptions" class="section level3">
+<h3>Step 3: <strong>Residuals</strong> → model assumptions</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">4</span>))
+<span class="kw">plot</span>(m_lm, <span class="dt">main =</span> <span class="st">&quot;m_lm&quot;</span>)
+<span class="kw">plot</span>(m_poly2, <span class="dt">main =</span> <span class="st">&quot;m_poly2&quot;</span>)
+<span class="kw">plot</span>(m_poly3, <span class="dt">main =</span> <span class="st">&quot;m_poly3&quot;</span>)
+<span class="kw">plot</span>(m_log_y, <span class="dt">main =</span> <span class="st">&quot;m_log_y&quot;</span>)</code></pre></div>
+<p><img src="ex_lecture15_code_plotting_files/unnamed-chunk-4-1.png" width="1248" style="display: block; margin: auto;" /></p>
+<hr />
+</div>
+<div id="zero-inflation" class="section level3">
+<h3>Zero-inflation</h3>
+<p>Too many zeros in the data can inflate the parameterization of coefficients.</p>
+<ul>
+<li>One can either apply specific models that account for it (e.g. zero-truncated or zero-inflated regression models),</li>
+<li>convert the data into binary data (presence/absence) and apply a logistic regression,</li>
+<li>or reduce the number of zeros by</li>
+<li>summing up the CPUE over all age classes (disadvantage: we reduce the sample size)</li>
+<li>or, in this demostration, by removing specific age classes</li>
+</ul>
+<p>→ In any case, we need to <strong>rephrase our research question</strong>!</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">plaice <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(Age, CPUE) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(CPUE <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.01</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">counts =</span> <span class="kw">n</span>()) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>(<span class="dt">n=</span><span class="dv">40</span>)</code></pre></div>
+<pre><code>## # A tibble: 8 x 3
+## # Groups:   Age [?]
+##   Age    CPUE counts
+##   &lt;fct&gt; &lt;dbl&gt;  &lt;int&gt;
+## 1 0         0      5
+## 2 1         0      3
+## 3 5         0      1
+## 4 6         0      2
+## 5 7         0      3
+## 6 8         0      2
+## 7 9         0      3
+## 8 10        0      4</code></pre>
+<p>Lets remove age 0, 1 and &gt; 6 and start with step 2 again</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">plaice &lt;-<span class="st"> </span>plaice <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(Age <span class="op">%in%</span><span class="st"> </span><span class="dv">2</span><span class="op">:</span><span class="dv">6</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Age =</span> <span class="kw">fct_drop</span>(Age))</code></pre></div>
+<hr />
+</div>
+</div>
+<div id="round-2" class="section level2">
+<h2>Round 2</h2>
+<div id="repeat-step-2-model-fitting-with-new-data" class="section level3">
+<h3>Repeat step 2: Model fitting with new data</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">m_lm &lt;-<span class="st"> </span><span class="kw">lm</span>(CPUE <span class="op">~</span><span class="st"> </span>Long, <span class="dt">data =</span> plaice)
+m_poly2 &lt;-<span class="st"> </span><span class="kw">lm</span>(CPUE <span class="op">~</span><span class="st"> </span><span class="kw">poly</span>(Long,<span class="dv">2</span>), <span class="dt">data =</span> plaice)
+m_poly3 &lt;-<span class="st"> </span><span class="kw">lm</span>(CPUE <span class="op">~</span><span class="st"> </span><span class="kw">poly</span>(Long,<span class="dv">3</span>), <span class="dt">data =</span> plaice)
+m_log_y &lt;-<span class="st"> </span><span class="kw">lm</span>(CPUE_log <span class="op">~</span><span class="st"> </span>Long, <span class="dt">data =</span> plaice)</code></pre></div>
+<p>For reasons of convenience I named the subset also ‘plaice’ so I can simply run the previous code again without many modifications.</p>
+</div>
+<div id="repeat-step-3-model-partitioning---predicted-values" class="section level3">
+<h3>Repeat step 3: Model partitioning - <strong>predicted values</strong></h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pred_dat &lt;-<span class="st"> </span>plaice <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">data_grid</span>(<span class="dt">Long =</span> <span class="kw">seq_range</span>(Long, <span class="dv">20</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">spread_predictions</span>(m_lm, m_poly2, m_poly3, m_log_y) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">gather</span>(m_lm<span class="op">:</span>m_log_y, <span class="dt">key =</span> <span class="st">&quot;Model&quot;</span>, <span class="dt">value =</span> <span class="st">&quot;Pred&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Model =</span> <span class="kw">factor</span>(Model))
+
+p1 &lt;-<span class="st"> </span>pred_dat <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(Model <span class="op">!=</span><span class="st">  &quot;m_log_y&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Long, <span class="dt">y =</span> Pred)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">linetype =</span> Model)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_jitter</span>(<span class="dt">data =</span> plaice, <span class="kw">aes</span>(<span class="dt">y =</span> CPUE, <span class="dt">colour =</span> Age)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">scale_colour_brewer</span>(<span class="dt">palette =</span> <span class="st">&quot;Paired&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">ylab</span>(<span class="st">&quot;CPUE&quot;</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">ggtitle</span>(<span class="st">&quot;Models with untransformed data&quot;</span>)
+
+p2 &lt;-<span class="st"> </span>pred_dat <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(Model <span class="op">==</span><span class="st">  &quot;m_log_y&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Long, <span class="dt">y =</span> Pred)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">linetype =</span> Model)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_jitter</span>(<span class="dt">data =</span> plaice, <span class="kw">aes</span>(<span class="dt">y =</span> CPUE_log, <span class="dt">colour =</span> Age)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">scale_colour_brewer</span>(<span class="dt">palette =</span> <span class="st">&quot;Paired&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">ylab</span>(<span class="st">&quot;log(CPUE)&quot;</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">ggtitle</span>(<span class="st">&quot;Model with log-transformed CPUE data&quot;</span>)
+
+gridExtra<span class="op">::</span><span class="kw">grid.arrange</span>(p1, p2, <span class="dt">ncol =</span> <span class="dv">2</span>)</code></pre></div>
+<p><img src="ex_lecture15_code_plotting_files/unnamed-chunk-8-1.png" width="1248" style="display: block; margin: auto;" /></p>
+<p>How do the models perform now?</p>
+</div>
+<div id="repeat-step-3-model-partitioning---residuals" class="section level3">
+<h3>Repeat step 3: Model partitioning - <strong>residuals</strong></h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">4</span>))
+<span class="kw">plot</span>(m_lm, <span class="dt">main =</span> <span class="st">&quot;m_lm&quot;</span>)
+<span class="kw">plot</span>(m_poly2, <span class="dt">main =</span> <span class="st">&quot;m_poly2&quot;</span>)
+<span class="kw">plot</span>(m_poly3, <span class="dt">main =</span> <span class="st">&quot;m_poly3&quot;</span>)
+<span class="kw">plot</span>(m_log_y, <span class="dt">main =</span> <span class="st">&quot;m_log_y&quot;</span>)</code></pre></div>
+<p><img src="ex_lecture15_code_plotting_files/unnamed-chunk-9-1.png" width="1248" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="what-next" class="section level2">
+<h2>What next?</h2>
+<ul>
+<li><code>m_log_y</code> shows the best residual distribution so we could focus on this model and move on the step 4; however, for some age classes this model greatly underestimates the CPUE.</li>
+<li>The models with untransformed data do not look too bad either (particularly the polynomials) so we could keep them for now and see whether including more variables helps reducing the noise and improving the model fit.</li>
+</ul>
+<hr />
+<div id="step-4-model-residuals-another-x-variable" class="section level3">
+<h3>Step 4: Model residuals ~ another X variable</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">r &lt;-<span class="st"> </span>plaice <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">spread_residuals</span>(m_lm, m_poly2, m_poly3, m_log_y) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>, 
+    <span class="dt">colour =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">size =</span> <span class="fl">0.5</span>)
+
+r1_lat &lt;-<span class="st"> </span>r <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Lat, <span class="dt">y =</span> m_lm), 
+  <span class="dt">colour =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ggtitle</span>(<span class="st">&quot;m_lm&quot;</span>)
+r2_lat &lt;-<span class="st"> </span>r <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Lat, <span class="dt">y =</span> m_poly2), 
+  <span class="dt">colour =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ggtitle</span>(<span class="st">&quot;m_poly2&quot;</span>)
+r3_lat &lt;-<span class="st"> </span>r <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Lat, <span class="dt">y =</span> m_poly3), 
+  <span class="dt">colour =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ggtitle</span>(<span class="st">&quot;m_poly3&quot;</span>)
+r4_lat &lt;-<span class="st"> </span>r <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Lat, <span class="dt">y =</span> m_log_y), 
+  <span class="dt">colour =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ggtitle</span>(<span class="st">&quot;m_log_y&quot;</span>)
+r1_age &lt;-<span class="st"> </span>r <span class="op">+</span><span class="st"> </span><span class="kw">geom_boxplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Age, <span class="dt">y =</span> m_lm)) 
+r2_age &lt;-<span class="st"> </span>r <span class="op">+</span><span class="st"> </span><span class="kw">geom_boxplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Age, <span class="dt">y =</span> m_poly2)) 
+r3_age &lt;-<span class="st"> </span>r <span class="op">+</span><span class="st"> </span><span class="kw">geom_boxplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Age, <span class="dt">y =</span> m_poly3)) 
+r4_age &lt;-<span class="st"> </span>r <span class="op">+</span><span class="st"> </span><span class="kw">geom_boxplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Age, <span class="dt">y =</span> m_log_y)) 
+
+gridExtra<span class="op">::</span><span class="kw">grid.arrange</span>(<span class="dt">grobs =</span> <span class="kw">list</span>(
+  r1_lat,r2_lat,r3_lat,r4_lat,r1_age,r2_age,r3_age,r4_age), <span class="dt">ncol =</span> <span class="dv">4</span>, <span class="dt">nrow =</span> <span class="dv">2</span>)</code></pre></div>
+<p><img src="ex_lecture15_code_plotting_files/unnamed-chunk-10-1.png" width="1248" style="display: block; margin: auto;" /></p>
+<p>Lets include the factor Age in all 4 models!</p>
+</div>
+<div id="step-5-re-specify-the-model-and-visualize-the-predictions" class="section level3">
+<h3>Step 5: Re-specify the model and visualize the predictions</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">m_lm &lt;-<span class="st"> </span><span class="kw">update</span>(m_lm, .<span class="op">~</span>. <span class="op">+</span><span class="st"> </span>Age)
+m_poly2 &lt;-<span class="st"> </span><span class="kw">update</span>(m_poly2, .<span class="op">~</span>. <span class="op">+</span><span class="st"> </span>Age)
+m_poly3 &lt;-<span class="st"> </span><span class="kw">update</span>(m_poly3, .<span class="op">~</span>. <span class="op">+</span><span class="st"> </span>Age)
+m_log_y &lt;-<span class="st"> </span><span class="kw">update</span>(m_log_y, .<span class="op">~</span>. <span class="op">+</span><span class="st"> </span>Age)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pred_dat &lt;-<span class="st"> </span>plaice <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">data_grid</span>(<span class="dt">Long =</span> <span class="kw">seq_range</span>(Long, <span class="dv">20</span>), <span class="dt">Age =</span> Age) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">spread_predictions</span>(m_lm, m_poly2, m_poly3, m_log_y) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">gather</span>(m_lm<span class="op">:</span>m_log_y, <span class="dt">key =</span> <span class="st">&quot;Model&quot;</span>, <span class="dt">value =</span> <span class="st">&quot;Pred&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Model =</span> <span class="kw">factor</span>(Model))
+
+p &lt;-<span class="st"> </span>plaice <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Long, <span class="dt">y =</span> CPUE)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_jitter</span>(<span class="kw">aes</span>(<span class="dt">colour =</span> Age)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">scale_colour_brewer</span>(<span class="dt">palette =</span> <span class="st">&quot;Paired&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">ylab</span>(<span class="st">&quot;CPUE&quot;</span>) 
+
+p1 &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>(<span class="dt">data =</span> <span class="kw">filter</span>(pred_dat, Model <span class="op">==</span><span class="st"> &quot;m_lm&quot;</span>), 
+    <span class="kw">aes</span>(<span class="dt">y =</span> Pred, <span class="dt">group =</span> Age, <span class="dt">colour =</span> Age)) <span class="op">+</span><span class="st"> </span><span class="kw">ggtitle</span>(<span class="st">&quot;m_lm&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>) ,
+    <span class="dt">legend.justification =</span> <span class="kw">c</span>(<span class="fl">1.1</span>,<span class="fl">1.1</span>))
+
+p2 &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>(<span class="dt">data =</span> <span class="kw">filter</span>(pred_dat, Model <span class="op">==</span><span class="st"> &quot;m_poly2&quot;</span>), 
+    <span class="kw">aes</span>(<span class="dt">y =</span> Pred, <span class="dt">group =</span> Age, <span class="dt">colour =</span> Age)) <span class="op">+</span><span class="st"> </span><span class="kw">ggtitle</span>(<span class="st">&quot;m_poly2&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">guides</span>(<span class="dt">colour =</span> <span class="st">&quot;none&quot;</span>)
+
+p3 &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>(<span class="dt">data =</span> <span class="kw">filter</span>(pred_dat, Model <span class="op">==</span><span class="st"> &quot;m_poly3&quot;</span>), 
+    <span class="kw">aes</span>(<span class="dt">y =</span> Pred, <span class="dt">group =</span> Age, <span class="dt">colour =</span> Age)) <span class="op">+</span><span class="st"> </span><span class="kw">ggtitle</span>(<span class="st">&quot;m_poly3&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">guides</span>(<span class="dt">colour =</span> <span class="st">&quot;none&quot;</span>)
+
+p4 &lt;-<span class="st"> </span>plaice <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Long, <span class="dt">y =</span> CPUE_log)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_jitter</span>(<span class="kw">aes</span>(<span class="dt">colour =</span> Age)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">scale_colour_brewer</span>(<span class="dt">palette =</span> <span class="st">&quot;Paired&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">ylab</span>(<span class="st">&quot;CPUE&quot;</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_line</span>(<span class="dt">data =</span> <span class="kw">filter</span>(pred_dat, Model <span class="op">==</span><span class="st"> &quot;m_log_y&quot;</span>), 
+      <span class="kw">aes</span>(<span class="dt">y =</span> Pred, <span class="dt">group =</span> Age, <span class="dt">colour =</span> Age)) <span class="op">+</span><span class="st"> </span><span class="kw">ggtitle</span>(<span class="st">&quot;m_log_y&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">guides</span>(<span class="dt">colour =</span> <span class="st">&quot;none&quot;</span>)
+  
+gridExtra<span class="op">::</span><span class="kw">grid.arrange</span>(<span class="dt">grobs =</span> <span class="kw">list</span>(p1, p2, p3, p4), <span class="dt">ncol =</span> <span class="dv">4</span>)</code></pre></div>
+<p><img src="ex_lecture15_code_plotting_files/unnamed-chunk-12-1.png" width="1248" style="display: block; margin: auto;" /></p>
+<p><strong>Happy now?</strong></p>
+<p>Plotting the residual diagnostics of these models</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">4</span>))
+<span class="kw">plot</span>(m_lm, <span class="dt">main =</span> <span class="st">&quot;m_lm&quot;</span>)
+<span class="kw">plot</span>(m_poly2, <span class="dt">main =</span> <span class="st">&quot;m_poly2&quot;</span>)
+<span class="kw">plot</span>(m_poly3, <span class="dt">main =</span> <span class="st">&quot;m_poly3&quot;</span>)
+<span class="kw">plot</span>(m_log_y, <span class="dt">main =</span> <span class="st">&quot;m_log_y&quot;</span>)</code></pre></div>
+<p><img src="ex_lecture15_code_plotting_files/unnamed-chunk-13-1.png" width="1248" style="display: block; margin: auto;" /></p>
+</div>
+<div id="step-6-test-for-an-interaction-between-long-and-age" class="section level3">
+<h3>Step 6: Test for an interaction between <code>Long</code> and <code>Age</code></h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">m_lm_int &lt;-<span class="st"> </span><span class="kw">lm</span>(CPUE <span class="op">~</span><span class="st"> </span>Long <span class="op">*</span><span class="st"> </span>Age, <span class="dt">data =</span> plaice)
+m_poly2_int &lt;-<span class="st"> </span><span class="kw">lm</span>(CPUE <span class="op">~</span><span class="st"> </span><span class="kw">poly</span>(Long,<span class="dv">2</span>) <span class="op">*</span><span class="st"> </span>Age, <span class="dt">data =</span> plaice)
+m_poly3_int &lt;-<span class="st"> </span><span class="kw">lm</span>(CPUE <span class="op">~</span><span class="st"> </span><span class="kw">poly</span>(Long,<span class="dv">3</span>) <span class="op">*</span><span class="st"> </span>Age, <span class="dt">data =</span> plaice)
+m_log_y_int &lt;-<span class="st"> </span><span class="kw">lm</span>(CPUE_log <span class="op">~</span><span class="st"> </span>Long <span class="op">*</span><span class="st"> </span>Age, <span class="dt">data =</span> plaice)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pred_dat &lt;-<span class="st"> </span>plaice <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">data_grid</span>(<span class="dt">Long =</span> <span class="kw">seq_range</span>(Long, <span class="dv">20</span>), <span class="dt">Age =</span> Age) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">spread_predictions</span>(m_lm_int, m_poly2_int, m_poly3_int, m_log_y_int) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">gather</span>(m_lm_int<span class="op">:</span>m_log_y_int, <span class="dt">key =</span> <span class="st">&quot;Model&quot;</span>, <span class="dt">value =</span> <span class="st">&quot;Pred&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Model =</span> <span class="kw">factor</span>(Model))
+
+p &lt;-<span class="st"> </span>plaice <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Long, <span class="dt">y =</span> CPUE)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_jitter</span>(<span class="kw">aes</span>(<span class="dt">colour =</span> Age)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">scale_colour_brewer</span>(<span class="dt">palette =</span> <span class="st">&quot;Paired&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">ylab</span>(<span class="st">&quot;CPUE&quot;</span>) 
+
+p1 &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>(<span class="dt">data =</span> <span class="kw">filter</span>(pred_dat, Model <span class="op">==</span><span class="st"> &quot;m_lm_int&quot;</span>), 
+    <span class="kw">aes</span>(<span class="dt">y =</span> Pred, <span class="dt">group =</span> Age, <span class="dt">colour =</span> Age)) <span class="op">+</span><span class="st"> </span><span class="kw">ggtitle</span>(<span class="st">&quot;m_lm_int&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>) ,
+    <span class="dt">legend.justification =</span> <span class="kw">c</span>(<span class="fl">1.1</span>,<span class="fl">1.1</span>))
+
+p2 &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>(<span class="dt">data =</span> <span class="kw">filter</span>(pred_dat, Model <span class="op">==</span><span class="st"> &quot;m_poly2_int&quot;</span>), 
+    <span class="kw">aes</span>(<span class="dt">y =</span> Pred, <span class="dt">group =</span> Age, <span class="dt">colour =</span> Age)) <span class="op">+</span><span class="st"> </span><span class="kw">ggtitle</span>(<span class="st">&quot;m_poly2_int&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">guides</span>(<span class="dt">colour =</span> <span class="st">&quot;none&quot;</span>)
+
+p3 &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>(<span class="dt">data =</span> <span class="kw">filter</span>(pred_dat, Model <span class="op">==</span><span class="st"> &quot;m_poly3_int&quot;</span>), 
+    <span class="kw">aes</span>(<span class="dt">y =</span> Pred, <span class="dt">group =</span> Age, <span class="dt">colour =</span> Age)) <span class="op">+</span><span class="st"> </span><span class="kw">ggtitle</span>(<span class="st">&quot;m_poly3_int&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">guides</span>(<span class="dt">colour =</span> <span class="st">&quot;none&quot;</span>)
+
+p4 &lt;-<span class="st"> </span>plaice <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Long, <span class="dt">y =</span> CPUE_log)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_jitter</span>(<span class="kw">aes</span>(<span class="dt">colour =</span> Age)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">scale_colour_brewer</span>(<span class="dt">palette =</span> <span class="st">&quot;Paired&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">ylab</span>(<span class="st">&quot;CPUE&quot;</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_line</span>(<span class="dt">data =</span> <span class="kw">filter</span>(pred_dat, Model <span class="op">==</span><span class="st"> &quot;m_log_y_int&quot;</span>), 
+      <span class="kw">aes</span>(<span class="dt">y =</span> Pred, <span class="dt">group =</span> Age, <span class="dt">colour =</span> Age)) <span class="op">+</span><span class="st"> </span><span class="kw">ggtitle</span>(<span class="st">&quot;m_log_y_int&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">guides</span>(<span class="dt">colour =</span> <span class="st">&quot;none&quot;</span>)
+  
+gridExtra<span class="op">::</span><span class="kw">grid.arrange</span>(<span class="dt">grobs =</span> <span class="kw">list</span>(p1, p2, p3, p4), <span class="dt">ncol =</span> <span class="dv">4</span>)</code></pre></div>
+<p><img src="ex_lecture15_code_plotting_files/unnamed-chunk-15-1.png" width="1248" style="display: block; margin: auto;" /></p>
+<p><strong>Better?</strong></p>
+<p>Plotting the residual diagnostics of these models</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">4</span>))
+<span class="kw">plot</span>(m_lm_int, <span class="dt">main =</span> <span class="st">&quot;m_lm_int&quot;</span>)
+<span class="kw">plot</span>(m_poly2_int, <span class="dt">main =</span> <span class="st">&quot;m_poly2_int&quot;</span>)
+<span class="kw">plot</span>(m_poly3_int, <span class="dt">main =</span> <span class="st">&quot;m_poly3_int&quot;</span>)
+<span class="kw">plot</span>(m_log_y_int, <span class="dt">main =</span> <span class="st">&quot;m_log_y_int&quot;</span>)</code></pre></div>
+<p><img src="ex_lecture15_code_plotting_files/unnamed-chunk-16-1.png" width="1248" style="display: block; margin: auto;" /></p>
+</div>
+<div id="go-back-to-step-4-model-residuals-latitude" class="section level3">
+<h3>Go back to step 4: Model residuals ~ latitude</h3>
+<p><img src="ex_lecture15_code_plotting_files/unnamed-chunk-17-1.png" width="1248" style="display: block; margin: auto;" /></p>
+<p>No clear pattern that suggests to include latitude in the model (in the mod_log_y model it seems residuals decrease with latitude but that is mainly caused by the 2 outliers).</p>
+<hr />
+</div>
+</div>
+<div id="so-which-one-to-choose" class="section level2">
+<h2>So which one to choose?</h2>
+<ul>
+<li>From the residual diagnostics it seems that <code>mod_log_y</code> with <code>Age</code> and <code>Long</code> is the best, but the cubic model is also quite good.</li>
+<li>Should an interaction term be included or not? Difficult to say from the graphics.</li>
+<li>Lets use the <strong>AIC</strong> to guide our decision!</li>
+<li>It is wise to <strong>include a NULL model</strong> (with only an intercept) to see whether any of the covariate should be included or not.</li>
+<li>The AIC is only useful for comparison between models fitted to the same observations and same Y variables: you can’t compare models fitted to different data subsets or if Y is partly transformed!</li>
+</ul>
+<div id="overview-of-models-we-fitted" class="section level3">
+<h3>Overview of models we fitted</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Generate a null-model for the untransformed models --</span>
+m0 &lt;-<span class="st"> </span><span class="kw">lm</span>(CPUE <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">data =</span> plaice)
+m_lm_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(CPUE <span class="op">~</span><span class="st"> </span>Long, <span class="dt">data =</span> plaice)
+m_lm_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(CPUE <span class="op">~</span><span class="st"> </span>Long <span class="op">+</span><span class="st"> </span>Age, <span class="dt">data =</span> plaice)
+m_lm_<span class="dv">3</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(CPUE <span class="op">~</span><span class="st"> </span>Long <span class="op">*</span><span class="st"> </span>Age, <span class="dt">data =</span> plaice)
+m_poly2_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(CPUE <span class="op">~</span><span class="st"> </span><span class="kw">poly</span>(Long,<span class="dv">2</span>), <span class="dt">data =</span> plaice)
+m_poly2_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(CPUE <span class="op">~</span><span class="st"> </span><span class="kw">poly</span>(Long,<span class="dv">2</span>) <span class="op">+</span><span class="st"> </span>Age, <span class="dt">data =</span> plaice)
+m_poly2_<span class="dv">3</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(CPUE <span class="op">~</span><span class="st"> </span><span class="kw">poly</span>(Long,<span class="dv">2</span>) <span class="op">*</span><span class="st"> </span>Age, <span class="dt">data =</span> plaice)
+m_poly3_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(CPUE <span class="op">~</span><span class="st"> </span><span class="kw">poly</span>(Long,<span class="dv">3</span>), <span class="dt">data =</span> plaice)
+m_poly3_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(CPUE <span class="op">~</span><span class="st"> </span><span class="kw">poly</span>(Long,<span class="dv">3</span>) <span class="op">+</span><span class="st"> </span>Age, <span class="dt">data =</span> plaice)
+m_poly3_<span class="dv">3</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(CPUE <span class="op">~</span><span class="st"> </span><span class="kw">poly</span>(Long,<span class="dv">3</span>) <span class="op">*</span><span class="st"> </span>Age, <span class="dt">data =</span> plaice)
+
+<span class="co"># Generate a null-model for the log-models --</span>
+m_log_y_<span class="dv">0</span> &lt;-<span class="kw">lm</span>(CPUE_log <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">data =</span> plaice)
+m_log_y_<span class="dv">1</span> &lt;-<span class="kw">lm</span>(CPUE_log <span class="op">~</span><span class="st"> </span>Long, <span class="dt">data =</span> plaice)
+m_log_y_<span class="dv">2</span> &lt;-<span class="kw">lm</span>(CPUE_log <span class="op">~</span><span class="st"> </span>Long <span class="op">+</span><span class="st"> </span>Age, <span class="dt">data =</span> plaice)
+m_log_y_<span class="dv">3</span> &lt;-<span class="kw">lm</span>(CPUE_log <span class="op">~</span><span class="st"> </span>Long <span class="op">*</span><span class="st"> </span>Age, <span class="dt">data =</span> plaice)</code></pre></div>
+</div>
+<div id="aic-comparison" class="section level3">
+<h3>AIC comparison</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Untransf. models --</span>
+<span class="kw">AIC</span>(m0, m_lm_<span class="dv">1</span>, m_lm_<span class="dv">2</span>, m_lm_<span class="dv">3</span>, m_poly2_<span class="dv">1</span>, m_poly2_<span class="dv">2</span>, m_poly2_<span class="dv">3</span>,
+  m_poly3_<span class="dv">1</span>, m_poly3_<span class="dv">2</span>, m_poly3_<span class="dv">3</span>)</code></pre></div>
+<pre><code>##           df      AIC
+## m0         2 262.6016
+## m_lm_1     3 256.8791
+## m_lm_2     7 254.4298
+## m_lm_3    11 252.9204
+## m_poly2_1  4 257.0557
+## m_poly2_2  8 253.6051
+## m_poly2_3 16 252.1079
+## m_poly3_1  5 258.3897
+## m_poly3_2  9 254.5438
+## m_poly3_3 21 255.0540</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Log-models --</span>
+<span class="kw">AIC</span>(m_log_y_<span class="dv">0</span>, m_log_y_<span class="dv">1</span>, m_log_y_<span class="dv">2</span>, m_log_y_<span class="dv">3</span>)</code></pre></div>
+<pre><code>##           df      AIC
+## m_log_y_0  2 137.3974
+## m_log_y_1  3 135.0501
+## m_log_y_2  7 129.8373
+## m_log_y_3 11 135.0000</code></pre>
+<ul>
+<li>All models perform better than the NULL model but do not differ much from each other; no model sticks out as most adequate but simple model! Given an AIC difference of 2, none of the polynomial models performs better than the simple linear model and, in fact, m_lm_2 (Age + Long) would be the best choice based on the AIC.</li>
+<li>The best log-model contains Age and Long but no interaction!</li>
+</ul>
+<hr />
+</div>
+</div>
+<div id="summary-of-final-model" class="section level2">
+<h2>Summary of final model</h2>
+<div id="numerical-output-of-m_log_y_2" class="section level3">
+<h3>Numerical output of <code>m_log_y_2</code></h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(m_log_y_<span class="dv">2</span>)
+## 
+## Call:
+## lm(formula = CPUE_log ~ Long + Age, data = plaice)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -7.7375 -0.6531  0.1546  1.4860  3.1414 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)   
+## (Intercept)   8.5793     2.8565   3.003  0.00731 **
+## Long         -0.4436     0.1793  -2.474  0.02295 * 
+## Age3          1.1864     1.7805   0.666  0.51320   
+## Age4          0.0158     1.7805   0.009  0.99301   
+## Age5         -2.6477     1.7805  -1.487  0.15340   
+## Age6         -4.4044     1.7805  -2.474  0.02298 * 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2.815 on 19 degrees of freedom
+## Multiple R-squared:  0.5046, Adjusted R-squared:  0.3742 
+## F-statistic: 3.871 on 5 and 19 DF,  p-value: 0.01377</code></pre></div>
+</div>
+<div id="graphical-output-of-m_log_y_2" class="section level3">
+<h3>Graphical output of <code>m_log_y_2</code></h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pred_dat &lt;-<span class="st"> </span>plaice <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">data_grid</span>(<span class="dt">Long =</span> <span class="kw">seq_range</span>(Long, <span class="dv">20</span>), <span class="dt">Age =</span> Age)
+pred_dat<span class="op">$</span>Pred &lt;-<span class="st"> </span><span class="kw">predict</span>(m_log_y_<span class="dv">2</span>, <span class="dt">se =</span> <span class="ot">TRUE</span>, <span class="dt">newdata =</span> pred_dat)<span class="op">$</span>fit
+pred_dat<span class="op">$</span>Pred_se &lt;-<span class="st"> </span><span class="kw">predict</span>(m_log_y_<span class="dv">2</span>, <span class="dt">se =</span> <span class="ot">TRUE</span>, <span class="dt">newdata =</span> pred_dat)<span class="op">$</span>se.fit
+
+pred_dat_untrans &lt;-<span class="st"> </span>pred_dat <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Pred =</span> <span class="kw">exp</span>(Pred <span class="op">-</span><span class="st"> </span><span class="fl">0.001</span>), <span class="dt">Pred_se =</span> <span class="kw">exp</span>(Pred_se <span class="op">-</span><span class="st"> </span><span class="fl">0.001</span>))
+
+p_fin1 &lt;-<span class="st"> </span>plaice <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Long)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_ribbon</span>(<span class="dt">data =</span> pred_dat,
+      <span class="kw">aes</span>(<span class="dt">ymin =</span> (Pred <span class="op">-</span><span class="st"> </span>Pred_se), <span class="dt">ymax =</span> (Pred <span class="op">+</span><span class="st"> </span>Pred_se),
+      <span class="dt">group =</span> Age, <span class="dt">fill =</span> Age), <span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_line</span>(<span class="dt">data =</span> pred_dat,
+      <span class="kw">aes</span>(<span class="dt">y =</span> Pred, <span class="dt">group =</span> Age, <span class="dt">colour =</span> Age)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_jitter</span>(<span class="kw">aes</span>(<span class="dt">y =</span> CPUE_log, <span class="dt">colour =</span> Age)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">scale_colour_brewer</span>(<span class="dt">palette =</span> <span class="st">&quot;Paired&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">scale_fill_brewer</span>(<span class="dt">palette =</span> <span class="st">&quot;Paired&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">facet_grid</span>(. <span class="op">~</span><span class="st"> </span>Age, <span class="dt">labeller =</span> label_both) <span class="op">+</span>
+<span class="st">    </span><span class="kw">guides</span>(<span class="dt">colour =</span> <span class="st">&quot;none&quot;</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">ylab</span>(<span class="st">&quot;CPUE&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>() <span class="op">+</span>
+<span class="st">    </span><span class="kw">theme</span>(<span class="dt">panel.grid =</span> <span class="kw">element_blank</span>()) <span class="op">+</span>
+<span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Obs. and pred. (with s.e.) CPUE on the modelled log-scale&quot;</span>)
+
+p_fin2 &lt;-<span class="st"> </span>plaice <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Long)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_ribbon</span>(<span class="dt">data =</span> pred_dat_untrans,
+      <span class="kw">aes</span>(<span class="dt">ymin =</span> (Pred <span class="op">-</span><span class="st"> </span>Pred_se), <span class="dt">ymax =</span> (Pred <span class="op">+</span><span class="st"> </span>Pred_se),
+      <span class="dt">group =</span> Age, <span class="dt">fill =</span> Age), <span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_line</span>(<span class="dt">data =</span> pred_dat_untrans,
+      <span class="kw">aes</span>(<span class="dt">y =</span> Pred, <span class="dt">group =</span> Age, <span class="dt">colour =</span> Age)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_jitter</span>(<span class="kw">aes</span>(<span class="dt">y =</span> CPUE, <span class="dt">colour =</span> Age)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">scale_colour_brewer</span>(<span class="dt">palette =</span> <span class="st">&quot;Paired&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">scale_fill_brewer</span>(<span class="dt">palette =</span> <span class="st">&quot;Paired&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">facet_grid</span>(. <span class="op">~</span><span class="st"> </span>Age, <span class="dt">labeller =</span> label_both) <span class="op">+</span>
+<span class="st">    </span><span class="kw">guides</span>(<span class="dt">colour =</span> <span class="st">&quot;none&quot;</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">ylab</span>(<span class="st">&quot;CPUE&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>() <span class="op">+</span>
+<span class="st">    </span><span class="kw">theme</span>(<span class="dt">panel.grid =</span> <span class="kw">element_blank</span>()) <span class="op">+</span>
+<span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Obs. and pred. (with s.e.) CPUE back transformed&quot;</span>)
+
+gridExtra<span class="op">::</span><span class="kw">grid.arrange</span>(p_fin1, p_fin2, <span class="dt">nrow =</span> <span class="dv">2</span>)</code></pre></div>
+<p><img src="ex_lecture15_code_plotting_files/unnamed-chunk-21-1.png" width="1248" style="display: block; margin: auto;" /></p>
+<p><br> <br> <br></p>
+</div>
+</div>
+</div>
+
+</div> <!-- articleBandContent -->
+</div> <!-- pageContent -->
+
+<footer class="site_footer">
+<div id="maredsFooter" class="footer">
+  <div class="footerContent">
+
+    <!-- column 1 -->
+    <div class="col-md-2" style="padding-top:.25%; text-align:center; color:#626262;">
+      <a href="https://github.com/mareds">
+        <i class="fa fa-github fa-lg"></i> MARinE Data Science</a> 
+    </div>
+    
+    <!-- column 1 -->
+    <div class="col-md-2" style="padding-top:.25%; text-align:center; color:#626262;">
+      <a href="https://github.com/saskiaotto">
+        <i class="fa fa-github fa-lg"></i> saskiaotto</a>
+    </div>
+
+    <!-- column 2 -->
+    <div class="col-md-6">
+      <!-- <blockquote style="line-height:10px;border-left: 2px solid #999999;"> -->
+          <p style="font-size:15px;color:#626262;border-left: 2px solid #999999;padding-left:5px; padding-top:.25%; font-style:italic;">
+            The difference between stupidity and genius is that genius has its limits.
+            <span style="font-size:11px;color:#909090">A.E.</span></p>
+      <!-- </blockquote> -->
+    </div>
+    
+      <!-- column 3 -->
+    <div class="col-md-2" style="padding-top:.25%; text-align:right; color:#626262;">
+      <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+          CC-BY-SA 4.0</a>
+    </div>
+
+  </div> <!-- footerContent -->
+</div> <!-- footer -->
+
+
+</footer>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,112 @@
+name: MARinE Data Science | Data Analysis with R
+output_dir: "../docs"
+exclude: ["*.html", "*.pdf", "libs"]
+
+navbar:
+  title:
+  type: inverse
+  href: https://www.marinedatascience.co
+  left:
+  - text: Data Analysis with R
+    icon: fa-home
+    href: index.html
+  - text: Lectures
+    icon: fa-graduation-cap
+    menu:
+    - text: Programming in R
+    - text: 1-Introduction to data science and R
+      href: lecture01_intro2data_science_and_R.html
+    - text: 2-Basics in R
+      href: Lecture02_r_basics.html
+    - text: 3-Data structures and basic calculations
+      href: lecture03_data_structures.html
+    - text: 4-Operators
+      href: lecture04_operators.html
+    - text: 5-Data wrangling - 1.Import
+      href: Lecture05_data_wrangling_import.html
+    - text: 6-Data wrangling - 2.Tidy Data
+      href: lecture06_data_wrangling_tidy_data.html
+    - text: Data exploration & visualization
+    - text: 7-Data wrangling - 3.Transformation
+      href: lecture07_data_wrangling_transformation.html
+    - text: 8-Intro2Visualization - Part 1
+      href: lecture08_intro2visualization_1.html
+    - text: 9-Intro2Visualization - Part 2(Adjusting plots)
+      href: Lecture09_intro2visualization_2.html
+    - text: 10-Handling and visualization of categorical data
+      href: lecture10_categorical_data.html
+    - text: 11-R Markdown for communication
+      href: lecture11_rmarkdown.html
+    - text: Statistical Modelling
+    - text: 12-Intro2Statistical Modelling - Part 1
+      href: lecture12_stat_modelling_1.html
+    - text: 13-Intro2Statistical Modelling - Part 2
+      href: lecture13_stat_modelling_2.html
+    - text: 14-Model building and selection
+      href: lecture14_stat_modelling_3.html
+    - text: 15-Modelling demonstration
+      href: lecture15_stat_modelling_4.html
+    - text: Programming in R
+    - text: 16-String manipulation and regular expressions
+      href: lecture16_string_manipulation.html
+    - text: 17-Functions and Iteration 1 (Loops)
+      href: lecture17_functionsniterations_1html
+    - text: 18-Iteration 2 (purrr and the map family)
+      href: lecture18_iterations_2.html
+    - text: "---------"
+    - text: "slides, keyboard shortcuts:"
+    - text: "o: outline"
+    - text: "w: widescreen on/off"
+    - text: "f: fullscreen on/off"
+    - text: "ctrl +/ ctrl -: zoom in/out"
+    - text: "p: presenter mode with additional info (NOT in Safari)"
+  - text: Case Studies
+    icon: fa-gear
+    menu:
+    - text: Practicals
+    - text: Resources
+      href: ex_resources.html
+    - text: Quizzes with swirl
+      href: ex_swirl.html
+    - text: '---------'
+    - text: Case studies
+    - text: Case study 1
+      href: ex_case_study_1.html
+    - text: Case study 2
+      href: ex_case_study_2.html
+    - text: Case study 1 - solution
+      href: ex_case_study_1_solutions.html
+    - text: Case study 2 - solution
+      href: ex_case_study_2_solutions.html
+    - text: '---------'
+    - text: Demo Code
+    - text: Lecture 8 - Geom functions
+      href: ex_lecture08_code_geom_functions.html
+    - text: Lecture 8 - code zu ggplots in lecture
+      href: ex_lecture08_code_ggplots_in_slides.html
+    - text: Lecture 14 - Find the model
+      href: ex_lecture14_code_find_the_model.html
+    - text: Lecture 15 - Demo model building
+      href: ex_lecture15_model_building_demo.html
+  - text: Misc
+    icon: ion-wrench
+    href: misc.html
+  - text: Videos
+    icon: ion-ios-videocam
+    href: video.html
+  right:
+  - text: About
+    icon: fa-newspaper
+    href: about.html
+  - text: Contact
+    icon: fa-send
+    href: mailto:saskia.otto@uni-hamburg.de
+output:
+  html_document:
+    theme: spacelab
+    highlight: tango
+    include:
+      after_body: footer_site.html
+    css: css_site/style_site.css
+    #lib_dir: site_libs
+    #self_contained: no

@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Data Analysis with R</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Data Analysis with R">
+  <meta name="author" content="Saskia A. Otto">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/sao_theme.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="libraries/widgets/quiz/css/demo.css"></link>
+<link rel=stylesheet href="libraries/widgets/bootstrap/css/bootstrap.css"></link>
+<link rel=stylesheet href="libraries/widgets/interactive/css/aceeditor.css"></link>
+<link rel=stylesheet href="./assets/css/box_styles.css"></link>
+<link rel=stylesheet href="./assets/css/ribbons.css"></link>
+<link rel=stylesheet href="./assets/css/style.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+      <slide class="nobackground">
+    <article class="flexbox vcenter">
+      <span>
+        <img width='500px' src="assets/img/BigLogo_MDS.png">
+      </span>
+    </article>
+  </slide>
+    <slide class="title-slide segue nobackground">
+  <!-- <aside class="gdbar">
+    <img src="assets/img/uham_logo.png">
+  </aside>-->
+  <div style="position: absolute; left: 50px; top: 50px; z-index:100">
+      <img src = "assets/img/uham_logo.png" height="67" width="200">
+  </div>
+  <hgroup class="auto-fadein">
+    <h1>Data Analysis with R</h1>
+    <h2>15 - Modelling demonstration</h2>
+    <p>Saskia A. Otto<br/>Postdoctoral Researcher</p>
+  </hgroup>
+  <article></article>
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="segue" style="background:#FF8C00;">
+  <hgroup>
+    <h1>A model building demonstration</h1>
+  </hgroup>
+  <article>
+    <p><img src="img/Data_science_1c.png" style="height:150px;border:0;position: absolute; left: 900px; top: 50px" </img></p>
+
+  </article>
+</slide>
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Demonstration with Plaice CPUE in the Baltic Sea</h2>
+  </hgroup>
+  <article data-timings="">
+    <h3>Research question:</h3>
+
+<p><strong>What factors explain best the pattern in age-specific Catch-Per-Unit-Effort (CPUE) of <em>Pleuronectes platessa</em> (plaice) in the first quarter of 2015?</strong></p>
+
+<p>Since we have longitude, latitude, and age in our dataset we can test whether these variables have any effect. Lets start with longitude as it is commonly known that plaice is more frequent in the Western Baltic Sea.</p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-3" style="background:;">
+  <article data-timings="">
+    <p>Import and modify data</p>
+
+<pre><code class="r">cpue &lt;- read_csv(&quot;data/CPUE per age per area_2017-11-20 06_48_16.csv&quot;)
+plaice &lt;- cpue %&gt;% 
+  mutate(Area = factor(Area, levels = c(21,22,
+    23,24,25,26,27,28,29,30,31,32))) %&gt;%
+  filter(Year == 2015, Quarter == 1, Species == &quot;Pleuronectes platessa&quot;) %&gt;%
+  select(Area, Quarter, Species, contains(&quot;Age&quot;)) %&gt;%
+  gather(key = &quot;Age&quot;, value = &quot;CPUE&quot;, Age_0:Age_10) %&gt;%
+  mutate(Age = factor(Age, levels = paste0(&quot;Age_&quot;, 0:10),
+    labels = c(&quot;0&quot;,&quot;1&quot;,&quot;2&quot;,&quot;3&quot;,&quot;4&quot;,&quot;5&quot;,&quot;6&quot;,&quot;7&quot;,&quot;8&quot;,&quot;9&quot;,&quot;10&quot;)))
+sd_coord &lt;- tibble(
+  Area = factor(c(21,22,23,24,25,26,27,28,29,30,31,32)),
+  Lat = c(57,55,55.75,55,55.5,55.5,58,57.5,59.5,62,64.75,60),
+  Long = c(11.5,11,12.5,13.5,16,19.5,18,20,21,19.5,22.5,26)
+  )
+# Merge this table into the cpue data
+plaice &lt;- left_join(plaice, sd_coord, by = &quot;Area&quot;)
+</code></pre>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h3>Step 1: Specification of model family</h3>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="img/Model_building_6steps_1b.png" style="height:100px;border:0;position: absolute; left: 960px; top: 20px" </img><br>
+<img src="lecture15_plotting_files/unnamed-chunk-2-1.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" width="720" style="display: block; margin: auto;" /></p>
+
+<div style="position: absolute; left:650px; top: 200px; z-index:100">
+    <img src="img/Zuur_transformations_zoom.png" alt="" width=200px height=100>
+</div> 
+
+<p>Since a straight line seems less appropriately we will compare different model families including polynomials and transformation of Y.</p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h3>Step 2: Model fitting</h3>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="img/Model_building_6steps_2b.png" style="height:100px;border:0;position: absolute; left: 960px; top: 20px" </img></p>
+
+<pre><code class="r">plaice &lt;- plaice %&gt;% 
+  mutate(CPUE_log = log(CPUE + 0.001))
+
+m_lm &lt;- lm(CPUE ~ Long, data = plaice)
+m_poly2 &lt;- lm(CPUE ~ poly(Long,2), data = plaice)
+m_poly3 &lt;- lm(CPUE ~ poly(Long,3), data = plaice)
+m_log_y &lt;- lm(CPUE_log ~ Long, data = plaice)
+</code></pre>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h3>Step 3: Model partitioning - <strong>predicted values</strong> → model fit</h3>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="img/Model_building_6steps_3b.png" style="height:100px;border:0;position: absolute; left: 960px; top: 20px" </img> </p>
+
+<p><img src="lecture15_plotting_files/unnamed-chunk-4-1.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" width="936" style="display: block; margin: auto;" /></p>
+
+<p>Which model do you prefer? Which models are misfitting the data?
+Which problem becomes more apparent when log-transforming CPUE? </p>
+
+<ul class = "build incremental">
+<li>There are too <strong>many zeros</strong> in the CPUE data!</li>
+</ul>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h3>Step 3: <strong>Residuals</strong> → model assumptions</h3>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="img/Model_building_6steps_3b.png" style="height:100px;border:0;position: absolute; left: 960px; top: 20px" </img></p>
+
+<p><img src="lecture15_plotting_files/unnamed-chunk-5-1.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" width="936" style="display: block; margin: auto;" /></p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Zero-inflation</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Too many zeros in the data can inflate the parameterization of coefficients. </p>
+
+<ul>
+<li>One can either apply specific models that account for it (e.g. zero-truncated or zero-inflated regression models),</li>
+<li>convert the data into binary data (presence/absence) and apply a logistic regression,</li>
+<li>or reduce the number of zeros by
+
+<ul>
+<li>summing up the CPUE over all age classes (disadvantage: we reduce the sample size)</li>
+<li>or, in this demostration, by removing specific age classes</li>
+</ul></li>
+</ul>
+
+<p>→ In any case, we need to <strong>rephrase our research question</strong>!</p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-9" style="background:;">
+  <article data-timings="">
+    <pre><code class="r">plaice %&gt;% group_by(Age, CPUE) %&gt;% 
+  filter(CPUE &lt; 0.01) %&gt;%
+  summarize(counts = n()) %&gt;% print(n=40)
+</code></pre>
+
+<pre><code class="no-highlight">## # A tibble: 8 x 3
+## # Groups:   Age [?]
+##   Age    CPUE counts
+##   &lt;fct&gt; &lt;dbl&gt;  &lt;int&gt;
+## 1 0         0      5
+## 2 1         0      3
+## 3 5         0      1
+## 4 6         0      2
+## 5 7         0      3
+## 6 8         0      2
+## 7 9         0      3
+## 8 10        0      4
+</code></pre>
+
+<p>Lets remove age 0, 1 and &gt; 6 and start with step 2 again.</p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h3>Reformulate research question:</h3>
+  </hgroup>
+  <article data-timings="">
+    <p>What factors explain best the pattern in age-specific Catch-Per-Unit-Effort (CPUE) of <em>Pleuronectes platessa</em> (plaice) <strong>age 2- 6</strong> in the first quarter of 2015?</p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h3>Repeat step 2: Model fitting with new data</h3>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="img/Model_building_6steps_2b.png" style="height:100px;border:0;position: absolute; left: 960px; top: 20px" </img></p>
+
+<pre><code class="r">plaice &lt;- plaice %&gt;% filter(Age %in% 2:6) %&gt;%
+  mutate(Age = fct_drop(Age))
+
+m_lm &lt;- lm(CPUE ~ Long, data = plaice)
+m_poly2 &lt;- lm(CPUE ~ poly(Long,2), data = plaice)
+m_poly3 &lt;- lm(CPUE ~ poly(Long,3), data = plaice)
+m_log_y &lt;- lm(CPUE_log ~ Long, data = plaice)
+</code></pre>
+
+<p>For reasons of convenience I named the subset also &#39;plaice&#39; so I can simply run the previous code again without many modifications.</p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h3>Repeat step 3: Model partitioning - <strong>predicted values</strong></h3>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="img/Model_building_6steps_3b.png" style="height:100px;border:0;position: absolute; left: 960px; top: 20px" </img> </p>
+
+<p><img src="lecture15_plotting_files/unnamed-chunk-8-1.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" width="936" style="display: block; margin: auto;" /></p>
+
+<p>How do the models perform now?</p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h3>Repeat step 3: Model partitioning - <strong>residuals</strong></h3>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="img/Model_building_6steps_3b.png" style="height:100px;border:0;position: absolute; left: 960px; top: 20px" </img></p>
+
+<p><img src="lecture15_plotting_files/unnamed-chunk-9-1.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" width="936" style="display: block; margin: auto;" /></p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>What next?</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li><code>m_log_y</code> shows the best residual distribution so we could focus on this model and move on the step 4; however, for some age classes this model greatly underestimates the CPUE.</li>
+<li>The models with untransformed data do not look too bad either (particularly the polynomials) so we could keep them for now and see whether including more variables helps reducing the noise and improving the model fit.</li>
+</ul>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-15" style="background:;">
+  <hgroup>
+    <h3>Step 4: Model residuals ~ another X variable</h3>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="img/Model_building_6steps_4b.png" style="height:100px;border:0;position: absolute; left: 960px; top: 20px" </img></p>
+
+<p><img src="lecture15_plotting_files/unnamed-chunk-10-1.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" width="936" style="display: block; margin: auto;" /></p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-16" style="background:;">
+  <hgroup>
+    <h3>Step 4: Model residuals ~ another X variable</h3>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="img/Model_building_6steps_4b.png" style="height:100px;border:0;position: absolute; left: 960px; top: 20px" </img></p>
+
+<p><img src="lecture15_plotting_files/unnamed-chunk-11-1.png" title="plot of chunk unnamed-chunk-11" alt="plot of chunk unnamed-chunk-11" width="936" style="display: block; margin: auto;" /></p>
+
+<div class="alert alert-green" style="position: absolute; left: 300px; top: 325px">
+  <h4></h4> <small style="font-size: 30px">Lets include the factor Age in all 4 models!</small>
+</div>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-17" style="background:;">
+  <hgroup>
+    <h3>Step 5: Re-specify the model and visualize the predictions</h3>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="img/Model_building_6steps_5b.png" style="height:100px;border:0;position: absolute; left: 960px; top: 20px" </img></p>
+
+<pre><code class="r">m_lm &lt;- update(m_lm, .~. + Age)
+m_poly2 &lt;- update(m_poly2, .~. + Age)
+m_poly3 &lt;- update(m_poly3, .~. + Age)
+m_log_y &lt;- update(m_log_y, .~. + Age)
+</code></pre>
+
+<p><img src="lecture15_plotting_files/unnamed-chunk-13-1.png" title="plot of chunk unnamed-chunk-13" alt="plot of chunk unnamed-chunk-13" width="1008" style="display: block; margin: auto;" /></p>
+
+<p><strong>Happy now?</strong></p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-18" style="background:;">
+  <article data-timings="">
+    <p><img src="lecture15_plotting_files/unnamed-chunk-14-1.png" title="plot of chunk unnamed-chunk-14" alt="plot of chunk unnamed-chunk-14" width="936" style="display: block; margin: auto;" /></p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-19" style="background:;">
+  <hgroup>
+    <h3>Step 6: Test for an interaction between <code>Long</code> and <code>Age</code></h3>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="img/Model_building_6steps_6b.png" style="height:100px;border:0;position: absolute; left: 960px; top: 20px" </img></p>
+
+<pre><code class="r">m_lm_int &lt;- lm(CPUE ~ Long * Age, data = plaice)
+m_poly2_int &lt;- lm(CPUE ~ poly(Long,2) * Age, data = plaice)
+m_poly3_int &lt;- lm(CPUE ~ poly(Long,3) * Age, data = plaice)
+m_log_y_int &lt;- lm(CPUE_log ~ Long * Age, data = plaice)
+</code></pre>
+
+<p><img src="lecture15_plotting_files/unnamed-chunk-16-1.png" title="plot of chunk unnamed-chunk-16" alt="plot of chunk unnamed-chunk-16" width="1008" style="display: block; margin: auto;" /></p>
+
+<p><strong>Better?</strong></p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-20" style="background:;">
+  <article data-timings="">
+    <p><img src="lecture15_plotting_files/unnamed-chunk-17-1.png" title="plot of chunk unnamed-chunk-17" alt="plot of chunk unnamed-chunk-17" width="936" style="display: block; margin: auto;" /></p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-21" style="background:;">
+  <hgroup>
+    <h2>Go back to step 4: Model residuals ~ latitude</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="img/Model_building_6steps_4b.png" style="height:100px;border:0;position: absolute; left: 960px; top: 20px" </img></p>
+
+<p><img src="lecture15_plotting_files/unnamed-chunk-18-1.png" title="plot of chunk unnamed-chunk-18" alt="plot of chunk unnamed-chunk-18" width="936" style="display: block; margin: auto;" /></p>
+
+<p><small>No clear pattern that suggests to include latitude in the model (in the mod_log_y model it seems residuals decrease with latitude but that is mainly caused by the 2 outliers).</small></p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-22" style="background:;">
+  <hgroup>
+    <h2>So which one to choose?</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>From the residual diagnostics it seems that <code>mod_log_y</code> with <code>Age</code> and <code>Long</code> is the best, but the cubic model is also quite good. </li>
+<li>Should an interaction term be included or not? Difficult to say from the graphics.</li>
+<li>Lets use the <strong>AIC</strong> to guide our decision!
+
+<ul>
+<li>It is wise to <strong>include a NULL model</strong> (with only an intercept) to see whether any of the covariate should be included or not.</li>
+<li>Recall: the AIC is only useful for comparison between models fitted to the same observations and same Y variables: you can&#39;t compare models fitted to different data subsets or if Y is partly transformed!</li>
+</ul></li>
+</ul>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-23" style="background:;">
+  <hgroup>
+    <h3>Overview of models we fitted</h3>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">m0 &lt;- lm(CPUE ~ 1, data = plaice)
+m_lm_1 &lt;- lm(CPUE ~ Long, data = plaice)
+m_lm_2 &lt;- lm(CPUE ~ Long + Age, data = plaice)
+m_lm_3 &lt;- lm(CPUE ~ Long * Age, data = plaice)
+m_poly2_1 &lt;- lm(CPUE ~ poly(Long,2), data = plaice)
+m_poly2_2 &lt;- lm(CPUE ~ poly(Long,2) + Age, data = plaice)
+m_poly2_3 &lt;- lm(CPUE ~ poly(Long,2) * Age, data = plaice)
+m_poly3_1 &lt;- lm(CPUE ~ poly(Long,3), data = plaice)
+m_poly3_2 &lt;- lm(CPUE ~ poly(Long,3) + Age, data = plaice)
+m_poly3_3 &lt;- lm(CPUE ~ poly(Long,3) * Age, data = plaice)
+# Now the log-models
+m_log_y_0 &lt;-lm(CPUE_log ~ 1, data = plaice)
+m_log_y_1 &lt;-lm(CPUE_log ~ Long, data = plaice)
+m_log_y_2 &lt;-lm(CPUE_log ~ Long + Age, data = plaice)
+m_log_y_3 &lt;-lm(CPUE_log ~ Long * Age, data = plaice)
+</code></pre>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-24" style="background:;">
+  <article data-timings="">
+    <pre><code class="r">AIC(m0, m_lm_1, m_lm_2, m_lm_3, m_poly2_1, m_poly2_2, m_poly2_3,
+  m_poly3_1, m_poly3_2, m_poly3_3)
+</code></pre>
+
+<pre><code class="no-highlight">##           df      AIC
+## m0         2 262.6016
+## m_lm_1     3 256.8791
+## m_lm_2     7 254.4298
+## m_lm_3    11 252.9204
+## m_poly2_1  4 257.0557
+## m_poly2_2  8 253.6051
+## m_poly2_3 16 252.1079
+## m_poly3_1  5 258.3897
+## m_poly3_2  9 254.5438
+## m_poly3_3 21 255.0540
+</code></pre>
+
+<pre><code class="r">AIC(m_log_y_0, m_log_y_1, m_log_y_2, m_log_y_3)
+</code></pre>
+
+<pre><code class="no-highlight">##           df      AIC
+## m_log_y_0  2 137.3974
+## m_log_y_1  3 135.0501
+## m_log_y_2  7 129.8373
+## m_log_y_3 11 135.0000
+</code></pre>
+
+<div class="alert alert-lightorange" style="position: absolute; left: 400px; top: 160px; width: 610px">
+  <small style="font-size: 20px">All models perform better than the NULL model but do not differ much from each other; no model sticks out as most adequate but simple model! Given an AIC difference of 2, none of the polynomial models performs better than the simple linear model and, in fact, m_lm_2 (Age + Long) would be the best choice based on the AIC.</small>
+</div>
+
+<div class="alert alert-lightorange" style="position: absolute; left: 400px; top: 470px; width: 610px">
+  <small style="font-size: 20px">The best log-model contains Age and Long but no interaction!</small>
+</div>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-25" style="background:;">
+  <hgroup>
+    <h2>Summary of final model: m_log_y_2</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="lecture15_plotting_files/unnamed-chunk-21-1.png" title="plot of chunk unnamed-chunk-21" alt="plot of chunk unnamed-chunk-21" width="936" style="display: block; margin: auto;" /></p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-26" style="background:;">
+  <article data-timings="">
+    <pre><code class="r">summary(m_log_y_2)
+</code></pre>
+
+<pre><code class="no-highlight">## 
+## Call:
+## lm(formula = CPUE_log ~ Long + Age, data = plaice)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -7.7375 -0.6531  0.1546  1.4860  3.1414 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)   
+## (Intercept)   8.5793     2.8565   3.003  0.00731 **
+## Long         -0.4436     0.1793  -2.474  0.02295 * 
+## Age3          1.1864     1.7805   0.666  0.51320   
+## Age4          0.0158     1.7805   0.009  0.99301   
+## Age5         -2.6477     1.7805  -1.487  0.15340   
+## Age6         -4.4044     1.7805  -2.474  0.02298 * 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2.815 on 19 degrees of freedom
+## Multiple R-squared:  0.5046, Adjusted R-squared:  0.3742 
+## F-statistic: 3.871 on 5 and 19 DF,  p-value: 0.01377
+</code></pre>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-27" style="background:;">
+  <article data-timings="">
+    <p><q>The R code for this demonstration can be found under &#39;Ecercises</q></p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="segue" style="background:url(img/Darst.jpg);background-size:cover;">
+  <hgroup>
+    <h1>Time for your SECOND case study!!!</h1>
+  </hgroup>
+  <article>
+    <p><span class="source-img" style="position: absolute; left: 50px; top: 650px; color:white">Photo by NASA (ID ISS040-E-12110), accessed 
+    <a href='https://earthobservatory.nasa.gov/images/84047/coastlines-of-the-southern-baltic-sea' title=''>here</a></span></p>
+
+  </article>
+</slide>
+<slide class="thank-you-slide segue" id="slide-29">
+  <footer>
+    <div style="position: absolute; left: 50px; top: 50px; z-index:100">
+        <img src = "assets/img/uham_logo.png" height="67" width="200">
+    </div>
+  </footer>
+  <article>
+    <h1 style="padding-top: 120px;">Thank You</h1>
+    <p>
+      For more information contact me:<a href="saskia.otto@uni-hamburg.de">
+      saskia.otto@uni-hamburg.de</a>
+      </p>
+      <p data-config-contact="">
+      <a href="http://www.researchgate.net/profile/Saskia_Otto"
+          style="color:#F48C0A; font-weight: bold;">
+        http://www.researchgate.net/profile/Saskia_Otto</a><br>
+      <a href="http://www.github.com/saskiaotto"
+          style="color: #F48C0A; font-weight: bold;">
+        http://www.github.com/saskiaotto</a>
+    </p>
+    <p style="font-size: 15px; position: absolute; left: 125px; top: 480px; z-index:100">
+    <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+      <img alt="Creative Commons License" style="border-width:0"
+        src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" /></a><br>
+        This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+        Creative Commons Attribution-ShareAlike 4.0 International License </a>except for the <br>
+        borrowed and mentioned with proper <i>source:</i> statements. <br>
+        <b>Image on title and end slide:</b> Section of an infrared satallite image showing the Larsen C
+        ice shelf on the Antarctic <br>
+        Peninsula - USGS/NASA Landsat: <a href="https://landsat.visibleearth.nasa.gov/view.php?id=90481">
+        A Crack of Light in the Polar Dark</a>, Landsat 8 - TIRS, June 17, 2017 <br>
+        (under CC0 license)
+    </p>
+  </article>
+</slide>
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='A model building demonstration'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Demonstration with Plaice CPUE in the Baltic Sea'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='NA'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Step 1: Specification of model family'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='Step 2: Model fitting'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='Step 3: Model partitioning - <strong>predicted values</strong> → model fit'>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='Step 3: <strong>Residuals</strong> → model assumptions'>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title='Zero-inflation'>
+         8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title='NA'>
+         9
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=10 title='Reformulate research question:'>
+         10
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=11 title='Repeat step 2: Model fitting with new data'>
+         11
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=12 title='Repeat step 3: Model partitioning - <strong>predicted values</strong>'>
+         12
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=13 title='Repeat step 3: Model partitioning - <strong>residuals</strong>'>
+         13
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=14 title='What next?'>
+         14
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=15 title='Step 4: Model residuals ~ another X variable'>
+         15
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=16 title='Step 4: Model residuals ~ another X variable'>
+         16
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=17 title='Step 5: Re-specify the model and visualize the predictions'>
+         17
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=18 title='NA'>
+         18
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=19 title='Step 6: Test for an interaction between <code>Long</code> and <code>Age</code>'>
+         19
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=20 title='NA'>
+         20
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=21 title='Go back to step 4: Model residuals ~ latitude'>
+         21
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=22 title='So which one to choose?'>
+         22
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=23 title='Overview of models we fitted'>
+         23
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=24 title='NA'>
+         24
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=25 title='Summary of final model: m_log_y_2'>
+         25
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=26 title='NA'>
+         26
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=27 title='NA'>
+         27
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=28 title='Time for your SECOND case study!!!'>
+         28
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=29 title='NA'>
+         29
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  <script src="libraries/widgets/quiz/js/jquery.quiz.js"></script>
+<script src="libraries/widgets/quiz/js/mustache.min.js"></script>
+<script src="libraries/widgets/quiz/js/quiz-app.js"></script>
+<script src="libraries/widgets/bootstrap/js/bootstrap.min.js"></script>
+<script src="libraries/widgets/bootstrap/js/bootbox.min.js"></script>
+<script src="libraries/widgets/interactive/js/ace/js/ace.js"></script>
+<script src="libraries/widgets/interactive/js/opencpu-0.5.js"></script>
+<script src="libraries/widgets/interactive/js/interactive.js"></script>
+
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<script>  
+  $(function (){ 
+    $("#example").popover(); 
+    $("[rel='tooltip']").tooltip(); 
+  });  
+  </script>  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

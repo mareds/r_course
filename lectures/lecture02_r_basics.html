@@ -1,0 +1,2280 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Data Analysis with R</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Data Analysis with R">
+  <meta name="author" content="Saskia A. Otto">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/sao_theme.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="libraries/widgets/quiz/css/demo.css"></link>
+<link rel=stylesheet href="libraries/widgets/bootstrap/css/bootstrap.css"></link>
+<link rel=stylesheet href="libraries/widgets/interactive/css/aceeditor.css"></link>
+<link rel=stylesheet href="./assets/css/box_styles.css"></link>
+<link rel=stylesheet href="./assets/css/ribbons.css"></link>
+<link rel=stylesheet href="./assets/css/style.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+      <slide class="nobackground">
+    <article class="flexbox vcenter">
+      <span>
+        <img width='500px' src="assets/img/BigLogo_MDS.png">
+      </span>
+    </article>
+  </slide>
+    <slide class="title-slide segue nobackground">
+  <!-- <aside class="gdbar">
+    <img src="assets/img/uham_logo.png">
+  </aside>-->
+  <div style="position: absolute; left: 50px; top: 50px; z-index:100">
+      <img src = "assets/img/uham_logo.png" height="67" width="200">
+  </div>
+  <hgroup class="auto-fadein">
+    <h1>Data Analysis with R</h1>
+    <h2>2 - Basics in R</h2>
+    <p>Saskia A. Otto<br/>Postdoctoral Researcher</p>
+  </hgroup>
+  <article></article>
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="segue" style="background:#1874CD;">
+  <hgroup>
+    <h1>Basic data types in R</h1>
+  </hgroup>
+  <article>
+    <p><img src="img/Data_science_1a.png" style="height:150px;border:0;position: absolute; left: 900px; top: 50px" </img> </p>
+
+  </article>
+</slide>
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Some of the most basic types are:</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Decimals values like <code>4.5</code> are called <strong>doubles</strong>.</li>
+<li>Natural numbers like <code>4</code> are called <strong>integers</strong>. Integers and doubles are  both called <strong>numerics</strong>. </li>
+<li>Boolean values (<code>TRUE</code> or <code>FALSE</code>) are called <strong>logical</strong>.</li>
+<li>Text (or string) values are called <strong>characters</strong>.</li>
+</ul>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Some of the most basic types are:</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Decimals values like <code>4.5</code> are called <strong>doubles</strong>.</li>
+<li>Natural numbers like <code>4</code> are called <strong>integers</strong>. Integers and doubles are  both called <strong>numerics</strong>. </li>
+<li>Boolean values (<code>TRUE</code> or <code>FALSE</code>) are called <strong>logical</strong>.</li>
+<li>Text (or string) values are called <strong>characters</strong>.</li>
+</ul>
+
+<pre><code class="r">my_double &lt;- 42.5
+my_integer &lt;- 5
+# With the L suffix, you get an integer rather than a double
+my_integer_correct &lt;- 5L
+
+my_logical &lt;- TRUE
+my_character &lt;- &quot;some text&quot;
+# Note how the quotation marks on the right indicate that &quot;some text&quot; is a character.
+</code></pre>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Whats the data type</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>To determine the (R internal) type or storage mode of any object or variable use the function <code>typeof()</code></p>
+
+<pre><code class="r">typeof(my_double)
+</code></pre>
+
+<pre><code class="no-highlight">## [1] &quot;double&quot;
+</code></pre>
+
+<pre><code class="r">typeof(my_integer)
+</code></pre>
+
+<pre><code class="no-highlight">## [1] &quot;double&quot;
+</code></pre>
+
+<pre><code class="r">typeof(my_integer_correct)
+</code></pre>
+
+<pre><code class="no-highlight">## [1] &quot;integer&quot;
+</code></pre>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Test types</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>You can check if an object is of a specific type with an <strong>&#39;is.&#39; function</strong>:</p>
+
+<pre><code class="r">int_var &lt;- 10L
+is.integer(int_var)
+</code></pre>
+
+<pre><code class="no-highlight">## [1] TRUE
+</code></pre>
+
+<pre><code class="r">dbl_var &lt;- 4.5
+is.double(dbl_var)
+</code></pre>
+
+<pre><code class="no-highlight">## [1] TRUE
+</code></pre>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Test types (cont)</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Overview of &#39;is.&#39; functions </p>
+
+<table><thead>
+<tr>
+<th align="center">Function</th>
+<th align="center">lgl</th>
+<th align="center">int</th>
+<th align="center">dbl</th>
+<th align="center">num</th>
+<th align="center">chr</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="center">is.logical()</td>
+<td align="center">x</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">is.integer()</td>
+<td align="center"></td>
+<td align="center">x</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">is.double()</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">x</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">is.numeric()</td>
+<td align="center"></td>
+<td align="center">x</td>
+<td align="center">x</td>
+<td align="center">x</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">is.character()</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">x</td>
+</tr>
+</tbody></table>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Missing values</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Missing values are specified with <code>NA</code></li>
+<li><code>NA</code> will always be coerced to the correct type if used inside a vector, or you can create NAs of a specific type with:</li>
+</ul>
+
+<pre><code class="r">NA            # logical
+NA_integer_   # integer
+NA_real_      # double
+NA_character_ # character
+</code></pre>
+
+<ul>
+<li>You can <strong>check</strong> also for missing values with <code>is.na()</code></li>
+</ul>
+
+<pre><code class="r">x &lt;- NA
+is.na(x)
+</code></pre>
+
+<pre><code class="no-highlight">## [1] TRUE
+</code></pre>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Data structures</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>R’s base data structures can be organised by their <strong>dimensionality</strong> (1d, 2d, or nd) and whether they’re <strong>homogeneous</strong> (all contents must be of the same type) or <strong>heterogeneous</strong> (the contents can be of different types). This gives rise to the <strong>five</strong> data types most often used in data analysis:</p>
+
+<table><thead>
+<tr>
+<th align="center">Dimensions</th>
+<th align="center">Homogeneous</th>
+<th align="center">Heterogeneous</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="center">1d</td>
+<td align="center">Atomic vector</td>
+<td align="center">List</td>
+</tr>
+<tr>
+<td align="center">2d</td>
+<td align="center">Matrix</td>
+<td align="center">Data frame</td>
+</tr>
+<tr>
+<td align="center">nd</td>
+<td align="center">Array</td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="segue" style="background:#1874CD;">
+  <hgroup>
+    <h1>The most basic structure: atomic vectors</h1>
+  </hgroup>
+  <article>
+    <p><img src="img/Data_science_1a.png" style="height:150px;border:0;position: absolute; left: 900px; top: 50px" </img> </p>
+
+  </article>
+</slide>
+<slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>Atomic vectors</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>are usually created with <code>c()</code>, short for <strong>combine</strong>:</li>
+</ul>
+
+<pre><code class="r">dbl_var &lt;- c(1, 2.5, 4.5)
+# Use TRUE and FALSE (or T and F) to create logical vectors
+log_var &lt;- c(TRUE, FALSE, T, F)
+chr_var &lt;- c(&quot;these are&quot;, &quot;some strings&quot;)
+</code></pre>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>Atomic vectors</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>are usually created with <code>c()</code>, short for <strong>combine</strong>:</li>
+</ul>
+
+<pre><code class="r">dbl_var &lt;- c(1, 2.5, 4.5)
+# Use TRUE and FALSE (or T and F) to create logical vectors
+log_var &lt;- c(TRUE, FALSE, T, F)
+chr_var &lt;- c(&quot;these are&quot;, &quot;some strings&quot;)
+</code></pre>
+
+<div style='float:left;width:48%;'>
+  <ul>
+<li>or with <code>seq()</code> (= <strong>sequence</strong>) </li>
+</ul>
+
+<pre><code class="r">seq(from = 0, to = 1, by = 0.2)
+</code></pre>
+
+<pre><code class="no-highlight">## [1] 0.0 0.2 0.4 0.6 0.8 1.0
+</code></pre>
+
+</div>
+<div style='float:right;width:48%;'>
+  <ul>
+<li>or <code>rep()</code>(= <strong>repeat</strong>)</li>
+</ul>
+
+<pre><code class="r">rep(&quot;a&quot;, times = 5)
+</code></pre>
+
+<pre><code class="no-highlight">## [1] &quot;a&quot; &quot;a&quot; &quot;a&quot; &quot;a&quot; &quot;a&quot;
+</code></pre>
+
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>Atomic vectors</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>are <strong>always flat</strong>, even if you nest <code>c()</code>’s:</li>
+</ul>
+
+<pre><code class="r">c(1, c(2, c(3, 4)))
+</code></pre>
+
+<pre><code class="no-highlight">## [1] 1 2 3 4
+</code></pre>
+
+<pre><code class="r"># the same as
+c(1, 2, 3, 4)
+</code></pre>
+
+<pre><code class="no-highlight">## [1] 1 2 3 4
+</code></pre>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-13">
+  <hgroup>
+    <h2>Hierarchy of data types in atomic vectors</h2>
+  </hgroup>
+  <article class = 'flexbox vcenter'>
+    <p><img src="img/Hierarchy_data_types_in_vectors.png" title="plot of chunk unnamed-chunk-11" alt="plot of chunk unnamed-chunk-11" width="300px" style="display: block; margin: auto;" /></p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>Vector properties</h2>
+  </hgroup>
+  <article data-timings="">
+    <ol>
+<li>Its <strong>type</strong>, which you can determine with <code>typeof()</code>.</li>
+<li>Its <strong>length</strong>, which you can determine with <code>length()</code>.</li>
+<li>Additional <strong>metadata</strong> in the form of <strong>attributes</strong>.</li>
+</ol>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-15" style="background:;">
+  <hgroup>
+    <h2>Vector properties</h2>
+  </hgroup>
+  <article data-timings="">
+    <ol>
+<li>Its <strong>type</strong>, which you can determine with <code>typeof()</code>.</li>
+<li>Its <strong>length</strong>, which you can determine with <code>length()</code>.</li>
+<li>Additional <strong>metadata</strong> in the form of <strong>attributes</strong>.</li>
+</ol>
+
+<pre><code class="r">typeof(1:10)
+</code></pre>
+
+<pre><code class="no-highlight">## [1] &quot;integer&quot;
+</code></pre>
+
+<pre><code class="r">x &lt;- c(200, 50, 40, 1, 100, 20)
+length(x)
+</code></pre>
+
+<pre><code class="no-highlight">## [1] 6
+</code></pre>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-16" style="background:;">
+  <hgroup>
+    <h2>Important tools for working with vectors</h2>
+  </hgroup>
+  <article data-timings="">
+    <ol>
+<li><p>How to <strong>convert</strong> from one type to another, and when that happens automatically?</p></li>
+<li><p>What happens when you work with vectors of <strong>different lengths</strong>?</p></li>
+<li><p>How to <strong>name</strong> the elements of a vector?</p></li>
+<li><p>How to <strong>pull</strong> out elements of interest?</p></li>
+</ol>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-17" style="background:;">
+  <hgroup>
+    <h2>1. Coercion</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>All elements of an atomic vector must be the <strong>same type</strong></li>
+<li><strong>Different types</strong> will be <strong>coerced</strong> to the most flexible type</li>
+<li>Types from <strong>least to most</strong> flexible are: 
+
+<ul>
+<li>logical &lt; integer &lt;  double &lt; character</li>
+</ul></li>
+</ul>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-18" style="background:;">
+  <hgroup>
+    <h2>1. Coercion</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>All elements of an atomic vector must be the <strong>same type</strong></li>
+<li><strong>Different types</strong> will be <strong>coerced</strong> to the most flexible type</li>
+<li>Types from <strong>least to most</strong> flexible are: 
+
+<ul>
+<li>logical &lt; integer &lt;  double &lt; character</li>
+</ul></li>
+</ul>
+
+<p><br><br>
+For example, combining a character and an integer yields a character:</p>
+
+<pre><code class="r">str(c(&quot;a&quot;, 1))
+</code></pre>
+
+<pre><code class="no-highlight">##  chr [1:2] &quot;a&quot; &quot;1&quot;
+</code></pre>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-19" style="background:;">
+  <hgroup>
+    <h2>1. Coercion (cont)</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>When a logical vector is coerced to an integer or double, <code>TRUE</code> becomes 1 and <code>FALSE</code> becomes 0. This is very useful in conjunction with <code>sum()</code> and <code>mean()</code></p>
+
+<pre><code class="r">x &lt;- c(FALSE, FALSE, TRUE)
+as.numeric(x)
+</code></pre>
+
+<pre><code class="no-highlight">## [1] 0 0 1
+</code></pre>
+
+<pre><code class="r"># Total number of TRUEs
+sum(x)
+</code></pre>
+
+<pre><code class="no-highlight">## [1] 1
+</code></pre>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="segue" style="background:#EEC900;">
+  <hgroup>
+    <h1>Your turn...</h1>
+  </hgroup>
+  <article>
+    
+  </article>
+</slide>
+<slide class="" id="slide-21" style="background:#EEC900;">
+  <hgroup>
+    <h1>Quiz 1: Coercion rules</h1>
+  </hgroup>
+  <article data-timings="">
+    
+<div class="quiz quiz-single well ">
+  <p>Test your knowledge of vector coercion rules by predicting the output of the following uses of <code>c()</code>:</p>
+
+<p><code>c(1, FALSE)</code></p>
+
+<ol>
+<li>logical vector</li>
+<li>integer vector</li>
+<li><em>double vector</em></li>
+<li>character vector</li>
+<li>NA</li>
+<li>error message</li>
+</ol>
+
+  <button class="quiz-submit btn btn-primary">Submit</button>
+  <button class="quiz-toggle-hint btn btn-info">Show Hint</button>
+  <button class="quiz-show-answer btn btn-success">Show Answer</button>
+  <button class="quiz-clear btn btn-danger">Clear</button>
+  
+  <div class="quiz-explanation">
+  <p>The infite set of numbers cannot be reduced to simply 2 states whereas TRUE or FALSE can easily be coerced into the two numbers 0 and 1. As the value 1 in this vector is not specified explicitly as integer the vector coerces both to type double.</p>
+
+</div>
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-22" style="background:#EEC900;">
+  <hgroup>
+    <h1>Quiz 2: Coercion rules</h1>
+  </hgroup>
+  <article data-timings="">
+    
+<div class="quiz quiz-single well ">
+  <p>Test your knowledge of vector coercion rules by predicting the output of the following uses of <code>c()</code>:</p>
+
+<p><code>c(&quot;a&quot;, 1)</code></p>
+
+<ol>
+<li>logical vector</li>
+<li>integer vector</li>
+<li>double vector</li>
+<li><em>character vector</em></li>
+<li>NA</li>
+<li>error message</li>
+</ol>
+
+  <button class="quiz-submit btn btn-primary">Submit</button>
+  <button class="quiz-toggle-hint btn btn-info">Show Hint</button>
+  <button class="quiz-show-answer btn btn-success">Show Answer</button>
+  <button class="quiz-clear btn btn-danger">Clear</button>
+  
+  <div class="quiz-explanation">
+  <p>A string (in this case &quot;a&quot;) has no corresponding number it can be coerced to. But instead, a number such as the 1 can be coerced to a string.</p>
+
+</div>
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-23" style="background:#EEC900;">
+  <hgroup>
+    <h1>Quiz 3: Coercion rules</h1>
+  </hgroup>
+  <article data-timings="">
+    
+<div class="quiz quiz-single well ">
+  <p>Test your knowledge of vector coercion rules by predicting the output of the following uses of <code>c()</code>:</p>
+
+<p><code>c(TRUE, 1L)</code></p>
+
+<ol>
+<li>logical vector</li>
+<li><em>integer vector</em></li>
+<li>double vector</li>
+<li>character vector</li>
+<li>NA</li>
+<li>error message</li>
+</ol>
+
+  <button class="quiz-submit btn btn-primary">Submit</button>
+  <button class="quiz-toggle-hint btn btn-info">Show Hint</button>
+  <button class="quiz-show-answer btn btn-success">Show Answer</button>
+  <button class="quiz-clear btn btn-danger">Clear</button>
+  
+  <div class="quiz-explanation">
+  <p>Now the number 1 is explicitly defined as integer, hence the TRUE is coerced to the integer 1.</p>
+
+</div>
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-24" style="background:#EEC900;">
+  <hgroup>
+    <h1>Quiz 4: Coercion rules</h1>
+  </hgroup>
+  <article data-timings="">
+    
+<div class="quiz-text quiz-multitext well">
+  <p><code>x &lt;- c(TRUE, FALSE, TRUE, FALSE, FALSE, TRUE, FALSE, TRUE, TRUE, FALSE)</code></p>
+
+<ol>
+<li>What would be the result if you sum up all elements of <code>x</code>?</li>
+</ol>
+
+  <button class="quiz-submit btn btn-primary">Submit</button>
+  <button class="quiz-toggle-hint btn btn-info">Show Hint</button>
+  <button class="quiz-show-answer btn btn-success">Show Answer</button>
+  <button class="quiz-clear btn btn-danger">Clear</button>
+  
+  <div class="quiz-hint">
+  <p><small>Remember, all TRUEs are coerced to 1 and all FALSEs to 0.</small></p>
+
+</div>
+<div class="quiz-explanation">
+  <p>Simply use the <code>sum</code> function: <code>sum(x)</code></p>
+
+<ol>
+<li><span class='answer'>5</span></li>
+</ol>
+
+</div>
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-25" style="background:#EEC900;">
+  <hgroup>
+    <h1>Quiz 5 - Challenge: Coercion rules</h1>
+  </hgroup>
+  <article data-timings="">
+    
+<div class="quiz-text quiz-multitext well">
+  <p>Type the following into the R console (or run it in your script),  which will create a long vector containing a random number of NAs.</p>
+
+<pre><code class="r">x &lt;- 1:10000 
+set.seed(123) # so we get all the same results
+y &lt;- sample(1:10000, 1) # random number of NAs
+z &lt;- sample(1:10000, y) # randomly assign positions of the y NAs
+x[z] &lt;- NA  # place NAs on the positions in z
+</code></pre>
+
+<ol>
+<li>How many <code>NA</code>s are in <code>x</code>?</li>
+</ol>
+
+  <button class="quiz-submit btn btn-primary">Submit</button>
+  <button class="quiz-toggle-hint btn btn-info">Show Hint</button>
+  <button class="quiz-show-answer btn btn-success">Show Answer</button>
+  <button class="quiz-clear btn btn-danger">Clear</button>
+  
+  <div class="quiz-hint">
+  <p><small>Recall, the <code>is.na()</code> function tests for NAs and returns a logical vector, which can be coerced to numbers for further calculations.</small></p>
+
+</div>
+<div class="quiz-explanation">
+  <p>You calculate the sum of all true NAs by typing: <code>sum(is.na(x))</code></p>
+
+<ol>
+<li><span class='answer'>2876</span></li>
+</ol>
+
+</div>
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-26" style="background:;">
+  <hgroup>
+    <h2>2. Recycling rules</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>As well as implicitly coercing the types of vectors to be compatible, R will also implicitly coerce the length of vectors. This is called vector recycling, because the <strong>shorter vector is repeated</strong>, or recycled, to the <strong>same length as the longer vector</strong>.</p>
+
+<pre><code class="r">1:10 + 100
+</code></pre>
+
+<pre><code class="no-highlight">##  [1] 101 102 103 104 105 106 107 108 109 110
+</code></pre>
+
+<pre><code class="r"># What will happen with this summation?
+1:10 + 1:2
+</code></pre>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-27" style="background:;">
+  <hgroup>
+    <h2>2. Recycling rules</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>As well as implicitly coercing the types of vectors to be compatible, R will also implicitly coerce the length of vectors. This is called vector recycling, because the <strong>shorter vector is repeated</strong>, or recycled, to the <strong>same length as the longer vector</strong>.</p>
+
+<pre><code class="r">1:10 + 100
+</code></pre>
+
+<pre><code class="no-highlight">##  [1] 101 102 103 104 105 106 107 108 109 110
+</code></pre>
+
+<pre><code class="r"># What will happen with this summation?
+1:10 + 1:2
+</code></pre>
+
+<pre><code class="no-highlight">##  [1]  2  4  4  6  6  8  8 10 10 12
+</code></pre>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="segue" style="background:#EEC900;">
+  <hgroup>
+    <h1>Your turn...</h1>
+  </hgroup>
+  <article>
+    
+  </article>
+</slide>
+<slide class="" id="slide-29" style="background:#EEC900;">
+  <hgroup>
+    <h1>Quiz 6: Recycling rules</h1>
+  </hgroup>
+  <article data-timings="">
+    
+<div class="quiz quiz-single well ">
+  <p>What happens when you subset with a positive integer that’s bigger than the length of the vector?</p>
+
+<ol>
+<li>error message returned</li>
+<li>nothing happens</li>
+<li>the vector gets recycled (e.g. returns 2nd element if vector length is 10    and index value is a 12)</li>
+<li><em>NA returned</em></li>
+</ol>
+
+  <button class="quiz-submit btn btn-primary">Submit</button>
+  <button class="quiz-toggle-hint btn btn-info">Show Hint</button>
+  <button class="quiz-show-answer btn btn-success">Show Answer</button>
+  <button class="quiz-clear btn btn-danger">Clear</button>
+  
+  <div class="quiz-explanation">
+  <p>The vector gets indeed extended to the length of the requested element but not by recycling but by filling the gap with NAs.</p>
+
+</div>
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-30" style="background:#EEC900;">
+  <hgroup>
+    <h1>Quiz 7: Recycling rules</h1>
+  </hgroup>
+  <article data-timings="">
+    
+<div class="quiz quiz-single well ">
+  <p>What happens when you subset with a name that doesn’t exist?</p>
+
+<ol>
+<li>error message returned</li>
+<li>nothing happens</li>
+<li>the vector gets recycled (e.g. returns 2nd element if vector length is 10    and index value is a 12)</li>
+<li><em>NA returned</em></li>
+</ol>
+
+  <button class="quiz-submit btn btn-primary">Submit</button>
+  <button class="quiz-toggle-hint btn btn-info">Show Hint</button>
+  <button class="quiz-show-answer btn btn-success">Show Answer</button>
+  <button class="quiz-clear btn btn-danger">Clear</button>
+  
+  <div class="quiz-explanation">
+  <p>Instead of returning an error message, R returns NAs for all those pulled elements that do not exist (by the selected name). Beware of this behaviour and check your results at each step!</p>
+
+</div>
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-31" style="background:;">
+  <hgroup>
+    <h2>3. Naming vectors</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>All types of vectors can be named. You can name them <strong>during creation</strong> with <code>c()</code>:</p>
+
+<pre><code class="r">c(a = 1, b = 2, c = 4)
+</code></pre>
+
+<pre><code class="no-highlight">## a b c 
+## 1 2 4
+</code></pre>
+
+<p>Or <strong>afterwards</strong> by using the function <code>names()</code></p>
+
+<pre><code class="r">x &lt;- c(1,5,3)
+names(x) &lt;- c(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;)
+x 
+</code></pre>
+
+<pre><code class="no-highlight">## a b c 
+## 1 5 3
+</code></pre>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-32" style="background:;">
+  <hgroup>
+    <h2>4. Subsetting</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><code>[</code> is the subsetting function, and is called like <code>x[a]</code>.</p>
+
+<p>There are 4 ways to subset a vector:</p>
+
+<ol>
+<li>Using a <strong>numeric</strong> vector containing only integers</li>
+<li>Subsetting with a <strong>logical</strong> vector </li>
+<li>Using a <strong>named</strong> vector</li>
+<li>Using <strong>nothing</strong> </li>
+</ol>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-33" style="background:;">
+  <article data-timings="">
+    <p>1.Using a <strong>numeric</strong> vector containing only integers. </p>
+
+<pre><code class="r">x &lt;- c(&quot;one&quot;, &quot;two&quot;, &quot;three&quot;, &quot;four&quot;, &quot;five&quot;)
+# positive integers keep elements at position:
+x[c(5, 1, 3)]
+</code></pre>
+
+<pre><code class="no-highlight">## [1] &quot;five&quot;  &quot;one&quot;   &quot;three&quot;
+</code></pre>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-34" style="background:;">
+  <article data-timings="">
+    <p>1.Using a <strong>numeric</strong> vector containing only integers. </p>
+
+<pre><code class="r">x &lt;- c(&quot;one&quot;, &quot;two&quot;, &quot;three&quot;, &quot;four&quot;, &quot;five&quot;)
+# positive integers keep elements at position:
+x[c(5, 1, 3)]
+</code></pre>
+
+<pre><code class="no-highlight">## [1] &quot;five&quot;  &quot;one&quot;   &quot;three&quot;
+</code></pre>
+
+<pre><code class="r"># repeating integers make vectors longer:
+x[c(1,1,1,1,2,2,2,2,3,3,3,4,4,5,5)]
+</code></pre>
+
+<pre><code class="no-highlight">##  [1] &quot;one&quot;   &quot;one&quot;   &quot;one&quot;   &quot;one&quot;   &quot;two&quot;   &quot;two&quot;   &quot;two&quot;   &quot;two&quot;  
+##  [9] &quot;three&quot; &quot;three&quot; &quot;three&quot; &quot;four&quot;  &quot;four&quot;  &quot;five&quot;  &quot;five&quot;
+</code></pre>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-35" style="background:;">
+  <article data-timings="">
+    <p>1.Using a <strong>numeric</strong> vector containing only integers. </p>
+
+<pre><code class="r">x &lt;- c(&quot;one&quot;, &quot;two&quot;, &quot;three&quot;, &quot;four&quot;, &quot;five&quot;)
+# positive integers keep elements at position:
+x[c(5, 1, 3)]
+</code></pre>
+
+<pre><code class="no-highlight">## [1] &quot;five&quot;  &quot;one&quot;   &quot;three&quot;
+</code></pre>
+
+<pre><code class="r"># repeating integers make vector longer:
+x[c(1,1,1,1,2,2,2,2,3,3,3,4,4,5,5)]
+</code></pre>
+
+<pre><code class="no-highlight">##  [1] &quot;one&quot;   &quot;one&quot;   &quot;one&quot;   &quot;one&quot;   &quot;two&quot;   &quot;two&quot;   &quot;two&quot;   &quot;two&quot;  
+##  [9] &quot;three&quot; &quot;three&quot; &quot;three&quot; &quot;four&quot;  &quot;four&quot;  &quot;five&quot;  &quot;five&quot;
+</code></pre>
+
+<pre><code class="r"># negative integers remove elements:
+x[c(-3,-5)]
+</code></pre>
+
+<pre><code class="no-highlight">## [1] &quot;one&quot;  &quot;two&quot;  &quot;four&quot;
+</code></pre>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-36" style="background:;">
+  <article data-timings="">
+    <p>1.Using a <strong>numeric</strong> vector containing only integers. </p>
+
+<pre><code class="r"># but you cannot mix
+# x[c(1,2,-5)] # --&gt; gives error message
+
+# Using zero
+x[0] # --&gt; returns an empty vector
+</code></pre>
+
+<pre><code class="no-highlight">## character(0)
+</code></pre>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-37" style="background:;">
+  <article data-timings="">
+    <p>2.Subsetting with a <strong>logical</strong> vector keeps all values corresponding to a <code>TRUE</code> value. This is most often useful in conjunction with the comparison functions.</p>
+
+<pre><code class="r">x &lt;- c(10, 3, NA, 5, 8, 1, NA)
+
+# All non-missing values of x
+b &lt;- is.na(x)
+x[!b]  # the ! reverses the TRUE/FALSE values
+</code></pre>
+
+<pre><code class="no-highlight">## [1] 10  3  5  8  1
+</code></pre>
+
+<pre><code class="r"># All even (or missing!) values of x
+x[x %% 2 == 0]
+</code></pre>
+
+<pre><code class="no-highlight">## [1] 10 NA  8 NA
+</code></pre>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-38" style="background:;">
+  <article data-timings="">
+    <p>3.If you have a <strong>named</strong> vector, you can subset it with a character vector:</p>
+
+<pre><code class="r">x &lt;- c(abc = 1, def = 2, xyz = 5)
+x[c(&quot;xyz&quot;, &quot;def&quot;)]
+</code></pre>
+
+<pre><code class="no-highlight">## xyz def 
+##   5   2
+</code></pre>
+
+<pre><code class="r"># you can also duplicate elements
+x[c(&quot;xyz&quot;, &quot;def&quot;, &quot;def&quot;)]
+</code></pre>
+
+<pre><code class="no-highlight">## xyz def def 
+##   5   2   2
+</code></pre>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-39" style="background:;">
+  <article data-timings="">
+    <p>4.Using <strong>nothing</strong> returns the original vector. More important for other data structures</p>
+
+<pre><code class="r">x[]
+</code></pre>
+
+<pre><code class="no-highlight">## abc def xyz 
+##   1   2   5
+</code></pre>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="segue" style="background:#EEC900;">
+  <hgroup>
+    <h1>Your turn...</h1>
+  </hgroup>
+  <article>
+    
+  </article>
+</slide>
+<slide class="" id="slide-41" style="background:#EEC900;">
+  <hgroup>
+    <h1>Quiz 8: Subsetting</h1>
+  </hgroup>
+  <article data-timings="">
+    
+<div class="quiz-text quiz-multitext well">
+  <p>A vector <strong>x</strong> has been created by drawing 20 numbers randomly from 1 to 1000:</p>
+
+<pre><code class="r">set.seed(1) # (= state of the Random Number Generator set to 1)
+x &lt;- sample(1:1000, 20) 
+</code></pre>
+
+<p>Try it out yourself and answer the following 3 questions:</p>
+
+<ol>
+<li>Which number does the 5th element of the vector <strong>x</strong> have?</li>
+<li>What is the sum of the first 4 elements of <strong>x</strong>?</li>
+<li>What is the sum if the 3rd and 15th element are excluded?</li>
+</ol>
+
+  <button class="quiz-submit btn btn-primary">Submit</button>
+  <button class="quiz-toggle-hint btn btn-info">Show Hint</button>
+  <button class="quiz-show-answer btn btn-success">Show Answer</button>
+  <button class="quiz-clear btn btn-danger">Clear</button>
+  
+  <div class="quiz-explanation">
+  <p>1.To get the 5th element: <code>x[5]</code><br>
+2.To sum up over the first 4 elements:<br>
+<code>sum(x[1:4])</code>or <code>sum(x[c(1,2,3,4)])</code><br>
+3.To remove the 3rd and 15th element before summation:<br>
+<code>sum(x[c(-3, -15)])</code></p>
+
+<ol>
+<li><span class='answer'>201</span></li>
+<li><span class='answer'>2116</span></li>
+<li><span class='answer'>9672</span></li>
+</ol>
+
+</div>
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-42" style="background:;">
+  <hgroup>
+    <h2>Attributes</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>All objects can have arbitrary additional attributes, used to <strong>store metadata</strong> about the object. </li>
+<li>Attributes can be thought of as a <strong>named list</strong> (with unique names). </li>
+<li>Attributes can be <strong>accessed</strong> individually with <code>attr()</code> or all at once (as a list) with <code>attributes()</code>.</li>
+</ul>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-43" style="background:;">
+  <hgroup>
+    <h2>Attributes</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>All objects can have arbitrary additional attributes, used to <strong>store metadata</strong> about the object. </li>
+<li>Attributes can be thought of as a <strong>named list</strong> (with unique names). </li>
+<li>Attributes can be <strong>accessed</strong> individually with <code>attr()</code> or all at once (as a list) with <code>attributes()</code>.</li>
+</ul>
+
+<pre><code class="r">y &lt;- 1:10
+attr(y, &quot;my_attribute&quot;) &lt;- &quot;This is a vector&quot;
+attr(y, &quot;my_attribute&quot;)
+</code></pre>
+
+<pre><code class="no-highlight">## [1] &quot;This is a vector&quot;
+</code></pre>
+
+<pre><code class="r">attributes(y)
+</code></pre>
+
+<pre><code class="no-highlight">## $my_attribute
+## [1] &quot;This is a vector&quot;
+</code></pre>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-44" style="background:;">
+  <hgroup>
+    <h2>Attributes (cont)</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>The  <strong>three most important</strong> attributes are:
+
+<ul>
+<li><strong>Names</strong>, a character vector giving each element a name.</li>
+<li><strong>Dimensions</strong>, used to turn vectors into matrices and arrays.</li>
+<li><strong>Class</strong>, used to implement the S3 object system.</li>
+</ul></li>
+</ul>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-45" style="background:;">
+  <hgroup>
+    <h2>Attributes (cont)</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>The  <strong>three most important</strong> attributes are:
+
+<ul>
+<li><strong>Names</strong>, a character vector giving each element a name.</li>
+<li><strong>Dimensions</strong>, used to turn vectors into matrices and arrays.</li>
+<li><strong>Class</strong>, used to implement the S3 object system.</li>
+</ul></li>
+</ul>
+
+<p>Each of these attributes has a <strong>specific accessor function</strong> to get and set values:</p>
+
+<ul>
+<li><code>names(x)</code> </li>
+<li><code>dim(x)</code> </li>
+<li><code>class(x)</code></li>
+</ul>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-46" style="background:;">
+  <hgroup>
+    <h2>Factors</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>One important use of <strong>attributes</strong> is to <strong>define factors</strong>. Factors are</p>
+
+<ul>
+<li>vectors that can contain only <strong>predefined values</strong>,<br></li>
+<li>used to store <strong>categorical data</strong>,</li>
+<li>built <strong>on top of integer</strong> vectors using two attributes: 
+
+<ul>
+<li>the <strong>class</strong>, “factor”, which makes them behave differently from regular integer vectors,</li>
+<li>and the <strong>levels</strong>, which defines the set of allowed values.</li>
+</ul></li>
+<li>for more on factors see lecture 10</li>
+</ul>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-47" style="background:;">
+  <hgroup>
+    <h2>Factors (cont)</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">x &lt;- factor(c(&quot;a&quot;, &quot;b&quot;, &quot;b&quot;, &quot;a&quot;))
+x
+</code></pre>
+
+<pre><code class="no-highlight">## [1] a b b a
+## Levels: a b
+</code></pre>
+
+<pre><code class="r">class(x)
+</code></pre>
+
+<pre><code class="no-highlight">## [1] &quot;factor&quot;
+</code></pre>
+
+<pre><code class="r">levels(x)
+</code></pre>
+
+<pre><code class="no-highlight">## [1] &quot;a&quot; &quot;b&quot;
+</code></pre>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="segue" style="background:#1874CD;">
+  <hgroup>
+    <h1>Vectorized operations in R</h1>
+  </hgroup>
+  <article>
+    <p><img src="img/Data_science_1a.png" style="height:150px;border:0;position: absolute; left: 900px; top: 50px" </img> </p>
+
+  </article>
+</slide>
+<slide class="" id="slide-49" style="background:;">
+  <hgroup>
+    <h2>Basic calculation example</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">a &lt;- c(1,2,3,4)
+c &lt;- (a + sqrt(a))/(exp(2)+1)
+c
+</code></pre>
+
+<pre><code class="no-highlight">## [1] 0.2384058 0.4069842 0.5640743 0.7152175
+</code></pre>
+
+<h3>Why 4 values???</h3>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-50" style="background:;">
+  <hgroup>
+    <h2>Vectorized calculations</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>R calculations are vectorized, that means certain calculations are done <strong>with each element of a vector</strong>.</p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-51" style="background:;">
+  <hgroup>
+    <h2>Vectorized calculations</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>R calculations are vectorized, that means certain calculations are done <strong>with each element of a vector</strong>.</p>
+
+<h3>Guess...</h3>
+
+<pre><code class="r">a &lt;- c(1,2,3,4)
+b &lt;- 10
+</code></pre>
+
+<pre><code class="r">a + b 
+a * b 
+</code></pre>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-52" style="background:;">
+  <hgroup>
+    <h2>Vectorized calculations</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>R calculations are vectorized, that means certain calculations are done <strong>with each element of a vector</strong>.</p>
+
+<h3>Guess...</h3>
+
+<pre><code class="r">a &lt;- c(1,2,3,4)
+b &lt;- 10 # b gets recycled to the length of a
+</code></pre>
+
+<pre><code class="r">a + b # = a[1] + b[1], a[2] + b[&quot;2&quot;], a[3] + b[&quot;3&quot;], a[4] + b[&quot;4&quot;]
+</code></pre>
+
+<pre><code class="no-highlight">## [1] 11 12 13 14
+</code></pre>
+
+<pre><code class="r">a * b # = a[1] * b[1], ...
+</code></pre>
+
+<pre><code class="no-highlight">## [1] 10 20 30 40
+</code></pre>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="segue" style="background:#EEC900;">
+  <hgroup>
+    <h1>Your turn...</h1>
+  </hgroup>
+  <article>
+    
+  </article>
+</slide>
+<slide class="" id="slide-54" style="background:#EEC900;">
+  <hgroup>
+    <h1>Quiz 9: Total Sums of Squares \(\sum_{i=1}^{n} \left(x_{i} - \bar{x}\right)^{2}\)</h1>
+  </hgroup>
+  <article data-timings="">
+    
+<div class="quiz-text quiz-multitext well">
+  <p>Calculate for the following vector</p>
+
+<pre><code class="r">set.seed(1)
+x &lt;- sample(1:20, 20, replace = TRUE)
+</code></pre>
+
+<p>the sum, over all observations, of squared deviation of each observation from the overall mean.</p>
+
+<ol>
+<li>Write the result in the following box and compare</li>
+</ol>
+
+  <button class="quiz-submit btn btn-primary">Submit</button>
+  <button class="quiz-toggle-hint btn btn-info">Show Hint</button>
+  <button class="quiz-show-answer btn btn-success">Show Answer</button>
+  <button class="quiz-clear btn btn-danger">Clear</button>
+  
+  <div class="quiz-hint">
+  <p><small>The follow functions are useful: <code>sum()</code>, <code>mean()</code>.
+Remember, the calculation needs to be from the innermost to the
+outermost parenthesis (just like a calculator). So your order should be:
+1. calculate deviations of vector,
+2. square deviations,
+3. sum all up. </small></p>
+
+</div>
+<div class="quiz-explanation">
+  <p><code>sum( (x-mean(x))^2 )</code></p>
+
+<ol>
+<li><span class='answer'>594.8</span></li>
+</ol>
+
+</div>
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="segue" style="background:#E5E5E5;">
+  <hgroup>
+    <h2>Overview of functions you learned today</h2>
+  </hgroup>
+  <article>
+    <p><code>c()</code>, <code>typeof()</code>, <code>length()</code>, <code>is.logical()</code>, <code>as.logical()</code>, <code>is.integer()</code>, <code>as.integer()</code>, <code>is.double()</code>, <code>as.double()</code>, <code>is.numeric()</code>, <code>as.numeric()</code>, <code>is.character()</code>, <code>as.character()</code>, <code>str()</code>, </p>
+
+<p><code>names()</code>, <code>[]</code>, <code>is.na()</code>, <code>set.seed()</code>, <code>sample()</code>, <code>attr()</code>, <code>attributes()</code>, <code>dim()</code>, <code>class()</code>, </p>
+
+<p><code>factor()</code>, <code>levels()</code>,</p>
+
+<p><code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>^</code>, <code>sqrt()</code>, <code>exp()</code></p>
+
+  </article>
+</slide>
+<slide class="segue" style="background:#CD2626;">
+  <hgroup>
+    <h1>How do you feel now.....?</h1>
+  </hgroup>
+  <article>
+    
+  </article>
+</slide>
+<slide class="" id="slide-57">
+  <hgroup>
+    <h2>Totally confused?</h2>
+  </hgroup>
+  <article class = 'flexbox vcenter'>
+    <p><img src="img/Comic_confused.png" title="plot of chunk unnamed-chunk-39" alt="plot of chunk unnamed-chunk-39" width="400px" style="display: block; margin: auto;" /></p>
+
+<p>Try out the <a href="https://campus.datacamp.com/courses/free-introduction-to-r/chapter-1-intro-to-basics-1?ex=1">online tutorial at Data Camp</a></p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-58">
+  <hgroup>
+    <h2>Totally bored?</h2>
+  </hgroup>
+  <article class = 'flexbox vcenter'>
+    <p><img src="img/Comic_bored.png" title="plot of chunk unnamed-chunk-40" alt="plot of chunk unnamed-chunk-40" width="800px" style="display: block; margin: auto auto auto 0;" /></p>
+
+<p>Don&#39;t worry! Soon you won&#39;t be bored anymore!!</p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-59" style="background:;">
+  <hgroup>
+    <h2>Totally content?</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Then go grab a coffee, lean back and enjoy the rest of the day...!</p>
+
+<p><img src="img/Comic_hammock.png" title="plot of chunk unnamed-chunk-41" alt="plot of chunk unnamed-chunk-41" width="600px" style="display: block; margin: auto;" /></p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="thank-you-slide segue" id="slide-60">
+  <footer>
+    <div style="position: absolute; left: 50px; top: 50px; z-index:100">
+        <img src = "assets/img/uham_logo.png" height="67" width="200">
+    </div>
+  </footer>
+  <article>
+    <h1 style="padding-top: 120px;">Thank You</h1>
+    <p>
+      For more information contact me:<a href="saskia.otto@uni-hamburg.de">
+      saskia.otto@uni-hamburg.de</a>
+      </p>
+      <p data-config-contact="">
+      <a href="http://www.researchgate.net/profile/Saskia_Otto"
+          style="color:#F48C0A; font-weight: bold;">
+        http://www.researchgate.net/profile/Saskia_Otto</a><br>
+      <a href="http://www.github.com/saskiaotto"
+          style="color: #F48C0A; font-weight: bold;">
+        http://www.github.com/saskiaotto</a>
+    </p>
+    <p style="font-size: 15px; position: absolute; left: 125px; top: 480px; z-index:100">
+    <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+      <img alt="Creative Commons License" style="border-width:0"
+        src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" /></a><br>
+        This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+        Creative Commons Attribution-ShareAlike 4.0 International License </a>except for the <br>
+        borrowed and mentioned with proper <i>source:</i> statements. <br>
+        <b>Image on title and end slide:</b> Section of an infrared satallite image showing the Larsen C
+        ice shelf on the Antarctic <br>
+        Peninsula - USGS/NASA Landsat: <a href="https://landsat.visibleearth.nasa.gov/view.php?id=90481">
+        A Crack of Light in the Polar Dark</a>, Landsat 8 - TIRS, June 17, 2017 <br>
+        (under CC0 license)
+    </p>
+  </article>
+</slide>
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Basic data types in R'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Some of the most basic types are:'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Some of the most basic types are:'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Whats the data type'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='Test types'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='Test types (cont)'>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='Missing values'>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title='Data structures'>
+         8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title='The most basic structure: atomic vectors'>
+         9
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=10 title='Atomic vectors'>
+         10
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=11 title='Atomic vectors'>
+         11
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=12 title='Atomic vectors'>
+         12
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=13 title='Hierarchy of data types in atomic vectors'>
+         13
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=14 title='Vector properties'>
+         14
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=15 title='Vector properties'>
+         15
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=16 title='Important tools for working with vectors'>
+         16
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=17 title='1. Coercion'>
+         17
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=18 title='1. Coercion'>
+         18
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=19 title='1. Coercion (cont)'>
+         19
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=20 title='Your turn...'>
+         20
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=21 title='Quiz 1: Coercion rules'>
+         21
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=22 title='Quiz 2: Coercion rules'>
+         22
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=23 title='Quiz 3: Coercion rules'>
+         23
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=24 title='Quiz 4: Coercion rules'>
+         24
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=25 title='Quiz 5 - Challenge: Coercion rules'>
+         25
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=26 title='2. Recycling rules'>
+         26
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=27 title='2. Recycling rules'>
+         27
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=28 title='Your turn...'>
+         28
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=29 title='Quiz 6: Recycling rules'>
+         29
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=30 title='Quiz 7: Recycling rules'>
+         30
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=31 title='3. Naming vectors'>
+         31
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=32 title='4. Subsetting'>
+         32
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=33 title='NA'>
+         33
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=34 title='NA'>
+         34
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=35 title='NA'>
+         35
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=36 title='NA'>
+         36
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=37 title='NA'>
+         37
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=38 title='NA'>
+         38
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=39 title='NA'>
+         39
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=40 title='Your turn...'>
+         40
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=41 title='Quiz 8: Subsetting'>
+         41
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=42 title='Attributes'>
+         42
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=43 title='Attributes'>
+         43
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=44 title='Attributes (cont)'>
+         44
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=45 title='Attributes (cont)'>
+         45
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=46 title='Factors'>
+         46
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=47 title='Factors (cont)'>
+         47
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=48 title='Vectorized operations in R'>
+         48
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=49 title='Basic calculation example'>
+         49
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=50 title='Vectorized calculations'>
+         50
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=51 title='Vectorized calculations'>
+         51
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=52 title='Vectorized calculations'>
+         52
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=53 title='Your turn...'>
+         53
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=54 title='Quiz 9: Total Sums of Squares \(\sum_{i=1}^{n} \left(x_{i} - \bar{x}\right)^{2}\)'>
+         54
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=55 title='Overview of functions you learned today'>
+         55
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=56 title='How do you feel now.....?'>
+         56
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=57 title='Totally confused?'>
+         57
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=58 title='Totally bored?'>
+         58
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=59 title='Totally content?'>
+         59
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=60 title='NA'>
+         60
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  <script src="libraries/widgets/quiz/js/jquery.quiz.js"></script>
+<script src="libraries/widgets/quiz/js/mustache.min.js"></script>
+<script src="libraries/widgets/quiz/js/quiz-app.js"></script>
+<script src="libraries/widgets/bootstrap/js/bootstrap.min.js"></script>
+<script src="libraries/widgets/bootstrap/js/bootbox.min.js"></script>
+<script src="libraries/widgets/interactive/js/ace/js/ace.js"></script>
+<script src="libraries/widgets/interactive/js/opencpu-0.5.js"></script>
+<script src="libraries/widgets/interactive/js/interactive.js"></script>
+
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<script>  
+  $(function (){ 
+    $("#example").popover(); 
+    $("[rel='tooltip']").tooltip(); 
+  });  
+  </script>  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

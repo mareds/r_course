@@ -1,0 +1,100 @@
+---
+title: "Lecture quizzes with swirl"
+output: 
+  html_document:
+    toc: yes
+    toc_float:
+      collapsed: false
+      smooth_scroll: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(tidy=FALSE, warning=FALSE, message=FALSE, cache=FALSE)
+knitr::opts_chunk$set(dev.args=list(bg="transparent"))    
+knitr::opts_chunk$set(fig.retina = 2)
+```
+
+All quiz questions in the lectures have been now converted into a [swirl](http://swirlstats.com/swirlify/index.html) course so that students can answer the quiz questions directly from within R, without all the additional information shown in the slides. The course is similarly structured as the lectures, containing X lessons each representing quizzes of one lecture. The course can be downloaded here:
+<a href="data_site/swirl_course_data_analysis_with_r.swc">Download .swc file</a>
+
+
+# What is *swirl*?
+
+*swirl* is an R package that teaches you R programming and data science interactively right in the R console. It is designed so that anyone can create interactive content and share it with others. Once the package is loaded it allows you to start any *swirl* course you have installed and you will be guided through the individual lessons and exercises step by step.
+
+## Installation (only first time)
+The package can be installed either directly from CRAN
+```{r, eval=FALSE}
+install.packages("swirl")
+```
+
+or you can get the most recent development version from the [GitHub repository](https://github.com/swirldev) using the devtools package:
+```{r, eval=FALSE}
+install.packages("devtools")  # if you don't have the package yet
+devtools::install_github("swirldev/swirl", ref = "dev")
+```
+
+## Start *swirl*
+Every time you want to run *swirl* you need to **load** the library and then **activate** it with the `swirl()` function:
+```{r, eval=FALSE}
+library("swirl")
+swirl()
+```
+At this step you will be welcomed and asked for a name (happens every time) that *swirl* will later use in the exercises. In a next step *swirl* will prompt you to choose a course. As the package does not come with any course pre-installed, you need to install one now. 
+
+## Installing courses
+You can install one of the recommended courses or choose one from the [course repository](https://github.com/swirldev/swirl_courses#swirl-courses), the [Swirl Course Network](http://swirlstats.com/scn/title.html) or any other one you can find in the internet.
+
+To get an overview of functions that will help you install *swirl* courses type
+```{r, eval=FALSE}
+?InstallCourses
+```
+
+You can install a course from the official course repository or a local .swc file using the `install_course()` function.
+```{r, eval=FALSE}
+# For instance, install the latest version of Team swirl's R Programming course:
+install_course(course_name ="R Programming")
+```
+
+
+## Installing the swirl course *'Data analysis with R'*
+
+Downloaded the .swc file "swirl_course_data_analysis_with_r.swc" (from [here](link)) and move it a folder of your choice.
+Install the course from within *swirl* (i.e., after you loaded and activated *swirl*) using **not** the `course_name` argument as in the previous example but the `swc_path` argument
+
+```{r, eval=FALSE}
+install_course(swc_path = "/your_file_path/swirl_course_data_analysis_with_r.swc")
+```
+You should see in the console now "| Course installed successfully!"
+
+To come back to your course overview from where you can select this course, type again
+```{r, eval=FALSE}
+swirl()
+```
+You will be given various information and instructions on how *swirl* works before you get to the actual course selection menu. Below you will find the summary of *swirl* functions you can use during the course.
+
+Once you selected the course you get to the lesson overview from where you can choose the lesson you want to run.
+
+## Change settings
+
+With the introduction of version 2.4.0, *swirl* includes an interface for `options()` called `swirl_options()` which allows you to change where courses are installed on your computer, where *swirl* user data is stored on your computer, and whether or not *swirl* should log your progress during lessons.
+
+
+## Operating manual
+
+In general,
+
+- when you see '...', that means you should press <kbd>Enter</kbd>.
+- when you see 'ANSWER:', the R prompt (>), or when you are asked to select from a list, that means it's your turn to enter a response, then press Enter to continue.
+- to exit *swirl* and return to the R prompt (>) at any time press <kbd>Esc</kbd>. If you are already at the prompt, type `bye()` to exit and save your progress. 
+
+When you are at the R prompt (>):
+
+- Typing `skip()` allows you to skip the current question.
+- Typing `play()` lets you experiment with R on your own; *swirl* will ignore what you do...
+- UNTIL you type `nxt()` which will regain *swirl*'s attention.
+- Typing `bye()` causes *swirl* to exit. Your progress will be saved.
+- Typing `main()` returns you to *swirl*'s main menu.
+- Typing `info()` displays these options again.
+
+

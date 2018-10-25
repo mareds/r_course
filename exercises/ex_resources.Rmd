@@ -1,0 +1,51 @@
+---
+title: "Resources"
+output: 
+  html_document:
+    toc: yes
+    toc_float:
+      collapsed: false
+      smooth_scroll: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(tidy=FALSE, warning=FALSE, message=FALSE, cache=FALSE)
+knitr::opts_chunk$set(dev.args=list(bg="transparent"))    
+knitr::opts_chunk$set(fig.retina = 2)
+```
+
+# Lectures
+
+If you are interested in the lecture presentations as PDFs, you can download a Zip file containing all lectures here:
+<a href="data_site/mareds_r_course_lectures.zip">Download lecture zip file [128.7 MB]</a>
+
+# Dataset
+
+The complete set of data files used in the lectures are available on the R Studio Server (for MARSYS students) but can also be downloaded here:
+<a href="data_site/mareds_r_course_data.zip">Download data zip file [615 KB]</a>
+
+<br>Alternatively, you can download the oceanographic and DATRAS fish data yourself from the [ICES Marine Data Portal](http://www.ices.dk/marine-data/data-portals).
+
+
+# Packages
+
+You should have the following packages installed on your computer to follow the exercises and demonstrations in the lectures (unless you will work on the institute's R Studio Server)
+
+- [tidyverse](https://www.rdocumentation.org/packages/tidyverse/versions/1.2.1) (includes already: ggplot2, tibble, tidyr, readr, dplyr, stringr, forcats, purrr)
+- [lubridate](https://www.rdocumentation.org/packages/lubridate/versions/1.7.0)
+- [modelr](https://www.rdocumentation.org/packages/modelr/versions/0.1.1)
+- [ggthemes](https://www.rdocumentation.org/packages/ggthemes/versions/3.4.0)
+- [RColorBrewer](https://www.rdocumentation.org/packages/RColorBrewer/versions/1.1-2)
+- [ggridges](https://cran.r-project.org/web/packages/ggridges/vignettes/introduction.html)
+- [ggmap](https://www.rdocumentation.org/packages/ggmap/versions/2.6.1)
+- [grid](https://www.rdocumentation.org/packages/grid/versions/3.4.3)
+- [gridExtra](https://www.rdocumentation.org/packages/gridExtra/versions/2.3)
+- [cowplot](https://www.rdocumentation.org/packages/cowplot/versions/0.9.2)
+- [FSA](https://www.rdocumentation.org/packages/FSA/versions/0.8.17)
+
+
+All these packages are available on [CRAN](https://cran.r-project.org) and can be installed in one go using the `install.packages()` function:
+```{r, eval=FALSE}
+install.packages(c("tidyverse", "lubridate", "modelr", "ggthemes", "RColorBrewer", "ggmap", 
+  "grid", "gridExtra", "cowplot", "FSA"))
+```

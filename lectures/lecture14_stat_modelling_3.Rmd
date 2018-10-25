@@ -1,0 +1,1393 @@
+---
+title       : Data Analysis with R
+subtitle    : 14 - Model building and selection
+author      : Saskia A. Otto
+job         : Postdoctoral Researcher
+framework   : io2012        
+highlighter : highlight.js 
+hitheme     : sao_theme     
+widgets     : [mathjax, quiz, bootstrap, interactive] 
+mode        : selfcontained 
+knit        : slidify::knit2slides
+logo        : uham_logo.png
+biglogo     : BigLogo_MDS.png
+assets      : {assets: ../../assets}
+--- &slide_no_footer .segue bg:#1874CD 
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(tidy=FALSE, warning=FALSE, message=FALSE, cache=FALSE, dev.args=list(bg="transparent"),    
+fig.retina = 2, fig.path = "lecture14_plotting_files/")
+knitr::knit_hooks$set(output = function(x, options) {
+  if (knitr:::output_asis(x, options)){
+   return(x)
+  }
+  stringr::str_c('\n\n```no-highlight\n', x, '```\n\n')
+})
+```
+
+```{r data, echo = FALSE}
+library(tidyverse)
+library(modelr)
+```
+
+# Model building
+<img src="img/Data_science_1c.png" style="height:150px;border:0;position: absolute; left: 900px; top: 50px" </img>
+
+---
+## Model building in 6 steps
+
+<img src="img/Model_building_6steps.png" style="width:600px;border:0;position: absolute; left: 250px; top: 125px" </img>
+
+---
+```{r, out.width = "850px", echo = FALSE, fig.align = 'center'}
+knitr::include_graphics("img/Model_building_6steps_1.png")
+```
+
+---
+```{r, out.width = "850px", echo = FALSE, fig.align = 'center'}
+knitr::include_graphics("img/Model_building_6steps_2.png")
+```
+
+---
+```{r, out.width = "850px", echo = FALSE, fig.align = 'center'}
+knitr::include_graphics("img/Model_building_6steps_3.png")
+```
+
+---
+```{r, out.width = "850px", echo = FALSE, fig.align = 'center'}
+knitr::include_graphics("img/Model_building_6steps_4.png")
+```
+
+---
+```{r, out.width = "850px", echo = FALSE, fig.align = 'center'}
+knitr::include_graphics("img/Model_building_6steps_5.png")
+```
+
+---
+```{r, out.width = "850px", echo = FALSE, fig.align = 'center'}
+knitr::include_graphics("img/Model_building_6steps_6.png")
+```
+
+---
+```{r, out.width = "850px", echo = FALSE, fig.align = 'center'}
+knitr::include_graphics("img/Model_building_6steps_7.png")
+```
+
+---
+```{r, out.width = "850px", echo = FALSE, fig.align = 'center'}
+knitr::include_graphics("img/Model_building_6steps_7.png")
+```
+
+<div class="alert alert-orange" style="position: absolute; left: 25px; top: 10px">
+  <small>NOTE: You can do step 1-6 also with different model families, compare them and select the one that fits best.</small>
+</div>
+
+
+--- &slide_no_footer .segue bg:#6495ED
+
+# 1. Defining the model family 
+<img src="img/Model_building_6steps_1b.png" style="height:250px;border:0;position: absolute; left: 750px; top: 50px" </img> 
+
+--- 
+## Aim
+### You want to find the function that best explains Y 
+
+$$Y_{i} =  f(\mathbf{X_{i}}) + \epsilon_{i}$$
+
+<div class="alert alert-green" style="position: absolute; left: 330px; top: 250x">
+  <h4>Note:</h4> <small style="font-size:20px;">X can be also a vector of several explanatory variables.</small>
+</div>
+
+---
+## The function for a straight line is $Y = a + bX$
+
+```{r, echo = FALSE, fig.align="center", fig.height=4, fig.width = 13}
+x <- 0:10
+df <- tibble(x, 
+  y1 = x, y2 = 20 + 5*x, y3 = -10 + 2*x, y4 = 50 + -3*x)
+
+p <- ggplot(df, aes(x = x)) + ylim(-20,70) + xlim (-2, 10) +
+  theme_linedraw() + theme(panel.grid = element_blank(),
+    plot.title = element_text(hjust = 0.5)) +
+  geom_vline(xintercept = 0, col = "grey50") + 
+  geom_hline(yintercept = 0, col = "grey50") 
+p1 <- p + geom_line(aes(y = y1), col = "red") + ggtitle("y = x")
+p2 <- p + geom_line(aes(y = y2), col = "red") + ggtitle("y = 20 + 5*x")
+p3 <- p + geom_line(aes(y = y3), col = "red") + ggtitle("y = -30 + 3*x")
+p4 <- p + geom_line(aes(y = y4), col = "red") + ggtitle("y = 10 + -3*x")
+
+gridExtra::grid.arrange(grobs = list(p1,p2,p3, p4), nrow = 1)
+```
+
+Where *y* is the dependent variable, *a* is the intercept, which is the value at which the line crosses the y-axis (when x is zero), *b* is the coefficent for the slope, and *x* is the independent variable.
+
+---
+## Quadratic relationships $Y=a+bX+cX^{2}$
+
+When the effect of an explanatory variable X changes with increasing or decreasing values of X a model with polynomial terms might be a better option.
+
+The quadratic dependence has three parameters and so can produce a variety of parabolas.
+
+```{r, echo = FALSE, fig.align="center", fig.height=3, fig.width = 13}
+a <- c(0, 100, -25, 25)
+b <- c(0, 0, 5, -2)
+c <- c(1, -1, 0.5, 0)
+d <- 1
+x <- seq(-10, 10, by = 0.1)
+df <- tibble(x, 
+  y1 = a[1] + b[1]*x + c[1]*x^2, 
+  y2 = a[2] + b[2]*x + c[2]*x^2, 
+  y3 = a[3] + b[3]*x + c[3]*x^2,
+  #y4 = a[1] + b[1] *x + c[4] *x^2 + d*x^3)
+  y4 = 1250 + 400*x + -100*x^2 + -30*x^3)
+
+p <- ggplot(df, aes(x = x)) + xlim (-10, 10) + ylim(-100,100) + 
+  theme_linedraw() + theme(panel.grid = element_blank(),
+    plot.title = element_text(hjust = 0.5)) +
+  geom_vline(xintercept = 0, col = "grey50") + 
+  geom_hline(yintercept = 0, col = "grey50") 
+
+rc <- annotate("rect", xmin=c(-Inf,0), xmax=c(0,Inf), 
+  ymin=c(-Inf,-Inf) , ymax=c(Inf,0), 
+  alpha=0.9, fill="grey95")
+
+p1 <- p + geom_line(aes(y = y1), col = "red") + 
+  ggtitle("a = 0, b = 0, c = 1") + rc
+p2 <- p + geom_line(aes(y = y2), col = "red") + 
+  ggtitle("a = 100, b = 0, c = -1") + rc
+p3 <- p + geom_line(aes(y = y3), col = "red") + 
+  ggtitle("a = -25, b = 5, c = 0.5") + rc
+p4 <- p + geom_line(aes(y = y4), col = "red") + 
+  ggtitle("Cubic regression") + rc + xlim (-5, 5) + ylim(-2000,2000) 
+
+gridExtra::grid.arrange(grobs = list(p1,p2,p3,p4), nrow = 1)
+```
+
+<small> <strong>a</strong> controls how quickly the parabola increases with X. If it is positive the parabola goes up and is trough-shaped, a negative value of a inverts the parabola. The parameter <strong>c</strong> controls the height of the parabola and the value of <strong>b</strong> controls the sideways displacement of the parabola. </small>
+
+
+--- &vcenter
+## Taylor’s theorem
+
+<div class="img-with-text" style="position: absolute; left: 950px; top: 25px; z-index:100">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/2/25/BTaylor.jpg" alt="B Taylor" width=75px height=100px>
+ <p><span class="source-img" style = "float:right">
+    <a href='https://en.wikipedia.org/wiki/Brook_Taylor' title=''>Brook Taylor</a></span></p>
+</div>
+
+- [Taylor’s theorem](https://en.wikipedia.org/wiki/Taylor%27s_theorem) says that you can approximate any smooth function with an infinite sum of polynomials. 
+
+- You can use a polynomial function to get arbitrarily close to a smooth function by fitting an equation like $Y = a + bX + cX^{2} + dX^{3} +eX^{4}$
+
+- R provides helper functions that produce orthogonal (i.e. uncorrelated) polynomials
+  - `poly(X, degree = 4)` → problem: outside the data range of the data predictions shoot off to +/- Inf
+  - alternative: use the natural spline with `splines::ns(X, df = 4)`
+  
+  
+<p><span class="source-img" style="position: absolute; left: 700px; top: 650px">source image:
+    <a href='https://en.wikipedia.org/wiki/Brook_Taylor#/media/File:BTaylor.jpg' title=''>Wikipedia</a> (under CCO licence)</span></p>  
+
+
+---
+## Exponential growth or decay 
+
+Curves following exponential growth or decay occur in many areas of biology. A general exponential growth is represented by $Y =a * e^{bX}$, a decay by $Y = a * e^{-bX}$.
+
+```{r, echo = FALSE, fig.align="center", fig.height=5, fig.width = 13}
+a <- c(1, 2, 0.5, 0.8)
+b <- c(0.25, 0.5, -0.1, -0.175)
+x <- -5:5
+df <- tibble(x, 
+  y1 = a[1] * exp(b[1]*x),
+  y2 = a[2] * exp(b[2]*x),
+  y3 = a[3] * exp(b[3]*x),
+  y4 = a[4] * exp(b[4] *x),
+  y1_log = log(a[1]) + b[1]*x,
+  y2_log = log(a[2]) + b[2]*x,
+  y3_log = log(a[3]) + b[3]*x,
+  y4_log = log(a[4]) + b[4] *x)
+
+p <- ggplot(df, aes(x = x)) + xlim (-5, 5) +
+  theme_linedraw() + theme(panel.grid = element_blank(),
+    plot.title = element_text(hjust = 0.5)) +
+  geom_vline(xintercept = 0, col = "grey50") + 
+  geom_hline(yintercept = 0, col = "grey50") 
+
+rc <- annotate("rect", xmin=c(-Inf,0), xmax=c(0,Inf), 
+  ymin=c(-Inf,-Inf) , ymax=c(Inf,0), 
+  alpha=0.9, fill="grey95")
+
+p1 <- p + geom_line(aes(y = y1), col = "red") + 
+  ggtitle(paste0(" a = ",a[1], ", b = ", b[1])) +
+  ylim(0,4) + rc
+p2 <- p + geom_line(aes(y = y2), col = "red") + 
+  ggtitle(paste0(" a = ",a[2], ", b = ", b[2])) +
+  ylim(0,25) + rc
+p3 <- p + geom_line(aes(y = y3), col = "red") + 
+  ggtitle(paste0(" a = ",a[3], ", b = ", b[3])) +
+  ylim(0,0.9) + rc
+p4 <- p + geom_line(aes(y = y4), col = "red") + 
+  ggtitle(paste0(" a = ",a[4], ", b = ", b[4])) +
+  ylim(0,2) + rc
+
+p5 <- p + geom_line(aes(y = y1_log), col = "deepskyblue4") + 
+  ggtitle(paste0("ln(y) = ln(",a[1], ") + ", b[1], "x")) +
+  ylim(-1.5,1.5) 
+p6 <- p + geom_line(aes(y = y2_log), col = "deepskyblue4") + 
+  ggtitle(paste0("ln(y) = ln(",a[2], ") + ", b[2], "x")) +
+  ylim(-4,4) 
+p7 <- p + geom_line(aes(y = y3_log), col = "deepskyblue4") + 
+  ggtitle(paste0("ln(y) = ln(",a[3], ") + ", b[3], "x")) +
+  ylim(-1.3,1.3) 
+p8 <- p + geom_line(aes(y = y4_log), col = "deepskyblue4") + 
+  ggtitle(paste0("ln(y) = ln(",a[4], ") + ", b[4], "x")) +
+  ylim(-1.3,1.3) 
+
+gridExtra::grid.arrange(nrow = 2,
+  grobs = list(p1,p2,p3,p4, p5,p6,p7,p8))
+```
+
+---
+## Exponential growth or decay 
+
+Curves following exponential growth or decay occur in many areas of biology. A general exponential growth is represented by $Y =a * e^{bX}$, a decay by $Y = a * e^{-bX}$.
+
+```{r, echo = FALSE, fig.align="center", fig.height=5, fig.width = 13}
+a <- c(1, 2, 0.5, 0.8)
+b <- c(0.25, 0.5, -0.1, -0.175)
+x <- -5:5
+df <- tibble(x, 
+  y1 = a[1] * exp(b[1]*x),
+  y2 = a[2] * exp(b[2]*x),
+  y3 = a[3] * exp(b[3]*x),
+  y4 = a[4] * exp(b[4] *x),
+  y1_log = log(a[1]) + b[1]*x,
+  y2_log = log(a[2]) + b[2]*x,
+  y3_log = log(a[3]) + b[3]*x,
+  y4_log = log(a[4]) + b[4] *x)
+
+p <- ggplot(df, aes(x = x)) + xlim (-5, 5) +
+  theme_linedraw() + theme(panel.grid = element_blank(),
+    plot.title = element_text(hjust = 0.5)) +
+  geom_vline(xintercept = 0, col = "grey50") + 
+  geom_hline(yintercept = 0, col = "grey50") 
+
+rc <- annotate("rect", xmin=c(-Inf,0), xmax=c(0,Inf), 
+  ymin=c(-Inf,-Inf) , ymax=c(Inf,0), 
+  alpha=0.9, fill="grey95")
+
+p1 <- p + geom_line(aes(y = y1), col = "red") + 
+  ggtitle(paste0(" a = ",a[1], ", b = ", b[1])) +
+  ylim(0,4) + rc
+p2 <- p + geom_line(aes(y = y2), col = "red") + 
+  ggtitle(paste0(" a = ",a[2], ", b = ", b[2])) +
+  ylim(0,25) + rc
+p3 <- p + geom_line(aes(y = y3), col = "red") + 
+  ggtitle(paste0(" a = ",a[3], ", b = ", b[3])) +
+  ylim(0,0.9) + rc
+p4 <- p + geom_line(aes(y = y4), col = "red") + 
+  ggtitle(paste0(" a = ",a[4], ", b = ", b[4])) +
+  ylim(0,2) + rc
+
+p5 <- p + geom_line(aes(y = y1_log), col = "deepskyblue4") + 
+  ggtitle(paste0("ln(y) = ln(",a[1], ") + ", b[1], "x")) +
+  ylim(-1.5,1.5) 
+p6 <- p + geom_line(aes(y = y2_log), col = "deepskyblue4") + 
+  ggtitle(paste0("ln(y) = ln(",a[2], ") + ", b[2], "x")) +
+  ylim(-4,4) 
+p7 <- p + geom_line(aes(y = y3_log), col = "deepskyblue4") + 
+  ggtitle(paste0("ln(y) = ln(",a[3], ") + ", b[3], "x")) +
+  ylim(-1.3,1.3) 
+p8 <- p + geom_line(aes(y = y4_log), col = "deepskyblue4") + 
+  ggtitle(paste0("ln(y) = ln(",a[4], ") + ", b[4], "x")) +
+  ylim(-1.3,1.3) 
+
+gridExtra::grid.arrange(nrow = 2,
+  grobs = list(p1,p2,p3,p4, p5,p6,p7,p8))
+```
+
+<div class="alert alert-green" style="position: absolute; left: 25; top: 585px">
+  <small style="font-size:10px">Since the natural log is the inverse function of an exponential function, ln(exp(x)) = x, an exponential curve can be changed into a linear relationship by taking the natural log of both sides of the equation.</small>
+</div>
+
+---
+## Linearizating relationships through transformations
+
+<div class="img-with-text" style="position: absolute; left: 100px; top: 120px; z-index:100">
+    <img src="img/Zuur_transformations.png" alt="" width=800px height=400px />
+ <p><span class="source-img" style = "float:right">
+    source: <a href='http://highstat.com/index.php/analysing-ecological-data' title=''>Zuur et al., 2007 (Chapter 4)</a></span></p>
+</div>
+
+
+--- &twocol
+## Example: Weight ~ Length relationship
+
+A typical example for a linear relationship, which cannot be described by linear graph, is in marine biology the weight-length relationships. For most species, it will follow a 2 parameter power function: $W = aL^{b}$
+
+
+*** =left
+<small>Lengths and weights for Chinook Salmon from three locations in Argentina (data is provided in the [FSA](https://cran.r-project.org/web/packages/FSA/index.html) package).</small>
+
+*** =right
+```{r, echo = FALSE, fig.height=5, fig.width=6, fig.align='center'}
+library(FSAdata)
+library(FSA)
+# FSAdataTopics
+# help.search("Weight-Length",package=c("FSA","FSAdata"),fields="concept")
+# str(ChinookArg)
+ggplot(ChinookArg, aes(x = tl, y = w, col = loc)) +
+  geom_point() + 
+  scale_colour_manual(values = 
+      c("forestgreen", "orange1", "deeppink4")) +
+  guides(colour = guide_legend(title = "Capture location")) +
+  labs(x = "Total lenght (cm)", y = "Weight (kg)") +
+  theme_classic() + theme(legend.position = c(0,1),
+    legend.justification = c(-0.25,1))
+```
+
+---
+### Applying the bulging rule
+
+```{r, echo = FALSE, fig.height=7, fig.width=10, fig.align='center'}
+p <- ggplot(ChinookArg, aes(col = loc)) +
+  scale_colour_manual(values = 
+      c("forestgreen", "orange1", "deeppink4")) +
+  guides(colour = "none") +
+  theme_classic() 
+txt_sz <- 4.5
+  
+p1 <- p + geom_point(aes(x = tl, y = w)) + 
+  labs(x = "Length", y = "Weight") +
+  annotate("text", label = "Transform X or Y \n to linearize",
+   x = 40, y = 15, colour = "darkblue", size = txt_sz)
+
+lbl_p2 <- "paste(italic(X) ^ 2, \"-transformation not sufficient\")"
+p2 <- p + geom_point(aes(x = tl^2, y = w)) + 
+  labs(x = "Length^2", y = "Weight") +
+  annotate("text", label = lbl_p2, 
+   x = 4000, y = 18, colour = "darkblue", size = txt_sz, parse = TRUE)
+
+p3 <- p + geom_point(aes(x = tl, y = log(w))) + 
+  labs(x = "Length", y = "Log(Weight)") +
+  annotate("text", label = 
+      "Log-tranforming Y is too severe \nand reverses the curve slightly",
+   x = 75, y = -2, colour = "darkblue", size = txt_sz) + ylim(-2.5, 4)
+
+p4 <- p + geom_point(aes(x = log(tl), y = log(w))) + 
+  labs(x = "Log(Length)", y = "Log(Weight)") +
+  annotate("text", label = "Solution: \nlog-transform both sides",
+   x = 3.5, y = 3, colour = "darkblue", size = txt_sz) +
+  ylim(-2.5,3.5) + xlim(2.8,5)
+
+gridExtra::grid.arrange(grobs = list(p1,p2,p3,p4),
+  nrow = 2)
+```
+
+---
+## General rule for common transformations
+
+- **Square root** transformation: `sqrt()`
+  - Count data.
+  - Variance is about equal to the mean.
+- **Log** transformation: `log()`
+  - Variances are not similar or larger than the mean.
+  - If the variables contains zeros add a constant (should be a proportionally small value) to each of the observations: `log(X+1)` or `log1p()`
+  - to back calculate: `exp(X_log)` or `expm1(X_log)` if 1 was added
+- **Arcsine** transformation: `asin()`
+  - Percentages and proportions
+
+--- &slide_no_footer .segue bg:#6495ED
+
+# 2. Generate a fitted model
+<img src="img/Model_building_6steps_2b.png" style="height:250px;border:0;position: absolute; left: 750px; top: 50px" </img> 
+
+---
+## Once you defined the model family
+
+- you can estimate the coefficients (in an iterative process) yourself
+- or you select the appropriate R function and the coefficents are automatically estimated.
+- The choice of function depends on the model family but also the **data type** and **distribution of Y**:
+
+---
+## An overview of common linear models
+
+```{r, out.width = "1000px", echo = FALSE}
+knitr::include_graphics("img/Common_models_overview.png")
+```
+
+<!-- |Data Type Y | Data Type X | Distribution Y | R Function | Statistical Model -->
+<!-- |:----------:|:-----------:|:--------------:|:----------:|:---------------:| -->
+<!-- | continuous | continuous | Gaussian | `lm()` | normal linear regression | -->
+<!-- | continuous | categorical | Gaussian | `aov()` or `lm()` | Analysis of Variance (ANOVA)| -->
+<!-- | continuous | both | Gaussian | `lm()` | Analysis of Covariance (ANCOVA) | -->
+<!-- | count | both | Poisson, negative bionomial | `glm()` | log-linear models (Poisson / NB regression) | -->
+<!-- | proportion | both | binomial | `glm()` | binomial logistic regression | -->
+<!-- | binary | both | Bernoulli | `glm()` | logistic regression | -->
+<!-- | categorical (> 2 classes) | both | multinomial | `glm()` | multinomial logistic regression (seldom)| -->
+<!-- | categorical (> 2 classes) | both | Gaussian | `MASS::lda()` | linear discriminant analysis| -->
+
+  
+
+---
+## Defining the model family in the R formula
+### Focus on simple normal linear regression models
+
+1. Straight line: `lm(formula = Y ~ X, data)`
+2. Relationship with polynomials: 
+  - Quadratic: `lm(Y ~ poly(X,2), data)` or `~ splines::ns(X, 2)` 
+  - Cubic: `lm(Y ~ poly(X,3), data)` or `~ splines::ns(X, 3)` 
+4. Linearize the relationship:
+  - `lm(formula = log(Y) ~ X, data)`
+  - `lm(formula = Y ~ log(X), data)`
+  - `lm(formula = log(Y) ~ log(X), data)`
+
+---
+## Formulas
+You can see how R defines the model by using `model_matrix()` from the *modelr* package
+
+```{r}
+df <- data.frame(y = c(10,20, 30), x1 = c(5,10,15))
+model_matrix(df, y ~ x1)
+```
+
+---
+## Formulas (cont)
+
+Now with polynomials
+```{r}
+model_matrix(df, y ~ poly(x1, 2))
+```
+
+---
+## Categorical X variables
+
+If *X* is categorical it doesn't make much sense to model $Y = a + bX$ as $X$ cannot be multiplied with $b$. But R has a workaround:
+- categorical predictors are **converted into multiple continuous predictors**
+- these are so-called **dummy variables**
+- each dummy variable is coded as **0 (FALSE)** or **1 (TRUE)**
+- the no. of dummy variables = no. of groups **minus 1**
+- all linear models fit categorical predictors using dummy variables
+
+--- &twocol
+
+```{r, echo=FALSE}
+set.seed(1)
+df <- data.frame(
+  y = sample(seq(0,20,0.1), 10), 
+  length = as.factor(sample(c("S", "M", "L"), 10, replace = TRUE)))
+```
+
+*** =left
+The data
+```{r}
+df
+```
+
+*** =right
+The dummy variables
+```{r}
+model_matrix(df, y ~ length)
+```
+
+<span style="font-size:25px; font-weight:bold; color:#ff0039">Where did the length class <strong>L</strong> go? </span> 
+
+--- &twocol
+
+*** =left
+The data
+```{r}
+df
+```
+
+*** =right
+The dummy variables
+```{r}
+model_matrix(df, y ~ length)
+```
+<span style="font-size:25px; font-weight:bold; color:#ff0039"><strong>L</strong> is represented by the <strong>intercept</strong> ! </span> 
+
+
+--- 
+## Overview of model formulae in R
+
+<div class="img-with-text" style="position: absolute; left: 200px; top: 100px; z-index:100">
+    <img src="img/Model_formulae_Crawley2007.png" alt="Formulae in R" width=700px height=600px />
+ <p><span class="source-img" style = "float:right">source: 
+    <a href='http://onlinelibrary.wiley.com/book/10.1002/9780470515075' title=''>Crawley (2007)</a></span></p>
+</div>
+
+
+--- &slide_no_footer .segue bg:#6495ED
+
+# 3. Partition your model
+<img src="img/Model_building_6steps_3b.png" style="height:250px;border:0;position: absolute; left: 750px; top: 50px" </img> 
+
+
+--- &twocol
+### Partition your model into predicted values and residuals
+
+```{r, echo=FALSE}
+library(FSA)
+ChinookArg <- ChinookArg %>%
+  mutate(tl_log = log(tl), w_log = log(w))
+mod<- lm(formula = w_log ~ tl_log, data = ChinookArg)
+```
+
+*** =left
+Predicted values: Check **modelfit**
+```{r, echo=FALSE, fig.height=7, fig.width=6}
+ChinookArg %>%
+add_predictions(mod, "Pred") %>%
+  ggplot(aes(x = tl_log)) +
+  geom_point(aes(y = w_log, colour = loc)) +
+  geom_line(aes(y = Pred)) +
+  scale_colour_manual(values = 
+      c("forestgreen", "orange1", "deeppink4")) +
+  guides(colour = guide_legend(title = "Capture location")) +
+  labs(x = "log(Length)", y = "log(Weight)") +
+  theme_classic() + theme(legend.position = c(0,1),
+    legend.justification = c(-0.25,1)) +
+    ggtitle("Weight~Length relationship of Chinook Salmon")
+```
+
+*** =right
+Residuals: Check **assumptions**
+```{r, echo=FALSE, fig.height=5, fig.width=6}
+par(mfrow = c(2,2))
+plot(mod)
+```
+
+```{r, echo=FALSE, fig.height=2, fig.width=6}
+ChinookArg %>% 
+  add_residuals(model = mod, var = "residuals") %>% 
+  ggplot(aes(x = residuals)) +
+  geom_histogram(binwidth = 0.05) +
+  geom_vline(xintercept = 0, 
+    colour = "blue", size = 0.5)
+```
+
+--- &slide_no_footer .segue bg:#6495ED
+
+# 4. Model the remaining noise
+<img src="img/Model_building_6steps_4b.png" style="height:250px;border:0;position: absolute; left: 750px; top: 50px" </img> 
+
+---
+## 2 different ways to understand what the model captures
+
+1. Study the model family and fitted coefficients (common in statistical modelling courses).
+2. Understanding a model by looking at its predictions and what it does not capture (the pattern in the residuals, i.e. the deviation of each observation from its predicted value) (getting more popular these days).
+ - Particularly studying the residuals helps to identify less pronounced patterns in the data.
+
+--- &twocol
+## Residual patterns
+
+*** =left
+A typical example where residuals are modelled is in fishery ecology when studying recruitment success:
+
+<div class="img-with-text" style="position: absolute; left: 600px; top: 50px; z-index:100">
+    <img src="img/Recr_residuals.png" alt="RecRes" width =375 />
+ <p><span class="source-img" style = "float:right">
+    <a href='https://www.researchgate.net/publication/288667847_STATISTICAL_INFERENCES_REGARDING_THE_HIGH_AND_LOW_RECRUITMENT_SCENARIOS_BASED_ON_THE_OUTPUT_FROM_THE_2012_AND_2014_STOCK_ASSESSMENTS_FOR_WESTERN_ATLANTIC_BLUEFIN_TUNA_A_PRELIMINARY_ANALYSIS_USING_THE_' title=''>Bluefin Species Group, 2015, Collect. Vol. Sci. Pap. ICCAT, 71(4): 1863-1869</a></span></p>
+</div>
+
+
+---
+## Best practice: 
+### Model the residual ~ every X variable not included in the model
+
+```{r, echo=FALSE, fig.align="center", fig.height=5, fig.width=8}
+ChinookArg %>% 
+  add_residuals(model = mod, var = "residuals") %>% 
+  ggplot(aes(loc, residuals)) +
+  geom_boxplot() +
+  geom_hline(yintercept = 0, 
+    colour = "blue", size = 0.5) +
+  ggtitle("Chinook Salmon example: residuals vs. location (only remaining X)")
+```
+
+Residuals show a distinct pattern: The model seems to underestimate the weight in Argentina and overestimate  in Puyehue.
+
+--- &slide_no_footer .segue bg:#6495ED
+
+# 5. Extend your fitted model with more X
+<img src="img/Model_building_6steps_5b.png" style="height:250px;border:0;position: absolute; left: 750px; top: 50px" </img> 
+
+---
+### Chinook Salmon example: add `loc` as X variable to the model
+
+```{r}
+mod2 <- lm(formula = w_log ~ tl_log + loc, data = ChinookArg)
+# alternatively
+mod2 <- update(mod, .~. + loc)
+```
+
+--- &twocol
+Check modelfit and diagnostics again
+
+*** =left
+```{r, echo=FALSE, fig.height=6, fig.width=6}
+grid <- ChinookArg %>% 
+  data_grid(tl_log = seq_range(tl_log, 20), loc) 
+p1 <- add_predictions(grid, mod2) %>%
+  ggplot(aes(x = tl_log)) + 
+  geom_line(aes(y = pred, colour = loc)) +
+  geom_point(data = ChinookArg, aes(y = w_log, colour = loc)) +
+  scale_colour_manual(values = 
+      c("forestgreen", "orange1", "deeppink4")) +
+  guides(colour = guide_legend(title = "Capture location")) +
+  labs(x = "log(Length)", y = "log(Weight)") +
+  theme_classic() + theme(legend.position = c(0,1),
+    legend.justification = c(-0.25,1)) +
+    ggtitle("Prediction model 2")
+
+pred_loc <- ChinookArg %>%
+  group_by(loc) %>%
+  summarise(tl_log = mean(tl_log)) %>%
+  add_predictions(mod2) 
+p2 <- ggplot(ChinookArg, aes(loc)) +
+  geom_boxplot(aes(y = w_log, fill = loc)) +
+  geom_point(data = pred_loc, aes(y = pred), 
+    shape = 4, colour = "white", size = 3) +
+  scale_fill_manual(values = 
+    c("forestgreen", "orange1", "deeppink4")) +
+  theme_classic() +
+  guides(fill = "none") +
+  labs(x = "Location", y = "log(Weight)") +
+  theme(plot.margin = unit(rep(0, 4), "lines"),
+    axis.text.x = element_blank())
+
+subvp <- grid::viewport(width = 0.4, height = 0.25, x = 0.75, y = 0.25)
+p1
+print(p2, vp = subvp)
+```
+
+*** =right
+```{r, echo=FALSE, fig.height=6, fig.width=6}
+par(mfrow = c(2,2))
+plot(mod2)
+```
+
+---
+```{r}
+summary(mod2)
+```
+
+
+--- &slide_no_footer .segue bg:#6495ED
+
+# 6. Test for interactions
+<img src="img/Model_building_6steps_6b.png" style="height:250px;border:0;position: absolute; left: 750px; top: 50px" </img> 
+
+---
+### Chinook Salmon example: include `tl_log:loc` interaction
+
+```{r}
+mod3 <- lm(formula = w_log ~ tl_log * loc, data = ChinookArg)
+# alternatively
+mod3 <- update(mod2, .~. + tl_log:loc)
+```
+
+--- &twocol
+Check modelfit and diagnostics again
+
+*** =left
+```{r, echo=FALSE, fig.height=6, fig.width=6}
+grid <- ChinookArg %>% 
+  data_grid(tl_log = seq_range(tl_log, 20), loc) 
+p1 <- add_predictions(grid, mod3) %>%
+  ggplot(aes(x = tl_log)) + 
+  geom_line(aes(y = pred, colour = loc)) +
+  geom_point(data = ChinookArg, aes(y = w_log, colour = loc)) +
+  scale_colour_manual(values = 
+      c("forestgreen", "orange1", "deeppink4")) +
+  guides(colour = guide_legend(title = "Capture location")) +
+  labs(x = "log(Length)", y = "log(Weight)") +
+  theme_classic() + theme(legend.position = c(0,1),
+    legend.justification = c(-0.25,1)) +
+    ggtitle("Prediction model 3")
+p1
+```
+
+*** =right
+```{r, echo=FALSE, fig.height=6, fig.width=6}
+par(mfrow = c(2,2))
+plot(mod3)
+```
+
+---
+```{r}
+summary(mod3)
+```
+
+--- &slide_no_footer .segue bg:#1874CD
+
+# Interpreting models with categorical X variables
+<img src="img/Data_science_1c.png" style="height:150px;border:0;position: absolute; left: 900px; top: 50px" </img> 
+
+---
+
+## Recall: Categorical X variables
+
+If *X* is categorical it doesn't make much sense to model $Y ~ a + bX$ as $X$ cannot be multiplied with $b$. But R has a workaround:
+- categorical predictors are **converted into multiple continuous predictors**
+- these are so-called **dummy variables**
+- each dummy variable is coded as **0 (FALSE)** or **1 (TRUE)**
+- the no. of dummy variables = no. of groups **minus 1**
+- all linear models fit categorical predictors using dummy variables
+
+--- &twocol
+## Only categorical X
+
+*** =left
+Differences of Chinook Salmon weight between three locations in Argentina
+
+```{r, eval = TRUE}
+chin_mod <- lm(w_log ~ loc, ChinookArg)
+```
+
+*** =right
+```{r, echo = FALSE, fig.align="center", fig.width=7, fig.height=6}
+ggplot(ChinookArg, aes(loc, w_log)) +
+  geom_boxplot(aes(fill = loc)) +
+  scale_fill_manual(values = 
+    c("forestgreen", "orange1", "deeppink4")) +
+  theme_classic()
+```
+
+--- &slide_no_footer .segue bg:#EEC900
+
+# Your turn...
+
+--- &exercise
+# How would you interpret these coefficients?
+
+```{r}
+chin_mod <- lm(w_log ~ loc, ChinookArg)
+coef(chin_mod)
+```
+
+What is the regression equation for each location?
+
+
+--- &exercise
+# How would you interpret these coefficients?
+R generates dummy variable to be able to apply regressions on categorical variables. We can see this using the `model.matrix()` function: 
+
+```{r}
+model.matrix(w_log ~ loc, ChinookArg) %>% 
+    as.data.frame(.) %>%
+  # adding the location variable from the original data
+  mutate(sampl_loc = ChinookArg$loc) %>%
+  head()
+```
+<small>We can see that the first 10 fish were sampled at the location 'Argentina' and that these observations were coded 1 for the variable 'intercept' (representing the first factor level → here Argentina) and 0 for the variable  `locPetrohue` and `locPuyehue`.</small>
+
+
+--- bg:#EEC900
+# Apply the estimated coefficients to the regression equation with dummy variables:
+
+```{r, echo=FALSE, out.width = "750px", fig.align='center'}
+knitr::include_graphics("img/lm_interpretation_ANOVA.png")
+```
+
+---
+## Only categorical X - ANOVA
+
+Linear regression with a categorical variable, is the equivalent
+of ANOVA (**ANalysis Of VAriance**). To see the output as an
+ANOVA table, use `anova()` on your lm object
+
+```{r}
+anova(chin_mod)
+```
+
+---
+## Only categorical X - ANOVA
+
+Alternatively, use `aov()` instead of `lm()`
+```{r}
+chin_aoc <- aov(w_log ~ loc, ChinookArg)
+summary(chin_aoc)
+```
+
+---
+## Categorical and continuous X variables: ANCOVA
+
+- **ANalysis of COVAriance** (ANCOVA) is a hybrid of a linear regression and ANOVA.
+- Has at least one continuous and one categorical explanatory variable.
+- Some consider ANCOVA as an "ANOVA"" model with a covariate included → focus on the factor levels adjusted for the covariate (e.g. [Quinn & Keough 2002](http://www.cambridge.org/de/academic/subjects/life-sciences/ecology-and-conservation/experimental-design-and-data-analysis-biologists?format=PB&isbn=9780521009768#Pq0cPIFm91XhGxdS.97)).
+- Some consider it as a "Regression" model with a categorical predictor →  focus on the covariate adjusted for the factor (e.g. [Crawley 2007](http://onlinelibrary.wiley.com/book/10.1002/9780470515075)).
+- The typical "maximal" model involves estimating an intercept and slope (regression part) for each level of the categorical variable(s) (ANOVA part) → i.e., including an interaction
+
+--- &twocol
+### Chinook Salmon weight as a function of location AND length  
+
+*** =left
+without interaction
+```{r, echo = FALSE, fig.align="center", fig.width=6, fig.height=6}
+grid <- ChinookArg %>% 
+  data_grid(tl_log = seq_range(tl_log, 20), loc) 
+p1 <- add_predictions(grid, mod2) %>%
+  ggplot(aes(x = tl_log)) + 
+  geom_line(aes(y = pred, colour = loc)) +
+  geom_point(data = ChinookArg, aes(y = w_log, colour = loc)) +
+  scale_colour_manual(values = 
+      c("forestgreen", "orange1", "deeppink4")) +
+  guides(colour = guide_legend(title = "Capture location")) +
+  ylab("w_log") +
+  theme_classic() + theme(legend.position = c(0,1),
+    legend.justification = c(-0.25,1)) 
+
+pred_loc <- ChinookArg %>%
+  group_by(loc) %>%
+  summarise(tl_log = mean(tl_log)) %>%
+  add_predictions(mod2) 
+p2 <- ggplot(ChinookArg, aes(loc)) +
+  geom_boxplot(aes(y = w_log, fill = loc)) +
+  geom_point(data = pred_loc, aes(y = pred), 
+    shape = 4, colour = "white", size = 3) +
+  scale_fill_manual(values = 
+    c("forestgreen", "orange1", "deeppink4")) +
+  theme_classic() +
+  guides(fill = "none") +
+  theme(plot.margin = unit(rep(0, 4), "lines"),
+    axis.text.x = element_blank())
+
+subvp <- grid::viewport(width = 0.4, height = 0.3, x = 0.75, y = 0.25)
+p1
+print(p2, vp = subvp)
+```
+
+*** =right
+with interaction
+```{r, echo = FALSE, fig.align="center", fig.width=6, fig.height=6}
+p1 <- add_predictions(grid, mod3) %>%
+  ggplot(aes(x = tl_log)) + 
+  geom_line(aes(y = pred, colour = loc)) +
+  geom_point(data = ChinookArg, aes(y = w_log, colour = loc)) +
+  scale_colour_manual(values = 
+      c("forestgreen", "orange1", "deeppink4")) +
+  guides(colour = guide_legend(title = "Capture location")) +
+  ylab("w_log") +
+  theme_classic() + theme(legend.position = c(0,1),
+    legend.justification = c(-0.25,1)) 
+p1
+```
+
+--- &vcenter
+## Regression view of an ANCOVA
+
+### $$w.log_{ij} =  \alpha_{i} + \beta_{i}*tl.log_{j} + \epsilon_{ij}$$
+where i = location, j = each individual fish
+
+--- &vcenter
+## Regression view of an ANCOVA
+### Location-specific equations
+
+$$w.log_{Arg,j} =  \alpha_{Arg} + \beta_{Arg}*tl.log_{j} + \epsilon_{Arg,j}$$
+
+$$w.log_{Pet,j} =  \alpha_{Pet} + \beta_{Pet}*tl.log_{j} + \epsilon_{Pet,j}$$
+
+$$w.log_{Puy,j} =  \alpha_{Puy} + \beta_{Puy}*tl.log_{j} + \epsilon_{Puy,j}$$
+
+
+
+--- &slide_no_footer .segue bg:#EEC900
+
+# Your turn...
+
+--- &exercise
+# ANCOVA Interpretation
+
+Run the following 2 models and formulate for both models the location-specific equations with the estimated coefficients
+
+```{r}
+library(FSA)
+ChinookArg <- mutate(ChinookArg, 
+  tl_log = log(tl), w_log = log(w))
+chin_ancova1 <- lm(w_log ~ loc + tl_log, ChinookArg)
+chin_ancova2 <- lm(w_log ~ loc * tl_log, ChinookArg)
+```
+
+--- &slide_no_footer .segue bg:#CD2626
+
+# Solution 
+
+--- 
+## ANCOVA 1 - no interaction
+
+```{r, echo=FALSE}
+chin_coef1 <- coef(chin_ancova1)
+a1 <- round(chin_coef1[1], 2)
+a2 <- round(chin_coef1[2], 2)
+a3 <- round(chin_coef1[3], 2)
+b <- round(chin_coef1[4], 2)
+```
+
+>$w.log = a1 + a2*locPetrohue + a3*locPuyehue+ b*tl.log$
+
+The estimate for the mean weight at location *Argentina*:  
+$w.log_{Arg} = a1 + a2*0 + a3*0 + b*tl.log$ = <strong>`r a1`+`r b`*tl_log</strong>
+
+The estimate for the mean weight at location *Petrohue*:  
+$w.log_{Pet} = a1 + a2*1 + a3*0 + b*tl.log$    
+= `r a1`+`r a2*1`+`r b`*tl_log = <strong>`r a1+a2*1+a3*0` + `r b`*tl_log</strong>
+
+The estimate for the mean weight at location *Puyehue*:  
+$w.log_{Puy} = a1 + a2*0 + a3*1 + b*tl.log$    
+= `r a1`+`r a3*1`+`r b`*tl_log = <strong>`r a1+a2*0+a3*1`+`r b` * tl_log</strong>
+
+
+--- 
+## ANCOVA 2 - with interaction
+
+```{r, echo=FALSE}
+chin_coef2 <- coef(chin_ancova2)
+a1 <- round(chin_coef2[1], 2)
+a2 <- round(chin_coef2[2], 2)
+a3 <- round(chin_coef2[3], 2)
+b1 <- round(chin_coef2[4], 2) 
+b2 <- round(chin_coef2[5], 2)
+b3 <- round(chin_coef2[6], 2)
+```
+
+>$\begin{eqnarray} w.log = a1 + a2*locPetrohue + a3*locPuyehue + \\ b1*tl.log+ b2*tl.log + b3*tl.log \end{eqnarray}$
+
+The estimate for the mean weight at location *Argentina*:  
+$w.log_{Arg}$ = <strong>`r a1`+`r b`*tl_log</strong>
+
+The estimate for the mean weight at location *Petrohue*:  
+$w.log_{Pet}$ = `r a1`+`r a2*1`+`r b1`*tl_log+`r b2`*tl_log = <strong>`r a1+a2` + `r b1+b2` * tl_log</strong>
+
+The estimate for the mean weight at location *Puyehue*:  
+$w.log_{Puy}$ = = `r a1`+`r a3*1`+`r b1`*tl_log+`r b3`*tl_log = <strong>`r a1+a3` + `r b1+b3` * tl_log</strong>
+
+
+--- &slide_no_footer .segue bg:#1874CD
+
+# Model selection
+<img src="img/Data_science_1c.png" style="height:150px;border:0;position: absolute; left: 900px; top: 50px" </img>
+
+---
+## How to compare and choose the best model?
+
+- Based on best goodness-of-fit: How well do the model fit a set of observations.
+- How to judge this?
+  - visually
+  - using a criterion that summarize the discrepancy between observed values and the values expected under the model, e.g.
+      - explained variance (**$R_{2}$**)
+      - Akaike's Information Criterion (**AIC**) and modifications
+      - Bayesian Information Criterion (**BIC**)
+- A good book on that subject is written by Anderson & Burnham 2002:[ Model Selection and Multimodel Inference - A Practical Information-Theoretic Approach](http://www.springer.com/de/book/9780387953649)
+
+--- &twocol
+## Akaike's Information Criterion 
+
+```{r, out.width = "600px", echo = FALSE, fig.align = 'center'}
+knitr::include_graphics("img/AIC_equation.png")
+```
+- The AIC is a **relative measure**, not an absolute as $R^2$: the values can only be compared between models **fitted to the same observations** and **same Y variables**. You can't compare models fitted to different data subsets or if Y is partly transformed!
+- The lower the AIC the better.
+- Rule of thumb: if difference between 2 models in AIC is **< 2** than choose the more simple model.
+- R function: `AIC()`
+
+--- 
+## Akaike's Information Criterion 
+### Chinook example:
+
+```{r}
+m1 <- lm(w_log ~ loc, ChinookArg)
+m2 <- lm(w_log ~ tl_log, ChinookArg)
+m3 <- lm(w_log ~ loc + tl_log, ChinookArg)
+m4 <- lm(w_log ~ loc * tl_log, ChinookArg)
+AIC(m1, m2, m3, m4)
+```
+Which model shows the best performance based on the AIC?
+
+---
+## Principle of parsimony (Occam‘s Razor):
+
+- As few parameters as possible.
+- Models should be minimal adequate.
+- Simple explanations should be preferred.
+- Linear models should be preferred to non-linear models.
+
+<br>
+```{r, out.width = "550px", echo = FALSE, fig.align = 'center'}
+knitr::include_graphics("img/Cartoon_occams_razor.png")
+```
+
+
+<kbd>p</kbd>
+
+*** =pnotes
+"The principle of parsimony is attributed to the early 14th-century English nominalist philosopher, William of Occam, who insisted that, given a set of equally good explanations for a given phenomenon, the correct explanation is the simplest explanation. It is called Occam’s razor because he ‘shaved’ his explanations down to the bare minimum." (from Crawley, 2007)
+
+--- &slide_no_footer .segue bg:#CDC673
+
+# Beware
+
+--- &slide_no_footer .segue bg:#CDC673
+
+<q>There is a temptation to become personally attached to a particular model. Statisticians call this 'falling in love with a model'.</q>
+
+---
+### Always keep in mind:
+
+- All models are wrong, but some are useful.
+- Some models are better than others.
+- The correct model can never be known with certainty.
+- The simpler the model, the better it is.
+
+
+--- &slide_no_footer .segue bg:#EEC900
+
+# Your turn...
+
+--- &exercise
+# Exercise: Find the 'true' model or the underlying function
+
+```{r, echo = FALSE, fig.height = 6, fig.width = 13, fig.align = 'center'}
+load("data/find_model.R")
+p1 <- df1 %>% ggplot(aes(x,y)) + geom_point() + ggtitle("Model 1 (df1)")
+p2 <- df2 %>% ggplot(aes(x,y)) + geom_point() + ggtitle("Model 2 (df2)")
+p3 <- df3 %>% ggplot(aes(x,y)) + geom_point() + ggtitle("Model 3 (df3)")
+p4 <- df4 %>% ggplot(aes(x,y)) + geom_point() + ggtitle("Model 4 (df4)")
+p5 <- df5 %>% ggplot(aes(x,y)) + geom_point() + ggtitle("Model 5 (df5)")
+
+gridExtra::grid.arrange(grobs = list(p1,p2,p3,p4,p5), ncol=3)
+```
+
+
+--- &exercise
+# Exercise: Find the 'true' model or the underlying function
+
+I generated different dataframes where the Y variable was modelled as a specific function of X plus some random noise. Load the datasets and see what objects you loaded with `ls()`
+
+```{r, eval = FALSE}
+load("data/find_model.R")
+ls()
+```
+You should see 10 dataframes. Try to find the 'true' models for df1, df2, df3, df4, and df5 by fitting different model families and compare their performance 
+- using the AIC (with function `AIC(model1, model2, model3,..)`) and 
+- plotting the predicted values to the observed ones and the residual histograms.
+
+Once you think you found it, apply your models on the dataframes that do not contain the random noise (e.g. df1_nonoise for df1) and compare results.
+
+
+---
+
+## Overview of functions for modelling and interpretation
+
+| What | Function |
+|---------|----------|
+| Lin. regression & ANCOVA | `lm()` |
+| ANOVA | `aov()` or `anova(lm())`|
+| Coefficients | `coef(mod)` |
+| Complete numerical output | `summary(mod)` |
+| Confidence intervals | `confint(mod)` |
+| Prediction |  `predict(mod)`, `modelr::add_predictions(data, mod)` |
+| Residuals | `resid(mod)`, `modelr::add_residuals(data, mod)` |
+| Diagnostic plots | `plot(mod)`, `acf(resid(mod))` |
+| Model comparison | `AIC(mod1, mod2, mod3)` |
+
+
+--- &slide_no_footer .segue bg:#CD2626
+
+# How do you feel now.....?
+
+--- 
+## Totally confused?
+                
+```{r, out.width = "250px", echo = FALSE, fig.align = 'center'}
+knitr::include_graphics("img/Comic_confused.png")
+```
+
+Practice on the Chinook salmon dataset and read 
+
+- [chapter 23](http://r4ds.had.co.nz/model-basics.html) on model basics and [chapter 24](http://r4ds.had.co.nz/model-building.html) on model building in the "R for Data Science"" book, as well as 
+- chapter 9 (statistical modelling) in "The R book" (Crawley, 2013) (an online pdf version is freely available [here](https://www.cs.upc.edu/~robert/teaching/estadistica/TheRBook.pdf)).
+
+
+--- &vcenter
+## Totally bored?
+                
+```{r, out.width = "800px", echo = FALSE, fig.align = 'left'}
+knitr::include_graphics("img/Comic_bored.png")
+```
+
+Stay tuned for the next case study where you can play around as much as you want to!
+
+---
+## Totally content?
+Then go grab a coffee, lean back and enjoy the rest of the day...!
+
+```{r, out.width = "600px", echo = FALSE, fig.align = 'center'}
+knitr::include_graphics("img/Comic_hammock.png")
+```
+
+--- &thankyou
+
+
+--- &slide_no_footer .segue bg:#CD2626
+
+# Solution 
+
+--- &twocol
+
+## Example to find the best model: `df1`
+
+1.Apply different models and compare first their AIC. 
+
+*** =left
+```{r}
+load("data/find_model.R")
+dat <- df1 # this way you can simply 
+# replace the dataframes later
+dat$y_log <- log(dat$y + 0.001)
+dat$x_log <- log(dat$x)
+
+m1 <- lm(y ~ x, data = dat)
+m2 <- lm(y ~ poly(x,2), data = dat)
+m3 <- lm(y ~ poly(x,3), data = dat)
+m4 <- lm(y_log ~ x, data = dat)
+m5 <- lm(y_log ~ x_log, data = dat)
+```
+
+*** =right
+```{r}
+AIC(m1,m2,m3) 
+AIC(m4,m5) 
+```
+
+
+<div class="alert alert-success" style="position: absolute; left: 25px; top: 605px">
+  <h4>Note:</h4> <small>The AIC can only be compared between models that are fitted on the same datasets! Hence, models with log-transformed Y values and those without CANNOT be compared using the AIC.</small>
+</div>
+
+--- &twocol
+
+## Example to find the best model: `df1`
+
+2.Prediction plots → to compare all models at the same scale, back-transform the log-model predictions
+
+*** =left
+```{r, eval = FALSE}
+dat <- spread_predictions(
+    data = dat, m1,m2,m3,m4,m5) %>%
+  mutate(m4 = (exp(m4) - 0.001),
+    m5 = (exp(m5) - 0.001))
+
+dat_long <- dat %>% 
+  select(x, m1,m2,m3,m4,m5) %>%
+  gather(key = "model", "pred", -x) %>%
+  mutate(model = factor(model, 
+    labels = c("m_lm", "m_poly2",
+    "m_poly3","m_log_y","m_log_both")))
+
+dat_long %>% ggplot(aes(x,pred)) +
+  geom_line(aes(colour = model)) +
+  geom_point(data = dat, aes(y = y)) 
+```
+
+
+*** =right
+```{r, echo = FALSE}
+dat <- spread_predictions(
+    data = dat, m1,m2,m3,m4,m5) %>%
+  mutate(m4 = (exp(m4) - 0.001),
+    m5 = (exp(m5) - 0.001))
+
+dat_long <- dat %>% 
+  select(x, m1,m2,m3,m4,m5) %>%
+  gather(key = "model", "pred", -x) %>%
+  mutate(model = factor(model, 
+    labels = c("m_lm", "m_poly2",
+    "m_poly3","m_log_y","m_log_both")))
+
+dat_long %>% ggplot(aes(x,pred)) +
+  geom_line(aes(colour = model)) +
+  geom_point(data = dat, aes(y = y)) 
+```
+
+--- &twocol
+
+## Example to find the best model: `df1`
+
+3.Residual plots
+
+*** =left
+```{r, eval = FALSE}
+# Residual plots
+r <- dat %>% 
+  spread_residuals(m1,m2,m3,m4,m5) %>%
+  ggplot()+ geom_vline(xintercept = 0, 
+    colour = "blue", size = 0.5)
+r1 <- r + ggtitle("m_lm") +
+  geom_histogram(aes(x = m1)) + 
+r2 <- r + ggtitle("m_poly2") +
+  geom_histogram(aes(x = m2))
+r3 <- r + ggtitle("m_poly3") +
+  geom_histogram(aes(x = m3))
+r4 <- r + ggtitle("m_log_y") + 
+  geom_histogram(aes(x = m4)) 
+r5 <-  r + ggtitle("m_log_all") +
+  geom_histogram(aes(x = m5)) 
+gridExtra::grid.arrange(grobs = 
+list(r1,r2,r3,r4,r5), ncol = 3)
+```
+
+
+*** =right
+```{r, echo = FALSE}
+# Residual plots
+r <- dat %>% 
+  spread_residuals(m1,m2,m3,m4,m5) %>%
+  ggplot()+ geom_vline(xintercept = 0, 
+    colour = "blue", size = 0.5)
+
+r1 <- r + geom_histogram(aes(x = m1)) + 
+  ggtitle("m_lm") + xlab("residuals")
+r2 <- r + geom_histogram(aes(x = m2)) + 
+  ggtitle("m_poly2") + xlab("residuals")
+r3 <- r + geom_histogram(aes(x = m3)) + 
+  ggtitle("m_poly3") + xlab("residuals")
+r4 <- r + geom_histogram(aes(x = m4)) + 
+  ggtitle("m_log_y") + xlab("residuals")
+r5 <-  r + geom_histogram(aes(x = m5)) + 
+  ggtitle("m_log_all") + xlab("residuals")
+
+gridExtra::grid.arrange(grobs = 
+list(r1,r2,r3,r4,r5), ncol = 3)
+```
+
+---
+
+## Example to find the best model: `df1`
+
+The AIC indicates best performances for models **m3** (polynomial of order 3) and **m5** (X and X both log-transformed). Also the prediction plots and the residual plots support this. In fact, the prediction plot does not show a big difference between both models. The residual plots, on the other hand, might provide some support for m5 as a high number of y values deviate little from their predictions.
+
+To really find out which model has the true underlying function, used to create this dataset, we need to apply the models on the dataset without noise:
+
+--- &twocol
+
+## Example to find the best model: `df1_nonoise`
+
+1.Apply models to the data without noise 
+
+*** =left
+```{r}
+dat <- df1_nonoise
+dat$y_log <- log(dat$y + 0.001)
+dat$x_log <- log(dat$x)
+
+m1 <- lm(y ~ x, data = dat)
+m2 <- lm(y ~ poly(x,2), data = dat)
+m3 <- lm(y ~ poly(x,3), data = dat)
+m4 <- lm(y_log ~ x, data = dat)
+m5 <- lm(y_log ~ x_log, data = dat)
+```
+
+*** =right
+```{r}
+AIC(m1,m2,m3) 
+AIC(m4,m5) 
+```
+
+
+--- 
+
+## Example to find the best model: `df1_nonoise`
+
+2.Prediction plots without noise
+
+
+```{r, echo = FALSE, fig.height=6, fig.width=10, fig.align='center'}
+dat <- spread_predictions(
+    data = dat, m1,m2,m3,m4,m5) %>%
+  mutate(m4 = (exp(m4) - 0.001),
+    m5 = (exp(m5) - 0.001))
+
+dat_long <- dat %>% 
+  select(x, m1,m2,m3,m4,m5) %>%
+  gather(key = "model", "pred", -x) %>%
+  mutate(model = factor(model, 
+    labels = c("m_lm", "m_poly2",
+    "m_poly3","m_log_y","m_log_both")))
+
+dat_long %>% ggplot(aes(x,pred)) +
+  geom_line(aes(colour = model)) +
+  geom_point(data = dat, aes(y = y)) 
+```
+
+--- 
+
+## Example to find the best model: `df1_nonoise`
+
+3.Residual plots without noise
+
+```{r, echo = FALSE, fig.height=7, fig.width=12, fig.align='center'}
+# Residual plots
+r <- dat %>% 
+  spread_residuals(m1,m2,m3,m4,m5) %>%
+  ggplot()+ geom_vline(xintercept = 0, 
+    colour = "blue", size = 0.5)
+
+r1 <- r + geom_histogram(aes(x = m1)) + 
+  ggtitle("m_lm") + xlab("residuals")
+r2 <- r + geom_histogram(aes(x = m2)) + 
+  ggtitle("m_poly2") + xlab("residuals")
+r3 <- r + geom_histogram(aes(x = m3)) + 
+  ggtitle("m_poly3") + xlab("residuals")
+r4 <- r + geom_histogram(aes(x = m4)) + 
+  ggtitle("m_log_y") + xlab("residuals")
+r5 <-  r + geom_histogram(aes(x = m5)) + 
+  ggtitle("m_log_all") + xlab("residuals")
+
+gridExtra::grid.arrange(grobs = 
+list(r1,r2,r3,r4,r5), ncol = 3)
+```
+
+--- &twocol
+
+## Example to find the best model: `df1_nonoise`
+
+Now it becomes clear that the underlying function is an exponental function of the form $Y=aX^{b}$.
+
+For comparison:
+
+*** =left
+
+```{r}
+# This is the true underlying function
+set.seed(123)
+x <- sample(20:120, size = 100, 
+  replace = TRUE)
+y_noise <- rnorm(100, 0, 0.3)
+a <- exp(-10)
+b <- 2.5
+y <- a * x^b + y_noise
+```
+
+*** =right
+```{r}
+m5_comp <- lm(log(y) ~ log(x))
+coefficients(m5_comp)
+```
+
+---
+
+## Solution of all 5 models
+
+df1: $Y_{i}=aX_{i}^{b}+\epsilon_{i}$ , with a = exp(-10), b = 2.5
+
+df2: $Y_{i}=a+b1X_{i}+b2X_{i}^{2}+b3X_{i}^{3}+\epsilon_{i}$ , with a = 1250, b1 = 400, b2 = -100, b3 = -30
+
+df3: $Y_{i}=a+b1X_{i}+b2X_{i}^{2}+\epsilon_{i}$ , with a = 100, b1 = -5, b2 = 0.5
+
+df4: $Y_{i}=ae^{bX_{i}}+\epsilon_{i}$ , with a = 20, b = 0.025
+
+df5: $Y_{i}=ae^{-bX_{i}}+\epsilon_{i}$ , with a = 10, b = -0.025
+
+

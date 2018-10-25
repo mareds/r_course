@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Lecture 7</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/spacelab.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
+<link href="site_libs/ionicons-2.0.1/css/ionicons.min.css" rel="stylesheet" />
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; background-color: #f8f8f8; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+pre, code { background-color: #f8f8f8; }
+code > span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code > span.dt { color: #204a87; } /* DataType */
+code > span.dv { color: #0000cf; } /* DecVal */
+code > span.bn { color: #0000cf; } /* BaseN */
+code > span.fl { color: #0000cf; } /* Float */
+code > span.ch { color: #4e9a06; } /* Char */
+code > span.st { color: #4e9a06; } /* String */
+code > span.co { color: #8f5902; font-style: italic; } /* Comment */
+code > span.ot { color: #8f5902; } /* Other */
+code > span.al { color: #ef2929; } /* Alert */
+code > span.fu { color: #000000; } /* Function */
+code > span.er { color: #a40000; font-weight: bold; } /* Error */
+code > span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #000000; } /* Constant */
+code > span.sc { color: #000000; } /* SpecialChar */
+code > span.vs { color: #4e9a06; } /* VerbatimString */
+code > span.ss { color: #4e9a06; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #000000; } /* Variable */
+code > span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code > span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code > span.ex { } /* Extension */
+code > span.at { color: #c4a000; } /* Attribute */
+code > span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code > span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="css_site/style_site.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 52px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+
+.section h2 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+.section h3 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+.section h4 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+.section h5 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+.section h6 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = false;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://marinedatascience.co">
+        <img id="mds_logo" alt="" src="img_site/mds_logo_grey@2x.png" width="30" height="30" >
+        MDS
+      </a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+          <a href="index.html">
+            <span class="fa fa-home"></span>
+              Data Analysis with R
+          </a>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+            <span class="fa fa-graduation-cap"></span>
+              Lectures
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu" role="menu">
+            <li class="dropdown-header">Programming in R</li>
+            <li class="dropdown-item">
+              <a href="lecture01_intro2data_science_and_r.html ">1-Introduction to data science and R</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture02_r_basics.html">2-Basics in R</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture03_data_structures.html">3-Data structures and basic calculations</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture04_operators.html">4-Operators</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture05_data_wrangling_import.html">5-Data wrangling - 1.Import</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture06_data_wrangling_tidy_data.html">6-Data wrangling - 2.Tidy Data</a>
+            </li>
+            <li class="dropdown-header">Data exploration &amp; visualization</li>
+            <li class="dropdown-item">
+              <a href="lecture07_data_wrangling_transformation.html">7-Data wrangling - 3.Transformation</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture08_intro2visualization_1.html">8-Intro2Visualization - Part 1</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture09_intro2visualization_2.html">9-Intro2Visualization - Part 2(Adjusting plots)</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture10_categorical_data.html">10-Handling and visualization of categorical data</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture11_rmarkdown.html">11-R Markdown for communication</a>
+            </li>
+            <li class="dropdown-header">Statistical Modelling</li>
+            <li class="dropdown-item">
+              <a href="lecture12_stat_modelling_1.html">12-Intro2Statistical Modelling - Part 1</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture13_stat_modelling_2.html">13-Intro2Statistical Modelling - Part 2</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture14_stat_modelling_3.html">14-Model building and selection</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture15_stat_modelling_4.html">15-Modelling demonstration</a>
+            </li>
+            <li class="dropdown-header">Programming in R</li>
+            <li class="dropdown-item">
+              <a href="lecture16_string_manipulation.html">16-String manipulation and regular expressions</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture17_functionsniterations_1.html">17-Functions and Iteration 1 (Loops)</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture18_iterations_2.html">18-Iteration 2 (purrr and the map family)</a>
+            </li>
+            <li class="divider"></li>
+            <li class="dropdown-header">slides, keyboard shortcuts:</li>
+            <li class="dropdown-header">o: outline</li>
+            <li class="dropdown-header">w: widescreen on/off</li>
+            <li class="dropdown-header">f: fullscreen on/off</li>
+            <li class="dropdown-header">ctrl +/ ctrl -: zoom in/out</li>
+            <li class="dropdown-header">p: presenter mode with additional info (NOT in Safari)</li>
+          </ul>
+        </li>
+        <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+          <span class="fa fa-gear"></span>
+            Exercises
+          <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu" role="menu">
+          <li class="dropdown-header">Practicals</li>
+          <li class="dropdown-item">
+            <a href="ex_resources.html">Resources</a>
+          </li>
+          <li class="dropdown-item">
+            <a href="ex_swirl.html">Quizzes with swirl</a>
+          </li>
+          <li class="divider"></li>
+          <li class="dropdown-header">Case studies</li>
+          <li class="dropdown-item">
+            <a href="ex_case_study_1.html">Case study 1</a>
+          </li>
+          <li class="dropdown-item">
+            <a href="ex_case_study_2.html">Case study 2</a>
+          </li>
+          <li class="dropdown-item">
+            <a href="ex_case_study_1_solutions.html">Case study 1 - solution</a>
+          </li>
+          <li class="dropdown-item">
+            <a href="ex_case_study_2_solutions.html">Case study 2 - solution</a>
+          </li>
+          <li class="divider"></li>
+          <li class="dropdown-header">Demo Code</li>
+          <li class="dropdown-item">
+            <a href="ex_lecture08_code_geom_functions.html">Lecture 8 - Geom functions</a>
+          </li>
+          <li class="dropdown-item">
+            <a href="ex_lecture08_code_ggplots_in_slides.html">Lecture 8 - Code for ggplots in lecture</a>
+          </li>
+          <li class="dropdown-item">
+            <a href="ex_lecture14_code_find_the_model.html">Lecture 14 - Find the model</a>
+          </li>
+          <li class="dropdown-item">
+            <a href="ex_lecture15_model_building_demo.html">Lecture 15 - Model building demo</a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="misc.html">
+          <span class="ion ion-wrench"></span>
+            Misc
+        </a>
+      </li>
+      <li>
+        <a href="video.html">
+          <span class="ion ion-ios-videocam"></span>
+            Videos
+        </a>
+      </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li>
+        <a href="about.html">
+          <span class="fa fa-newspaper"></span>
+            About
+        </a>
+      </li>
+      <li>
+        <a href="mailto:saskia.otto@uni-hamburg.de">
+          <span class="fa fa-send"></span>
+            Contact
+        </a>
+      </li>
+    </ul>
+   </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Lecture 7</h1>
+
+</div>
+
+
+<div id="solution-code-for-the-exercise-more-complex-data-manipulations" class="section level2">
+<h2>Solution code for the exercise: More complex data manipulations</h2>
+<div id="the-exercise-given-in-lecture-7-slide-63-was-the-following" class="section level3">
+<h3>The exercise given in lecture 7 (slide 63) was the following:</h3>
+<p>With the <code>group_by()</code> function and the pipe operator you will be able to answer the following questions about the <code>hydro</code> dataset (choose <strong>at least 3</strong> questions):</p>
+<ol style="list-style-type: decimal">
+<li>On average, how many stations were sampled per month during 2015?</li>
+<li>Which stations were sampled more than 3 times per month?</li>
+<li>How many days took the sampling place in each month?</li>
+<li>Do you see any temporal gap during the year where no sampling took place?</li>
+<li>Which depths are most frequently sampled?</li>
+<li>What are the most common depth profiles taken? (Every 1 metre, every 5 metres?)</li>
+<li>Are the NAs in the dataset related to specific months or cruises?</li>
+</ol>
+<p>What else could be relevant in terms of data quality?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
+<span class="kw">library</span>(lubridate)
+
+<span class="co"># Import the downloaded data (set your own working directory)</span>
+hydro &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/1111473b.csv&quot;</span>)
+<span class="kw">names</span>(hydro) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;cruise&quot;</span>, <span class="st">&quot;station&quot;</span>, <span class="st">&quot;type&quot;</span>, <span class="st">&quot;date_time&quot;</span>, 
+  <span class="st">&quot;lat&quot;</span>, <span class="st">&quot;long&quot;</span>, <span class="st">&quot;depth&quot;</span>, <span class="st">&quot;pres&quot;</span>, <span class="st">&quot;temp&quot;</span>, <span class="st">&quot;psal&quot;</span>, <span class="st">&quot;doxy&quot;</span>)
+hydro<span class="op">$</span>month &lt;-<span class="st"> </span><span class="kw">month</span>(hydro<span class="op">$</span>date_time)
+hydro<span class="op">$</span>day &lt;-<span class="st"> </span><span class="kw">day</span>(hydro<span class="op">$</span>date_time)</code></pre></div>
+</div>
+<div id="solution-q1" class="section level3">
+<h3>Solution: Q1</h3>
+<p><em>On average, how many stations were sampled per month during 2015?</em></p>
+<p>You want the number of sampled stations per month before you can calculate the mean. This could be done by counting the number of rows with different station values per month. Problem: The data consists of double entries (duplicated station values) due to the different sampling depths (and maybe the station was sampled more than once at the same day during the cruise). So first remove double entries by using the <code>distinct()</code> function!</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">hydro <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(station, month) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="co"># to remove duplicates</span>
+<span class="st">  </span><span class="kw">distinct</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(month) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">count</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">stat_per_month =</span> <span class="kw">mean</span>(n))</code></pre></div>
+<pre><code>## # A tibble: 1 x 1
+##   stat_per_month
+##            &lt;dbl&gt;
+## 1           210.</code></pre>
+<p>As we are only interested in stations per month and not in double entries, etc.,</p>
+<ul>
+<li>both variables are first selected</li>
+<li>and then duplicated entries removed.</li>
+<li>The dataset is grouped by month,</li>
+<li>number of rows per month (= the stations) calculated and</li>
+<li>the mean across months computed.</li>
+</ul>
+</div>
+<div id="solution-q2" class="section level3">
+<h3>Solution: Q2</h3>
+<p><em>Which stations were sampled more than 3 times per month?</em></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">hydro <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(station, date_time, month) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">distinct</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(month, station) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">count</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(n <span class="op">&gt;</span><span class="st"> </span><span class="dv">3</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">print</span>(<span class="dt">n =</span> <span class="dv">9</span>)</code></pre></div>
+<pre><code>## # A tibble: 9 x 3
+## # Groups:   month, station [9]
+##   month station     n
+##   &lt;dbl&gt; &lt;chr&gt;   &lt;int&gt;
+## 1     3 0001        4
+## 2     3 0021        4
+## 3     3 0023        4
+## 4     3 0025        4
+## 5     3 0027        4
+## 6     3 0029        4
+## 7     4 0002        4
+## 8     4 0003        5
+## 9     6 0038        4</code></pre>
+<ul>
+<li>date_time is kept in to indicate the nr of samplings at this station per month</li>
+<li>instead of <em>count()</em> you can also use <em>summarise(n = length(station))</em> or <em>summarise(n = n())</em></li>
+</ul>
+<hr />
+</div>
+<div id="solution-q3" class="section level3">
+<h3>Solution: Q3</h3>
+<p><em>How many days took the sampling place in each month?</em></p>
+<p>What are you interested in here? In <em>day</em> and <em>month</em>, so select only those 2 variables, remove duplicated rows, group by month so that you can count the number of rows with different day values:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">hydro <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(month, day) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">distinct</span>() <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">group_by</span>(month) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">n =</span> <span class="kw">n</span>()) <span class="co"># or count() </span></code></pre></div>
+<pre><code>## # A tibble: 12 x 2
+##    month     n
+##    &lt;dbl&gt; &lt;int&gt;
+##  1     1    19
+##  2     2    26
+##  3     3    31
+##  4     4    17
+##  5     5    24
+##  6     6    26
+##  7     7    25
+##  8     8    25
+##  9     9    28
+## 10    10    29
+## 11    11    27
+## 12    12    13</code></pre>
+</div>
+<div id="solution-q4" class="section level3">
+<h3>Solution: Q4</h3>
+<p><em>Do you see any temporal gap during the year where no sampling took place?</em></p>
+<p>This is a question were you can play around with various other functions. No approach will be the correct one. Here is one solution where the julian days are computed with the lubridate function <code>yday()</code> and the difference between successive julian days then calculated:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">hydro <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">julian_day =</span> lubridate<span class="op">::</span><span class="kw">yday</span>(date_time)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(julian_day, month) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">distinct</span>() <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">arrange</span>(julian_day) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>( <span class="dt">timegap =</span> <span class="kw">c</span>(<span class="ot">NA</span>, <span class="kw">diff</span>(julian_day)) ) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(month) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(timegap <span class="op">&gt;</span><span class="st"> </span><span class="dv">3</span>) </code></pre></div>
+<pre><code>## # A tibble: 8 x 3
+## # Groups:   month [6]
+##   julian_day month timegap
+##        &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
+## 1         19     1       4
+## 2         97     4       6
+## 3        103     4       4
+## 4        110     4       4
+## 5        124     5       6
+## 6        180     6       4
+## 7        306    11       4
+## 8        341    12       4</code></pre>
+<p>So mainly April shows the greatest gaps (with a gap of 6 days, and twice of 4 days). Why could that be?</p>
+</div>
+<div id="solution-q5-and-q6" class="section level3">
+<h3>Solution: Q5 and Q6</h3>
+<p><em>Which depths are most frequently sampled?</em><br />
+<em>What are the most common depth profiles taken? (Every 1 metre, every 5 metres?)</em></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">hydro <span class="op">%&gt;%</span>
+<span class="st"> </span><span class="kw">select</span>(pres) <span class="op">%&gt;%</span>
+<span class="st"> </span><span class="kw">group_by</span>(pres) <span class="op">%&gt;%</span>
+<span class="st"> </span><span class="kw">count</span>() <span class="op">%&gt;%</span>
+<span class="st"> </span><span class="kw">arrange</span>(<span class="kw">desc</span>(n)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>(<span class="dt">n=</span><span class="dv">10</span>)</code></pre></div>
+<pre><code>## # A tibble: 1,193 x 2
+## # Groups:   pres [1,193]
+##     pres     n
+##    &lt;dbl&gt; &lt;int&gt;
+##  1     5  2319
+##  2    10  2215
+##  3    20  1792
+##  4    15  1732
+##  5    40  1603
+##  6    30  1554
+##  7     1  1552
+##  8     0  1524
+##  9    50  1244
+## 10    25  1077
+## # ... with 1,183 more rows</code></pre>
+<p>If you got the same result you probably noted, that the depth (or pres) values are not integers and the number of unique values is therefore very high (1,193). To reduce the numer of depth levels we could round them first. Instead of using the function <code>round()</code> I suggest using <code>ceiling()</code>, which rounds to the next higher integer (so that 0.4m is considered 1m):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">hydro <span class="op">%&gt;%</span>
+<span class="kw">transmute</span>(<span class="dt">pres2 =</span> <span class="kw">ceiling</span>(pres)) <span class="op">%&gt;%</span>
+<span class="st"> </span><span class="kw">group_by</span>(pres2) <span class="op">%&gt;%</span>
+<span class="st"> </span><span class="kw">count</span>() <span class="op">%&gt;%</span>
+<span class="st"> </span><span class="kw">arrange</span>(<span class="kw">desc</span>(n)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>(<span class="dt">n=</span><span class="dv">10</span>)</code></pre></div>
+<pre><code>## # A tibble: 216 x 2
+## # Groups:   pres2 [216]
+##    pres2     n
+##    &lt;dbl&gt; &lt;int&gt;
+##  1     5  2370
+##  2    10  2232
+##  3     1  1880
+##  4    20  1797
+##  5    15  1736
+##  6    40  1609
+##  7    30  1565
+##  8     0  1524
+##  9    50  1246
+## 10    25  1083
+## # ... with 206 more rows</code></pre>
+<p>Answers</p>
+<ul>
+<li>Q5: The depths most often sampled are 5m, 10m, and 1m.</li>
+<li>Q6: From 0 to 30m depth samples were mostly taken in 5m intervals (1, 5, 10, 15, 20, 25, 30m) depth and afterwards mostly in 10m intervals.</li>
+</ul>
+</div>
+<div id="solution-q7" class="section level3">
+<h3>Solution: Q7</h3>
+<p><em>Are the NAs in the dataset related to specific months or cruises?</em></p>
+<div id="related-to-months" class="section level4">
+<h4>Related to months?</h4>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">hydro <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st"> </span><span class="kw">select</span>(month, temp, psal, doxy) <span class="op">%&gt;%</span>
+<span class="st"> </span><span class="kw">group_by</span>(month) <span class="op">%&gt;%</span>
+<span class="st"> </span><span class="kw">summarise</span>(
+  <span class="dt">t_na =</span> <span class="kw">sum</span>(<span class="kw">is.na</span>(temp)),
+  <span class="dt">s_na =</span> <span class="kw">sum</span>(<span class="kw">is.na</span>(psal)),
+  <span class="dt">o_na =</span> <span class="kw">sum</span>(<span class="kw">is.na</span>(doxy))
+ ) <span class="op">%&gt;%</span>
+<span class="st"> </span><span class="kw">mutate</span>(<span class="dt">sum_na =</span> t_na<span class="op">+</span>s_na<span class="op">+</span>o_na) <span class="op">%&gt;%</span>
+<span class="st"> </span><span class="kw">arrange</span>(<span class="kw">desc</span>(sum_na)) </code></pre></div>
+<pre><code>## # A tibble: 12 x 5
+##    month  t_na  s_na  o_na sum_na
+##    &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;  &lt;int&gt;
+##  1    10   184   234  1115   1533
+##  2     8   310   413   630   1353
+##  3     3   115   108   854   1077
+##  4     6   155   267   649   1071
+##  5     9   123   232   619    974
+##  6     7   239   357   372    968
+##  7     2    47    82   798    927
+##  8    11    46    83   764    893
+##  9     5   235   311   330    876
+## 10     4   177   200   375    752
+## 11     1    73    85   549    707
+## 12    12    10    10   249    269</code></pre>
+</div>
+<div id="related-to-cruises" class="section level4">
+<h4>Related to cruises?</h4>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">hydro <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st"> </span><span class="kw">select</span>(cruise, temp, psal, doxy) <span class="op">%&gt;%</span>
+<span class="st"> </span><span class="kw">group_by</span>(cruise) <span class="op">%&gt;%</span>
+<span class="st"> </span><span class="kw">summarise</span>(
+  <span class="dt">t_na =</span> <span class="kw">sum</span>(<span class="kw">is.na</span>(temp)),
+  <span class="dt">s_na =</span> <span class="kw">sum</span>(<span class="kw">is.na</span>(psal)),
+  <span class="dt">o_na =</span> <span class="kw">sum</span>(<span class="kw">is.na</span>(doxy))
+ ) <span class="op">%&gt;%</span>
+<span class="st"> </span><span class="kw">mutate</span>(<span class="dt">sum_na =</span> t_na<span class="op">+</span>s_na<span class="op">+</span>o_na) <span class="op">%&gt;%</span>
+<span class="st"> </span><span class="kw">arrange</span>(<span class="kw">desc</span>(sum_na)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">print</span>(<span class="dt">n =</span> <span class="dv">20</span>)</code></pre></div>
+<pre><code>## # A tibble: 36 x 5
+##    cruise  t_na  s_na  o_na sum_na
+##    &lt;chr&gt;  &lt;int&gt; &lt;int&gt; &lt;int&gt;  &lt;int&gt;
+##  1 67BC     127   147  2300   2574
+##  2 ESSA     729   729   243   1701
+##  3 3490     194   706   488   1388
+##  4 26DA       0     2  1234   1236
+##  5 34AR      17    17  1160   1194
+##  6 77FY      39     0   490    529
+##  7 67LL      92   272    92    456
+##  8 ESLV     145   145   151    441
+##  9 77K9       4     3   285    292
+## 10 ESQT      59    59    89    207
+## 11 7799      49    51   102    202
+## 12 77LA       9     0   170    179
+## 13 LTVJ      31    31    59    121
+## 14 ????      42    22    40    104
+## 15 6755      34    34    34    102
+## 16 67TL      30    30    30     90
+## 17 6799      19    19    51     89
+## 18 77LT       0     0    83     83
+## 19 672B      18    36    18     72
+## 20 67VY      18    18    18     54
+## # ... with 16 more rows</code></pre>
+<ul>
+<li>NAs are most common in October and August but there is no clear seasonal pattern in the occurrence of NAs.</li>
+<li>Certain cruises provided data to ICES with many more missing values.
+<ul>
+<li>The NAs are mainly related to specific cruises, with the highest number of NAs found for oxygen.<br> → It might be smart to go into the original data and check for those cruises if NAs occur only for specific depths.</li>
+</ul></li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Cruise with highest number of NAs:</span>
+hydro <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(month<span class="op">==</span><span class="dv">2</span>,cruise<span class="op">==</span><span class="st">&quot;67BC&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">print</span>(<span class="dt">n =</span> <span class="dv">100</span>)</code></pre></div>
+<pre><code>## # A tibble: 1,163 x 13
+##     cruise station type  date_time             lat  long depth  pres  temp
+##     &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt; &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
+##   1 67BC   0100    B     2015-02-02 08:00:00  54.6  18.8 0056    0   NA   
+##   2 67BC   0100    B     2015-02-02 08:00:00  54.6  18.8 0056    1    3.34
+##   3 67BC   0100    B     2015-02-02 08:00:00  54.6  18.8 0056    2.5  3.35
+##   4 67BC   0100    B     2015-02-02 08:00:00  54.6  18.8 0056    5    3.33
+##   5 67BC   0100    B     2015-02-02 08:00:00  54.6  18.8 0056   10    3.34
+##   6 67BC   0100    B     2015-02-02 08:00:00  54.6  18.8 0056   15    3.36
+##   7 67BC   0100    B     2015-02-02 08:00:00  54.6  18.8 0056   20    3.66
+##   8 67BC   0100    B     2015-02-02 08:00:00  54.6  18.8 0056   30    4.00
+##   9 67BC   0100    B     2015-02-02 08:00:00  54.6  18.8 0056   40    4.07
+##  10 67BC   0100    B     2015-02-02 08:00:00  54.6  18.8 0056   50    4.07
+##  11 67BC   0100    B     2015-02-02 08:00:00  54.6  18.8 0056   54    4.07
+##  12 67BC   0101    B     2015-02-02 10:00:00  54.7  18.8 0068    0   NA   
+##  13 67BC   0101    B     2015-02-02 10:00:00  54.7  18.8 0068    1    3.8 
+##  14 67BC   0101    B     2015-02-02 10:00:00  54.7  18.8 0068    2.5  3.80
+##  15 67BC   0101    B     2015-02-02 10:00:00  54.7  18.8 0068    5    3.81
+##  16 67BC   0101    B     2015-02-02 10:00:00  54.7  18.8 0068   10    3.83
+##  17 67BC   0101    B     2015-02-02 10:00:00  54.7  18.8 0068   15    3.85
+##  18 67BC   0101    B     2015-02-02 10:00:00  54.7  18.8 0068   20    3.85
+##  19 67BC   0101    B     2015-02-02 10:00:00  54.7  18.8 0068   30    3.90
+##  20 67BC   0101    B     2015-02-02 10:00:00  54.7  18.8 0068   40    3.86
+##  21 67BC   0101    B     2015-02-02 10:00:00  54.7  18.8 0068   50    3.52
+##  22 67BC   0101    B     2015-02-02 10:00:00  54.7  18.8 0068   61    3.28
+##  23 67BC   0101    B     2015-02-02 10:00:00  54.7  18.8 0068   67    5.50
+##  24 67BC   0102    B     2015-02-02 14:00:00  54.9  18.4 0015    0   NA   
+##  25 67BC   0102    B     2015-02-02 14:00:00  54.9  18.4 0015    1    3.48
+##  26 67BC   0102    B     2015-02-02 14:00:00  54.9  18.4 0015    2.5  3.48
+##  27 67BC   0102    B     2015-02-02 14:00:00  54.9  18.4 0015    5    3.48
+##  28 67BC   0102    B     2015-02-02 14:00:00  54.9  18.4 0015   10    3.49
+##  29 67BC   0102    B     2015-02-02 14:00:00  54.9  18.4 0015   13    3.49
+##  30 67BC   0103    B     2015-02-02 16:00:00  54.9  18.1 0018    0   NA   
+##  31 67BC   0103    B     2015-02-02 16:00:00  54.9  18.1 0018    1    2.93
+##  32 67BC   0103    B     2015-02-02 16:00:00  54.9  18.1 0018    2.5  2.93
+##  33 67BC   0103    B     2015-02-02 16:00:00  54.9  18.1 0018    5    2.93
+##  34 67BC   0103    B     2015-02-02 16:00:00  54.9  18.1 0018   10    2.94
+##  35 67BC   0103    B     2015-02-02 16:00:00  54.9  18.1 0018   16    2.94
+##  36 67BC   0104    B     2015-02-02 19:00:00  54.8  17.5 0020    0   NA   
+##  37 67BC   0104    B     2015-02-02 19:00:00  54.8  17.5 0020    1    3.03
+##  38 67BC   0104    B     2015-02-02 19:00:00  54.8  17.5 0020    2.5  3.03
+##  39 67BC   0104    B     2015-02-02 19:00:00  54.8  17.5 0020    5    3.03
+##  40 67BC   0104    B     2015-02-02 19:00:00  54.8  17.5 0020   10    3.03
+##  41 67BC   0104    B     2015-02-02 19:00:00  54.8  17.5 0020   15    3.03
+##  42 67BC   0104    B     2015-02-02 19:00:00  54.8  17.5 0020   18    3.03
+##  43 67BC   0105    B     2015-02-03 05:00:00  54.6  16.8 0018    0   NA   
+##  44 67BC   0105    B     2015-02-03 05:00:00  54.6  16.8 0018    1    3.25
+##  45 67BC   0105    B     2015-02-03 05:00:00  54.6  16.8 0018    2.5  3.25
+##  46 67BC   0105    B     2015-02-03 05:00:00  54.6  16.8 0018    5    3.25
+##  47 67BC   0105    B     2015-02-03 05:00:00  54.6  16.8 0018   10    3.30
+##  48 67BC   0105    B     2015-02-03 05:00:00  54.6  16.8 0018   16    3.38
+##  49 67BC   0106    B     2015-02-03 10:00:00  54.4  16.0 0035    0   NA   
+##  50 67BC   0106    B     2015-02-03 10:00:00  54.4  16.0 0035    1    4.26
+##  51 67BC   0106    B     2015-02-03 10:00:00  54.4  16.0 0035    2.5  4.26
+##  52 67BC   0106    B     2015-02-03 10:00:00  54.4  16.0 0035    5    4.26
+##  53 67BC   0106    B     2015-02-03 10:00:00  54.4  16.0 0035   10    4.28
+##  54 67BC   0106    B     2015-02-03 10:00:00  54.4  16.0 0035   15    4.25
+##  55 67BC   0106    B     2015-02-03 10:00:00  54.4  16.0 0035   20    4.23
+##  56 67BC   0106    B     2015-02-03 10:00:00  54.4  16.0 0035   30    4.23
+##  57 67BC   0106    B     2015-02-03 10:00:00  54.4  16.0 0035   33    4.23
+##  58 67BC   0107    B     2015-02-03 13:00:00  54.3  15.5 0012    0   NA   
+##  59 67BC   0107    B     2015-02-03 13:00:00  54.3  15.5 0012    1    3.23
+##  60 67BC   0107    B     2015-02-03 13:00:00  54.3  15.5 0012    2.5  3.23
+##  61 67BC   0107    B     2015-02-03 13:00:00  54.3  15.5 0012    5    3.23
+##  62 67BC   0107    B     2015-02-03 13:00:00  54.3  15.5 0012   10    3.23
+##  63 67BC   0108    B     2015-02-03 18:00:00  54.1  14.7 0013    0   NA   
+##  64 67BC   0108    B     2015-02-03 18:00:00  54.1  14.7 0013    1    2.34
+##  65 67BC   0108    B     2015-02-03 18:00:00  54.1  14.7 0013    2.5  2.35
+##  66 67BC   0108    B     2015-02-03 18:00:00  54.1  14.7 0013    5    2.35
+##  67 67BC   0108    B     2015-02-03 18:00:00  54.1  14.7 0013   11    2.35
+##  68 67BC   0109    B     2015-02-03 20:00:00  54.1  14.2 0012    0   NA   
+##  69 67BC   0109    B     2015-02-03 20:00:00  54.1  14.2 0012    1    2.37
+##  70 67BC   0109    B     2015-02-03 20:00:00  54.1  14.2 0012    2.5  2.36
+##  71 67BC   0109    B     2015-02-03 20:00:00  54.1  14.2 0012    5    2.37
+##  72 67BC   0109    B     2015-02-03 20:00:00  54.1  14.2 0012   10    2.50
+##  73 67BC   0110    B     2015-02-04 06:00:00  54.7  15.1 0062    0   NA   
+##  74 67BC   0110    B     2015-02-04 06:00:00  54.7  15.1 0062    1    4.44
+##  75 67BC   0110    B     2015-02-04 06:00:00  54.7  15.1 0062    2.5  4.44
+##  76 67BC   0110    B     2015-02-04 06:00:00  54.7  15.1 0062    5    4.44
+##  77 67BC   0110    B     2015-02-04 06:00:00  54.7  15.1 0062   10    4.45
+##  78 67BC   0110    B     2015-02-04 06:00:00  54.7  15.1 0062   15    4.48
+##  79 67BC   0110    B     2015-02-04 06:00:00  54.7  15.1 0062   20    4.67
+##  80 67BC   0110    B     2015-02-04 06:00:00  54.7  15.1 0062   30    4.51
+##  81 67BC   0110    B     2015-02-04 06:00:00  54.7  15.1 0062   40    4.76
+##  82 67BC   0110    B     2015-02-04 06:00:00  54.7  15.1 0062   50    9.72
+##  83 67BC   0110    B     2015-02-04 06:00:00  54.7  15.1 0062   61    7.54
+##  84 67BC   0111    B     2015-02-04 12:00:00  55.2  16.0 0087    0   NA   
+##  85 67BC   0111    B     2015-02-04 12:00:00  55.2  16.0 0087    1    4.18
+##  86 67BC   0111    B     2015-02-04 12:00:00  55.2  16.0 0087    2.5  4.17
+##  87 67BC   0111    B     2015-02-04 12:00:00  55.2  16.0 0087    5    4.17
+##  88 67BC   0111    B     2015-02-04 12:00:00  55.2  16.0 0087   10    4.16
+##  89 67BC   0111    B     2015-02-04 12:00:00  55.2  16.0 0087   15    4.69
+##  90 67BC   0111    B     2015-02-04 12:00:00  55.2  16.0 0087   20    4.73
+##  91 67BC   0111    B     2015-02-04 12:00:00  55.2  16.0 0087   30    4.73
+##  92 67BC   0111    B     2015-02-04 12:00:00  55.2  16.0 0087   40    5.32
+##  93 67BC   0111    B     2015-02-04 12:00:00  55.2  16.0 0087   50    9.32
+##  94 67BC   0111    B     2015-02-04 12:00:00  55.2  16.0 0087   61    7.50
+##  95 67BC   0111    B     2015-02-04 12:00:00  55.2  16.0 0087   71    7.07
+##  96 67BC   0111    B     2015-02-04 12:00:00  55.2  16.0 0087   81    7.17
+##  97 67BC   0111    B     2015-02-04 12:00:00  55.2  16.0 0087   86    7.10
+##  98 67BC   0112    B     2015-02-04 20:00:00  54.9  16.4 0015    0   NA   
+##  99 67BC   0112    B     2015-02-04 20:00:00  54.9  16.4 0015    1    4.00
+## 100 67BC   0112    B     2015-02-04 20:00:00  54.9  16.4 0015    2.5  4.01
+## # ... with 1,063 more rows, and 4 more variables: psal &lt;dbl&gt;, doxy &lt;dbl&gt;,
+## #   month &lt;dbl&gt;, day &lt;int&gt;</code></pre>
+<p>→ at this cruise doxy was only taken in 10m depth intervals not in 5m as for temp and psal</p>
+<p><br> <br> <br></p>
+</div>
+</div>
+</div>
+
+</div> <!-- articleBandContent -->
+</div> <!-- pageContent -->
+
+<footer class="site_footer">
+<div id="maredsFooter" class="footer">
+  <div class="footerContent">
+
+    <!-- column 1 -->
+    <div class="col-md-2" style="padding-top:.25%; text-align:center; color:#626262;">
+      <a href="https://github.com/mareds">
+        <i class="fa fa-github fa-lg"></i> MARinE Data Science</a> 
+    </div>
+    
+    <!-- column 1 -->
+    <div class="col-md-2" style="padding-top:.25%; text-align:center; color:#626262;">
+      <a href="https://github.com/saskiaotto">
+        <i class="fa fa-github fa-lg"></i> saskiaotto</a>
+    </div>
+
+    <!-- column 2 -->
+    <div class="col-md-6">
+      <!-- <blockquote style="line-height:10px;border-left: 2px solid #999999;"> -->
+          <p style="font-size:15px;color:#626262;border-left: 2px solid #999999;padding-left:5px; padding-top:.25%; font-style:italic;">
+            The difference between stupidity and genius is that genius has its limits.
+            <span style="font-size:11px;color:#909090">A.E.</span></p>
+      <!-- </blockquote> -->
+    </div>
+    
+      <!-- column 3 -->
+    <div class="col-md-2" style="padding-top:.25%; text-align:right; color:#626262;">
+      <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+          CC-BY-SA 4.0</a>
+    </div>
+
+  </div> <!-- footerContent -->
+</div> <!-- footer -->
+
+
+</footer>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

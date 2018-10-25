@@ -1,0 +1,198 @@
+---
+title: "Case study 1:<br>Hydrographical dynamics in the Baltic Sea"
+output:
+  html_document:
+    toc: yes
+    toc_float:
+      collapsed: false
+      smooth_scroll: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(tidy=FALSE, warning=FALSE, message=FALSE, cache=FALSE, dev.args=list(bg="transparent"),    
+fig.retina = 2)
+```
+
+***
+
+<div class="img-with-text" >
+  <a href="https://earthobservatory.nasa.gov/IOTD/view.php?id=84047">
+  <!-- https://eoimages.gsfc.nasa.gov/images/imagerecords/84000/84047/ISS040-E-012110_lrg.jpg -->
+    <img src="img_site/Baltic_satellite.jpg" alt="Darst"style="width:900px;height:300px;border:0;" >
+  </a>
+  <p><span class="source-img" style = "float:right; font-size:10px;">Foto: ISS Crew Earth Observations Facility and the Earth Science and Remote Sensing Unit, Johnson Space Center (under CC0)</span></p>
+</div>
+
+
+# Background
+
+The Baltic Sea in Northern Europe is worldwide one of the greatest brackish water systems, extending over 13 degrees of latitude and thus featuring a strong temperature gradient across the different basins. Due to its semi-enclosed nature with a narrow connection to the North Sea, the Baltic Sea experiences a net positive freshwater balance. In the deep areas of the Central Baltic Sea, this leads to a permanent stratification with a highly saline deepwater (values > 12) being separated from low salinity surface waters (values < 9). Vertical mixing of the water masses is hence restricted by a halocline at about 60-100 m depth. The exchange of deepwater in these areas can only occur by strong pulses of salt water inflow. These so-called “major Baltic inflows” (MBI)[^1]^,^[^2], can change the oceanological regime of the whole water column and improve the living conditions of for example benthic animals by the distribution of oxygenated water.  During the summer months a thermocline develops at a depth of 20-30 m leading to an enhanced vertical habitat differentiation. Such stratifications create sub-habitats for fish and zooplankton species[^3]^,^[^4]^,^[^5] 
+
+Over the past 3 decades we observed decreased frequencies of MBIs, which have been attributed to changed atmospheric forcing conditions. This resulted in decreased salinity levels due to the shallowing of the halocline affecting cod recruitment success and the zooplankton stock size of *Pseudocalanus acuspes* [^6]^,^[^7]. After a 12-year stagnation period an MBI was recorded in January 2015, which brought highly saline waters into the Bornholm Basin (20 psu, according to Rak[^8]). 
+
+<br>
+<div class="img-with-text" >
+  <a href="http://helcom.fi/PublishingImages/baltic-sea-trends/environment-fact-sheets/hydrography/">
+    <img src="img_site/fig 6_SST_BSEFS2014.jpg" alt="SST-Aug13"style="float:left;clear:left;width:350px;height:350px;border:0;">
+  </a> 
+  <a href="http://www.helcom.fi/PublishingImages/baltic-sea-trends/environment-fact-sheets/hydrography/"> <img src="img_site/BSEFS2014_ Hydrography and oxygen in the deep basins_Fig 3a.jpg" alt="Hypoxia"style="width:437.5px;height:350px;border:0;" >
+  </a> 
+  <p><span class="source-img" style = "float:right; font-size:10px;">Maps: HELCOM environment fact sheets (under CC0)</span></p>
+</div>
+
+<br>
+
+
+# Your task
+
+This case study is meant to repeat all the single steps you learnt in the previous lectures and to summarize them into one analysis as you would do also with a real analysis. Some of the steps you probably will have done already with the previous exercises → then simply put them together in your RMarkdown file, this time adding a bit more text on why you did what.
+
+You will explore the oceanographical datasets downloaded from the [ICES data portal](http://ocean.ices.dk/HydChem/HydChem.aspx?plot=yes) for the Baltic Sea and the year 2015. The dataset contains of  30012 rows and 11 columns. A brief description of each column follows:
+
+```{r, echo = FALSE, warning=FALSE, message=FALSE}
+library(tidyverse)
+hydro <- readr::read_csv("data/1111473b.csv") # the data is in a subfolder called 'data'
+df <- tibble(Field = names(hydro), Description = c(
+  "4-digit codes referring to the research vessel (e.g. 34AR represents the Finnish vessel ARANDA)",
+  "4-digit codes assigned to every station",
+  "Type of measurement: B = bottle data",
+  "Date and time", 
+  "Station coordinates: Latitude in decimal degrees", "Station coordinates: Longitude in decimal degrees",
+  "Bottom depth at station (in metre)",
+  "Pressure of measurement depth, in decibar (equivalent to metre depth)",
+  "Water temperature at specific measurement depth, in degree Celcius",
+  "Salinity at specific measurement depth, measured in unit of PSU (Practical Salinity Unit)",
+  "Concentration of dissolved oxygen at specific measurement depth, in mililitre per litre"
+))
+```
+
+```{r results = "asis", echo = FALSE}
+df %>%
+  knitr::kable("html", escape = F) %>%
+  kableExtra::kable_styling(bootstrap_options = c("striped", "hover", "condensed"))  #%>%
+  # column_spec(2, bold = T) %>%
+  # row_spec(which(dat_tab$iea == 5), background ="#F5F5DC") %>%
+  # row_spec(which(dat_tab$iea == 4), background ="#C1CDCD") %>%
+  # row_spec(which(dat_tab$iea == 3), background ="#E6E6FA") %>%
+  # row_spec(which(dat_tab$iea == 2), background ="#EEEEE0") %>%
+  # row_spec(which(dat_tab$iea == 1), background ="#E0FFFF") %>%
+  # row_spec(which(dat_tab$iea == 0), background ="#F5FFFA")
+```
+
+
+## The RMarkdown file
+
+Create an HTML RMarkdown file with the Case study as the title (see above). You should have the following YAML header:
+
+```
+---  
+title: "Case study 1: Hydrographical dynamics in the Baltic Sea"
+author: "Group letter and all (full) names of the group members"
+date: "November 2017"
+output:
+  html_document:
+    toc: yes
+---  
+```
+
+Take advantage of all the formatting options using Pandoc's Markdown syntax, e.g. #, ##, ###, horizontal lines (with ***), etc.
+(see for more info the [RMarkdown cheatsheet](http://rmarkdown.rstudio.com/lesson-15.html)!)
+
+All your text should be OUTSIDE the R code chunks, all the R code and some comments for yourself INSIDE these chunks.
+
+
+### Please follow these guidelines:
+
+* **Every step** should be **documented** (use headers for this).
+* Try to write in **English**.
+* **Inform** the reader (which will be me in the first place) **why** you do certain steps (e.g. why do you not do anything about NAs or why you convert them into something else).
+* Every result you compute should be **summarised in your own words and interpreted** (if it is not part of one of the questions than 2 or 3 sentences will be sufficient).
+* If you have any question write them with the following <mark>highlight</mark> syntax:
+`<mark>Question: Your text....</mark>` → now you learned HTML coding :-)! 
+
+***
+
+## Step 1: Data wrangling
+
+As you learned now, before you can do any data manipulation and visualization you need to get the data into R in a tidy format:
+
+1. Import file "1111473b.csv". 
+2. Check if the **parsed formats** for the variabeles are **correct**, check the date format.
+3. **Rename** the variables to something shorter following the R syntax guidelines.
+4. Make the data tidy:
+    *  Is any **restructuring** needed?
+    * Is any **separation or union** needed?
+    * Are the **data **types correct?
+    * Do you need to handle **NAs**?
+    * Are there any **awkward values** in the data (potential typing errors)?
+
+Before you can explore the dataset lets to some final data tidying in terms of the **date**: Create **additional variables** that contain only `year`, `month`, `day`, and `yday` (day-of-the-year),  but keep the original date/time column.
+ 
+Depending on the question of interest you need to transform and/or aggregate your dataset every time differently, e.g.
+
+* you might need to aggregate over the different depth measurements if you are only interested in the sampling itself 
+* you might need to aggregate over the different depth measurements AND the samplings if you are only interested in the stations.
+
+Remember, the [dplyr](https://cran.r-project.org/web/packages/dplyr/vignettes/dplyr.html) package offers many functions for doing all kinds of data manipulations (the [cheatsheet](https://www.rstudio.com/resources/cheatsheets/) is really helpful)!
+
+***
+
+## Step 2: Data quality check
+(see also the exercises in lecture 7 - Data wrangling: 3.transformations)
+
+1. If you consider aggregating your data over different depth ranges (e.g. surface, mid-layer, deepwater) or if you want to filter certain depths you should be aware of 
+  i. the most frequently sampled depth and 
+  ii. the most common depth profiles taken (Every 1 metre, every 5 metres?)
+2. If you want to aggregate your data over the months, you should be aware of
+  i. the number of stations sampled → if unbalanced, a weighted mean might be more suitable?
+  ii. whether stations were sampled more than once in that month → should you calculate a station mean (aggregating the different samplings) first before you calculate a monthly mean? Would it make a difference? (**Always try out the different versions and compare!**)
+  iii. where there any temporal gap during the year where no sampling took place? → that might bias your monthly mean results
+3. If you want to exclude **NAs** or treat them in a specific way, it is good to know whether they occur **randomly** in your dataset or if there is a **specific pattern**
+  i. are NAs in the dataset related to specific months or cruises? → maybe you want to consider excluding the entire cruise/month?
+
+***
+
+## Step 3: Ecological questions
+
+The following list of questions summarises mainly all the ideas you collected. I want you to investigate (numerically by looking at summarized data tables and graphically by producing different ggplots):
+
+1. **Temporal** components
+  i. Can you find a seasonal pattern in the overall temperature, salinity, and oxygen conditions (for the complete Baltic Sea)?
+  ii. Is the seasonal dynamic everywhere the same or does it vary in different areas/basins?
+
+2. **Spatial** components (**horizontally**)
+  i. Can you see in the data a spatial gradient of temperature, salinity, and oxygen conditions across the Baltic Sea?
+  ii. If there is a gradient, is it a continuous one or can you define certain areas that are similar?
+  ii. Are there any seasonal or monthly changes in the spatial pattern of these 3 parameters?
+  
+3. **Spatial** components (**vertically**
+  i. Can you identify a water stratification in terms of temperature, salinity, and oxygen conditions? For which parameters, which months and which areas?
+
+4. **Comparison** with findings of Rak (2016): 
+  i. If you select only stations that are close to the transect described in Figure 1 (i.e. stations around 55°N and between 15° and 19°E), do you find a similar vertical distribution of temperature, salinity, and oxygen for January and February?
+
+5. 2015 vs. 2014 (**voluntarily**):
+  i. If you are interested to compare the depth profile from 2015 (after the MBI) with the time before (e.g. 2014) than download the data from ICES and apply the same steps to the data to make a comparison. Do you see and improvement in salinity and particularly oxygen conditions in the Central Baltic Sea in 2015?
+  
+***
+
+# References
+
+[^1]: Wyrtki, K. 1954. "Der Große Salzeinbruch in Die Ostee Im November Und Dezember 1951." Kiel. Meeresforsch. 10, no. 1: 19-25.
+
+[^2]: Fonselius, S. H. 1969. "Hydrography of the Baltic Deep Basins Iii." In Series Hydrography, 97: Fishery Board of Sweden
+
+[^3]: Otto, S.A., Diekmann, R., Flinkman J., Kornilovs G., and C. Möllmann. 2014. "Habitat Heterogeneity Determines Climate Impact on Zooplankton Community Structure and Dynamics." PLoS ONE 9, no. 3: e90875.
+
+[^4]: Schaber, M., H. H. Hinrichsen, S. Neuenfeldt, and R. Voss. 2009. "Hydroacoustic Resolution of Small-Scale Vertical Distribution in Baltic Cod Gadus Morhua—Habitat Choice and Limits During Spawning." Mar. Ecol. Prog. Ser. 377: 239-53.
+
+[^5]: Schulz, J., C. Möllmann, and H. J. Hirche. 2007. "Vertical Zonation of the Zooplankton Community in the Central Baltic Sea in Relation to Hydrographic Stratification as Revealed by Multivariate Discriminant Function and Canonical Analysis." J. Mar. Syst. 67, no. 1-2: 47-58.
+
+[^6]: Möllmann, C., R. Diekmann, B. Müller-Karulis, G. Kornilovs, M. Plikshs, and P. Axe. 2009. "Reorganization of a Large Marine Ecosystem Due to Atmospheric and Anthropogenic Pressure: A Discontinuous Regime Shift in the Central Baltic Sea." Glob. Change Biol. 15: 1377-93.
+
+[^7]: Otto, S.A., Kornilovs, G., Llope, M. and C. Möllmann. 2014. "Interactions among Density, Climate, and Food Web Effects Determine Long-Term Life Cycle Dynamics of a Key Copepod." Mar. Ecol. Prog. Ser. 498: 73-84.
+
+[^8]: [Rak, D. 2016. "The Inflow in the Baltic Proper as Recorded in January–February 2015." Oceanologia 58, no. 3:241-47.](http://www.sciencedirect.com/science/article/pii/S0078323416300033)
+
+
+

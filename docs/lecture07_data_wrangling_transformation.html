@@ -1,0 +1,2925 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Data Analysis with R</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Data Analysis with R">
+  <meta name="author" content="Saskia A. Otto">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/sao_theme.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="libraries/widgets/quiz/css/demo.css"></link>
+<link rel=stylesheet href="libraries/widgets/bootstrap/css/bootstrap.css"></link>
+<link rel=stylesheet href="libraries/widgets/interactive/css/aceeditor.css"></link>
+<link rel=stylesheet href="./assets/css/box_styles.css"></link>
+<link rel=stylesheet href="./assets/css/ribbons.css"></link>
+<link rel=stylesheet href="./assets/css/style.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+      <slide class="nobackground">
+    <article class="flexbox vcenter">
+      <span>
+        <img width='500px' src="assets/img/BigLogo_MDS.png">
+      </span>
+    </article>
+  </slide>
+    <slide class="title-slide segue nobackground">
+  <!-- <aside class="gdbar">
+    <img src="assets/img/uham_logo.png">
+  </aside>-->
+  <div style="position: absolute; left: 50px; top: 50px; z-index:100">
+      <img src = "assets/img/uham_logo.png" height="67" width="200">
+  </div>
+  <hgroup class="auto-fadein">
+    <h1>Data Analysis with R</h1>
+    <h2>7 - Data wrangling - 3.Transformation</h2>
+    <p>Saskia A. Otto<br/>Postdoctoral Researcher</p>
+  </hgroup>
+  <article></article>
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="segue" style="background:#1874CD;">
+  <hgroup>
+    <h1>3. Data transformation</h1>
+  </hgroup>
+  <article>
+    <p><img src="img/Data_science_1b.png" style="height:150px;border:0;position: absolute; left: 900px; top: 50px"> </img> </p>
+
+<p><a href="http://r4ds.had.co.nz/wrangle-intro.html">
+  <img src="img/Data_wrangling_c.png" alt="Data wrangling - Transformation" style="width:400px;border:0;position: absolute; left: 125px; top: 150px"></img> 
+</a> </p>
+
+  </article>
+</slide>
+<slide class="" id="slide-2" style="background:url(img/NASA_child_bubble.jpg);">
+  <hgroup>
+    <h2>Before you start manipulating, ask yourself what do you want to explore?</h2>
+  </hgroup>
+  <article data-timings="">
+    
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>What could be interesting questions for the oceanographic ICES data?</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Develop some questions yourself...</li>
+</ul>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-4" style="background:;">
+  <article data-timings="">
+    <p><q> The <strong>first thing</strong> that should be checked before getting into the actual analysis of the oceanographic data is the <strong>data quality</strong>! </q></p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-5" style="background:;">
+  <article data-timings="">
+    <p><img src="img/Sampling_questions.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" width="850px" style="display: block; margin: auto;" /></p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>These questions require data aggregation</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Aggregations can be done by</p>
+
+<ul class = "build incremental">
+<li><strong>gear type</strong></li>
+<li><strong>datasource</strong></li>
+<li><strong>spatially</strong> (e.g., per ICES subdivision or rectangle in this example)</li>
+<li><strong>temporally</strong> (e.g., per year or month) → This requires some knowledge of handling dates and times!</li>
+</ul>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="segue" style="background:#1874CD;">
+  <hgroup>
+    <h1>Handling dates and times</h1>
+  </hgroup>
+  <article>
+    <p><img src="img/Data_science_1a.png" style="height:150px;border:0;position: absolute; left: 900px; top: 50px" </img> </p>
+
+  </article>
+</slide>
+<slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Measurement of time is highly idiosyncratic</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="img/Time.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" width="800px" style="display: block; margin: auto;" /></p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Measurement of time is highly idiosyncratic</h2>
+  </hgroup>
+  <article data-timings="">
+    <h3>Surprisingly difficult for computers!</h3>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>Dates and times in R</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>To see how R handles dates and times, have a look at <code>Sys.time()</code>:</p>
+
+<pre><code class="r">Sys.time()
+</code></pre>
+
+<pre><code class="no-highlight">## [1] &quot;2018-10-24 12:00:42 CEST&quot;
+</code></pre>
+
+<p>You see, first comes the year-month-day, then the time (h:m:s), and then the time zone. 
+If you type</p>
+
+<pre><code class="r">unclass(Sys.time())
+</code></pre>
+
+<pre><code class="no-highlight">## [1] 1540375242
+</code></pre>
+
+<p>You get the number of seconds since 1 January 1970.</p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>Dates and times in R</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Two basic classes of date/times:
+
+<ul>
+<li><strong>POSIXlt</strong><br></li>
+<li><strong>POSIXct</strong><br></li>
+</ul></li>
+<li>In tidyverse 3 types of date/time data that refer to an instant in time:</li>
+</ul>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>Dates and times in R</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Two basic classes of date/times:
+
+<ul>
+<li><strong>POSIXlt</strong><br></li>
+<li><strong>POSIXct</strong><br></li>
+</ul></li>
+<li>in tidyverse 3 types of date/time data that refer to an instant in time:</li>
+</ul>
+
+<ol>
+<li><strong>date</strong>: Tibbles print this as <code>&lt;date&gt;</code>.</li>
+<li><strong>time</strong> within a day: Tibbles print this as <code>&lt;time&gt;</code>.</li>
+<li><strong>date-time</strong> is a date plus a time: it uniquely identifies an instant in time (typically to the nearest second). Tibbles print this as <code>&lt;dttm&gt;</code>. </li>
+</ol>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>Dates and times in R (cont)</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Many ways of writing the date and time → <strong>importing</strong> the correct date format and <strong>extracting parts</strong> can be tricky!</li>
+<li>Always use the <strong>simplest</strong> possible data type that works for your needs.</li>
+<li>One tidy way to import the correct date and time is with the <code>parse_functions</code> in the <strong>readr</strong> package → but it requires some knowledge on the specification of the date format you want to import.</li>
+</ul>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>The &#39;lubridate&#39; package</h2>
+  </hgroup>
+  <article data-timings="">
+    <div style="position: absolute; left: 950px; top: 25px; z-index:100">
+    <img src="img/Logo_lubridate.png" alt="" width=75px height=75px>
+</div>
+
+<ul>
+<li>Makes it <strong>easier</strong> to work with dates and times.</li>
+<li>Handles a wide <strong>variaty of formats</strong> automatically.</li>
+<li>Is <strong>not</strong> part of the <strong>core</strong> tidyverse so it needs to be installed once and loaded additionally every time:.</li>
+</ul>
+
+<pre><code class="r">install.packages(&quot;lubridate&quot;)
+library(lubridate)
+</code></pre>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-15" style="background:;">
+  <hgroup>
+    <h2>Create DATE objects from string</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Depending on the order of the date components you have 3 functions to choose from:</p>
+
+<div style='float:left;width:48%;'>
+  <pre><code class="r">ymd(&quot;2017-11-17&quot;) # YEAR-MONTH-DAY
+</code></pre>
+
+<pre><code class="no-highlight">## [1] &quot;2017-11-17&quot;
+</code></pre>
+
+<pre><code class="r">mdy(&quot;Nov 17th, 2017&quot;) # MONTH-DAY-YEAR
+</code></pre>
+
+<pre><code class="no-highlight">## [1] &quot;2017-11-17&quot;
+</code></pre>
+
+<pre><code class="r">dmy(&quot;17-Nov-2017&quot;) # DAY-MONTH-YEAR
+</code></pre>
+
+<pre><code class="no-highlight">## [1] &quot;2017-11-17&quot;
+</code></pre>
+
+</div>
+<div style='float:right;width:48%;'>
+  <ul>
+<li><strong>Only the order matters!</strong> The format is not important as lubridate will automatically recognize it.</li>
+<li>You can apply the function to an entire vector.</li>
+</ul>
+
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-16" style="background:;">
+  <hgroup>
+    <h2>Create DATE-TIME objects from strings</h2>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;'>
+  <p>Simply combine <code>ymd</code>, <code>mdy</code> or <code>dmy</code> with </p>
+
+<ul>
+<li><code>_h</code> if you have only the hour</li>
+<li><code>_hm</code> if you have hour and minute</li>
+<li><code>_hms</code> for hour:min:sec</li>
+</ul>
+
+</div>
+<div style='float:right;width:48%;'>
+  <pre><code class="r"># Date with HOUR-MIN-SEC
+ymd_hms(&quot;2017-11-17 12:11:59&quot;)
+</code></pre>
+
+<pre><code class="no-highlight">## [1] &quot;2017-11-17 12:11:59 UTC&quot;
+</code></pre>
+
+<pre><code class="r"># Date with HOUR-MIN
+mdy_hm(&quot;11/17/2017 12:11&quot;)
+</code></pre>
+
+<pre><code class="no-highlight">## [1] &quot;2017-11-17 12:11:00 UTC&quot;
+</code></pre>
+
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-17" style="background:;">
+  <hgroup>
+    <h2>Create DATE-TIME objects from strings (cont)</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>If the time zone is not UTC (default) specify the <code>tz</code> argument</p>
+
+<pre><code class="r">mdy_hm(&quot;11/17/2017 12:11&quot;, tz = &quot;CET&quot;) 
+</code></pre>
+
+<pre><code class="no-highlight">## [1] &quot;2017-11-17 12:11:00 CET&quot;
+</code></pre>
+
+<pre><code class="r">mdy_hm(&quot;11/17/2017 12:11&quot;, tz = &quot;Europe/Helsinki&quot;) 
+</code></pre>
+
+<pre><code class="no-highlight">## [1] &quot;2017-11-17 12:11:00 EET&quot;
+</code></pre>
+
+<p>CET = Central European Time, EET = Eastern European Time</p>
+
+<div style='float:left;width:48%;'>
+  
+</div>
+<div style='float:right;width:48%;'>
+  
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-18" style="background:;">
+  <hgroup>
+    <h2>Create DATE-TIME objects from individual components</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>If the date is split into different columns in your dataset you can combine them to a date object using <code>make_date()</code> or <code>make_datetime()</code>:</p>
+
+<pre><code class="r">make_date(year = 2017, month = 11, day = 15:17)
+</code></pre>
+
+<pre><code class="no-highlight">## [1] &quot;2017-11-15&quot; &quot;2017-11-16&quot; &quot;2017-11-17&quot;
+</code></pre>
+
+<p>Year and month get recycled to the same length as days.</p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-19" style="background:;">
+  <hgroup>
+    <h2>Switch between date-time and date</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>You can switch between both formats with <code>as_date()</code> and <code>as_datetime()</code> (but you might loose information):</p>
+
+<pre><code class="r">dt_utc &lt;- mdy_hm(&quot;11/17/2017 12:11&quot;)
+dt_utc
+</code></pre>
+
+<pre><code class="no-highlight">## [1] &quot;2017-11-17 12:11:00 UTC&quot;
+</code></pre>
+
+<div style='float:left;width:48%;'>
+  <pre><code class="r">d_utc &lt;- as_date(dt_utc)
+d_utc
+</code></pre>
+
+<pre><code class="no-highlight">## [1] &quot;2017-11-17&quot;
+</code></pre>
+
+</div>
+<div style='float:right;width:48%;'>
+  <pre><code class="r">as_datetime(d_utc)
+</code></pre>
+
+<pre><code class="no-highlight">## [1] &quot;2017-11-17 UTC&quot;
+</code></pre>
+
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-20" style="background:;">
+  <hgroup>
+    <h3>Extract date components</h3>
+  </hgroup>
+  <article data-timings="">
+    <p>For aggregation purposes its often useful to extract individual components.
+Lubridate has the following helper functions (all have simply the name of the component you want to extract):</p>
+
+<div style='float:left;width:48%;'>
+  <ul>
+<li><code>year()</code></li>
+<li><code>month()</code></li>
+<li><code>mday()</code> - day of the month</li>
+<li><code>yday()</code> - day of the year</li>
+<li><code>wday()</code> - day of the week</li>
+<li><code>hour()</code>, <code>minute()</code>, <code>second()</code></li>
+</ul>
+
+</div>
+<div style='float:right;width:48%;'>
+  <pre><code class="r">dt_utc &lt;- mdy_hm(&quot;11/17/2017 12:11&quot;)
+year(dt_utc)
+</code></pre>
+
+<pre><code class="no-highlight">## [1] 2017
+</code></pre>
+
+<pre><code class="r">yday(dt_utc)
+</code></pre>
+
+<pre><code class="no-highlight">## [1] 321
+</code></pre>
+
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-21" style="background:;">
+  <hgroup>
+    <h3>Handling time periods, intervals</h3>
+  </hgroup>
+  <article data-timings="">
+    <p>Lubridate offers many more functions that deal with dates and times such as</p>
+
+<ul>
+<li><code>%--%</code> creates intervals</li>
+<li>and <code>as.duration()</code> calculates the duration of this interval</li>
+</ul>
+
+<pre><code class="r">(day_int &lt;- dmy(&quot;10/11/2017&quot;) %--% dmy(&quot;17/11/2017&quot;) )
+</code></pre>
+
+<pre><code class="no-highlight">## [1] 2017-11-10 UTC--2017-11-17 UTC
+</code></pre>
+
+<pre><code class="r">as.duration(day_int)
+</code></pre>
+
+<pre><code class="no-highlight">## [1] &quot;604800s (~1 weeks)&quot;
+</code></pre>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-22">
+  <hgroup>
+    
+  </hgroup>
+  <article class = 'flexbox vcenter'>
+    <p><q>To learn more on functions offered by lubridate read the vignette or <a href="http://r4ds.had.co.nz/dates-and-times.html#date-time-components">chapter 16</a> in R for Data Science.</q></p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="segue" style="background:#EEC900;">
+  <hgroup>
+    <h1>Your turn...</h1>
+  </hgroup>
+  <article>
+    
+  </article>
+</slide>
+<slide class="" id="slide-24">
+<hgroup>
+  <h1>Import the following dataset</h1>
+</hgroup>
+<article data-timings="">
+  <div style="background-color:#F5F5F5; text-align:left; vertical-align: middle; padding:20px 47px;">
+    <pre><code class="r">library(tidyverse)
+date_ex &lt;- read_csv(&quot;data/date_time_examples.csv&quot;)
+print(date_ex, n = 5)
+</code></pre>
+
+<pre><code class="no-highlight">## # A tibble: 10 x 8
+##   date1 date2 date3 sampling_start_CET  sampling_end_UTC     year month
+##   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;dttm&gt;              &lt;dttm&gt;              &lt;int&gt; &lt;int&gt;
+## 1 11-0… 8.11… 8 No… 2017-11-08 09:54:00 2017-11-08 10:40:00  2017    11
+## 2 11-0… 9.11… 9 No… 2017-11-09 08:15:00 2017-11-09 09:07:00  2017    11
+## 3 11-1… 10.1… 10 N… 2017-11-10 08:06:00 2017-11-10 09:09:00  2017    11
+## 4 11-1… 11.1… 11 N… 2017-11-11 10:37:00 2017-11-11 11:59:00  2017    11
+## 5 11-1… 12.1… 12 N… 2017-11-12 08:21:00 2017-11-12 09:02:00  2017    11
+## # ... with 5 more rows, and 1 more variable: day &lt;int&gt;
+</code></pre>
+
+  </div>
+  <footer>
+    <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+      <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+    </div>
+    <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+      <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+      font-style: italic; top: 610px; ">Data analysis with R</a>
+    </div>
+  </footer>
+</article>
+<!-- Presenter Notes -->
+</slide>
+
+<style>
+#slide-24 {
+  background-color: #EEC900;
+}
+</style>
+<slide class="" id="slide-25" style="background:#EEC900;">
+  <hgroup>
+    <h1>Quiz 1: Handling dates</h1>
+  </hgroup>
+  <article data-timings="">
+    
+<div class="quiz quiz-multiple well" data-individual>
+  <p>Which of the variables have been correctly parsed as dates?</p>
+
+<ol>
+<li>date1</li>
+<li>date2</li>
+<li>date3</li>
+<li><em>sampling_start_CET</em></li>
+<li><em>sampling_end_UTC</em></li>
+<li>year</li>
+<li>month</li>
+<li>day</li>
+</ol>
+
+  <button class="quiz-submit btn btn-primary">Submit</button>
+  <button class="quiz-toggle-hint btn btn-info">Show Hint</button>
+  <button class="quiz-show-answer btn btn-success">Show Answer</button>
+  <button class="quiz-clear btn btn-danger">Clear</button>
+  
+  </div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-26">
+<hgroup>
+  <h1>Quiz 2: Handling dates</h1>
+</hgroup>
+<article data-timings="">
+  <div style="background-color:#F5F5F5; text-align:left; vertical-align: middle; padding:20px 47px;">
+    <p>Convert variables <code>date1</code>, <code>date2</code>, and <code>date3</code> into the date format. 
+Which are the correct functions for each date format?
+Do they look the same after conversion?</p>
+
+  </div>
+  <footer>
+    <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+      <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+    </div>
+    <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+      <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+      font-style: italic; top: 610px; ">Data analysis with R</a>
+    </div>
+  </footer>
+</article>
+<!-- Presenter Notes -->
+</slide>
+
+<style>
+#slide-26 {
+  background-color: #EEC900;
+}
+</style>
+<slide class="" id="slide-27">
+<hgroup>
+  <h1>Quiz 3: Handling dates</h1>
+</hgroup>
+<article data-timings="">
+  <div style="background-color:#F5F5F5; text-align:left; vertical-align: middle; padding:20px 47px;">
+    <p>Create a new date variable by combining the <code>year</code>, <code>month</code>, and <code>day</code> variables. </p>
+
+  </div>
+  <footer>
+    <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+      <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+    </div>
+    <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+      <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+      font-style: italic; top: 610px; ">Data analysis with R</a>
+    </div>
+  </footer>
+</article>
+<!-- Presenter Notes -->
+</slide>
+
+<style>
+#slide-27 {
+  background-color: #EEC900;
+}
+</style>
+<slide class="" id="slide-28" style="background:#EEC900;">
+  <hgroup>
+    <h1>Quiz 4 - Challenge: Handling dates and times</h1>
+  </hgroup>
+  <article data-timings="">
+    
+<div class="quiz-text quiz-multitext well">
+  <p>A video plankton recorder (VPR) was towed along a transect in the Skagerrak (North of Denmark) from East to West on several subsequent days. The starting and ending time of the tow were recorded each time (col 4 and 5). Can you tell me for how long the VPR was towed at the following sampling dates (in min)?</p>
+
+<ol>
+<li>2017-11-08</li>
+<li>2017-11-14 </li>
+<li>2017-11-15</li>
+</ol>
+
+  <button class="quiz-submit btn btn-primary">Submit</button>
+  <button class="quiz-toggle-hint btn btn-info">Show Hint</button>
+  <button class="quiz-show-answer btn btn-success">Show Answer</button>
+  <button class="quiz-clear btn btn-danger">Clear</button>
+  
+  <div class="quiz-hint">
+  <p><small>You can do simple calculations also with date objects or use some of the functions just presented. </small></p>
+
+</div>
+<div class="quiz-explanation">
+  <p>Once date and time variable have the correct datetime format (including the time zone), you can simply substract the start time from the end time</p>
+
+<p><code>date_ex$sampling_end_UTC - date_ex$sampling_start_CET</code> and R will account for the time difference in case time zones differ.</p>
+
+<p>Alternatively, use the lubridate functions <code>%--%</code> and <code>as.duration()</code></p>
+
+<p><code>tow_period &lt;- date_ex$sampling_end_UTC %--% date_ex$sampling_start_CET
+as.duration(tow_period)</code></p>
+
+<ol>
+<li><p><span class='answer'>46</span></p></li>
+<li><p><span class='answer'>81</span></p></li>
+<li><p><span class='answer'>65</span></p></li>
+</ol>
+
+</div>
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-29">
+<hgroup>
+  <h1>Exercise: Date-time in the ICES hydrographical data</h1>
+</hgroup>
+<article data-timings="">
+  <div style="background-color:#F5F5F5; text-align:left; vertical-align: middle; padding:20px 47px;">
+    <p>As preparation for the following data manipulation, import the ICES data, change the variable names, and check the date-time variable. Was the format correctly parsed?
+(Don&#39;t forget to set the working directory beforehand!)</p>
+
+<pre><code class="r">hydro &lt;- read_csv(&quot;data/1111473b.csv&quot;)
+# Change names to e.g.
+names(hydro) &lt;- c(&quot;cruise&quot;, &quot;station&quot;, &quot;type&quot;, &quot;date_time&quot;, 
+  &quot;lat&quot;, &quot;long&quot;, &quot;depth&quot;, &quot;pres&quot;, &quot;temp&quot;, &quot;psal&quot;, &quot;doxy&quot;)
+</code></pre>
+
+<p>Create 3 new columns that contain the</p>
+
+<ul>
+<li><strong>year</strong></li>
+<li><strong>month</strong></li>
+<li><strong>day</strong></li>
+</ul>
+
+  </div>
+  <footer>
+    <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+      <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+    </div>
+    <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+      <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+      font-style: italic; top: 610px; ">Data analysis with R</a>
+    </div>
+  </footer>
+</article>
+<!-- Presenter Notes -->
+</slide>
+
+<style>
+#slide-29 {
+  background-color: #EEC900;
+}
+</style>
+<slide class="segue" style="background:#1874CD;">
+  <hgroup>
+    <h1>Data transformation with &#39;dplyr&#39;</h1>
+  </hgroup>
+  <article>
+    <p><img src="img/Data_science_1b.png" style="height:150px;border:0;position: absolute; left: 900px; top: 50px" </img> </p>
+
+  </article>
+</slide>
+<slide class="" id="slide-31" style="background:;">
+  <hgroup>
+    <h2>The &#39;dplyr&#39; package</h2>
+  </hgroup>
+  <article data-timings="">
+    <div style="position: absolute; left: 950px; top: 25px; z-index:100">
+    <img src="img/Logo_dplyr.png" alt="" width=75px height=75px>
+</div>
+
+<p>Makes data manipulation easier and faster</p>
+
+<table><thead>
+<tr>
+<th>Typical manipulations</th>
+<th>Core functions in dplyr</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Manipulate observations (rows)</td>
+<td><code>filter()</code>, <code>arrange()</code></td>
+</tr>
+<tr>
+<td>Manipulate variables (columns)</td>
+<td><code>select()</code></td>
+</tr>
+<tr>
+<td>Summarise observations</td>
+<td><code>summarise()</code></td>
+</tr>
+<tr>
+<td>Group observations</td>
+<td><code>group_by()</code>, <code>ungroup()</code></td>
+</tr>
+<tr>
+<td>Combine tables</td>
+<td><code>bind_</code> and <code>join_</code> functions</td>
+</tr>
+</tbody></table>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-32" style="background:;">
+  <hgroup>
+    <h2>The &#39;dplyr&#39; package (cont)</h2>
+  </hgroup>
+  <article data-timings="">
+    <div style="position: absolute; left: 950px; top: 25px; z-index:100">
+    <img src="img/Logo_dplyr.png" alt="" width=75px height=75px>
+</div>
+
+<h3>Function structure</h3>
+
+<ul>
+<li>First argument is always a data frame or tibble</li>
+<li>Subsequent arguments say what to do with data frame</li>
+<li>Always return a data frame</li>
+</ul>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-33" style="background:;">
+  <hgroup>
+    <h3>A demonstration with growth information for 5 fish species</h3>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="img/species_img/all_5_species.jpg" title="plot of chunk unnamed-chunk-18" alt="plot of chunk unnamed-chunk-18" width="1000px" style="display: block; margin: auto;" /></p>
+
+<pre><code class="r">fish_growth &lt;- tibble(
+  Species = c(&quot;Gadus morhua&quot;, &quot;Platichthys flesus&quot;, &quot;Pleuronectes platessa&quot;,     
+    &quot;Merlangius merlangus&quot;, &quot;Merluccius merluccius&quot;), 
+  Linf = c(110, 40.8, 54.4, 41.3, 81.7), 
+  K = c(0.4, 0.4, 0.1, 0.2, 0.1)
+)
+</code></pre>
+
+<p>(Linf = average maximum length, K = rate at which the fish approaches Linf)</p>
+
+<p><span class="source-img" style="position:absolute; left:200px; top:600px; font-size:10px;">
+  Image courtesy of the photographers at <a href='http://www.fishbase.org' title=''>fishbase.org</a> 
+  (Konstantinos I. Stergiou, Jim Greenfield) and 
+  <a href='http://www.uwphoto.com' title=''>uwphoto.com</a> (Rudolf Svensen).
+</p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-34" style="background:;">
+  <hgroup>
+    <h3><code>filter()</code> → extract rows that meet logical criteria</h3>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="img/dplyr_filter.png" title="plot of chunk unnamed-chunk-20" alt="plot of chunk unnamed-chunk-20" width="700px" style="display: block; margin: auto;" /></p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-35" style="background:;">
+  <hgroup>
+    <h3>Some other helpful functions to ...</h3>
+  </hgroup>
+  <article data-timings="">
+    <div class="img-with-text" style="position: absolute; left: 300px; top: 125px">
+    <img src="img/dplyr_other_row_selector.png" alt="" width=500px/>
+ <p><span class="source-img" style = "float:right">source: older version of <a href='https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf' title=''>Data Transformation with dplyr</a> cheat sheet (licensed under CC-BY-SA)</span></p>
+</div>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-36" style="background:;">
+  <hgroup>
+    <h3><code>arrange()</code> → sort observations by specific variables</h3>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="img/dplyr_arrange.png" title="plot of chunk unnamed-chunk-21" alt="plot of chunk unnamed-chunk-21" width="700px" style="display: block; margin: auto;" /></p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-37" style="background:;">
+  <hgroup>
+    <h3><code>select()</code> → extract columns by name or helper function</h3>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="img/dplyr_select.png" title="plot of chunk unnamed-chunk-22" alt="plot of chunk unnamed-chunk-22" width="700px" style="display: block; margin: auto;" /></p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-38" style="background:;">
+  <hgroup>
+    <h3>Overview of helper functions</h3>
+  </hgroup>
+  <article data-timings="">
+    <div class="img-with-text" style="position: absolute; left: 300px; top: 125px">
+    <img src="img/dplyr_select_helper.png" alt="" width=500px/>
+ <p><span class="source-img" style = "float:right">source: older version of <a href='https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf' title=''>Data Transformation with dplyr</a> cheat sheet (licensed under CC-BY-SA)</span></p>
+</div>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-39" style="background:;">
+  <hgroup>
+    <h3><code>mutate()</code> and <code>transmute()</code> → create new variables</h3>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="img/dplyr_mutate_transmute.png" title="plot of chunk unnamed-chunk-23" alt="plot of chunk unnamed-chunk-23" width="750px" style="display: block; margin: auto;" /></p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-40" style="background:;">
+  <hgroup>
+    <h3><code>mutate()</code> and <code>transmute()</code></h3>
+  </hgroup>
+  <article data-timings="">
+    <p>You can do any calculation with a variable or apply a so-called <strong>window function</strong>:</p>
+
+<div class="img-with-text" style="position: absolute; left: 300px; top: 150px">
+    <img src="img/dplyr_window_functions.png" alt="" width=350px/>
+ <p><span class="source-img" style = "float:right">source: older version of <a href='https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf' title=''>Data Transformation with dplyr</a> cheat sheet (licensed under CC-BY-SA)</span></p>
+</div>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-41" style="background:;">
+  <article data-timings="">
+    <p>You can do any calculation with a variable as long as it is vectorized. Useful functions are:</p>
+
+<div style='float:left;width:48%;'>
+  <p><img src="img/dplyr_mutate_vec_funcs1.png" title="plot of chunk unnamed-chunk-24" alt="plot of chunk unnamed-chunk-24" width="350px" style="display: block; margin: auto;" /></p>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p><img src="img/dplyr_mutate_vec_funcs2.png" title="plot of chunk unnamed-chunk-25" alt="plot of chunk unnamed-chunk-25" width="350px" style="display: block; margin: auto;" /></p>
+
+<p><span class="source-img" style="position: absolute; left: 250px; top: 600px">source: older version of <a href='https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf' title='Vectorized functions in dplyr'>Data Transformation with dplyr</a> cheat sheet (licensed under CC-BY-SA)</span></p>
+
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-42" style="background:;">
+  <hgroup>
+    <h3><code>summarise()</code> → reduce variables to <em>values</em></h3>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="img/dplyr_summarise.png" title="plot of chunk unnamed-chunk-26" alt="plot of chunk unnamed-chunk-26" width="800px" style="display: block; margin: auto;" /></p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-43" style="background:;">
+  <hgroup>
+    <h3>Useful summary functions</h3>
+  </hgroup>
+  <article data-timings="">
+    <div class="img-with-text" style="position: absolute; left: 300px; top: 150px">
+    <img src="img/dplyr_summary_functions.png" alt="" width=450px/>
+ <p><span class="source-img" style = "float:right">source: older version of <a href='https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf' title=''>Data Transformation with dplyr</a> cheat sheet (licensed under CC-BY-SA)</span></p>
+</div>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="segue" style="background:#EEC900;">
+  <hgroup>
+    <h1>Your turn...</h1>
+  </hgroup>
+  <article>
+    
+  </article>
+</slide>
+<slide class="" id="slide-45">
+<hgroup>
+  <h1>Import the oceanographic ICES dataset</h1>
+</hgroup>
+<article data-timings="">
+  <div style="background-color:#F5F5F5; text-align:left; vertical-align: middle; padding:20px 47px;">
+    <p>If you haven&#39;t done it before in the date handling section do it now
+(don&#39;t forget to set the working directory beforehand!):</p>
+
+<pre><code class="r">hydro &lt;- read_csv(&quot;data/1111473b.csv&quot;)
+names(hydro) &lt;- c(&quot;cruise&quot;, &quot;station&quot;, &quot;type&quot;, 
+  &quot;date_time&quot;, &quot;lat&quot;, &quot;long&quot;, &quot;depth&quot;, 
+  &quot;pres&quot;, &quot;temp&quot;, &quot;psal&quot;, &quot;doxy&quot;)
+</code></pre>
+
+<p>Extract from the <strong>date_time</strong> variable the <strong>year</strong>, <strong>month</strong>, and <strong>day</strong> and save them in separate variables.</p>
+
+  </div>
+  <footer>
+    <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+      <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+    </div>
+    <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+      <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+      font-style: italic; top: 610px; ">Data analysis with R</a>
+    </div>
+  </footer>
+</article>
+<!-- Presenter Notes -->
+</slide>
+
+<style>
+#slide-45 {
+  background-color: #EEC900;
+}
+</style>
+<slide class="" id="slide-46" style="background:#EEC900;">
+  <hgroup>
+    <h1>Quiz 5: Data manipulation</h1>
+  </hgroup>
+  <article data-timings="">
+    
+<div class="quiz-text quiz-multitext well">
+  <ul>
+<li>Create a subset by <strong>filtering</strong> month <em>7</em> and pres <em>1</em>.</li>
+<li><strong>Select</strong> from this subset only the <em>cruise</em>, <em>station</em>, and <em>day</em> variables.</li>
+<li><strong>Arrange</strong> this subset now by <em>day</em>, then by <em>station</em>, and then by <em>cruise</em>.</li>
+</ul>
+
+<p>Questions (solution code will be at the end of the presentation):</p>
+
+<ol>
+<li>How many stations were sampled on day 2?</li>
+<li>And how many cruises sampled these stations?</li>
+</ol>
+
+  <button class="quiz-submit btn btn-primary">Submit</button>
+  <button class="quiz-toggle-hint btn btn-info">Show Hint</button>
+  <button class="quiz-show-answer btn btn-success">Show Answer</button>
+  <button class="quiz-clear btn btn-danger">Clear</button>
+  
+  <div class="quiz-hint">
+  <p><small>Once you have filtered, selected and arranged your subset, print it in the console or use <code>View(your_subset)</code>.</small></p>
+
+</div>
+<div class="quiz-explanation">
+  <ol>
+<li><p><span class='answer'>6</span></p></li>
+<li><p><span class='answer'>2</span></p></li>
+</ol>
+
+</div>
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-47" style="background:#EEC900;">
+  <hgroup>
+    <h1>Quiz 6: Data manipulation</h1>
+  </hgroup>
+  <article data-timings="">
+    
+<div class="quiz-text quiz-multitext well">
+  <p>Lets try a different approach to a similar question (code is at the end of slides):</p>
+
+<ul>
+<li>Create a subset by <strong>filtering</strong> month <em>2</em>, day <em>4</em>, and pres <em>1</em>.</li>
+<li><strong>Select</strong> from this subset only the <em>cruise</em> and <em>station</em> variables (this step could also be skipped).</li>
+<li><strong>Summarise</strong> the <em>cruise</em> and <em>station</em> variables by calculating the number of unique values: <code>n_distinct()</code>.</li>
+</ul>
+
+<ol>
+<li>How many stations were sampled on day 4?</li>
+<li>And how many cruises sampled these stations?</li>
+</ol>
+
+  <button class="quiz-submit btn btn-primary">Submit</button>
+  <button class="quiz-toggle-hint btn btn-info">Show Hint</button>
+  <button class="quiz-show-answer btn btn-success">Show Answer</button>
+  <button class="quiz-clear btn btn-danger">Clear</button>
+  
+  <div class="quiz-explanation">
+  <ol>
+<li><p><span class='answer'>8</span></p></li>
+<li><p><span class='answer'>2</span></p></li>
+</ol>
+
+</div>
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-48" style="background:;">
+  <article data-timings="">
+    <p><q> <strong>Well done</strong>! You managed to calculate the number of sampled stations and cruises for a <strong>single day</strong>! But what about all the other days? </q></p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-49" style="background:;">
+  <hgroup>
+    <h2>Devise a strategy for all days or months!</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Try to get something like this</p>
+
+<pre><code class="no-highlight">## # A tibble: 223 x 4
+##   month   day cruise_count station_count
+##   &lt;dbl&gt; &lt;int&gt;        &lt;int&gt;         &lt;int&gt;
+## 1     1    12            2             4
+## 2     1    13            1             2
+## 3     1    14            1             2
+## 4     1    15            1             1
+## 5     1    19            3             9
+## 6     1    20            3             7
+## 7     1    21            3             5
+## # ... with 216 more rows
+</code></pre>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-50" style="background:;">
+  <article data-timings="">
+    <p><q> You get 2 minutes to think of a strategy ... </q></p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-51" style="background:;">
+  <hgroup>
+    <h2>Solution for group-wise operations:</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li><code>group_by()</code> takes an existing tbl and converts it into a grouped tbl where operations are performed &quot;by group&quot;</li>
+<li><code>ungroup()</code> removes grouping</li>
+</ul>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-52" style="background:;">
+  <hgroup>
+    <h2>Principle of group-wise operations</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="img/dplyr_group_operations.png" title="plot of chunk unnamed-chunk-30" alt="plot of chunk unnamed-chunk-30" width="800px" style="display: block; margin: auto;" /></p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-53" style="background:;">
+  <hgroup>
+    <h2>dplyr offers many more functions!</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>From now on you should constantly look into the cheat sheet:</p>
+
+<div class="img-with-text" style="position: absolute; left: 75px; top: 175px">
+    <img src="img/dplyr_cheatsheet.png" alt="" width=950px/>
+ <p><span class="source-img" style = "float:right">
+ Cheat sheet is freely available at 
+ <a href='https://www.rstudio.com/resources/cheatsheets/' title=''>https://www.rstudio.com/resources/cheatsheets/</a></span></p>
+</div>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-54" style="background:;">
+  <article data-timings="">
+    <p><q> Before you can practice your data manipulation skills you will get to know <strong>one very usefool tool</strong> for more complex operations!!! </q></p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="segue" style="background:#1874CD;">
+  <hgroup>
+    <h1>The pipe operator</h1>
+  </hgroup>
+  <article>
+    
+  </article>
+</slide>
+<slide class="" id="slide-56" style="background:;">
+  <hgroup>
+    <h2>Basic piping with %&gt;%</h2>
+  </hgroup>
+  <article data-timings="">
+    <div style="position: absolute; left: 950px; top: 25px; z-index:100">
+    <img src="img/Logo_magrittr.png" alt="" width=75px height=75px>
+</div>
+
+<ul>
+<li>The so-called pipe-operator is provided by the <strong>magritr</strong> package.</li>
+<li>Is part of the <strong>core</strong> tidyverse so you only need to install &#39;tidyverse&#39; or any of the tidyverse core packages.</li>
+<li><strong>Simplifies operations</strong>!</li>
+<li>Imagine taking the square root of the sums of squares of a data subset in <strong>one step</strong>:</li>
+</ul>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-57" style="background:;">
+  <hgroup>
+    <h2>Basic piping with %&gt;%</h2>
+  </hgroup>
+  <article data-timings="">
+    <div style="position: absolute; left: 950px; top: 25px; z-index:100">
+    <img src="img/Logo_magrittr.png" alt="" width=75px height=75px>
+</div>
+
+<ul>
+<li>The so-called pipe-operator is provided by the <strong>magritr</strong> package.</li>
+<li>Is part of the <strong>core</strong> tidyverse so you only need to install &#39;tidyverse&#39; or any of the tidyverse core packages.</li>
+<li><strong>Simplifies operations</strong>!</li>
+<li>Imagine taking the square root of the sums of squares of a data subset in <strong>one step</strong>:</li>
+</ul>
+
+<pre><code class="r">sqrt(sum( (hydro$temp[hydro$station == &quot;0010&quot; &amp;  hydro$pres %in% c(1,5,10)] - 
+    mean(hydro$temp[hydro$station == &quot;0010&quot; &amp;  hydro$pres %in% c(1,5,10)]))^2))
+</code></pre>
+
+<p>Does that look simple and readable?</p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-58" style="background:;">
+  <article data-timings="">
+    <p>With <code>%&gt;%</code> you can couple several function calls sequentially without creating many intermediate objects:</p>
+
+<p><img src="img/Pipe_operator.png" title="plot of chunk unnamed-chunk-32" alt="plot of chunk unnamed-chunk-32" width="900px" style="display: block; margin: auto;" /></p>
+
+<ul class = "build incremental">
+<li><code>%&gt;%</code> pipes left-hand side values forward into expressions that appear on the right-hand side.</li>
+<li>Additional steps can be easily added anywhere in the sequence of operations.</li>
+</ul>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="segue" style="background:#EEC900;">
+  <hgroup>
+    <h1>Your turn...</h1>
+  </hgroup>
+  <article>
+    
+  </article>
+</slide>
+<slide class="" id="slide-60">
+<hgroup>
+  <h1>Tell me ...</h1>
+</hgroup>
+<article data-timings="">
+  <div style="background-color:#F5F5F5; text-align:left; vertical-align: middle; padding:20px 47px;">
+    <ol>
+<li>Which dplyr function can you use to remove duplicated row values?</li>
+<li>And which dplyr function(s) can you use to count the number of rows in each variable group?</li>
+</ol>
+
+<p>→ These functions can be helpful in the next data manipulation exercises!</p>
+
+  </div>
+  <footer>
+    <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+      <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+    </div>
+    <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+      <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+      font-style: italic; top: 610px; ">Data analysis with R</a>
+    </div>
+  </footer>
+</article>
+<!-- Presenter Notes -->
+</slide>
+
+<style>
+#slide-60 {
+  background-color: #EEC900;
+}
+</style>
+<slide class="" id="slide-61">
+<hgroup>
+  <h1>More complex data manipulations</h1>
+</hgroup>
+<article data-timings="">
+  <div style="background-color:#F5F5F5; text-align:left; vertical-align: middle; padding:20px 47px;">
+    <p>With the <code>group_by()</code> function and the pipe operator you will be able to answer the following questions (choose <strong>at least 3</strong> questions):</p>
+
+<pre><code class="r">1. On average, how many stations were sampled per month during 2015?
+2. Which stations were sampled more than 3 times per month?
+3. How many days took the sampling place in each month? 
+4. Do you see any temporal gap during the year where no sampling took place?
+5. Which depths are most frequently sampled?
+6. What are the most common depth profiles taken? (Every 1 metre, every 5 metres?)
+7. Are the NAs in the dataset related to specific months or cruises?
+
+What else could be relevant in terms of data quality?
+</code></pre>
+
+<p>(the solution code is at the end of the presentation)</p>
+
+  </div>
+  <footer>
+    <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+      <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+    </div>
+    <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+      <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+      font-style: italic; top: 610px; ">Data analysis with R</a>
+    </div>
+  </footer>
+</article>
+<!-- Presenter Notes -->
+</slide>
+
+<style>
+#slide-61 {
+  background-color: #EEC900;
+}
+</style>
+<slide class="segue" style="background:#E5E5E5;">
+  <hgroup>
+    <h2>Overview of functions you learned today</h2>
+  </hgroup>
+  <article>
+    <p>base: <code>Sys.time()</code>, <code>unclass(Sys.time())</code></p>
+
+<p>lubridate: <code>ymd</code>, <code>mdy</code>, <code>dmy</code>, <code>ymd_hms</code>, <code>mdy_hm</code>
+<code>make_date</code>, <code>as_date()</code>, <code>as_datetime()</code>
+<code>year()</code>, <code>month()</code>, <code>mday()</code>,  <code>yday()</code>, <code>wday()</code>, <code>hour()</code>, <code>minute()</code>, <code>second()</code>, <code>%—%</code>, <code>as.duration()</code></p>
+
+<p>dplyr: <code>filter()</code>, <code>arrange()</code>, <code>select()</code>, <code>mutate()</code> and <code>transmute()</code>, <code>summarise()</code>, <code>group_by()</code>, <code>ungroup()</code></p>
+
+<p>magrittr: <code>%&gt;%</code></p>
+
+  </article>
+</slide>
+<slide class="segue" style="background:#CD2626;">
+  <hgroup>
+    <h1>How do you feel now.....?</h1>
+  </hgroup>
+  <article>
+    
+  </article>
+</slide>
+<slide class="" id="slide-64">
+  <hgroup>
+    <h2>Totally confused?</h2>
+  </hgroup>
+  <article class = 'flexbox vcenter'>
+    <p><img src="img/Comic_confused.png" title="plot of chunk unnamed-chunk-34" alt="plot of chunk unnamed-chunk-34" width="400px" style="display: block; margin: auto;" /></p>
+
+<p>Tr out ALL the exercises and compare your code and results with the solution code!
+Read <a href="http://r4ds.had.co.nz/transform.html">chapter 5</a> on data transformation, <a href="http://r4ds.had.co.nz/dates-and-times.html">chapter 16</a> on dates and times, and <a href="http://r4ds.had.co.nz/pipes.html">chapter 18</a> on the pipe operator &#39;in R for Data Science&#39;.</p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-65">
+  <hgroup>
+    <h2>Totally bored?</h2>
+  </hgroup>
+  <article class = 'flexbox vcenter'>
+    <p><img src="img/Comic_bored.png" title="plot of chunk unnamed-chunk-35" alt="plot of chunk unnamed-chunk-35" width="800px" style="display: block; margin: auto auto auto 0;" /></p>
+
+<p>Then play around with the full hydro dataset &quot;1111473b.csv&quot; and explore already the hydrographical variables.</p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-66" style="background:;">
+  <hgroup>
+    <h2>Totally content?</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Then go grab a coffee, lean back and enjoy the rest of the day...!</p>
+
+<p><img src="img/Comic_hammock.png" title="plot of chunk unnamed-chunk-36" alt="plot of chunk unnamed-chunk-36" width="600px" style="display: block; margin: auto;" /></p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="thank-you-slide segue" id="slide-67">
+  <footer>
+    <div style="position: absolute; left: 50px; top: 50px; z-index:100">
+        <img src = "assets/img/uham_logo.png" height="67" width="200">
+    </div>
+  </footer>
+  <article>
+    <h1 style="padding-top: 120px;">Thank You</h1>
+    <p>
+      For more information contact me:<a href="saskia.otto@uni-hamburg.de">
+      saskia.otto@uni-hamburg.de</a>
+      </p>
+      <p data-config-contact="">
+      <a href="http://www.researchgate.net/profile/Saskia_Otto"
+          style="color:#F48C0A; font-weight: bold;">
+        http://www.researchgate.net/profile/Saskia_Otto</a><br>
+      <a href="http://www.github.com/saskiaotto"
+          style="color: #F48C0A; font-weight: bold;">
+        http://www.github.com/saskiaotto</a>
+    </p>
+    <p style="font-size: 15px; position: absolute; left: 125px; top: 480px; z-index:100">
+    <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+      <img alt="Creative Commons License" style="border-width:0"
+        src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" /></a><br>
+        This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+        Creative Commons Attribution-ShareAlike 4.0 International License </a>except for the <br>
+        borrowed and mentioned with proper <i>source:</i> statements. <br>
+        <b>Image on title and end slide:</b> Section of an infrared satallite image showing the Larsen C
+        ice shelf on the Antarctic <br>
+        Peninsula - USGS/NASA Landsat: <a href="https://landsat.visibleearth.nasa.gov/view.php?id=90481">
+        A Crack of Light in the Polar Dark</a>, Landsat 8 - TIRS, June 17, 2017 <br>
+        (under CC0 license)
+    </p>
+  </article>
+</slide>
+<slide class="segue" style="background:#CD2626;">
+  <hgroup>
+    <h1>Solutions</h1>
+  </hgroup>
+  <article>
+    
+  </article>
+</slide>
+<slide class="" id="slide-69" style="background:;">
+  <hgroup>
+    <h2>Quiz 5: Data manipulation</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">h_filt &lt;- filter(hydro, month == 7, pres == 1)
+h_sel &lt;- select(h_filt, cruise,station, day)
+h_arr &lt;- arrange(h_sel, day, station, cruise)
+# View(h_arr) or filter by day
+out &lt;- filter(h_sel, day == 2)
+</code></pre>
+
+<div style='float:left;width:48%;'>
+  <pre><code class="r">out
+</code></pre>
+
+<pre><code class="no-highlight">## # A tibble: 6 x 3
+##   cruise station   day
+##   &lt;chr&gt;  &lt;chr&gt;   &lt;int&gt;
+## 1 3490   0093        2
+## 2 3490   0257        2
+## 3 3490   0229        2
+## 4 ESLV   012c        2
+## 5 ESLV   0038        2
+## 6 ESLV   00N8        2
+</code></pre>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p>Using the <strong>pipe operator</strong>:</p>
+
+<pre><code class="r">hydro %&gt;%
+  filter(month == 7, pres == 1) %&gt;%
+  select(cruise, station, day) %&gt;%
+  arrange(day, station, cruise) %&gt;%
+  filter(day == 2)
+</code></pre>
+
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-70" style="background:;">
+  <hgroup>
+    <h2>Quiz 6: Data manipulation</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">h_filt &lt;- filter(hydro, month == 2, day == 4, pres == 1)
+summarise(h_filt, cruise_nr = n_distinct(cruise),
+  station_nr = n_distinct(station) )
+</code></pre>
+
+<pre><code class="no-highlight">## # A tibble: 1 x 2
+##   cruise_nr station_nr
+##       &lt;int&gt;      &lt;int&gt;
+## 1         2          8
+</code></pre>
+
+<p>Using the <strong>pipe operator</strong>:</p>
+
+<pre><code class="r">hydro %&gt;%
+  filter(month == 2, day == 4, pres == 1) %&gt;%
+  summarise(cruise_count = n_distinct(cruise),
+    station_count = n_distinct(station) )
+</code></pre>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-71" style="background:;">
+  <hgroup>
+    <h2>Complex data manipulations - Question 1</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><em>On average, how many stations were sampled per month during 2015?</em></p>
+
+<p>You want the number of sampled stations per month before you can calculate the mean. This could be done by counting the number of rows with different station values per month. Problem: The data consists of double entries (duplicated station values) due to the different sampling depths (and maybe the station was sampled more than once at the same day during the cruise). So first remove double entries by using the <code>distinct()</code> function!</p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-72" style="background:;">
+  <hgroup>
+    <h2>Complex data manipulations - Question 1 (cont)</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><em>On average, how many stations were sampled per month during 2015?</em></p>
+
+<div style='float:left;width:48%;'>
+  <pre><code class="r">hydro %&gt;%
+  select(station, month) %&gt;%
+  # to remove duplicates
+  distinct() %&gt;%
+  group_by(month) %&gt;%
+  count() %&gt;%
+  ungroup() %&gt;%
+  summarise(stat_per_month = mean(n))
+</code></pre>
+
+<pre><code class="no-highlight">## # A tibble: 1 x 1
+##   stat_per_month
+##            &lt;dbl&gt;
+## 1           210.
+</code></pre>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p>As we are only interested in stations per month and not in double entries, etc., </p>
+
+<ul>
+<li>both variables are first selected </li>
+<li>and then duplicated entries removed.</li>
+<li>The dataset is grouped by month, </li>
+<li>number of rows per month (= the stations) calculated and </li>
+<li>the mean across months computed.</li>
+</ul>
+
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-73" style="background:;">
+  <hgroup>
+    <h2>Complex data manipulations - Question 2</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><em>Which stations were sampled more than 3 times per month?</em></p>
+
+<div style='float:left;width:48%;'>
+  <pre><code class="r">hydro %&gt;%
+  select(station,date_time,month) %&gt;% 
+  distinct() %&gt;%
+  group_by(month, station) %&gt;%
+  count() %&gt;%
+  filter(n &gt; 3)
+</code></pre>
+
+<ul>
+<li>date_time is kept in to indicate the nr of samplings at this station per month</li>
+<li>instead of <em>count()</em> you can also use <em>summarise(n = length(station))</em> or <em>summarise(n = n())</em></li>
+</ul>
+
+</div>
+<div style='float:right;width:48%;'>
+  <pre><code class="no-highlight">## # A tibble: 9 x 3
+## # Groups:   month, station [9]
+##   month station     n
+##   &lt;dbl&gt; &lt;chr&gt;   &lt;int&gt;
+## 1     3 0001        4
+## 2     3 0021        4
+## 3     3 0023        4
+## 4     3 0025        4
+## 5     3 0027        4
+## 6     3 0029        4
+## 7     4 0002        4
+## 8     4 0003        5
+## 9     6 0038        4
+</code></pre>
+
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-74" style="background:;">
+  <hgroup>
+    <h2>Complex data manipulations - Question 3</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><em>How many days took the sampling place in each month?</em></p>
+
+<div style='float:left;width:48%;'>
+  <p>What are you interested in here? In <em>day</em> and <em>month</em>, so select only those 2 variables, remove duplicated rows, group by month so that you can count the number of rows with different day values:</p>
+
+<pre><code class="r">hydro %&gt;%
+  select(month, day) %&gt;%
+  distinct() %&gt;% 
+  group_by(month) %&gt;%
+  summarise(n = n()) # or count() 
+</code></pre>
+
+</div>
+<div style='float:right;width:48%;'>
+  <pre><code class="no-highlight">## # A tibble: 12 x 2
+##    month     n
+##    &lt;dbl&gt; &lt;int&gt;
+##  1     1    19
+##  2     2    26
+##  3     3    31
+##  4     4    17
+##  5     5    24
+##  6     6    26
+##  7     7    25
+##  8     8    25
+##  9     9    28
+## 10    10    29
+## 11    11    27
+## 12    12    13
+</code></pre>
+
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-75" style="background:;">
+  <hgroup>
+    <h2>Complex data manipulations - Question 4</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><em>Do you see any temporal gap during the year where no sampling took place?</em></p>
+
+<p>This is a question were you can play around with various other functions. No approach will be the correct one. Here is one solution where the julian days are computed with the lubridate function <code>yday()</code> and the difference between successive julian days then calculated:</p>
+
+<pre><code class="r">hydro %&gt;%
+  mutate(julian_day = lubridate::yday(date_time)) %&gt;%
+  select(julian_day, month) %&gt;%
+  distinct() %&gt;% 
+  arrange(julian_day) %&gt;% 
+  mutate( timegap = c(NA, diff(julian_day)) ) %&gt;%
+  group_by(month) %&gt;%
+  filter(timegap &gt; 3) 
+</code></pre>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-76" style="background:;">
+  <hgroup>
+    <h2>Complex data manipulations - Question 4 (cont)</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><em>Do you see any temporal gap during the year where no sampling took place?</em></p>
+
+<pre><code class="no-highlight">## # A tibble: 8 x 3
+## # Groups:   month [6]
+##   julian_day month timegap
+##        &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
+## 1         19     1       4
+## 2         97     4       6
+## 3        103     4       4
+## 4        110     4       4
+## 5        124     5       6
+## 6        180     6       4
+## 7        306    11       4
+## 8        341    12       4
+</code></pre>
+
+<p>So mainly April shows the greatest gaps (with a gap of 6 days, and twice of 4 days). Why could that be? </p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-77" style="background:;">
+  <hgroup>
+    <h2>Complex data manipulations - Question 5 and 6</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><em>Which depths are most frequently sampled?</em>
+<em>What are the most common depth profiles taken? (Every 1 metre, every 5 metres?)</em></p>
+
+<div style='float:left;width:48%;'>
+  <pre><code class="r">hydro %&gt;%
+ select(pres) %&gt;%
+ group_by(pres) %&gt;%
+ count() %&gt;%
+ arrange(desc(n)) %&gt;% print(n=3)
+</code></pre>
+
+<pre><code class="no-highlight">## # A tibble: 1,193 x 2
+## # Groups:   pres [1,193]
+##    pres     n
+##   &lt;dbl&gt; &lt;int&gt;
+## 1     5  2319
+## 2    10  2215
+## 3    20  1792
+## # ... with 1,190 more rows
+</code></pre>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p>If you got the same result you probably noted, that the depth (or pres) values are not integers and the number of unique values is there fore very high (1,193). To reduce the numer of depth levels we could round them first. Instead of using the function <code>round()</code> I suggest using <code>ceiling()</code>, which rounds to the next higher integer (so that 0.4m is considered 1m):</p>
+
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-78" style="background:;">
+  <hgroup>
+    <h2>Complex data manipulations - Q5 and 6 (cont)</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><em>Which depths are most frequently sampled?</em>
+<em>What are the most common depth profiles taken? (Every 1 metre, every 5 metres?)</em></p>
+
+<div style='float:left;width:48%;'>
+  <pre><code class="r">hydro %&gt;%
+transmute(pres2 = ceiling(pres)) %&gt;%
+ group_by(pres2) %&gt;%
+ count() %&gt;%
+ arrange(desc(n)) %&gt;% print(n=3)
+</code></pre>
+
+<pre><code class="no-highlight">## # A tibble: 216 x 2
+## # Groups:   pres2 [216]
+##   pres2     n
+##   &lt;dbl&gt; &lt;int&gt;
+## 1     5  2370
+## 2    10  2232
+## 3     1  1880
+## # ... with 213 more rows
+</code></pre>
+
+</div>
+<div style='float:right;width:48%;'>
+  <ul>
+<li>Q5: The depths most often sampled are 5m, 10m, and 1m.</li>
+<li>Q6: From 0 to 30m depth samples were mostly taken in 5m intervals (1, 5, 10, 15, 20, 25, 30m) depth and afterwards mostly in 10m intervals. </li>
+</ul>
+
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-79" style="background:;">
+  <hgroup>
+    <h2>Complex data manipulations - Question 7</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><em>Are the NAs in the dataset related to specific months or cruises?</em></p>
+
+<div style='float:left;width:48%;'>
+  <p>Check if related to months</p>
+
+<pre><code class="r">hydro %&gt;% 
+ select(month, temp, psal, doxy) %&gt;%
+ group_by(month) %&gt;%
+ summarise(
+  t_na = sum(is.na(temp)),
+  s_na = sum(is.na(psal)),
+  o_na = sum(is.na(doxy))
+ ) %&gt;%
+ mutate(sum_na = t_na+s_na+o_na) %&gt;%
+ arrange(desc(sum_na)) 
+</code></pre>
+
+</div>
+<div style='float:right;width:48%;'>
+  <pre><code class="no-highlight">## # A tibble: 12 x 5
+##    month  t_na  s_na  o_na sum_na
+##    &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;  &lt;int&gt;
+##  1    10   184   234  1115   1533
+##  2     8   310   413   630   1353
+##  3     3   115   108   854   1077
+##  4     6   155   267   649   1071
+##  5     9   123   232   619    974
+##  6     7   239   357   372    968
+##  7     2    47    82   798    927
+##  8    11    46    83   764    893
+##  9     5   235   311   330    876
+## 10     4   177   200   375    752
+## 11     1    73    85   549    707
+## 12    12    10    10   249    269
+</code></pre>
+
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-80" style="background:;">
+  <hgroup>
+    <h2>Complex data manipulations - Question 7 (cont)</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><em>Are the NAs in the dataset related to specific months or cruises?</em></p>
+
+<div style='float:left;width:48%;'>
+  <p>Check if related to cruises</p>
+
+<pre><code class="r">hydro %&gt;% 
+ select(cruise, temp, psal, doxy) %&gt;%
+ group_by(cruise) %&gt;%
+ summarise(
+  t_na = sum(is.na(temp)),
+  s_na = sum(is.na(psal)),
+  o_na = sum(is.na(doxy))
+ ) %&gt;%
+ mutate(sum_na = t_na+s_na+o_na) %&gt;%
+ arrange(desc(sum_na)) 
+</code></pre>
+
+</div>
+<div style='float:right;width:48%;'>
+  <pre><code class="no-highlight">## # A tibble: 36 x 5
+##    cruise  t_na  s_na  o_na sum_na
+##    &lt;chr&gt;  &lt;int&gt; &lt;int&gt; &lt;int&gt;  &lt;int&gt;
+##  1 67BC     127   147  2300   2574
+##  2 ESSA     729   729   243   1701
+##  3 3490     194   706   488   1388
+##  4 26DA       0     2  1234   1236
+##  5 34AR      17    17  1160   1194
+##  6 77FY      39     0   490    529
+##  7 67LL      92   272    92    456
+##  8 ESLV     145   145   151    441
+##  9 77K9       4     3   285    292
+## 10 ESQT      59    59    89    207
+## # ... with 26 more rows
+</code></pre>
+
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-81" style="background:;">
+  <hgroup>
+    <h2>Complex data manipulations - Question 7 (cont)</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><em>Are the NAs in the dataset related to specific months or cruises?</em></p>
+
+<ul>
+<li>NAs are most common in October and August but there is no clear seasonal pattern in the occurrence of NAs.</li>
+<li>Certain cruises provided data to ICES with many more missing values.
+
+<ul>
+<li>The NAs are mainly related to specific cruises, with the highest number of NAs found for oxygen.</li>
+<li>It might be smart to go into the original data and check for those cruises if NAs occur only for specific depths.</li>
+</ul></li>
+</ul>
+
+<div style='float:left;width:48%;'>
+  <pre><code class="r">hydro %&gt;%
+  filter(month==2,cruise==&quot;67BC&quot;) %&gt;%
+  View()
+</code></pre>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p>→ at this cruise doxy was only taken in 10m depth intervals not in 5m as for temp and psal</p>
+
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='3. Data transformation'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Before you start manipulating, ask yourself what do you want to explore?'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='What could be interesting questions for the oceanographic ICES data?'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='NA'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='NA'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='These questions require data aggregation'>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='Handling dates and times'>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title='Measurement of time is highly idiosyncratic'>
+         8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title='Measurement of time is highly idiosyncratic'>
+         9
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=10 title='Dates and times in R'>
+         10
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=11 title='Dates and times in R'>
+         11
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=12 title='Dates and times in R'>
+         12
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=13 title='Dates and times in R (cont)'>
+         13
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=14 title='The &#39;lubridate&#39; package'>
+         14
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=15 title='Create DATE objects from string'>
+         15
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=16 title='Create DATE-TIME objects from strings'>
+         16
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=17 title='Create DATE-TIME objects from strings (cont)'>
+         17
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=18 title='Create DATE-TIME objects from individual components'>
+         18
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=19 title='Switch between date-time and date'>
+         19
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=20 title='Extract date components'>
+         20
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=21 title='Handling time periods, intervals'>
+         21
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=22 title='NA'>
+         22
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=23 title='Your turn...'>
+         23
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=24 title='Import the following dataset'>
+         24
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=25 title='Quiz 1: Handling dates'>
+         25
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=26 title='Quiz 2: Handling dates'>
+         26
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=27 title='Quiz 3: Handling dates'>
+         27
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=28 title='Quiz 4 - Challenge: Handling dates and times'>
+         28
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=29 title='Exercise: Date-time in the ICES hydrographical data'>
+         29
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=30 title='Data transformation with &#39;dplyr&#39;'>
+         30
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=31 title='The &#39;dplyr&#39; package'>
+         31
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=32 title='The &#39;dplyr&#39; package (cont)'>
+         32
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=33 title='A demonstration with growth information for 5 fish species'>
+         33
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=34 title='<code>filter()</code> → extract rows that meet logical criteria'>
+         34
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=35 title='Some other helpful functions to ...'>
+         35
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=36 title='<code>arrange()</code> → sort observations by specific variables'>
+         36
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=37 title='<code>select()</code> → extract columns by name or helper function'>
+         37
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=38 title='Overview of helper functions'>
+         38
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=39 title='<code>mutate()</code> and <code>transmute()</code> → create new variables'>
+         39
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=40 title='<code>mutate()</code> and <code>transmute()</code>'>
+         40
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=41 title='NA'>
+         41
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=42 title='<code>summarise()</code> → reduce variables to <em>values</em>'>
+         42
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=43 title='Useful summary functions'>
+         43
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=44 title='Your turn...'>
+         44
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=45 title='Import the oceanographic ICES dataset'>
+         45
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=46 title='Quiz 5: Data manipulation'>
+         46
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=47 title='Quiz 6: Data manipulation'>
+         47
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=48 title='NA'>
+         48
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=49 title='Devise a strategy for all days or months!'>
+         49
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=50 title='NA'>
+         50
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=51 title='Solution for group-wise operations:'>
+         51
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=52 title='Principle of group-wise operations'>
+         52
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=53 title='dplyr offers many more functions!'>
+         53
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=54 title='NA'>
+         54
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=55 title='The pipe operator'>
+         55
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=56 title='Basic piping with %&gt;%'>
+         56
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=57 title='Basic piping with %&gt;%'>
+         57
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=58 title='NA'>
+         58
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=59 title='Your turn...'>
+         59
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=60 title='Tell me ...'>
+         60
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=61 title='More complex data manipulations'>
+         61
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=62 title='Overview of functions you learned today'>
+         62
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=63 title='How do you feel now.....?'>
+         63
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=64 title='Totally confused?'>
+         64
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=65 title='Totally bored?'>
+         65
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=66 title='Totally content?'>
+         66
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=67 title='NA'>
+         67
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=68 title='Solutions'>
+         68
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=69 title='Quiz 5: Data manipulation'>
+         69
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=70 title='Quiz 6: Data manipulation'>
+         70
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=71 title='Complex data manipulations - Question 1'>
+         71
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=72 title='Complex data manipulations - Question 1 (cont)'>
+         72
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=73 title='Complex data manipulations - Question 2'>
+         73
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=74 title='Complex data manipulations - Question 3'>
+         74
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=75 title='Complex data manipulations - Question 4'>
+         75
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=76 title='Complex data manipulations - Question 4 (cont)'>
+         76
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=77 title='Complex data manipulations - Question 5 and 6'>
+         77
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=78 title='Complex data manipulations - Q5 and 6 (cont)'>
+         78
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=79 title='Complex data manipulations - Question 7'>
+         79
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=80 title='Complex data manipulations - Question 7 (cont)'>
+         80
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=81 title='Complex data manipulations - Question 7 (cont)'>
+         81
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  <script src="libraries/widgets/quiz/js/jquery.quiz.js"></script>
+<script src="libraries/widgets/quiz/js/mustache.min.js"></script>
+<script src="libraries/widgets/quiz/js/quiz-app.js"></script>
+<script src="libraries/widgets/bootstrap/js/bootstrap.min.js"></script>
+<script src="libraries/widgets/bootstrap/js/bootbox.min.js"></script>
+<script src="libraries/widgets/interactive/js/ace/js/ace.js"></script>
+<script src="libraries/widgets/interactive/js/opencpu-0.5.js"></script>
+<script src="libraries/widgets/interactive/js/interactive.js"></script>
+
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<script>  
+  $(function (){ 
+    $("#example").popover(); 
+    $("[rel='tooltip']").tooltip(); 
+  });  
+  </script>  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

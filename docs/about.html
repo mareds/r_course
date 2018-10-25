@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>About the course</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/spacelab.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
+<link href="site_libs/ionicons-2.0.1/css/ionicons.min.css" rel="stylesheet" />
+
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="css_site/style_site.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 52px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+
+.section h2 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+.section h3 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+.section h4 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+.section h5 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+.section h6 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://marinedatascience.co">
+        <img id="mds_logo" alt="" src="img_site/mds_logo_grey@2x.png" width="30" height="30" >
+        MDS
+      </a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+          <a href="index.html">
+            <span class="fa fa-home"></span>
+              Data Analysis with R
+          </a>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+            <span class="fa fa-graduation-cap"></span>
+              Lectures
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu" role="menu">
+            <li class="dropdown-header">Programming in R</li>
+            <li class="dropdown-item">
+              <a href="lecture01_intro2data_science_and_r.html ">1-Introduction to data science and R</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture02_r_basics.html">2-Basics in R</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture03_data_structures.html">3-Data structures and basic calculations</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture04_operators.html">4-Operators</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture05_data_wrangling_import.html">5-Data wrangling - 1.Import</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture06_data_wrangling_tidy_data.html">6-Data wrangling - 2.Tidy Data</a>
+            </li>
+            <li class="dropdown-header">Data exploration &amp; visualization</li>
+            <li class="dropdown-item">
+              <a href="lecture07_data_wrangling_transformation.html">7-Data wrangling - 3.Transformation</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture08_intro2visualization_1.html">8-Intro2Visualization - Part 1</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture09_intro2visualization_2.html">9-Intro2Visualization - Part 2(Adjusting plots)</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture10_categorical_data.html">10-Handling and visualization of categorical data</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture11_rmarkdown.html">11-R Markdown for communication</a>
+            </li>
+            <li class="dropdown-header">Statistical Modelling</li>
+            <li class="dropdown-item">
+              <a href="lecture12_stat_modelling_1.html">12-Intro2Statistical Modelling - Part 1</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture13_stat_modelling_2.html">13-Intro2Statistical Modelling - Part 2</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture14_stat_modelling_3.html">14-Model building and selection</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture15_stat_modelling_4.html">15-Modelling demonstration</a>
+            </li>
+            <li class="dropdown-header">Programming in R</li>
+            <li class="dropdown-item">
+              <a href="lecture16_string_manipulation.html">16-String manipulation and regular expressions</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture17_functionsniterations_1.html">17-Functions and Iteration 1 (Loops)</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture18_iterations_2.html">18-Iteration 2 (purrr and the map family)</a>
+            </li>
+            <li class="divider"></li>
+            <li class="dropdown-header">slides, keyboard shortcuts:</li>
+            <li class="dropdown-header">o: outline</li>
+            <li class="dropdown-header">w: widescreen on/off</li>
+            <li class="dropdown-header">f: fullscreen on/off</li>
+            <li class="dropdown-header">ctrl +/ ctrl -: zoom in/out</li>
+            <li class="dropdown-header">p: presenter mode with additional info (NOT in Safari)</li>
+          </ul>
+        </li>
+        <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+          <span class="fa fa-gear"></span>
+            Exercises
+          <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu" role="menu">
+          <li class="dropdown-header">Practicals</li>
+          <li class="dropdown-item">
+            <a href="ex_resources.html">Resources</a>
+          </li>
+          <li class="dropdown-item">
+            <a href="ex_swirl.html">Quizzes with swirl</a>
+          </li>
+          <li class="divider"></li>
+          <li class="dropdown-header">Case studies</li>
+          <li class="dropdown-item">
+            <a href="ex_case_study_1.html">Case study 1</a>
+          </li>
+          <li class="dropdown-item">
+            <a href="ex_case_study_2.html">Case study 2</a>
+          </li>
+          <li class="dropdown-item">
+            <a href="ex_case_study_1_solutions.html">Case study 1 - solution</a>
+          </li>
+          <li class="dropdown-item">
+            <a href="ex_case_study_2_solutions.html">Case study 2 - solution</a>
+          </li>
+          <li class="divider"></li>
+          <li class="dropdown-header">Demo Code</li>
+          <li class="dropdown-item">
+            <a href="ex_lecture08_code_geom_functions.html">Lecture 8 - Geom functions</a>
+          </li>
+          <li class="dropdown-item">
+            <a href="ex_lecture08_code_ggplots_in_slides.html">Lecture 8 - Code for ggplots in lecture</a>
+          </li>
+          <li class="dropdown-item">
+            <a href="ex_lecture14_code_find_the_model.html">Lecture 14 - Find the model</a>
+          </li>
+          <li class="dropdown-item">
+            <a href="ex_lecture15_model_building_demo.html">Lecture 15 - Model building demo</a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="misc.html">
+          <span class="ion ion-wrench"></span>
+            Misc
+        </a>
+      </li>
+      <li>
+        <a href="video.html">
+          <span class="ion ion-ios-videocam"></span>
+            Videos
+        </a>
+      </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li>
+        <a href="about.html">
+          <span class="fa fa-newspaper"></span>
+            About
+        </a>
+      </li>
+      <li>
+        <a href="mailto:saskia.otto@uni-hamburg.de">
+          <span class="fa fa-send"></span>
+            Contact
+        </a>
+      </li>
+    </ul>
+   </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">About the course</h1>
+
+</div>
+
+
+<div id="website-and-course-creator-and-instructor" class="section level4">
+<h4>Website and course creator and instructor</h4>
+<p><strong>Saskia A. Otto</strong><br> Postdoctoral researcher at the Institute of Marine Ecosystem and Fishery Science (IMF), University of Hamburg, Germany<br> <a href="https://www.biologie.uni-hamburg.de/en/forschung/oekologie-biologische-ressourcen/maroeksysdyn/mitarbeiter/otto-saskia.html">Institute weblink</a><br> Blog: <a href="https://www.marinedatascience.co">www.marinedatasciene.co</a><br> <i class="fa fa-github fa-lg"></i>: <a href="https://github.com/saskiaotto">saskiaotto</a><br> <i class="fab fa-2x fa-researchgate"></i> <a href="https://www.researchgate.net/profile/Saskia_Otto">ResearchGate link</a></p>
+</div>
+<div id="technical-infos" class="section level4">
+<h4>Technical infos</h4>
+<p>The entire course including this website was written in R Markdown. For the lecture presentations I used the <a href="http://slidify.org/index.html">slidify</a> framework.</p>
+</div>
+<div id="course-inspiration" class="section level4">
+<h4>Course inspiration</h4>
+<p>Much inspiration for this course was drawn from</p>
+<ul>
+<li>Hadley Whickam &amp; Garrett Grolemund and their <em>R for Data Science</em> Book</li>
+<li>the <strong>Education</strong> sessions at the useR! 2016 and useR! 2017 conferences</li>
+<li>the <strong>purrr</strong> tutorial given by Charlotte Whickam at useR! 2017</li>
+<li>other great R Markdown websites offering university online courses with the same format such as
+<ul>
+<li><a href="https://uoftcoders.github.io/rcourse/index.html" class="uri">https://uoftcoders.github.io/rcourse/index.html</a></li>
+<li><a href="https://cmerow.github.io/RDataScience/index.html" class="uri">https://cmerow.github.io/RDataScience/index.html</a></li>
+<li>and particularly <a href="https://lsru.github.io/tv_course/index.html" class="uri">https://lsru.github.io/tv_course/index.html</a></li>
+</ul></li>
+</ul>
+</div>
+<div id="swirl-course" class="section level4">
+<h4>swirl course</h4>
+<p>The development of the <em>swirl</em> course has been a joint effort in the <a href="https://rlab.blogs.uni-hamburg.de">R-lab 2.0</a> project, which is one of the so-called <a href="https://www.universitaetskolleg.uni-hamburg.de/universitaetskolleg-2-0/lehrlabor.html">Lehrlabor</a> (teaching lab) projects funded by the University of Hamburg.</p>
+<p>Design of the questions: Saskia A. Otto, Jan Conradt<br> Coding of course with swirlify: Jan Conradt<br> Course design and editing: <a href="https://www.geo.uni-hamburg.de/en/geographie/mitarbeiterverzeichnis/schwab.html">Niels Schwab</a>, Saskia A. Otto</p>
+<p><br> <br></p>
+<p><a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png"></a><br> This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License </a> except for the borrowed and mentioned with proper <em>source:</em> statements. <br> <br> <b>Image on main page:</b> Section of a Copernicus Sentinel-2A satallite image showing the Great Barrier Reef - processed by <a href="http://www.esa.int/spaceinimages/Images/2017/06/Great_Barrier_Reef#">ESA</a>, June 2, 2017 (under CC BY-SA 3.0 IGO license).</p>
+<p><br> <br> All code (.Rmd) is available in the github repository. Feel free to browse, download, and even contribute by forking. <br> <br> <br></p>
+</div>
+
+</div> <!-- articleBandContent -->
+</div> <!-- pageContent -->
+
+<footer class="site_footer">
+<div id="maredsFooter" class="footer">
+  <div class="footerContent">
+
+    <!-- column 1 -->
+    <div class="col-md-2" style="padding-top:.25%; text-align:center; color:#626262;">
+      <a href="https://github.com/mareds">
+        <i class="fa fa-github fa-lg"></i> MARinE Data Science</a> 
+    </div>
+    
+    <!-- column 1 -->
+    <div class="col-md-2" style="padding-top:.25%; text-align:center; color:#626262;">
+      <a href="https://github.com/saskiaotto">
+        <i class="fa fa-github fa-lg"></i> saskiaotto</a>
+    </div>
+
+    <!-- column 2 -->
+    <div class="col-md-6">
+      <!-- <blockquote style="line-height:10px;border-left: 2px solid #999999;"> -->
+          <p style="font-size:15px;color:#626262;border-left: 2px solid #999999;padding-left:5px; padding-top:.25%; font-style:italic;">
+            The difference between stupidity and genius is that genius has its limits.
+            <span style="font-size:11px;color:#909090">A.E.</span></p>
+      <!-- </blockquote> -->
+    </div>
+    
+      <!-- column 3 -->
+    <div class="col-md-2" style="padding-top:.25%; text-align:right; color:#626262;">
+      <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+          CC-BY-SA 4.0</a>
+    </div>
+
+  </div> <!-- footerContent -->
+</div> <!-- footer -->
+
+
+</footer>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

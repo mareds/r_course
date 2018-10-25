@@ -1,0 +1,2051 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Data Analysis with R</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Data Analysis with R">
+  <meta name="author" content="Saskia A. Otto">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/sao_theme.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="libraries/widgets/quiz/css/demo.css"></link>
+<link rel=stylesheet href="libraries/widgets/bootstrap/css/bootstrap.css"></link>
+<link rel=stylesheet href="libraries/widgets/interactive/css/aceeditor.css"></link>
+<link rel=stylesheet href="./assets/css/box_styles.css"></link>
+<link rel=stylesheet href="./assets/css/ribbons.css"></link>
+<link rel=stylesheet href="./assets/css/style.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+      <slide class="nobackground">
+    <article class="flexbox vcenter">
+      <span>
+        <img width='500px' src="assets/img/BigLogo_MDS.png">
+      </span>
+    </article>
+  </slide>
+    <slide class="title-slide segue nobackground">
+  <!-- <aside class="gdbar">
+    <img src="assets/img/uham_logo.png">
+  </aside>-->
+  <div style="position: absolute; left: 50px; top: 50px; z-index:100">
+      <img src = "assets/img/uham_logo.png" height="67" width="200">
+  </div>
+  <hgroup class="auto-fadein">
+    <h1>Data Analysis with R</h1>
+    <h2>18 - Iteration 2 (purrr and the map family)</h2>
+    <p>Saskia A. Otto<br/>Postdoctoral Researcher</p>
+  </hgroup>
+  <article></article>
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="segue" style="background:#1874CD;">
+  <hgroup>
+    <h1>Functional programming</h1>
+  </hgroup>
+  <article>
+    <p><img src="img/Data_science_1a.png" style="height:150px;border:0;position: absolute; left: 900px; top: 50px" </img> </p>
+
+  </article>
+</slide>
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Loops</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li><code>for</code> loops are not as important in R as they are in other languages because R is a functional programming language.</li>
+<li>It is possible to wrap up <code>for</code> loops in a function, and call that function instead of using the for loop directly.</li>
+</ul>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-3" style="background:;">
+  <article data-timings="">
+    <p>Consider (again) this simple data frame:</p>
+
+<p><img src="img/Loops2functions.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" width="850px" style="display: block; margin: auto;" /></p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Functional programming with purrr</h2>
+  </hgroup>
+  <article data-timings="">
+    <div style="position: absolute; left: 950px; top: 15px; z-index:100">
+    <img src="img/Logo_purrr.png" alt="" width=75px height=75px>
+</div>
+
+<ul>
+<li>As you have seen, passing a function to another function is extremely handy, reduces potential bugs (much less code and copy and pasting), and makes it easy to generalise</li>
+<li>The <strong>apply family</strong> of functions in base R (<code>apply()</code>, <code>lapply()</code>, <code>sapply()</code>, <code>vapply()</code>, <code>tapply()</code>, <code>mapply()</code>) does exactly that: Thes functions act on an input list, vector, dataframe, matrix or array,  and apply a named function with one or several optional arguments. </li>
+<li>The <strong>map</strong> family of functions provided by the tidyverse packages <a href="https://github.com/tidyverse/purrr">purrr</a> operates similar but can be <strong>faster</strong> (all functions written in C++), is <strong>more consistent</strong>, <strong>well integrated</strong> in the tidyverse concept and <strong>easier</strong> to learn.</li>
+<li><em>purrr</em> provides in addition many more useful functions for handling lists; to have an overview of available functions see the <a href="https://github.com/rstudio/cheatsheets/raw/master/purrr.pdf">cheatsheet</a></li>
+</ul>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-5">
+  <hgroup>
+    <h2>The most basic function: <code>map()</code></h2>
+  </hgroup>
+  <article class = 'flexbox vcenter'>
+    <p><img src="img/purrr_map.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" width="600px" style="display: block; margin: auto;" /></p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>The most basic function: <code>map()</code></h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Using our previous example:</p>
+
+<div style='float:left;width:48%;'>
+  <pre><code class="r">set.seed(1)
+df &lt;- data.frame(
+  x = rnorm(20),
+  y = rnorm(20),
+  z = rnorm(20)
+)
+</code></pre>
+
+<p><code>map()</code> always preserves the list names.</p>
+
+</div>
+<div style='float:right;width:48%;'>
+  <pre><code class="r">map(df, mean)
+</code></pre>
+
+<pre><code class="no-highlight">## $x
+## [1] 0.1905239
+## 
+## $y
+## [1] -0.006471519
+## 
+## $z
+## [1] 0.1387968
+</code></pre>
+
+<pre><code class="r"># You can also use the pipe operator
+df %&gt;% map(median)
+</code></pre>
+
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>The <code>...</code> argument</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Here you specify all other arguments which can be specified in the function used:</p>
+
+<pre><code class="r">map(df, quantile, probs = c(0,0.5,1.0) )
+</code></pre>
+
+<pre><code class="no-highlight">## $x
+##         0%        50%       100% 
+## -2.2146999  0.3596755  1.5952808 
+## 
+## $y
+##          0%         50%        100% 
+## -1.98935170 -0.05496689  1.35867955 
+## 
+## $z
+##         0%        50%       100% 
+## -1.1293631  0.1143867  1.9803999
+</code></pre>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Other types of output than a list</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li><code>map_lgl()</code> → returns a logical vector </li>
+<li><code>map_int()</code> → returns an integer vector</li>
+<li><code>map_dbl()</code> → returns a double vector</li>
+<li><code>map_chr()</code> → returns a character vector</li>
+</ul>
+
+<p>The <strong>length</strong> of the returned vector and .x are <strong>always</strong> the same!</p>
+
+<p>To get the means of x, y and z as vector replace <code>map()</code> with the appropriate function:</p>
+
+<pre><code class="r">map_dbl(df, mean)
+</code></pre>
+
+<pre><code class="no-highlight">##            x            y            z 
+##  0.190523876 -0.006471519  0.138796773
+</code></pre>
+
+<div class="alert alert-orange" style="position: absolute; left: 100px; top: 575px">
+  <h4>Note: :</h4>`map_dbl()` returns a named vector based on the original list names!
+</div>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Other types of output than a list</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>You can always generate a vector of a more general data type but not the opposite</p>
+
+<pre><code class="r">map_int(df, mean)
+</code></pre>
+
+<pre><code>## Error: Can&#39;t coerce element 1 from a double to a integer
+</code></pre>
+
+<pre><code class="r">map_chr(df, mean)
+</code></pre>
+
+<pre><code class="no-highlight">##           x           y           z 
+##  &quot;0.190524&quot; &quot;-0.006472&quot;  &quot;0.138797&quot;
+</code></pre>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="segue" style="background:#EEC900;">
+  <hgroup>
+    <h1>Your turn...</h1>
+  </hgroup>
+  <article>
+    
+  </article>
+</slide>
+<slide class="" id="slide-11">
+<hgroup>
+  <h1>Task: Explore the data</h1>
+</hgroup>
+<article data-timings="">
+  <div style="background-color:#F5F5F5; text-align:left; vertical-align: middle; padding:20px 47px;">
+    <p>Load the following R datafile, which contains the list <code>groundsharks</code>:</p>
+
+<pre><code class="r">load(&quot;data/fishbase_sharks.R&quot;)
+ls()
+</code></pre>
+
+<pre><code class="no-highlight">## [1] &quot;groundsharks&quot;
+</code></pre>
+
+<p>This list contains data for 284 groundshark species (<em>Carcharhiniformes</em>, the largest order of sharks) downloaded from <a href="www.fishbase.org">fishbase</a>. The list has a hierarchical structure with one list per species containing individual sublists for each information. </p>
+
+  </div>
+  <footer>
+    <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+      <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+    </div>
+    <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+      <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+      font-style: italic; top: 610px; ">Data analysis with R</a>
+    </div>
+  </footer>
+</article>
+<!-- Presenter Notes -->
+</slide>
+
+<style>
+#slide-11 {
+  background-color: #EEC900;
+}
+</style>
+<slide class="" id="slide-12">
+<hgroup>
+  <h1>Task: Explore the data</h1>
+</hgroup>
+<article data-timings="">
+  <div style="background-color:#F5F5F5; text-align:left; vertical-align: middle; padding:20px 47px;">
+    <p><strong>Answer the following questions</strong> </p>
+
+<ol>
+<li>How many elements are in groundsharks?</li>
+<li>What is the first species listed in groundsharks? What information is given for this species?</li>
+<li>What is the difference between groundsharks[1] and groundsharks[[1]]?</li>
+</ol>
+
+<p><small>(Answers are on the next slide)</small></p>
+
+  </div>
+  <footer>
+    <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+      <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+    </div>
+    <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+      <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+      font-style: italic; top: 610px; ">Data analysis with R</a>
+    </div>
+  </footer>
+</article>
+<!-- Presenter Notes -->
+</slide>
+
+<style>
+#slide-12 {
+  background-color: #EEC900;
+}
+</style>
+<slide class="" id="slide-13" style="background:#EEC900;">
+  <article data-timings="">
+    <pre><code class="r">length(groundsharks[[1]])
+</code></pre>
+
+<pre><code class="no-highlight">## [1] 99
+</code></pre>
+
+<pre><code class="r">names(groundsharks[[1]])
+</code></pre>
+
+<pre><code class="no-highlight">##  [1] &quot;sciname&quot;              &quot;Genus&quot;                &quot;Species&quot;             
+##  [4] &quot;SpeciesRefNo&quot;         &quot;Author&quot;               &quot;FBname&quot;              
+##  [7] &quot;PicPreferredName&quot;     &quot;PicPreferredNameM&quot;    &quot;PicPreferredNameF&quot;   
+## [10] &quot;PicPreferredNameJ&quot;    &quot;FamCode&quot;              &quot;Subfamily&quot;           
+## [13] &quot;GenCode&quot;              &quot;SubGenCode&quot;           &quot;BodyShapeI&quot;          
+## [16] &quot;Source&quot;               &quot;AuthorRef&quot;            &quot;Remark&quot;              
+## [19] &quot;TaxIssue&quot;             &quot;Fresh&quot;                &quot;Brack&quot;               
+## [22] &quot;Saltwater&quot;            &quot;DemersPelag&quot;          &quot;AnaCat&quot;              
+## [25] &quot;MigratRef&quot;            &quot;DepthRangeShallow&quot;    &quot;DepthRangeDeep&quot;      
+## [28] &quot;DepthRangeRef&quot;        &quot;DepthRangeComShallow&quot; &quot;DepthRangeComDeep&quot;   
+## [31] &quot;DepthComRef&quot;          &quot;LongevityWild&quot;        &quot;LongevityWildRef&quot;    
+## [34] &quot;LongevityCaptive&quot;     &quot;LongevityCapRef&quot;      &quot;Vulnerability&quot;       
+## [37] &quot;Length&quot;               &quot;LTypeMaxM&quot;            &quot;LengthFemale&quot;        
+## [40] &quot;LTypeMaxF&quot;            &quot;MaxLengthRef&quot;         &quot;CommonLength&quot;        
+## [43] &quot;LTypeComM&quot;            &quot;CommonLengthF&quot;        &quot;LTypeComF&quot;           
+## [46] &quot;CommonLengthRef&quot;      &quot;Weight&quot;               &quot;WeightFemale&quot;        
+## [49] &quot;MaxWeightRef&quot;         &quot;Pic&quot;                  &quot;PictureFemale&quot;       
+## [52] &quot;LarvaPic&quot;             &quot;EggPic&quot;               &quot;ImportanceRef&quot;       
+## [55] &quot;Importance&quot;           &quot;PriceCateg&quot;           &quot;PriceReliability&quot;    
+## [58] &quot;Remarks7&quot;             &quot;LandingStatistics&quot;    &quot;Landings&quot;            
+## [61] &quot;MainCatchingMethod&quot;   &quot;II&quot;                   &quot;MSeines&quot;             
+## [64] &quot;MGillnets&quot;            &quot;MCastnets&quot;            &quot;MTraps&quot;              
+## [67] &quot;MSpears&quot;              &quot;MTrawls&quot;              &quot;MDredges&quot;            
+## [70] &quot;MLiftnets&quot;            &quot;MHooksLines&quot;          &quot;MOther&quot;              
+## [73] &quot;UsedforAquaculture&quot;   &quot;LifeCycle&quot;            &quot;AquacultureRef&quot;      
+## [76] &quot;UsedasBait&quot;           &quot;BaitRef&quot;              &quot;Aquarium&quot;            
+## [79] &quot;AquariumFishII&quot;       &quot;AquariumRef&quot;          &quot;GameFish&quot;            
+## [82] &quot;GameRef&quot;              &quot;Dangerous&quot;            &quot;DangerousRef&quot;        
+## [85] &quot;Electrogenic&quot;         &quot;ElectroRef&quot;           &quot;Complete&quot;            
+## [88] &quot;GoogleImage&quot;          &quot;Profile&quot;              &quot;PD50&quot;                
+## [91] &quot;Emblematic&quot;           &quot;Entered&quot;              &quot;DateEntered&quot;         
+## [94] &quot;Modified&quot;             &quot;DateModified&quot;         &quot;Expert&quot;              
+## [97] &quot;DateChecked&quot;          &quot;TS&quot;                   &quot;SpecCode&quot;
+</code></pre>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-14">
+<hgroup>
+  <h1>Quiz 1: What is the longevity of each species in the wild?</h1>
+</hgroup>
+<article data-timings="">
+  <div style="background-color:#F5F5F5; text-align:left; vertical-align: middle; padding:20px 47px;">
+    <p>(this information is stored in <code>LongevityWild</code>)</p>
+
+<h3>STRATEGY</h3>
+
+<ol>
+<li>Do it for one element</li>
+<li>Turn it into a recipe</li>
+<li>Use <code>map()</code> to do it for all elements</li>
+</ol>
+
+  </div>
+  <footer>
+    <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+      <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+    </div>
+    <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+      <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+      font-style: italic; top: 610px; ">Data analysis with R</a>
+    </div>
+  </footer>
+</article>
+<!-- Presenter Notes -->
+</slide>
+
+<style>
+#slide-14 {
+  background-color: #EEC900;
+}
+</style>
+<slide class="" id="slide-15" style="background:;">
+  <hgroup>
+    <h3>1. What is the longevity for the blacknose shark (the first species in the list)?</h3>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Solve the problem for one element</li>
+</ul>
+
+<div class="img"" style="position: absolute; left: 150px; top: 300px; z-index:100">
+    <img src="img/Groundsharks_1.png" alt="B Taylor" width=800px />
+</div>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-16" style="background:;">
+  <hgroup>
+    <h3>2. Turn it into a receipe</h3>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Make it a formula</li>
+<li>Use .x as a pronoun</li>
+</ul>
+
+<div class="img"" style="position: absolute; left: 150px; top: 300px; z-index:100">
+    <img src="img/Groundsharks_2.png" alt="B Taylor" width=800px />
+</div>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-17" style="background:;">
+  <hgroup>
+    <h3>3. Do it for all elements</h3>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Your recipe is the second argument to map</li>
+</ul>
+
+<div class="img"" style="position: absolute; left: 150px; top: 300px; z-index:100">
+    <img src="img/Groundsharks_3.png" alt="B Taylor" width=800px />
+</div>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-18" style="background:#EEC900;">
+  <hgroup>
+    <h1>Quiz 2: What is the mean longevity in the wild across all shark and ray species?</h1>
+  </hgroup>
+  <article data-timings="">
+    
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-19" style="background:;">
+  <hgroup>
+    <h2>Solution: What is the mean longevity in the wild across all shark and ray species?</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Applying a mean to a list is difficult ➔ use <code>map_dbl()</code> to get a vector returned:</p>
+
+<pre><code class="r">map_dbl(groundsharks, ~ .x$LongevityWild) %&gt;% mean(na.rm = TRUE)
+</code></pre>
+
+<pre><code class="no-highlight">## [1] 20.125
+</code></pre>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="segue" style="background:#6495ED;">
+  <hgroup>
+    <h1>Ways of specifying <code>.f</code></h1>
+  </hgroup>
+  <article>
+    <p><img src="img/Data_science_1a.png" style="height:150px;border:0;position: absolute; left: 900px; top: 50px" </img> </p>
+
+  </article>
+</slide>
+<slide class="" id="slide-21" style="background:;">
+  <hgroup>
+    <h2><code>.f</code> can be a formula</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">map_int(groundsharks, ~ length(.x)) %&gt;% head()
+</code></pre>
+
+<pre><code class="no-highlight">## [1] 99 99 99 99 99 99
+</code></pre>
+
+<pre><code class="r">map_chr(groundsharks, ~ .x[[&quot;FBname&quot;]]) %&gt;% head()
+</code></pre>
+
+<pre><code class="no-highlight">## [1] &quot;Blacknose shark&quot;      &quot;Silvertip shark&quot;      &quot;Bignose shark&quot;       
+## [4] &quot;Graceful shark&quot;       &quot;Blacktail reef shark&quot; &quot;Pigeye shark&quot;
+</code></pre>
+
+<pre><code class="r">map_chr(groundsharks, ~ .x$FBname) %&gt;% head()
+</code></pre>
+
+<pre><code class="no-highlight">## [1] &quot;Blacknose shark&quot;      &quot;Silvertip shark&quot;      &quot;Bignose shark&quot;       
+## [4] &quot;Graceful shark&quot;       &quot;Blacktail reef shark&quot; &quot;Pigeye shark&quot;
+</code></pre>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-22" style="background:;">
+  <hgroup>
+    <h2><code>.f</code> can be a string or integer</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>For each element, extract the named or numbered element.</li>
+</ul>
+
+<p><img src="img/purrr_map_name.png" title="plot of chunk unnamed-chunk-16" alt="plot of chunk unnamed-chunk-16" width="700px" style="display: block; margin: auto;" /></p>
+
+<pre><code class="r">map_chr(groundsharks, .f = &quot;FBname&quot;)
+
+# use an integer to select elements by position:
+map(groundsharks, 97)
+</code></pre>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-23" style="background:;">
+  <hgroup>
+    <h2><code>.f</code> can be a function</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>For each element, extract the named or numbered element.</li>
+</ul>
+
+<p><img src="img/purrr_map_function.png" title="plot of chunk unnamed-chunk-18" alt="plot of chunk unnamed-chunk-18" width="700px" style="display: block; margin: auto;" /></p>
+
+<pre><code class="r">map(.x = df, .f = mean, na.rm = TRUE)
+map(.x = df, ~ mean(.x, na.rm = TRUE))
+</code></pre>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-24" style="background:;">
+  <hgroup>
+    <h2>Combining map functions</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>How long is each species name?</p>
+
+<pre><code class="r"># 1. Extract the scientific species name
+char_species &lt;- map(groundsharks, &quot;sciname&quot;)
+# 2. Get the length of the name (= number of characters)
+map_int(char_species, str_length) %&gt;% head()
+</code></pre>
+
+<pre><code class="no-highlight">## [1] 22 27 20 29 26 24
+</code></pre>
+
+<pre><code class="r"># Piping both map functions
+map(groundsharks, &quot;sciname&quot;) %&gt;% map_int(str_length) %&gt;% head()
+</code></pre>
+
+<pre><code class="no-highlight">## [1] 22 27 20 29 26 24
+</code></pre>
+
+<pre><code class="r"># Now in one go
+map_int(groundsharks, ~ str_length(.x[[&quot;sciname&quot;]])) %&gt;% head()
+</code></pre>
+
+<pre><code class="no-highlight">## [1] 22 27 20 29 26 24
+</code></pre>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-25" style="background:;">
+  <hgroup>
+    <h2><code>set_names()</code></h2>
+  </hgroup>
+  <article data-timings="">
+    <p>is a useful function for extracting information from sublists and using this to set the names of another list.</p>
+
+<ul>
+<li>Example: Get the corresponding scientific name to each length value:</li>
+</ul>
+
+<pre><code class="r"># First extract the length values ...
+map_dbl(groundsharks, .f = &quot;Length&quot;) %&gt;% 
+  # ...and give it the names from sciname
+  set_names(map_chr(groundsharks, .f = &quot;sciname&quot;)) %&gt;% head()
+</code></pre>
+
+<pre><code class="no-highlight">##        Carcharhinus acronotus   Carcharhinus albimarginatus 
+##                           200                           300 
+##          Carcharhinus altimus Carcharhinus amblyrhynchoides 
+##                           300                           161 
+##    Carcharhinus amblyrhynchos      Carcharhinus amboinensis 
+##                           255                           280
+</code></pre>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="segue" style="background:#EEC900;">
+  <hgroup>
+    <h1>Your turn...</h1>
+  </hgroup>
+  <article>
+    
+  </article>
+</slide>
+<slide class="" id="slide-27">
+<hgroup>
+  <h1>Quiz 3: Extract more information from &#39;groundsharks&#39;</h1>
+</hgroup>
+<article data-timings="">
+  <div style="background-color:#F5F5F5; text-align:left; vertical-align: middle; padding:20px 47px;">
+    <ol>
+<li>Which species has the highest weight?</li>
+<li>Which species has the lowest vulnerability score?</li>
+<li>Which species swims deepest?</li>
+<li>Which species do we know the least about (i.e. have the most NA entries)?</li>
+</ol>
+
+  </div>
+  <footer>
+    <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+      <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+    </div>
+    <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+      <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+      font-style: italic; top: 610px; ">Data analysis with R</a>
+    </div>
+  </footer>
+</article>
+<!-- Presenter Notes -->
+</slide>
+
+<style>
+#slide-27 {
+  background-color: #EEC900;
+}
+</style>
+<slide class="" id="slide-28" style="background:;">
+  <hgroup>
+    <h2>Solutions 1 + 2</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r"># Species with the highest weight
+map_dbl(groundsharks, .f = &quot;Weight&quot;) %&gt;% 
+  set_names(map_chr(groundsharks, .f = &quot;FBname&quot;)) %&gt;% 
+  sort() %&gt;% tail(n = 1)
+</code></pre>
+
+<pre><code class="no-highlight">## Tiger shark 
+##      807400
+</code></pre>
+
+<pre><code class="r"># Species with the lowest vulnerability score
+map_dbl(groundsharks, .f = &quot;Vulnerability&quot;) %&gt;% 
+  set_names(map_chr(groundsharks, .f = &quot;FBname&quot;)) %&gt;% 
+  sort() %&gt;% head(n = 1)
+</code></pre>
+
+<pre><code class="no-highlight">## Pygmy ribbontail catshark 
+##                     12.55
+</code></pre>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-29" style="background:;">
+  <hgroup>
+    <h2>Solutions 3 + 4</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r"># Species that swims deepest
+map_dbl(groundsharks, .f = &quot;DepthRangeDeep&quot;) %&gt;% 
+  set_names(map_chr(groundsharks, .f = &quot;FBname&quot;)) %&gt;% 
+  sort() %&gt;% tail(n = 1)
+</code></pre>
+
+<pre><code class="no-highlight">## Silky shark 
+##        4000
+</code></pre>
+
+<pre><code class="r"># Species we know least about
+map_int(groundsharks, ~ sum(is.na(.x))) %&gt;% 
+  set_names(map_chr(groundsharks, .f = &quot;sciname&quot;)) %&gt;% 
+  sort() %&gt;% tail(n = 1)
+</code></pre>
+
+<pre><code class="no-highlight">## Haploblepharus kistnasamyi 
+##                         60
+</code></pre>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="segue" style="background:#1874CD;">
+  <hgroup>
+    <h1>Other iteration functions</h1>
+  </hgroup>
+  <article>
+    <p><img src="img/Data_science_1a.png" style="height:150px;border:0;position: absolute; left: 900px; top: 50px" </img> </p>
+
+  </article>
+</slide>
+<slide class="" id="slide-31">
+  <hgroup>
+    <h2>Mapping over 2 arguments: <code>map2()</code></h2>
+  </hgroup>
+  <article class = 'flexbox vcenter'>
+    <p><img src="img/purrr_map2.png" title="plot of chunk unnamed-chunk-24" alt="plot of chunk unnamed-chunk-24" width="600px" style="display: block; margin: auto;" /></p>
+
+<ul>
+<li><code>map2()</code> applies a function to PAIRS of elements from two lists, vectors, etc.</li>
+<li>to get a vector returned: <code>map2_lgl()</code>, <code>map2_int()</code>, <code>map2_dbl()</code>, <code>map2_chr()</code></li>
+</ul>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-32" style="background:;">
+  <hgroup>
+    <h2>Mapping over 2 arguments: <code>map2()</code></h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">map2(.x = c(&quot;a&quot;,&quot;b&quot;,&quot;c&quot;), .y = c(1,2,3),  .f = rep)
+</code></pre>
+
+<pre><code class="no-highlight">## [[1]]
+## [1] &quot;a&quot;
+## 
+## [[2]]
+## [1] &quot;b&quot; &quot;b&quot;
+## 
+## [[3]]
+## [1] &quot;c&quot; &quot;c&quot; &quot;c&quot;
+</code></pre>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-33">
+  <hgroup>
+    <h2>Mapping over multiple arguments: <code>pmap()</code></h2>
+  </hgroup>
+  <article class = 'flexbox vcenter'>
+    <p><img src="img/purrr_pmap.png" title="plot of chunk unnamed-chunk-26" alt="plot of chunk unnamed-chunk-26" width="700px" style="display: block; margin: auto;" /></p>
+
+<ul>
+<li><code>pmap()</code> applies a function to GROUPS of elements FROM a LIST of lists, vectors, etc.</li>
+<li>NO corresponding <code>pmap_lgl()</code>, <code>pmap_int()</code>, etc.</li>
+</ul>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-34" style="background:;">
+  <hgroup>
+    <h2>Mapping over multiple arguments: <code>pmap()</code></h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Example: sample from these 3 vectors 2, 10, or 5 times with or without replacement</p>
+
+<pre><code class="r">arg_list &lt;- list(x = list(a = 1:10, b = 1:5, c = 1:20), size = c(2, 10, 5), 
+  repl = c(FALSE, TRUE, FALSE))
+pmap(.l = arg_list, .f = sample)
+</code></pre>
+
+<pre><code class="no-highlight">## $a
+## [1] 10  5
+## 
+## $b
+##  [1] 3 1 4 3 3 2 2 3 3 1
+## 
+## $c
+## [1]  1 13 17 11  9
+</code></pre>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-35" style="background:;">
+  <hgroup>
+    <h2>One more step in complexity:</h2>
+  </hgroup>
+  <article data-timings="">
+    <h3>Invoking different functions with <code>invoke_map()</code></h3>
+
+<p>As well as varying the arguments to the function you might also <strong>vary the function</strong> itself. Example: Apply the mean, median and sd to a single vector or to a list:</p>
+
+<div style='float:left;width:48%;'>
+  <pre><code class="r"># Single vector
+invoke_map(.f = list(mean, median, sd), 
+  x = 1:10)
+</code></pre>
+
+<pre><code class="no-highlight">## [[1]]
+## [1] 5.5
+## 
+## [[2]]
+## [1] 5.5
+## 
+## [[3]]
+## [1] 3.02765
+</code></pre>
+
+</div>
+<div style='float:right;width:48%;'>
+  <pre><code class="r"># List
+params &lt;- list(alist(x= 1:15), 
+  list(x=200:400), list(x=1:4))
+
+invoke_map_dbl(.f = list(mean, median, 
+  sd), .x = params)
+</code></pre>
+
+<pre><code class="no-highlight">## [1]   8.000000 300.000000   1.290994
+</code></pre>
+
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-36" style="background:;">
+  <hgroup>
+    <h3>Other mapping functions</h3>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li><code>invoke()</code>, </li>
+<li><code>lmap()</code>, </li>
+<li><code>imap()</code>, </li>
+<li><code>walk()</code>, <code>walk2()</code>, <code>pwalk()</code> for side effects (returns input invisibly)</li>
+</ul>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="segue" style="background:#EEC900;">
+  <hgroup>
+    <h1>Your turn...</h1>
+  </hgroup>
+  <article>
+    
+  </article>
+</slide>
+<slide class="" id="slide-38">
+<hgroup>
+  <h1>Lets go back to the exercise in the previous lecture on loops:</h1>
+</hgroup>
+<article data-timings="">
+  <div style="background-color:#F5F5F5; text-align:left; vertical-align: middle; padding:20px 47px;">
+    <p><small><strong>Write a function to fit a linear model to each data.frame (column x vs column y) and plot the slopes as histogram. You can use multiple files (&quot;ex_final_multifile_1.csv&quot;, &quot;ex_final_multifile_2.csv&quot;, ...) or a single file (&quot;ex_final_one_file.csv&quot;) to solve this.... </strong></small></p>
+
+<h3>Lets tackle this task with purrr:</h3>
+
+<ul>
+<li>import &quot;dummyfile_1.csv&quot; - &quot;dummyfile_100.csv&quot; so that you have one data list</li>
+<li>apply the linear model to each dataframe using one of the <code>map</code> functions</li>
+<li>extract the slopes and create a histogram</li>
+</ul>
+
+  </div>
+  <footer>
+    <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+      <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+    </div>
+    <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+      <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+      font-style: italic; top: 610px; ">Data analysis with R</a>
+    </div>
+  </footer>
+</article>
+<!-- Presenter Notes -->
+</slide>
+
+<style>
+#slide-38 {
+  background-color: #EEC900;
+}
+</style>
+<slide class="" id="slide-39" style="background:;">
+  <hgroup>
+    <h2>Solution</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r"># 1. Import
+files &lt;- str_c(&quot;data/functions/dummyfile_&quot;, 1:100, &quot;.csv&quot;)
+data_list &lt;- map(files, read_csv)
+# Lets add a column with the name of the file
+data_list &lt;- map2(.x = data_list, .y = as.character(1:100), ~ mutate(.x, dataset = .y))
+
+# 2. Apply linear models, extract slope and plot the histogram
+map(data_list, ~ lm(y ~ x, data = .x)) %&gt;%
+  map_dbl(~ coef(.x)[2]) %&gt;%
+  hist(main = &quot;Distributions of slopes&quot;)
+</code></pre>
+
+<p><img src="lecture18_plotting_files/unnamed-chunk-30-1.png" title="plot of chunk unnamed-chunk-30" alt="plot of chunk unnamed-chunk-30" width="432" style="display: block; margin: auto;" /></p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="segue" style="background:#1874CD;">
+  <hgroup>
+    <h1>purrr and list-columns</h1>
+  </hgroup>
+  <article>
+    <p><img src="img/Data_science_1a.png" style="height:150px;border:0;position: absolute; left: 900px; top: 50px" </img> </p>
+
+  </article>
+</slide>
+<slide class="" id="slide-41" style="background:;">
+  <hgroup>
+    <h2>list-columns</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li><strong>Data frames</strong> are a <strong>extremely handy</strong> data structure for data analysis: 
+
+<ul>
+<li>they are more clearly structured than a list (similar to a matrix)</li>
+<li>but they can contain different data types (which the matrix cannot)</li>
+<li>being a hybrid between a list and matrix allows a very flexible usage, e.g. dataframes can be indexed like a list or a matrixs </li>
+</ul></li>
+<li>We typically regard data frames a <strong>container for several atomic vectors</strong> of the same or different data type with a common length.</li>
+<li>But data frames are even more flexible! They can <strong>contain all vector types</strong>, that includes list (<em>recall</em>: atomic vectors and lists represent together vectors!) </li>
+<li>Such list in a data frame are called <strong>list-columns</strong></li>
+<li>You can even <strong>store individual ggplot objects</strong> in list-columns!</li>
+</ul>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-42" style="background:;">
+  <hgroup>
+    <h2>list-columns</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li><strong>Tibbles</strong> are particularly good in handling and visualizing list-columns:</li>
+</ul>
+
+<pre><code class="no-highlight">## # A tibble: 100 x 2
+##   dataset data              
+##   &lt;chr&gt;   &lt;list&gt;            
+## 1 1       &lt;tibble [100 × 2]&gt;
+## 2 2       &lt;tibble [100 × 2]&gt;
+## # ... with 98 more rows
+</code></pre>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-43" style="background:;">
+  <hgroup>
+    <h2>How to make a dataframe with list-columns</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Use <code>tidyr::nest()</code> to create a <em>nested dataframe</em> in which individual tables are stored within the cells of a larger table.</li>
+<li>Use a <em>2-step approach</em>: first <strong>group</strong> the data, then create the <strong>nested</strong> data with one row per group level.</li>
+</ul>
+
+<div style='float:left;width:48%;'>
+  <pre><code class="r"># First convert data list into a tibble
+df &lt;- data_list %&gt;% bind_rows() 
+# 2-step approach
+df_nested &lt;- df %&gt;% 
+  group_by(dataset) %&gt;% 
+  nest()
+</code></pre>
+
+<div style="position: absolute; left: 520px; top: 275px; z-index:100">
+    <img src="img/Nested_data.png" alt="" width=450px>
+</div>
+
+</div>
+<div style='float:right;width:48%;'>
+  
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-44" style="background:;">
+  <hgroup>
+    <h3>Map data-frames to the modeling function</h3>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Nested data frames are useful when you want to <strong>preserve the relationships between observations and subsets</strong> of data.</li>
+<li>You can manipulate many sub-tables at once with the <em>purrr</em> mapping functions and save results as list-column in the same dataset:</li>
+</ul>
+
+<pre><code class="r">model_nested &lt;- df_nested %&gt;%
+  mutate(model = map(data, ~lm(y ~ x, data = .))) %&gt;%
+  print(n = 2)
+</code></pre>
+
+<pre><code class="no-highlight">## # A tibble: 100 x 3
+##   dataset data               model   
+##   &lt;chr&gt;   &lt;list&gt;             &lt;list&gt;  
+## 1 1       &lt;tibble [100 × 2]&gt; &lt;S3: lm&gt;
+## 2 2       &lt;tibble [100 × 2]&gt; &lt;S3: lm&gt;
+## # ... with 98 more rows
+</code></pre>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-45" style="background:;">
+  <hgroup>
+    <h3>Extract some summary statistics using piped operations</h3>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">stats_nested &lt;- model_nested %&gt;%
+  mutate(
+    alpha = map(model, coef) %&gt;% # returns list-column with intercept/slope vector
+      map_dbl(~ .[1]), # extract first element of each vector (same as ~ .x[1])
+    # alternatively, in one go:
+    beta = map_dbl(model, ~ coef(.x)[2]),
+    r_sq = map(model, summary) %&gt;% map_dbl(~.$r.squared)
+  ) %&gt;% 
+  print(n = 2)
+</code></pre>
+
+<pre><code class="no-highlight">## # A tibble: 100 x 6
+##   dataset data               model    alpha  beta  r_sq
+##   &lt;chr&gt;   &lt;list&gt;             &lt;list&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 1       &lt;tibble [100 × 2]&gt; &lt;S3: lm&gt;  3.12 0.794 0.668
+## 2 2       &lt;tibble [100 × 2]&gt; &lt;S3: lm&gt;  2.64 0.800 0.701
+## # ... with 98 more rows
+</code></pre>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-46" style="background:;">
+  <hgroup>
+    <h3>Use <code>map2()</code> to make the predictions</h3>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">predict_nested &lt;- stats_nested %&gt;%
+  mutate(pred = map2(.x = model, .y = data, .f = predict)) %&gt;%
+  print(n = 2)
+</code></pre>
+
+<pre><code class="no-highlight">## # A tibble: 100 x 7
+##   dataset data               model    alpha  beta  r_sq pred       
+##   &lt;chr&gt;   &lt;list&gt;             &lt;list&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;list&gt;     
+## 1 1       &lt;tibble [100 × 2]&gt; &lt;S3: lm&gt;  3.12 0.794 0.668 &lt;dbl [100]&gt;
+## 2 2       &lt;tibble [100 × 2]&gt; &lt;S3: lm&gt;  2.64 0.800 0.701 &lt;dbl [100]&gt;
+## # ... with 98 more rows
+</code></pre>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-47" style="background:;">
+  <hgroup>
+    <h3>Visualize the predictions</h3>
+  </hgroup>
+  <article data-timings="">
+    <p>→ You need to get out of the nested data structure: <code>tidyr::unnest()</code></p>
+
+<ul>
+<li><code>unnest()</code> makes each element of the list its own row,</li>
+<li>but the list-columns have to be either atomic vectors or data frames!</li>
+</ul>
+
+<div style='float:left;width:48%;'>
+  <pre><code class="r">predict_unnested &lt;- predict_nested %&gt;% 
+  unnest(pred) %&gt;%
+  print(n = 2)
+</code></pre>
+
+<pre><code class="no-highlight">## # A tibble: 10,000 x 5
+##   dataset alpha  beta  r_sq  pred
+##   &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 1        3.12 0.794 0.668  14.3
+## 2 1        3.12 0.794 0.668  10.8
+## # ... with 9,998 more rows
+</code></pre>
+
+</div>
+<div style='float:right;width:48%;'>
+  <ul>
+<li>Each regular column is repeated one for each row in the nested list-column. </li>
+<li>Using only <code>pred</code> in <code>unnest()</code> will omit the <code>data</code> list-column!<br></li>
+</ul>
+
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-48" style="background:;">
+  <hgroup>
+    <h3>Visualize the predictions</h3>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>You can also unnest multiple columns simultaneously: </li>
+</ul>
+
+<pre><code class="r">predict_unnested &lt;- predict_nested %&gt;% 
+  unnest(data, pred) %&gt;%
+  print(n = 2)
+</code></pre>
+
+<pre><code class="no-highlight">## # A tibble: 10,000 x 7
+##   dataset alpha  beta  r_sq  pred     x     y
+##   &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 1        3.12 0.794 0.668  14.3 14.0  12.4 
+## 2 1        3.12 0.794 0.668  10.8  9.68  5.09
+## # ... with 9,998 more rows
+</code></pre>
+
+<div class="alert alert-orange" style="position: absolute; left: 60px; top: 450px">
+  <h4>Note: :</h4> The `model` list-column cannot be unnested since all elements in the list-columns must have the same length!
+</div>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-49" style="background:;">
+  <hgroup>
+    <h3>Visualize the predictions</h3>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Now that we have a regular tibble, we can plot the predictions.</li>
+</ul>
+
+<pre><code class="r">predict_unnested %&gt;% 
+  ggplot(aes(x, pred)) +
+    geom_line(aes(group = dataset), alpha = 0.3) + 
+    geom_smooth(se = FALSE)
+</code></pre>
+
+<p><img src="lecture18_plotting_files/unnamed-chunk-39-1.png" title="plot of chunk unnamed-chunk-39" alt="plot of chunk unnamed-chunk-39" width="432" style="display: block; margin: auto;" /></p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="segue" style="background:#EEC900;">
+  <hgroup>
+    <h1>Your turn...</h1>
+  </hgroup>
+  <article>
+    
+  </article>
+</slide>
+<slide class="" id="slide-51">
+<hgroup>
+  <h1>Example DATRAS data</h1>
+</hgroup>
+<article data-timings="">
+  <div style="background-color:#F5F5F5; text-align:left; vertical-align: middle; padding:20px 47px;">
+    <ul>
+<li>Restructure the dataset to <strong>create a nested data</strong> frame grouped by species.</li>
+<li><strong>Apply purrr&#39;s mapping function</strong> to model the species CPUE as a function of latitude.</li>
+<li><strong>Save</strong> the models and summary <strong>statistics</strong> in the same nested dataframe.</li>
+<li>Generate <strong>ggplots</strong> with the predicted CPUE ~ lat per species and <strong>save</strong> these in a <strong>list-column</strong>.</li>
+<li><strong>Identify the species</strong> where the CPUE is best explained by latitude and look at the prediction plot.</li>
+</ul>
+
+  </div>
+  <footer>
+    <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+      <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+    </div>
+    <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+      <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+      font-style: italic; top: 610px; ">Data analysis with R</a>
+    </div>
+  </footer>
+</article>
+<!-- Presenter Notes -->
+</slide>
+
+<style>
+#slide-51 {
+  background-color: #EEC900;
+}
+</style>
+<slide class="segue" style="background:#E5E5E5;">
+  <hgroup>
+    <h2>Overview of functions you learned today</h2>
+  </hgroup>
+  <article>
+    <p>purrr functions:<br>
+<code>map()</code>, <code>map_lgl()</code>, <code>map_int()</code>, <code>map_dbl()</code>, <code>map_chr()</code><br>
+<code>set_names()</code><br>
+<code>map2()</code>, <code>map2_lgl()</code>, <code>map2_int()</code>, <code>map2_dbl()</code>, <code>map2_chr()</code><br>
+<code>pmap()</code>, <code>invoke_map()</code>, <code>invoke_map_dbl()</code><br>
+<code>invoke()</code>,  <code>lmap()</code>,  <code>imap()</code>, <code>walk()</code>,  <code>walk2()</code>, <code>pwalk()</code>   </p>
+
+<p>tidyr functions:<br>
+<code>nest()</code>, <code>unnest()</code></p>
+
+  </article>
+</slide>
+<slide class="segue" style="background:#CD2626;">
+  <hgroup>
+    <h1>How do you feel now.....?</h1>
+  </hgroup>
+  <article>
+    
+  </article>
+</slide>
+<slide class="" id="slide-54" style="background:;">
+  <hgroup>
+    <h2>Totally confused?</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="img/Comic_confused.png" title="plot of chunk unnamed-chunk-40" alt="plot of chunk unnamed-chunk-40" width="200px" style="display: block; margin: auto;" /></p>
+
+<p><em>purrr</em> provides any more useful functions for handling lists; see for more information</p>
+
+<ul>
+<li>the <a href="https://github.com/rstudio/cheatsheets/raw/master/purrr.pdf">cheatsheet</a></li>
+<li><a href="http://r4ds.had.co.nz/iteration.html">chapter 21 on iterations</a> in R for Data Science</li>
+<li>a good tutorial for purr is also available on this webpage: <a href="https://jennybc.github.io/purrr-tutorial/">https://jennybc.github.io/purrr-tutorial/</a></li>
+</ul>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-55">
+  <hgroup>
+    <h2>Totally bored?</h2>
+  </hgroup>
+  <article class = 'flexbox vcenter'>
+    <p><img src="img/Comic_bored.png" title="plot of chunk unnamed-chunk-41" alt="plot of chunk unnamed-chunk-41" width="800px" style="display: block; margin: auto auto auto 0;" /></p>
+
+<p>Then apply more of the <code>map</code> functions to your second case study!</p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-56" style="background:;">
+  <hgroup>
+    <h2>Totally content?</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Then go grab a coffee, lean back and enjoy the rest of the day...!</p>
+
+<p><img src="img/Comic_hammock.png" title="plot of chunk unnamed-chunk-42" alt="plot of chunk unnamed-chunk-42" width="600px" style="display: block; margin: auto;" /></p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="thank-you-slide segue" id="slide-57">
+  <footer>
+    <div style="position: absolute; left: 50px; top: 50px; z-index:100">
+        <img src = "assets/img/uham_logo.png" height="67" width="200">
+    </div>
+  </footer>
+  <article>
+    <h1 style="padding-top: 120px;">Thank You</h1>
+    <p>
+      For more information contact me:<a href="saskia.otto@uni-hamburg.de">
+      saskia.otto@uni-hamburg.de</a>
+      </p>
+      <p data-config-contact="">
+      <a href="http://www.researchgate.net/profile/Saskia_Otto"
+          style="color:#F48C0A; font-weight: bold;">
+        http://www.researchgate.net/profile/Saskia_Otto</a><br>
+      <a href="http://www.github.com/saskiaotto"
+          style="color: #F48C0A; font-weight: bold;">
+        http://www.github.com/saskiaotto</a>
+    </p>
+    <p style="font-size: 15px; position: absolute; left: 125px; top: 480px; z-index:100">
+    <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+      <img alt="Creative Commons License" style="border-width:0"
+        src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" /></a><br>
+        This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+        Creative Commons Attribution-ShareAlike 4.0 International License </a>except for the <br>
+        borrowed and mentioned with proper <i>source:</i> statements. <br>
+        <b>Image on title and end slide:</b> Section of an infrared satallite image showing the Larsen C
+        ice shelf on the Antarctic <br>
+        Peninsula - USGS/NASA Landsat: <a href="https://landsat.visibleearth.nasa.gov/view.php?id=90481">
+        A Crack of Light in the Polar Dark</a>, Landsat 8 - TIRS, June 17, 2017 <br>
+        (under CC0 license)
+    </p>
+  </article>
+</slide>
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Functional programming'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Loops'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='NA'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Functional programming with purrr'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='The most basic function: <code>map()</code>'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='The most basic function: <code>map()</code>'>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='The <code>...</code> argument'>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title='Other types of output than a list'>
+         8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title='Other types of output than a list'>
+         9
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=10 title='Your turn...'>
+         10
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=11 title='Task: Explore the data'>
+         11
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=12 title='Task: Explore the data'>
+         12
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=13 title='NA'>
+         13
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=14 title='Quiz 1: What is the longevity of each species in the wild?'>
+         14
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=15 title='1. What is the longevity for the blacknose shark (the first species in the list)?'>
+         15
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=16 title='2. Turn it into a receipe'>
+         16
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=17 title='3. Do it for all elements'>
+         17
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=18 title='Quiz 2: What is the mean longevity in the wild across all shark and ray species?'>
+         18
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=19 title='Solution: What is the mean longevity in the wild across all shark and ray species?'>
+         19
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=20 title='Ways of specifying <code>.f</code>'>
+         20
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=21 title='<code>.f</code> can be a formula'>
+         21
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=22 title='<code>.f</code> can be a string or integer'>
+         22
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=23 title='<code>.f</code> can be a function'>
+         23
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=24 title='Combining map functions'>
+         24
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=25 title='<code>set_names()</code>'>
+         25
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=26 title='Your turn...'>
+         26
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=27 title='Quiz 3: Extract more information from &#39;groundsharks&#39;'>
+         27
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=28 title='Solutions 1 + 2'>
+         28
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=29 title='Solutions 3 + 4'>
+         29
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=30 title='Other iteration functions'>
+         30
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=31 title='Mapping over 2 arguments: <code>map2()</code>'>
+         31
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=32 title='Mapping over 2 arguments: <code>map2()</code>'>
+         32
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=33 title='Mapping over multiple arguments: <code>pmap()</code>'>
+         33
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=34 title='Mapping over multiple arguments: <code>pmap()</code>'>
+         34
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=35 title='One more step in complexity:'>
+         35
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=36 title='Other mapping functions'>
+         36
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=37 title='Your turn...'>
+         37
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=38 title='Lets go back to the exercise in the previous lecture on loops:'>
+         38
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=39 title='Solution'>
+         39
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=40 title='purrr and list-columns'>
+         40
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=41 title='list-columns'>
+         41
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=42 title='list-columns'>
+         42
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=43 title='How to make a dataframe with list-columns'>
+         43
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=44 title='Map data-frames to the modeling function'>
+         44
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=45 title='Extract some summary statistics using piped operations'>
+         45
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=46 title='Use <code>map2()</code> to make the predictions'>
+         46
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=47 title='Visualize the predictions'>
+         47
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=48 title='Visualize the predictions'>
+         48
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=49 title='Visualize the predictions'>
+         49
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=50 title='Your turn...'>
+         50
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=51 title='Example DATRAS data'>
+         51
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=52 title='Overview of functions you learned today'>
+         52
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=53 title='How do you feel now.....?'>
+         53
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=54 title='Totally confused?'>
+         54
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=55 title='Totally bored?'>
+         55
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=56 title='Totally content?'>
+         56
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=57 title='NA'>
+         57
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  <script src="libraries/widgets/quiz/js/jquery.quiz.js"></script>
+<script src="libraries/widgets/quiz/js/mustache.min.js"></script>
+<script src="libraries/widgets/quiz/js/quiz-app.js"></script>
+<script src="libraries/widgets/bootstrap/js/bootstrap.min.js"></script>
+<script src="libraries/widgets/bootstrap/js/bootbox.min.js"></script>
+<script src="libraries/widgets/interactive/js/ace/js/ace.js"></script>
+<script src="libraries/widgets/interactive/js/opencpu-0.5.js"></script>
+<script src="libraries/widgets/interactive/js/interactive.js"></script>
+
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<script>  
+  $(function (){ 
+    $("#example").popover(); 
+    $("[rel='tooltip']").tooltip(); 
+  });  
+  </script>  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

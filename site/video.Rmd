@@ -1,0 +1,16 @@
+---
+title: Lecture videos
+output: html_document
+---
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(tidy=FALSE, warning=FALSE, message=FALSE, cache=FALSE, dev.args=list(bg="transparent"), fig.retina = 2)
+```
+
+<br>
+<br>
+<br>
+
+```{r, echo = FALSE, out.width='35%', fig.align = 'left'}
+knitr::include_graphics("img_site/Work_in_progress.png")
+```

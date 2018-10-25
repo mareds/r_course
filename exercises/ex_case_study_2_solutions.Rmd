@@ -1,0 +1,9 @@
+---
+title: "Case study 2:<br>Distributions of demersal fish in the Western and Central Baltic Sea"
+subtitle: "SOLUTION SCRIPT"
+output: html_document
+---
+
+***
+
+The solution script for this case study will be made accessible for a short time after assignments were submitted. If you are not part of the course and interested in the solution script feel free to contact me!

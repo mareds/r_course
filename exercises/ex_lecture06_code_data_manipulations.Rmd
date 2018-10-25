@@ -1,0 +1,197 @@
+---
+title: "Lecture 7"
+output: 
+  html_document:
+    toc: yes
+    toc_float:
+      collapsed: false
+      smooth_scroll: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(tidy=FALSE, warning=FALSE, message=FALSE, cache=FALSE)
+knitr::opts_chunk$set(dev.args=list(bg="transparent"))    
+knitr::opts_chunk$set(fig.retina = 2)
+```
+
+##  Solution code for the exercise: More complex data manipulations
+
+### The exercise given in lecture 7 (slide 63) was the following:
+
+With the `group_by()` function and the pipe operator you will be able to answer the following questions about the `hydro` dataset (choose **at least 3** questions):
+
+1. On average, how many stations were sampled per month during 2015?
+2. Which stations were sampled more than 3 times per month?
+3. How many days took the sampling place in each month? 
+4. Do you see any temporal gap during the year where no sampling took place?
+5. Which depths are most frequently sampled?
+6. What are the most common depth profiles taken? (Every 1 metre, every 5 metres?)
+7. Are the NAs in the dataset related to specific months or cruises?
+
+What else could be relevant in terms of data quality?
+
+```{r}
+library(tidyverse)
+library(lubridate)
+
+# Import the downloaded data (set your own working directory)
+hydro <- read_csv("data/1111473b.csv")
+names(hydro) <- c("cruise", "station", "type", "date_time", 
+  "lat", "long", "depth", "pres", "temp", "psal", "doxy")
+hydro$month <- month(hydro$date_time)
+hydro$day <- day(hydro$date_time)
+```
+
+
+### Solution: Q1
+*On average, how many stations were sampled per month during 2015?*
+
+You want the number of sampled stations per month before you can calculate the mean. This could be done by counting the number of rows with different station values per month. Problem: The data consists of double entries (duplicated station values) due to the different sampling depths (and maybe the station was sampled more than once at the same day during the cruise). So first remove double entries by using the `distinct()` function!
+
+```{r}
+hydro %>%
+  select(station, month) %>%
+  # to remove duplicates
+  distinct() %>%
+  group_by(month) %>%
+  count() %>%
+  ungroup() %>%
+  summarise(stat_per_month = mean(n))
+```
+
+As we are only interested in stations per month and not in double entries, etc., 
+
+- both variables are first selected 
+- and then duplicated entries removed.
+- The dataset is grouped by month, 
+- number of rows per month (= the stations) calculated and 
+- the mean across months computed.
+
+
+### Solution: Q2
+*Which stations were sampled more than 3 times per month?*
+
+```{r}
+hydro %>%
+  select(station, date_time, month) %>% 
+  distinct() %>%
+  group_by(month, station) %>%
+  count() %>%
+  filter(n > 3) %>%
+  print(n = 9)
+```
+- date_time is kept in to indicate the nr of samplings at this station per month
+- instead of *count()* you can also use *summarise(n = length(station))* or *summarise(n = n())*
+
+
+--- 
+### Solution: Q3
+*How many days took the sampling place in each month?*
+
+What are you interested in here? In *day* and *month*, so select only those 2 variables, remove duplicated rows, group by month so that you can count the number of rows with different day values:
+```{r}
+hydro %>%
+  select(month, day) %>%
+  distinct() %>% 
+  group_by(month) %>%
+  summarise(n = n()) # or count() 
+```
+
+
+### Solution: Q4
+*Do you see any temporal gap during the year where no sampling took place?*
+
+This is a question were you can play around with various other functions. No approach will be the correct one. Here is one solution where the julian days are computed with the lubridate function `yday()` and the difference between successive julian days then calculated:
+
+```{r}
+hydro %>%
+  mutate(julian_day = lubridate::yday(date_time)) %>%
+  select(julian_day, month) %>%
+  distinct() %>% 
+  arrange(julian_day) %>% 
+  mutate( timegap = c(NA, diff(julian_day)) ) %>%
+  group_by(month) %>%
+  filter(timegap > 3) 
+```
+
+So mainly April shows the greatest gaps (with a gap of 6 days, and twice of 4 days). Why could that be? 
+
+
+### Solution: Q5 and Q6
+*Which depths are most frequently sampled?*   
+*What are the most common depth profiles taken? (Every 1 metre, every 5 metres?)*
+
+```{r}
+hydro %>%
+ select(pres) %>%
+ group_by(pres) %>%
+ count() %>%
+ arrange(desc(n)) %>% print(n=10)
+```
+
+If you got the same result you probably noted, that the depth (or pres) values are not integers and the number of unique values is therefore very high (1,193). To reduce the numer of depth levels we could round them first. Instead of using the function `round()` I suggest using `ceiling()`, which rounds to the next higher integer (so that 0.4m is considered 1m):
+
+```{r}
+hydro %>%
+transmute(pres2 = ceiling(pres)) %>%
+ group_by(pres2) %>%
+ count() %>%
+ arrange(desc(n)) %>% print(n=10)
+```
+
+Answers
+
+- Q5: The depths most often sampled are 5m, 10m, and 1m.
+- Q6: From 0 to 30m depth samples were mostly taken in 5m intervals (1, 5, 10, 15, 20, 25, 30m) depth and afterwards mostly in 10m intervals. 
+
+
+### Solution: Q7
+*Are the NAs in the dataset related to specific months or cruises?*
+
+#### Related to months?
+```{r}
+hydro %>% 
+ select(month, temp, psal, doxy) %>%
+ group_by(month) %>%
+ summarise(
+  t_na = sum(is.na(temp)),
+  s_na = sum(is.na(psal)),
+  o_na = sum(is.na(doxy))
+ ) %>%
+ mutate(sum_na = t_na+s_na+o_na) %>%
+ arrange(desc(sum_na)) 
+```
+
+#### Related to cruises?
+```{r}
+hydro %>% 
+ select(cruise, temp, psal, doxy) %>%
+ group_by(cruise) %>%
+ summarise(
+  t_na = sum(is.na(temp)),
+  s_na = sum(is.na(psal)),
+  o_na = sum(is.na(doxy))
+ ) %>%
+ mutate(sum_na = t_na+s_na+o_na) %>%
+ arrange(desc(sum_na)) %>%
+  print(n = 20)
+```
+
+
+- NAs are most common in October and August but there is no clear seasonal pattern in the occurrence of NAs.
+- Certain cruises provided data to ICES with many more missing values.
+    - The NAs are mainly related to specific cruises, with the highest number of NAs found for oxygen.<br>
+    → It might be smart to go into the original data and check for those cruises if NAs occur only for specific depths.
+  
+```{r}
+# Cruise with highest number of NAs:
+hydro %>%
+  filter(month==2,cruise=="67BC") %>%
+  print(n = 100)
+```
+
+→ at this cruise doxy was only taken in 10m depth intervals not in 5m as for temp and psal
+
+<br>
+<br>
+<br>

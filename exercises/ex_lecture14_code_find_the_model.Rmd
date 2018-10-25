@@ -1,0 +1,182 @@
+---
+title: "Lecture 14"
+output: 
+  html_document:
+    toc: yes
+    toc_float:
+      collapsed: false
+      smooth_scroll: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(tidy=FALSE, warning=FALSE, message=FALSE, cache=FALSE)
+knitr::opts_chunk$set(dev.args=list(bg="transparent"))    
+knitr::opts_chunk$set(fig.retina = 2, fig.path = "ex_lecture14_code_plotting_files/")
+```
+
+
+## Exercise: Find the 'true model' 
+
+**The exercise given in lecture 14 (slide 76) was the following:**
+
+```{r, echo=FALSE, fig.height = 6, fig.width = 13, fig.align = 'center'}
+library(tidyverse)
+library(modelr)
+load("data/find_model.R")
+p1 <- df1 %>% ggplot(aes(x,y)) + geom_point() + ggtitle("Model 1 (df1)")
+p2 <- df2 %>% ggplot(aes(x,y)) + geom_point() + ggtitle("Model 2 (df2)")
+p3 <- df3 %>% ggplot(aes(x,y)) + geom_point() + ggtitle("Model 3 (df3)")
+p4 <- df4 %>% ggplot(aes(x,y)) + geom_point() + ggtitle("Model 4 (df4)")
+p5 <- df5 %>% ggplot(aes(x,y)) + geom_point() + ggtitle("Model 5 (df5)")
+
+gridExtra::grid.arrange(grobs = list(p1,p2,p3,p4,p5), ncol=3)
+```
+
+I generated different dataframes where the Y variable was modelled as a specific function of X plus some random noise. Load the datasets and see what objects you loaded with `ls()`:
+
+```{r, echo=FALSE}
+rm(list = ls())
+```
+
+
+```{r}
+load("data/find_model.R")
+ls()
+str(df1)
+```
+
+You should see 10 dataframes, each containing an `x` and `y` variable. Try to find the 'true' models for df1, df2, df3, df4, and df5 by fitting different model families and compare their performance 
+
+- using the AIC (with function `AIC(model1, model2, model3,..)`) and 
+- plotting the predicted values to the observed ones and the residual histograms.
+
+Once you think you found it, apply your models on the dataframes that do not contain the random noise (e.g. df1_nonoise for df1) and compare results.
+
+
+### Example code for model 1
+
+#### Apply models to the data with noise 
+
+```{r}
+dat <- df1 # (simply replace here df1 with df1_nonoise or df2, etc. later)
+dat <- dat %>% mutate(y_log = log(y+0.00001),
+  x_log = log(x))
+
+m1 <- lm(formula = y ~ x, data = dat)
+m2 <- lm(formula = y ~ poly(x, 2), data = dat)
+m3 <- lm(formula = y ~ poly(x, 3), data = dat)
+m4 <- lm(formula = y_log ~ x, data = dat)
+m5 <- lm(formula = y_log ~ x_log, data = dat)
+
+# The AIC can only be compared with related models --
+# (Y variables have to be on the same scale):
+
+# here untransformed Y:
+AIC(m1,m2,m3)
+
+# here transformed Y:
+AIC(m4,m5)
+
+# Partition model: predicted values --
+dat2 <- dat %>% spread_predictions(m1,m2,m3,m4,m5) %>%
+  # to compare all models at the same scale, back-transform the log-model predictions
+  mutate(m4 = (exp(m4) - 0.00001),
+    m5 = (exp(m5) - 0.00001)) %>%
+  gather(m1:m5, key = "model", value = "pred")
+    
+dat %>% ggplot(aes(x,y)) + geom_point() +
+  geom_line(data = dat2, aes(y = pred, colour = model))
+
+# Partition model: residuals --
+p <- dat %>% spread_residuals(m1,m2,m3,m4,m5) %>%
+  ggplot() + geom_vline(xintercept = 0, colour = "blue")
+
+p1 <- p + geom_histogram(aes(x=m1))
+p2 <- p + geom_histogram(aes(x=m2))
+p3 <- p + geom_histogram(aes(x=m3))
+p4 <- p + geom_histogram(aes(x=m4))
+p5 <- p + geom_histogram(aes(x=m5))
+
+gridExtra::grid.arrange(grobs = list(p1,p2,p3,p4,p5),
+  ncol= 3)
+```
+
+The AIC indicates best performances for models **m3** (polynomial of order 3) and **m5** (X and X both log-transformed). Also the prediction plots and the residual plots support this. In fact, the prediction plot does not show a big difference between both models. The residual plots, on the other hand, might provide some support for m5 as a high number of y values deviate little from their predictions.
+
+To really find out which model has the true underlying function, used to create this dataset, we need to apply the models on the dataset without noise:
+
+#### Apply models to the data without noise 
+
+```{r}
+dat <- df1_nonoise 
+dat <- dat %>% mutate(y_log = log(y+0.00001),
+  x_log = log(x))
+
+m1 <- lm(formula = y ~ x, data = dat)
+m2 <- lm(formula = y ~ poly(x, 2), data = dat)
+m3 <- lm(formula = y ~ poly(x, 3), data = dat)
+m4 <- lm(formula = y_log ~ x, data = dat)
+m5 <- lm(formula = y_log ~ x_log, data = dat)
+
+# untransformed Y:
+AIC(m1,m2,m3)
+
+# transformed Y:
+AIC(m4,m5)
+
+# Partition model: predicted values --
+dat2 <- dat %>% spread_predictions(m1,m2,m3,m4,m5) %>%
+  mutate(m4 = (exp(m4) - 0.00001),
+    m5 = (exp(m5) - 0.00001)) %>%
+  gather(m1:m5, key = "model", value = "pred")
+    
+dat %>% ggplot(aes(x,y)) + geom_point() +
+  geom_line(data = dat2, aes(y = pred, colour = model))
+
+# Partition model: residuals --
+p <- dat %>% spread_residuals(m1,m2,m3,m4,m5) %>%
+  ggplot() + geom_vline(xintercept = 0, colour = "blue")
+
+p1 <- p + geom_histogram(aes(x=m1))
+p2 <- p + geom_histogram(aes(x=m2))
+p3 <- p + geom_histogram(aes(x=m3))
+p4 <- p + geom_histogram(aes(x=m4))
+p5 <- p + geom_histogram(aes(x=m5))
+
+gridExtra::grid.arrange(grobs = list(p1,p2,p3,p4,p5),
+  ncol= 3)
+```
+
+**m5** shows a slightly better fit than **m3** indicating that the underlying function is an exponental function of the form $Y=aX^{b}$. Note, however, that fitting a model with a polynomial of order 3 would be be similarly adequate, but is less simple.
+
+For comparison:
+```{r}
+# This is the true underlying function
+set.seed(123)
+x <- sample(20:120, size = 100, 
+  replace = TRUE)
+y_noise <- rnorm(100, 0, 0.3)
+a <- exp(-10)
+b <- 2.5
+y <- a * x^b + y_noise
+m5_comp <- lm(log(y) ~ log(x))
+coefficients(m5_comp)
+```
+
+
+### Solution of all 5 models
+
+Model 1: $Y_{i}=aX_{i}^{b}+\epsilon_{i}$ , with a = exp(-10), b = 2.5
+
+Model 2: $Y_{i}=a+b1X_{i}+b2X_{i}^{2}+b3X_{i}^{3}+\epsilon_{i}$ , with a = 1250, b1 = 400, b2 = -100, b3 = -30
+
+Model 3: $Y_{i}=a+b1X_{i}+b2X_{i}^{2}+\epsilon_{i}$ , with a = 100, b1 = -5, b2 = 0.5
+
+Model 4: $Y_{i}=ae^{bX_{i}}+\epsilon_{i}$ , with a = 20, b = 0.025
+
+Model 5: $Y_{i}=ae^{-bX_{i}}+\epsilon_{i}$ , with a = 10, b = -0.025
+
+
+<br>
+<br>
+<br>

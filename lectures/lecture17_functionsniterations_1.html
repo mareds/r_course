@@ -1,0 +1,2092 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Data Analysis with R</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Data Analysis with R">
+  <meta name="author" content="Saskia A. Otto">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/sao_theme.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="libraries/widgets/quiz/css/demo.css"></link>
+<link rel=stylesheet href="libraries/widgets/bootstrap/css/bootstrap.css"></link>
+<link rel=stylesheet href="libraries/widgets/interactive/css/aceeditor.css"></link>
+<link rel=stylesheet href="./assets/css/box_styles.css"></link>
+<link rel=stylesheet href="./assets/css/ribbons.css"></link>
+<link rel=stylesheet href="./assets/css/style.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+      <slide class="nobackground">
+    <article class="flexbox vcenter">
+      <span>
+        <img width='500px' src="assets/img/BigLogo_MDS.png">
+      </span>
+    </article>
+  </slide>
+    <slide class="title-slide segue nobackground">
+  <!-- <aside class="gdbar">
+    <img src="assets/img/uham_logo.png">
+  </aside>-->
+  <div style="position: absolute; left: 50px; top: 50px; z-index:100">
+      <img src = "assets/img/uham_logo.png" height="67" width="200">
+  </div>
+  <hgroup class="auto-fadein">
+    <h1>Data Analysis with R</h1>
+    <h2>17 - Functions and Iteration 1 (Loops)</h2>
+    <p>Saskia A. Otto<br/>Postdoctoral Researcher</p>
+  </hgroup>
+  <article></article>
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="segue" style="background:#1874CD;">
+  <hgroup>
+    <h1>Functions</h1>
+  </hgroup>
+  <article>
+    <p><img src="img/Data_science_1a.png" style="height:150px;border:0;position: absolute; left: 900px; top: 50px" </img> </p>
+
+  </article>
+</slide>
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Functions are the core of reproducible research</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Help you to structure your work.
+
+<ul>
+<li>Reading in data</li>
+<li>Data processing</li>
+<li>Visualisation</li>
+</ul></li>
+<li>Divide complex problems into small &quot;simple&quot; units.</li>
+<li>Re-use your functions whenever you need them!</li>
+<li>Share your work with others!</li>
+</ul>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-3">
+  <hgroup>
+    <h2>Function components</h2>
+  </hgroup>
+  <article class = 'flexbox vcenter'>
+    <p><img src="img/Function_components.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" width="900px" style="display: block; margin: auto;" /></p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Lexical scoping</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Scoping is the set of rules that govern how R looks up the value of a symbol. </p>
+
+<pre><code class="r">x &lt;- 10 
+x 
+</code></pre>
+
+<pre><code class="no-highlight">## [1] 10
+</code></pre>
+
+<div class="alert alert-orange" style="position: absolute; left: 240px; top: 240px">
+  How does R know that x equals 10 ? </div>
+
+<h3>Principles of Lexical Scoping</h3>
+
+<ol>
+<li>Name masking</li>
+<li>Functions vs. variables</li>
+<li>A fresh start</li>
+<li>Dynamic lookup</li>
+</ol>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>1. Name masking</h2>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;'>
+  <pre><code class="r">f &lt;- function() { 
+  x &lt;- 2 
+  y &lt;- 3 
+  x * y
+}
+
+f()
+</code></pre>
+
+<pre><code class="no-highlight">## [1] 6
+</code></pre>
+
+<ul>
+<li><span style="color:green;"> value for <b>x</b> found in f</span></li>
+<li><span style="color:green;"> value for <b>y</b> found in f</span></li>
+</ul>
+
+</div>
+<div style='float:right;width:48%;'>
+  <pre><code class="r">x &lt;- 2 
+g &lt;- function() { 
+  y &lt;- 3 
+  x + y
+}
+
+g()
+</code></pre>
+
+<pre><code class="no-highlight">## [1] 5
+</code></pre>
+
+<ul>
+<li><span style="color:red;"> value for <b>x NOT</b> found in f</span>
+
+<ul>
+<li>check global environment → <span style="color:green;"> value for <b>x</b> found</span></li>
+</ul></li>
+<li><span style="color:green;"> value for <b>y</b> found in f</span></li>
+</ul>
+
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-6">
+  <hgroup>
+    <h2>1. Name masking - Nested functions</h2>
+  </hgroup>
+  <article class = 'flexbox vcenter'>
+    <p><img src="img/Function_name_masking_1.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" width="800px" style="display: block; margin: auto;" /></p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-7">
+  <hgroup>
+    <h2>1. Name masking - Nested functions</h2>
+  </hgroup>
+  <article class = 'flexbox vcenter'>
+    <p><img src="img/Function_name_masking_2.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" width="800px" style="display: block; margin: auto;" /></p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>1. Name masking - Variables exist locally</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">add_one &lt;- function(x) { 
+  add_this &lt;- 1
+  x + add_this
+}
+
+add_one(5) 
+</code></pre>
+
+<pre><code class="no-highlight">## [1] 6
+</code></pre>
+
+<pre><code class="r">add_this
+</code></pre>
+
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;add_this&#39; not found
+</code></pre>
+
+<div style='float:left;width:48%;'>
+  <p><img src="img/Function_add_one.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" style="display: block; margin: auto;" /></p>
+
+</div>
+<div style='float:right;width:48%;'>
+  <ul>
+<li><code>x</code> and <code>add_this</code> are not present in the global environment</li>
+<li>they <strong>exist locally</strong> in <code>add_one()</code></li>
+</ul>
+
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-9">
+  <hgroup>
+    <h2>2. Functions vs. variables</h2>
+  </hgroup>
+  <article class = 'flexbox vcenter'>
+    <p><img src="img/Function_vs_variable_1.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" width="700px" style="display: block; margin: auto;" /></p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-10">
+  <hgroup>
+    <h2>2. Functions vs. variables</h2>
+  </hgroup>
+  <article class = 'flexbox vcenter'>
+    <p><img src="img/Function_vs_variable_2.png" title="plot of chunk unnamed-chunk-11" alt="plot of chunk unnamed-chunk-11" width="700px" style="display: block; margin: auto;" /></p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>2. Functions vs. variables - Exception</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">n &lt;- function(x) {
+  x / 2
+}
+
+o &lt;- function() { 
+  n &lt;- 10 
+  n(n) 
+} 
+
+o()
+</code></pre>
+
+<pre><code class="no-highlight">## [1] 5
+</code></pre>
+
+<p><img src="img/Function_vs_var_exception.png" style="height:120px;border:0;position: absolute; 
+left: 210px; top: 240px" </img> </p>
+
+<p><strong>Try to avoid this whenever possible.</strong></p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>3. A fresh start</h2>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;'>
+  <p><img src="img/Function_fresh_start.png" title="plot of chunk unnamed-chunk-13" alt="plot of chunk unnamed-chunk-13" style="display: block; margin: auto;" /></p>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p>What gets returned each time?</p>
+
+<pre><code class="r">j()
+a &lt;- j()
+j()
+j()
+a &lt;- j()
+j()
+</code></pre>
+
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>3. A fresh start</h2>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;'>
+  <p><img src="img/Function_fresh_start.png" title="plot of chunk unnamed-chunk-16" alt="plot of chunk unnamed-chunk-16" style="display: block; margin: auto;" /></p>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p>What gets returned each time?</p>
+
+<pre><code class="r">j()
+</code></pre>
+
+<pre><code class="no-highlight">## [1] 1
+</code></pre>
+
+<pre><code class="r">a &lt;- j()
+j()
+</code></pre>
+
+<pre><code class="no-highlight">## [1] 2
+</code></pre>
+
+<pre><code class="r">j()
+</code></pre>
+
+<pre><code class="no-highlight">## [1] 2
+</code></pre>
+
+<pre><code class="r">a &lt;- j()
+j()
+</code></pre>
+
+<pre><code class="no-highlight">## [1] 3
+</code></pre>
+
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>4. Dynamic lookup</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>R looks for values when the function is run, not when it’s created.</p>
+
+<pre><code class="r">my_mean &lt;- function(x) {
+    sum(x) / count
+}
+
+count &lt;- 10
+
+my_mean(rep(2, times = 10)) 
+</code></pre>
+
+<pre><code class="no-highlight">## [1] 2
+</code></pre>
+
+<pre><code class="r">my_mean(rep(2, times = 5))
+</code></pre>
+
+<pre><code class="no-highlight">## [1] 1
+</code></pre>
+
+<p>→ <strong>Hard to spot</strong> because occurring errors depend on the global environment.</p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="segue" style="background:#EEC900;">
+  <hgroup>
+    <h1>Your turn...</h1>
+  </hgroup>
+  <article>
+    
+  </article>
+</slide>
+<slide class="" id="slide-16" style="background:;">
+  <hgroup>
+    <h2>What is the output of the following code snippets?</h2>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;'>
+  <pre><code class="r">func1 &lt;- function(y) {
+   func2(z = y)
+}
+func2 &lt;- function(z) {
+   3 * z
+}
+func1(4) 
+z &lt;- 3 
+func1(4) 
+</code></pre>
+
+<pre><code class="r">y &lt;- 3
+func &lt;- function(x, y) {
+   x ^ y
+}
+func(2, 2)
+x
+y
+func(3)
+</code></pre>
+
+</div>
+<div style='float:right;width:48%;'>
+  <pre><code class="r">x1 &lt;- 10
+func &lt;- function() {
+   x1 * 2
+}
+func() 
+x1 &lt;- 5
+func()
+</code></pre>
+
+<pre><code class="r">f &lt;- function(x) { 
+   f &lt;- function(x) { 
+      f &lt;- function(x) { 
+         x ^ 2 
+      } 
+      f(x) + 1 
+   } 
+   f(x) * 2 
+} 
+x &lt;- 10
+f(x)
+</code></pre>
+
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-17" style="background:;">
+  <hgroup>
+    <h2>The 4 Golden Rules</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Every function should be...</p>
+
+<ul>
+<li><p><strong>selfcontained</strong>,</p></li>
+<li><p>able to <strong>solve one</strong> particular <strong>problem</strong>,</p></li>
+<li><p>as <strong>small as possible</strong> and as <strong>complex as needed</strong>,</p></li>
+<li><p>properly <strong>documented</strong></p></li>
+</ul>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-18" style="background:;">
+  <hgroup>
+    <h2>Which functions are selfcontained?</h2>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;'>
+  <pre><code class="r">func1 &lt;- function(y) {
+   func2(z = y)
+}
+func2 &lt;- function(z) {
+   3 * z
+}
+func1(4) 
+z &lt;- 3 
+func1(4) 
+</code></pre>
+
+<pre><code class="r">y &lt;- 3
+func &lt;- function(x, y) {
+   x ^ y
+}
+func(2, 2)
+x
+y
+func(3)
+</code></pre>
+
+</div>
+<div style='float:right;width:48%;'>
+  <pre><code class="r">x1 &lt;- 10
+func &lt;- function() {
+   x1 * 2
+}
+func() 
+x1 &lt;- 5
+func()
+</code></pre>
+
+<pre><code class="r">f &lt;- function(x) { 
+   f &lt;- function(x) { 
+      f &lt;- function(x) { 
+         x ^ 2 
+      } 
+      f(x) + 1 
+   } 
+   f(x) * 2 
+} 
+x &lt;- 10
+f(x)
+</code></pre>
+
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-19" style="background:;">
+  <hgroup>
+    <h2>How to convert code to a function?</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">df &lt;- data.frame(replicate(6, sample(c(1:10, -99), 6, rep = TRUE)))
+names(df) &lt;- letters[1:6]
+df
+</code></pre>
+
+<pre><code class="no-highlight">##    a   b   c   d  e  f
+## 1  3 -99   8   5  3  6
+## 2  5   8   5   9  5  7
+## 3  7   7   9 -99  1  6
+## 4 10   1   6   3  5  3
+## 5  3   3   8   8 10 10
+## 6 10   2 -99   2  4  8
+</code></pre>
+
+<h3>Replace -99 with NA</h3>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-20" style="background:;">
+  <hgroup>
+    <h2>How to convert code to a function?</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">df$a[df$a == -99] &lt;- NA
+df$b[df$b == -99] &lt;- NA
+df$c[df$b == -99] &lt;- NA
+df$d[df$d == -99] &lt;- NA
+df$e[df$e == -99] &lt;- NA
+df$e[df$f == -98] &lt;- NA
+</code></pre>
+
+<p><strong>Can you spot all mistakes?</strong></p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-21" style="background:;">
+  <hgroup>
+    <h2>Try to downscale the problem</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="img/Function_downscale_problem.png" title="plot of chunk unnamed-chunk-30" alt="plot of chunk unnamed-chunk-30" width="700px" style="display: block; margin: auto auto auto 0;" /></p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-22" style="background:;">
+  <hgroup>
+    <h2>Try to downscale the problem</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Test your function</p>
+
+<pre><code class="r">replace_value(c(2, 5, -99, 3, -99))
+</code></pre>
+
+<pre><code class="no-highlight">## [1]  2  5 NA  3 NA
+</code></pre>
+
+<p>Use your function</p>
+
+<pre><code class="r">df$a &lt;- replace_value(df$a)
+df$b &lt;- replace_value(df$b)
+df$c &lt;- replace_value(df$c)
+df$d &lt;- replace_value(df$d)
+df$e &lt;- replace_value(df$e)
+df$f &lt;- replace_value(df$f)
+</code></pre>
+
+<p><strong>Still prone to error but much better!</strong></p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-23" style="background:;">
+  <hgroup>
+    <h2>Easy to customise</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Imagine the value changes from -99 to -999</p>
+
+<pre><code class="no-highlight">##    a    b    c    d  e  f
+## 1  3 -999    8    5  3  6
+## 2  5    8    5    9  5  7
+## 3  7    7    9 -999  1  6
+## 4 10    1    6    3  5  3
+## 5  3    3    8    8 10 10
+## 6 10    2 -999    2  4  8
+</code></pre>
+
+<div style='float:left;width:48%;'>
+  <p>Simply change your function</p>
+
+<pre><code class="r">replace_value2 &lt;- function(x) {
+   x[x == -999] &lt;- NA
+   x
+}
+</code></pre>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p>Or add an additional argument</p>
+
+<pre><code class="r">replace_value2 &lt;- function(x, rep_na) {
+   x[x == rep_na] &lt;- NA
+   x
+}
+</code></pre>
+
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-24" style="background:;">
+  <hgroup>
+    <h2>Return values</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">replace_value &lt;- function(x) {
+   x[x == -99] &lt;- NA
+   return(x)
+}
+replace_value(c(2, 5, -99, 3, -99))
+</code></pre>
+
+<pre><code class="no-highlight">## [1]  2  5 NA  3 NA
+</code></pre>
+
+<pre><code class="r">replace_value &lt;- function(x) {
+   x[x == -99] &lt;- NA
+   invisible(x)
+}
+replace_value(c(2, 5, -99, 3, -99))
+</code></pre>
+
+<p><strong>No output in the console due to the <code>invisible()</code> call within the function</strong></p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-25">
+  <hgroup>
+    <h2>Return values</h2>
+  </hgroup>
+  <article class = 'flexbox vcenter'>
+    <p><img src="img/Function_return_values.png" title="plot of chunk unnamed-chunk-38" alt="plot of chunk unnamed-chunk-38" width="800px" /></p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-26" style="background:;">
+  <hgroup>
+    <h2>Only one return value per function</h2>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;'>
+  <pre><code class="r">complex_function &lt;- function(x) {
+   out_mean &lt;- mean(x)
+   out_median &lt;- median(x)
+   out_min &lt;- min(x)
+   out_max &lt;- max(x)
+   result &lt;- list(out_mean, out_median, 
+     out_min, out_max)
+   return(result) 
+}
+</code></pre>
+
+<div class="boxorange1">
+    <h3>list()</h3><p>is used here to combine intermediate results to one returned list object.</p></div>
+
+</div>
+<div style='float:right;width:48%;'>
+  <pre><code class="r">complex_function(1:10)
+</code></pre>
+
+<pre><code class="no-highlight">## [[1]]
+## [1] 5.5
+## 
+## [[2]]
+## [1] 5.5
+## 
+## [[3]]
+## [1] 1
+## 
+## [[4]]
+## [1] 10
+</code></pre>
+
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="segue" style="background:#EEC900;">
+  <hgroup>
+    <h1>Your turn...</h1>
+  </hgroup>
+  <article>
+    
+  </article>
+</slide>
+<slide class="" id="slide-28">
+<hgroup>
+  <h1>Exercise 1: Write your first functions!</h1>
+</hgroup>
+<article data-timings="">
+  <div style="background-color:#F5F5F5; text-align:left; vertical-align: middle; padding:20px 47px;">
+    <ol>
+<li>Write a function to calculate the standard error.</li>
+<li>Write a function to plot the weight-length relationship (W = a*L<sup>b)</sup> of any fish species! Test your function with</li>
+</ol>
+
+<ul>
+<li><em>Gadus morhua</em>, a = 0.0077, b = 3.07</li>
+<li><em>Anguilla anguilla</em>, a = 0.00079, b = 3.23 </li>
+</ul>
+
+  </div>
+  <footer>
+    <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+      <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+    </div>
+    <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+      <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+      font-style: italic; top: 610px; ">Data analysis with R</a>
+    </div>
+  </footer>
+</article>
+<!-- Presenter Notes -->
+</slide>
+
+<style>
+#slide-28 {
+  background-color: #EEC900;
+}
+</style>
+<slide class="segue" style="background:#1874CD;">
+  <hgroup>
+    <h1>Iterations</h1>
+  </hgroup>
+  <article>
+    <p><img src="img/Data_science_1a.png" style="height:150px;border:0;position: absolute; 
+left: 900px; top: 50px" </img> </p>
+
+  </article>
+</slide>
+<slide class="" id="slide-30" style="background:;">
+  <hgroup>
+    <h2>Iteration or so-called loop functions in R</h2>
+  </hgroup>
+  <article data-timings="">
+    <h3>2 types</h3>
+
+<ol>
+<li><code>for</code> loop family: execute for a prescribed number of times, as controlled by a <strong>counter</strong> or an index, incremented at each iteration cycle</li>
+<li><code>while</code> or <code>repeat</code> family of loops: are based on the onset and verification of a logical <strong>condition</strong>. The condition is tested at the start or the end of the loop construct.</li>
+</ol>
+
+<!-- <a href="https://www.datacamp.com/community/tutorials/tutorial-on-loops-in-r"> -->
+
+<!--   <img src="img/Loop_types.png" alt="Loop types"style="height:300px;border:0;position: absolute; left: 250px; top: 380px" > -->
+
+<!-- </a>  -->
+
+<div class="img-with-text" style="position: absolute; left: 250px; top: 330px">
+    <img src="img/Loop_types.png" alt="" width=500px/>
+ <p><span class="source-img" style = "float:right">source: 
+  <a href='https://www.datacamp.com/community/tutorials/tutorial-on-loops-in-r' title=''>www.datacamp.com/community/tutorials/tutorial-on-loops-in-r</a> (licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/' title=''>CC-BY-NC-ND 4.0</a>)</span></p>
+</div>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-31">
+  <hgroup>
+    <h2><code>for</code> loop</h2>
+  </hgroup>
+  <article class = 'flexbox vcenter'>
+    <p><img src="img/For_loop_components_1.png" title="plot of chunk unnamed-chunk-41" alt="plot of chunk unnamed-chunk-41" width="500px" style="display: block; margin: auto;" /></p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-32">
+  <hgroup>
+    <h2><code>for</code> loop</h2>
+  </hgroup>
+  <article class = 'flexbox vcenter'>
+    <p><img src="img/For_loop_components_2.png" title="plot of chunk unnamed-chunk-43" alt="plot of chunk unnamed-chunk-43" width="700px" style="display: block; margin: auto;" /></p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-33">
+  <hgroup>
+    <h2><code>for</code> loop - Styles</h2>
+  </hgroup>
+  <article class = 'flexbox vcenter'>
+    <p><img src="img/For_loop_styles.png" title="plot of chunk unnamed-chunk-44" alt="plot of chunk unnamed-chunk-44" width="600px" style="display: block; margin: auto;" /></p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-34" style="background:;">
+  <hgroup>
+    <h2>Best practice for the counter: <code>seq_along(x)</code></h2>
+  </hgroup>
+  <article data-timings="">
+    <p>→ a safe version of the familiar <code>1:length(x)</code></p>
+
+<pre><code class="r">x &lt;- c(2, 4, 7)
+y &lt;- numeric(0)
+</code></pre>
+
+<div style='float:left;width:48%;'>
+  <pre><code class="r">for (i in 1:length(x)) {
+   print(x[i])
+}
+</code></pre>
+
+<pre><code class="r">1:length(x)
+</code></pre>
+
+<pre><code class="no-highlight">## [1] 1 2 3
+</code></pre>
+
+<pre><code class="r">1:length(y)
+</code></pre>
+
+<pre><code class="no-highlight">## [1] 1 0
+</code></pre>
+
+<p>→ <code>1:length()</code> iterates at least once!</p>
+
+</div>
+<div style='float:right;width:48%;'>
+  <pre><code class="r">for (i in seq_along(x)) {
+   print(x[i])
+}
+</code></pre>
+
+<pre><code class="r">seq_along(x)
+</code></pre>
+
+<pre><code class="no-highlight">## [1] 1 2 3
+</code></pre>
+
+<pre><code class="r">seq_along(y)
+</code></pre>
+
+<pre><code class="no-highlight">## integer(0)
+</code></pre>
+
+<p>→ If the counter is NULL <code>seq_along()</code> does not execute any iteration!</p>
+
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-35" style="background:;">
+  <hgroup>
+    <h2>Best practice for the output</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Before you start the loop, you must always allocate sufficient space for the output. </li>
+<li>If you grow the <code>for</code> loop at each iteration using <code>c()</code> (for example), your <code>for</code> loop will be very slow:</li>
+</ul>
+
+<div style='float:left;width:48%;'>
+  <pre><code class="r"># Grow objects
+grow_obj &lt;- function(x){
+  y &lt;- numeric()
+  for (i in 1:x) { 
+    y &lt;- c(y, i)
+  }
+}
+</code></pre>
+
+</div>
+<div style='float:right;width:48%;'>
+  <pre><code class="r"># Better: Indexing
+index_obj &lt;- function(x){
+  y &lt;- vector(&quot;integer&quot;, length(x))
+  for (i in 1:x){ 
+    y[i] &lt;- i
+  }
+}
+</code></pre>
+
+<p><small>Here, an empty vector with the <strong>length of the counter</strong> is created before the loop runs. </small> </p>
+
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-36" style="background:;">
+  <hgroup>
+    <h2>Best practice for the output</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r"># Let&#39;s test the speed of both functions
+microbenchmark::microbenchmark(unit = &quot;ms&quot;, times = 5,
+    grow_obj(500), grow_obj(5000), index_obj(500), index_obj(5000) )
+</code></pre>
+
+<pre><code class="no-highlight">## Unit: milliseconds
+##             expr       min        lq       mean    median        uq
+##    grow_obj(500)  0.557673  0.568017  0.5879908  0.574069  0.595132
+##   grow_obj(5000) 38.881681 47.168098 50.5571232 47.825416 50.714506
+##   index_obj(500)  0.110457  0.115062  0.1173862  0.118125  0.120946
+##  index_obj(5000)  0.908436  0.919034  1.6393442  0.930583  0.989413
+##        max neval cld
+##   0.645063     5  a 
+##  68.195915     5   b
+##   0.122341     5  a 
+##   4.449255     5  a
+</code></pre>
+
+<p>Look at the <code>mean</code> column: As you can see, indexing is much faster than growing objects, particularly when iterating many times!</p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-37" style="background:;">
+  <hgroup>
+    <h2>Previous example: Replace repetitive code</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Replace a specific value in a <strong>vector</strong>!</p>
+
+<pre><code class="r">replace_value &lt;- function(x) {
+   x[ x == -99] &lt;- NA
+   x
+}
+</code></pre>
+
+<p>Use your function:</p>
+
+<pre><code class="r">df$a &lt;- replace_value(df$a)
+df$b &lt;- replace_value(df$b)
+df$c &lt;- replace_value(df$c)
+df$d &lt;- replace_value(df$d)
+df$e &lt;- replace_value(df$e)
+df$f &lt;- replace_value(df$f)
+</code></pre>
+
+<p><strong>Still prone to error but much better!</strong></p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-38" style="background:;">
+  <hgroup>
+    <h2>Possible solution</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Replace a specific value in a <strong>data frame</strong>!</p>
+
+<div style='float:left;width:64%;'>
+  <p><img src="img/For_loop_replacement.png" title="plot of chunk unnamed-chunk-56" alt="plot of chunk unnamed-chunk-56" style="display: block; margin: auto;" /></p>
+
+</div>
+<div style='float:right;width:32%;'>
+  <pre><code class="r">replace_value(df)
+</code></pre>
+
+<pre><code class="no-highlight">##    a  b  c  d  e  f
+## 1  3 NA  8  5  3  6
+## 2  5  8  5  9  5  7
+## 3  7  7  9 NA  1  6
+## 4 10  1  6  3  5  3
+## 5  3  3  8  8 10 10
+## 6 10  2 NA  2  4  8
+</code></pre>
+
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-39" style="background:;">
+  <hgroup>
+    <h2>Test user input</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>What happens if the input is a <strong>matrix</strong> and not a data frame?</p>
+
+<pre><code class="r">mat &lt;- matrix(c(1:5, -99), ncol=3)
+replace_value(mat)
+</code></pre>
+
+<pre><code>## Error in df[, i]: subscript out of bounds
+</code></pre>
+
+<pre><code class="r">seq_along(mat)
+</code></pre>
+
+<pre><code class="no-highlight">## [1] 1 2 3 4 5 6
+</code></pre>
+
+<ul>
+<li><code>seq_along()</code> counts each element in matrices and not the columns!</li>
+</ul>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-40" style="background:;">
+  <hgroup>
+    <h2>Test user input - Solutions</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Either adjust code for various types of input</li>
+<li>or test the input type and return error message if not correct type:</li>
+</ul>
+
+<pre><code class="r">replace_value &lt;- function(df) {
+  if(is.data.frame(df)) {
+    for (i in seq_along(df)) {
+      df[df[, i] == -99, i] &lt;- NA
+    }
+    return(df)
+  } else {
+    stop(&quot;Input has to be a data frame.&quot;)
+  }
+}
+replace_value(mat) 
+</code></pre>
+
+<pre><code>## Error in replace_value(mat): Input has to be a data frame.
+</code></pre>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-41" style="background:;">
+  <hgroup>
+    <h2>Combine functions</h2>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;'>
+  <p>Instead of using a loop within the replace function you can combine 2 functions:</p>
+
+<pre><code class="r">replace_value &lt;- function(x) {
+  x[x == -99] &lt;- NA
+  x
+}
+
+apply_to_column &lt;- function(df) {
+  for (i in seq_along(df)) {
+    df[, i] &lt;- replace_value(df[, i])
+  }
+  return(df)
+}
+</code></pre>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p><img src="img/For_loop_df_wNAs_arrow.png" title="plot of chunk unnamed-chunk-63" alt="plot of chunk unnamed-chunk-63" width="400px" style="display: block; margin: auto auto auto 0;" /></p>
+
+<pre><code class="r">apply_to_column(df)
+</code></pre>
+
+<pre><code class="no-highlight">##    a  b  c  d  e  f
+## 1  3 NA  8  5  3  6
+## 2  5  8  5  9  5  7
+## 3  7  7  9 NA  1  6
+## 4 10  1  6  3  5  3
+## 5  3  3  8  8 10 10
+## 6 10  2 NA  2  4  8
+</code></pre>
+
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="segue" style="background:#EEC900;">
+  <hgroup>
+    <h1>Your turn...</h1>
+  </hgroup>
+  <article>
+    
+  </article>
+</slide>
+<slide class="" id="slide-43">
+<hgroup>
+  <h1>Exercise 2: Write your first <code>for</code> loops!</h1>
+</hgroup>
+<article data-timings="">
+  <div style="background-color:#F5F5F5; text-align:left; vertical-align: middle; padding:20px 47px;">
+    <ol>
+<li>Determine the type of each column in the <code>FSA::Mirex</code> dataset</li>
+<li>Compute the mean of every column in the <code>FSA::PikeNY</code> dataset</li>
+</ol>
+
+<p><small>Think about the output, sequence, and body before you start writing the loop.</small></p>
+
+  </div>
+  <footer>
+    <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+      <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+    </div>
+    <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+      <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+      font-style: italic; top: 610px; ">Data analysis with R</a>
+    </div>
+  </footer>
+</article>
+<!-- Presenter Notes -->
+</slide>
+
+<style>
+#slide-43 {
+  background-color: #EEC900;
+}
+</style>
+<slide class="" id="slide-44">
+<hgroup>
+  <h1>Exercise 3: Combine loops with functions</h1>
+</hgroup>
+<article data-timings="">
+  <div style="background-color:#F5F5F5; text-align:left; vertical-align: middle; padding:20px 47px;">
+    <ul>
+<li>Write a function to fit a linear model (y ~ x) to each of the 100 datasets in the &quot;data/functions&quot; folder (&quot;dummyfile_1.csv&quot; - &quot;dummyfile_100.csv&quot;) and plot all slopes together as a histogram. 
+
+<ul>
+<li>What are the parameters of your function (filename, data frame, folder, ...)? </li>
+<li>Is the iteration outside of your function or part of the function call?</li>
+<li>Should the plotting be part of your function?</li>
+</ul></li>
+<li>Do the same with the intercepts! <small> (for solution code see the last slide of the presentation)</small></li>
+</ul>
+
+<p><img src="lecture17_plotting_files/unnamed-chunk-65-1.png" title="plot of chunk unnamed-chunk-65" alt="plot of chunk unnamed-chunk-65" width="576" style="display: block; margin: auto;" /></p>
+
+  </div>
+  <footer>
+    <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+      <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+    </div>
+    <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+      <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+      font-style: italic; top: 610px; ">Data analysis with R</a>
+    </div>
+  </footer>
+</article>
+<!-- Presenter Notes -->
+</slide>
+
+<style>
+#slide-44 {
+  background-color: #EEC900;
+}
+</style>
+<slide class="segue" style="background:#E5E5E5;">
+  <hgroup>
+    <h2>Overview of functions you learned today</h2>
+  </hgroup>
+  <article>
+    <p>functions: <code>function()</code>, <code>return()</code>, <code>invisible()</code></p>
+
+<p>loops: <code>for(var in seq) expr</code>, <code>while(cond) expr</code>, <code>repeat expr</code>, <code>seq_along()</code></p>
+
+<p>conditions: <code>if(cond) expr</code>, <code>if(cond) cons.expr  else  alt.expr</code></p>
+
+<p><code>exists()</code>, <code>microbenchmark::microbenchmark()</code></p>
+
+  </article>
+</slide>
+<slide class="segue" style="background:#CD2626;">
+  <hgroup>
+    <h1>How do you feel now.....?</h1>
+  </hgroup>
+  <article>
+    
+  </article>
+</slide>
+<slide class="" id="slide-47">
+  <hgroup>
+    <h2>Totally confused?</h2>
+  </hgroup>
+  <article class = 'flexbox vcenter'>
+    <p><img src="img/Comic_confused.png" title="plot of chunk unnamed-chunk-66" alt="plot of chunk unnamed-chunk-66" width="400px" style="display: block; margin: auto;" /></p>
+
+<p>Try out the exercises and read <a href="http://r4ds.had.co.nz/iteration.html">chapter 21 on iterations</a> in R for Data Science.</p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-48">
+  <hgroup>
+    <h2>Totally bored?</h2>
+  </hgroup>
+  <article class = 'flexbox vcenter'>
+    <p><img src="img/Comic_bored.png" title="plot of chunk unnamed-chunk-67" alt="plot of chunk unnamed-chunk-67" width="800px" style="display: block; margin: auto auto auto 0;" /></p>
+
+<p>We just scratched the surface of R functional programming. If you want to learn more on how to write R functions I highly recommend the book <a href="http://adv-r.had.co.nz">Advanced R</a> by Hadley Wickham.</p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-49" style="background:;">
+  <hgroup>
+    <h2>Totally content?</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Then go grab a coffee, lean back and enjoy the rest of the day...!</p>
+
+<p><img src="img/Comic_hammock.png" title="plot of chunk unnamed-chunk-68" alt="plot of chunk unnamed-chunk-68" width="600px" style="display: block; margin: auto;" /></p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="thank-you-slide segue" id="slide-50">
+  <footer>
+    <div style="position: absolute; left: 50px; top: 50px; z-index:100">
+        <img src = "assets/img/uham_logo.png" height="67" width="200">
+    </div>
+  </footer>
+  <article>
+    <h1 style="padding-top: 120px;">Thank You</h1>
+    <p>
+      For more information contact me:<a href="saskia.otto@uni-hamburg.de">
+      saskia.otto@uni-hamburg.de</a>
+      </p>
+      <p data-config-contact="">
+      <a href="http://www.researchgate.net/profile/Saskia_Otto"
+          style="color:#F48C0A; font-weight: bold;">
+        http://www.researchgate.net/profile/Saskia_Otto</a><br>
+      <a href="http://www.github.com/saskiaotto"
+          style="color: #F48C0A; font-weight: bold;">
+        http://www.github.com/saskiaotto</a>
+    </p>
+    <p style="font-size: 15px; position: absolute; left: 125px; top: 480px; z-index:100">
+    <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+      <img alt="Creative Commons License" style="border-width:0"
+        src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" /></a><br>
+        This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+        Creative Commons Attribution-ShareAlike 4.0 International License </a>except for the <br>
+        borrowed and mentioned with proper <i>source:</i> statements. <br>
+        <b>Image on title and end slide:</b> Section of an infrared satallite image showing the Larsen C
+        ice shelf on the Antarctic <br>
+        Peninsula - USGS/NASA Landsat: <a href="https://landsat.visibleearth.nasa.gov/view.php?id=90481">
+        A Crack of Light in the Polar Dark</a>, Landsat 8 - TIRS, June 17, 2017 <br>
+        (under CC0 license)
+    </p>
+  </article>
+</slide>
+<slide class="segue" style="background:#CD2626;">
+  <hgroup>
+    <h1>Solution exercise 3</h1>
+  </hgroup>
+  <article>
+    
+  </article>
+</slide>
+<slide class="" id="slide-52" style="background:;">
+  <article data-timings="">
+    <p>The following code demonstrates one approach for exercise 3 in which the slopes and intercepts are computed together in one function:</p>
+
+<pre><code class="r">files &lt;- stringr::str_c(&quot;data/functions/dummyfile_&quot;, 1:100, &quot;.csv&quot;)
+
+# The iteration will be here part of the function:
+get_coefs &lt;- function(filenames) {
+  # Create empty output vectors 
+  intercept &lt;- vector(&quot;double&quot;, length = length(filenames))
+  slopes &lt;- vector(&quot;double&quot;, length = length(filenames))
+
+  for (i in seq_along(files)) {
+    dat &lt;- readr::read_csv(filenames[i]) # import single file 
+    m_dat &lt;- lm(y ~ x, data = dat) # fit linear model
+    intercept[[i]] &lt;- coef(m_dat)[1] # save the intercept
+    slopes[[i]] &lt;- coef(m_dat)[2] # save the slope
+  }
+  # Since output can be only 1 object:
+  out &lt;- tibble(a = intercept, b = slopes)
+  return(out)
+}
+</code></pre>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-53" style="background:;">
+  <article data-timings="">
+    
+<div style='float:left;width:48%;'>
+  <pre><code class="r"># Apply function
+all_coefs &lt;- get_coefs(files) %&gt;% 
+  print(n =5)
+</code></pre>
+
+<pre><code class="no-highlight">## # A tibble: 100 x 2
+##       a     b
+##   &lt;dbl&gt; &lt;dbl&gt;
+## 1  3.12 0.794
+## 2  2.64 0.800
+## 3  1.95 0.828
+## 4  3.08 0.755
+## 5  1.07 0.922
+## # ... with 95 more rows
+</code></pre>
+
+<p><img src="lecture17_plotting_files/unnamed-chunk-71-1.png" title="plot of chunk unnamed-chunk-71" alt="plot of chunk unnamed-chunk-71" width="432" style="display: block; margin: auto;" /></p>
+
+</div>
+<div style='float:right;width:48%;'>
+  <pre><code class="r"># Create histograms
+p &lt;- ggplot(all_coefs) + 
+  theme_classic()
+
+p_a &lt;- p + geom_histogram(aes(x = a), 
+    bins = 10, fill = &quot;white&quot;, 
+  colour = &quot;black&quot;) + 
+  ggtitle(&quot;Histogram of intercepts&quot;) 
+
+p_b &lt;- p + geom_histogram(aes(x = b), 
+    bins = 10, fill = &quot;white&quot;, 
+  colour = &quot;black&quot;) + 
+  ggtitle(&quot;Histogram of slopes&quot;) 
+
+gridExtra::grid.arrange(p_a, p_b, 
+  ncol=2)
+</code></pre>
+
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Functions'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Functions are the core of reproducible research'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Function components'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Lexical scoping'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='1. Name masking'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='1. Name masking - Nested functions'>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='1. Name masking - Nested functions'>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title='1. Name masking - Variables exist locally'>
+         8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title='2. Functions vs. variables'>
+         9
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=10 title='2. Functions vs. variables'>
+         10
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=11 title='2. Functions vs. variables - Exception'>
+         11
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=12 title='3. A fresh start'>
+         12
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=13 title='3. A fresh start'>
+         13
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=14 title='4. Dynamic lookup'>
+         14
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=15 title='Your turn...'>
+         15
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=16 title='What is the output of the following code snippets?'>
+         16
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=17 title='The 4 Golden Rules'>
+         17
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=18 title='Which functions are selfcontained?'>
+         18
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=19 title='How to convert code to a function?'>
+         19
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=20 title='How to convert code to a function?'>
+         20
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=21 title='Try to downscale the problem'>
+         21
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=22 title='Try to downscale the problem'>
+         22
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=23 title='Easy to customise'>
+         23
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=24 title='Return values'>
+         24
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=25 title='Return values'>
+         25
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=26 title='Only one return value per function'>
+         26
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=27 title='Your turn...'>
+         27
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=28 title='Exercise 1: Write your first functions!'>
+         28
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=29 title='Iterations'>
+         29
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=30 title='Iteration or so-called loop functions in R'>
+         30
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=31 title='<code>for</code> loop'>
+         31
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=32 title='<code>for</code> loop'>
+         32
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=33 title='<code>for</code> loop - Styles'>
+         33
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=34 title='Best practice for the counter: <code>seq_along(x)</code>'>
+         34
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=35 title='Best practice for the output'>
+         35
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=36 title='Best practice for the output'>
+         36
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=37 title='Previous example: Replace repetitive code'>
+         37
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=38 title='Possible solution'>
+         38
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=39 title='Test user input'>
+         39
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=40 title='Test user input - Solutions'>
+         40
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=41 title='Combine functions'>
+         41
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=42 title='Your turn...'>
+         42
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=43 title='Exercise 2: Write your first <code>for</code> loops!'>
+         43
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=44 title='Exercise 3: Combine loops with functions'>
+         44
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=45 title='Overview of functions you learned today'>
+         45
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=46 title='How do you feel now.....?'>
+         46
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=47 title='Totally confused?'>
+         47
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=48 title='Totally bored?'>
+         48
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=49 title='Totally content?'>
+         49
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=50 title='NA'>
+         50
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=51 title='Solution exercise 3'>
+         51
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=52 title='NA'>
+         52
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=53 title='NA'>
+         53
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  <script src="libraries/widgets/quiz/js/jquery.quiz.js"></script>
+<script src="libraries/widgets/quiz/js/mustache.min.js"></script>
+<script src="libraries/widgets/quiz/js/quiz-app.js"></script>
+<script src="libraries/widgets/bootstrap/js/bootstrap.min.js"></script>
+<script src="libraries/widgets/bootstrap/js/bootbox.min.js"></script>
+<script src="libraries/widgets/interactive/js/ace/js/ace.js"></script>
+<script src="libraries/widgets/interactive/js/opencpu-0.5.js"></script>
+<script src="libraries/widgets/interactive/js/interactive.js"></script>
+
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<script>  
+  $(function (){ 
+    $("#example").popover(); 
+    $("[rel='tooltip']").tooltip(); 
+  });  
+  </script>  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

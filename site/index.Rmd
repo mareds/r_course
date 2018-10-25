@@ -1,0 +1,155 @@
+---
+title: "Data analysis with R"
+output: 
+  html_document:
+    toc: yes
+    toc_float:
+      collapsed: false
+      smooth_scroll: false
+    excludes:
+      after_body: footer_site.html
+    includes:
+      after_body: footer_site.html
+---
+
+<style>
+<!-- /* On screens that are 768px or more show the background image on the left*/ -->
+@media screen and (min-width: 768px) {
+body {
+  background-image: url("img_site/satellite_great_barrier_reef_2_2.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: left;
+    background-size: 26% 100%;
+  }
+}
+</style>
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(tidy=FALSE, warning=FALSE, message=FALSE, cache=FALSE,
+  fig.retina = 2)
+```
+
+This is a course taught as part of the curriculum of the Master program [MARSYS-MARine EcoSYStem and Fishery Sciences](https://www.biologie.uni-hamburg.de/en/studium/master/marine-oekosystem-und-fischereiwissenschaften.html) at the [Institute of Marine Ecosystem and Fishery Science (IMF)](https://www.biologie.uni-hamburg.de/en/einrichtungen/imf.html), University of Hamburg, Germany.
+
+The course is designed for 36hours in total (~120min per pecture), excluding the time students spend on their case studies, and held over the duration of one semester with 2 lectures per week. The course can also be used as a short-term (e.g. 1 week) intensive training or in a self-study mode at the Bachelor, Master or PhD level. 
+
+<img src="img_site/Data_science_1.png" alt="Dat Science principles" style="float:right;clear:left;width:250px;border:0;padding:0% 4%;"/>
+
+<br>
+
+This course will **introduce** the **principles of data science** and how to mine out insights from data to understand complex behaviors, trends, and inferences. It will teach **skills in three major areas** with a focus on marine topics. However, the course can be utilized by any other scientist as key concepts are the same across disciplines.
+
+<br>
+<img src="img_site/Tidyverse_packages.png" alt="Tidyverse packages" style="float:left;clear:left;width:650px;border:0;padding:0% 4% 0% 0%;"/>
+
+<br>
+<br>
+
+*Data Analysis with R* builds heavily on the **tidyverse framework** and introduces various of its packages, which provide an R syntax 'dialect' to simplify data import, processing and visualization.
+
+<br>
+<br>
+
+## Course learning outcomes
+
+At the end of the course students will
+
+- understand the principles of data science
+- be trained in formulating and investigating research questions within the marine context
+- feel confident working with one of the most common and popular software for data analysis 
+- will be familiar with various data types and data structures
+- have learned how to
+    - import data into and export from R
+    - subset, manipulate and transform data
+    - write own functions and apply iterations such as loops
+    - compute descriptive statistics
+- be able to visualize data in various ways, including creating maps
+- understand the principles of statistical modelling and the mathematics behind simple linear regression models
+- be able to
+    - apply different linear model families,
+    - compare and select models,
+    - visualize model results,
+    - evaluate model diagnostics using real datasets
+- learn how to work as part of a research team to produce scientific products
+
+
+## Requirements
+
+This course assumes no prior knowledge in computer programming or statistical modelling. Some knowledge in basic statics, however, will be advantageous. For an efficient workflow, please make sure to download the data and install everything before working through the material provided. The course will be tought in the institutes' computer room using R Studio Server Pro. The server version can be accessed from any location through an internet browser so no further preparation is required. But if you want to work on your own computer using a desktop version look at lecture 1 for installation informations.
+
+
+## Course structure
+
+### Lectures 
+
+The course provides 18 lectures (each ~ 120min) covering the topics **Programming in R**, **Data Exploration & Visualization** and **Statistical Modelling**. Each lecture contains throughout interactive quizzes and exercises that should be done by each student individually. Some of the exercises require also a bit of homework. Please note that the interactive quizzes only work in the browser and not in the PDF files. 
+
+During the slide show the following single character keyboard shortcuts enable alternate display modes:
+
+<kbd>o</kbd> enables overview mode
+
+<kbd>w</kbd> toggles widescreen mode
+
+<kbd>f</kbd> enables fullscreen mode
+
+<kbd>h</kbd> enables code highlight mode
+
+<kbd>control</kbd> (Windows) or <kbd>command</kbd> (Mac) AND <kbd>+</kbd> / <kbd>-</kbd> to zoom in or out<br>
+
+<kbd>p</kbd> opens a separate window for additional information (does not work in Safari).
+
+Pressing <kbd>esc</kbd> exits all of these modes. 
+
+### *swirl* course
+
+In addition, all quiz questions in the lectures have been now converted into a [swirl](http://swirlstats.com/swirlify/index.html) course so that students can answer the quiz questions directly from within R, without all the additional information shown in the slides. 
+
+
+### Case studies
+
+2 Case studies are provided:
+
+1. one on data exploration and visualization using hydrographical data for the Baltic Sea → suitable after lecture 11
+2. one on statistical modelling using fish catch data for the Baltic Sea → suitable after lecture 15 or later
+
+These case studies are meant as group exercises (3-4 students) but can be easily split into individual tasks. Each group is expected to work in R Markdown for communicating their work progress and results.
+
+The solution script for case study 2 will be made accessible for a short time after assignments were submitted. If you are not part of the course and interested in the solution script feel free to contact me!
+
+<br>
+
+***
+
+<script id="dsq-count-scr" src="//mareds-github-io-r-course.disqus.com/count.js" async></script>
+<div id="disqus_thread" class="disqusPadding"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://mareds-github-io-r-course.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+<br>
+<br>
+<br>
+<p style="text-align: right; font-size: small;"> Page built on: 📆 2018-03-10 ‒ 🕢 12:05:32
+</p>
+[![HitCount](http://hits.dwyl.io/mareds/r_course.svg)](http://hits.dwyl.io/mareds/r_course)
+<br>
+<br>

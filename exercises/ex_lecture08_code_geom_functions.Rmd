@@ -1,0 +1,80 @@
+---
+title: "Lecture 8"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(tidy=FALSE, warning=FALSE, message=FALSE, cache=FALSE)
+knitr::opts_chunk$set(dev.args=list(bg="transparent"))    
+knitr::opts_chunk$set(fig.retina = 2)
+```
+
+## Example code for different geom_functions based on the ICES `hydro` dataset 
+(these are the same function as shown in the overview slides of lecture 8)
+
+```{r, eval=FALSE}
+library(tidyverse)
+library(lubridate)
+
+# Import the downloaded data (set your own working directory)
+hydro <- read_csv("data/1111473b.csv")
+names(hydro) <- c("cruise", "station", "type", "date_time", 
+  "lat", "long", "depth", "pres", "temp", "psal", "doxy")
+hydro$month <- month(hydro$date_time)
+hydro$day <- day(hydro$date_time)
+hydro$yday <- yday(hydro$date_time)
+
+# Since month is not really a continuous variable
+# (double format in the tibble) convert it
+# to a factor (necessary for some of the plots!)
+hydro$month <- as.factor(hydro$month)
+
+
+# ONE VARIABLE -----------------
+
+# discrete --
+d <- ggplot(hydro, aes(x = month)) 
+
+d + geom_bar() # x, alpha, color, fill, linetype, size, weight
+
+# continuous --
+c <- ggplot(hydro, aes(x = temp)) 
+
+c + geom_histogram(binwidth = 3) # x, y, alpha, color, fill, linetype, 
+# size, weight
+c + geom_area(stat = "bin") # x, y, alpha, color, fill, linetype, size
+
+
+# TWO VARIABLES -----------------
+
+# discrete x , discrete y --
+g <- ggplot(hydro, aes(x = month, y = day))
+g + geom_count() # x, y, alpha, color, fill, shape, size, stroke
+
+# discrete x , continuous y --
+f <- ggplot(hydro, aes(x = month, y = temp))
+
+f + geom_col() # x, y, alpha, color, fill, group, linetype, size
+f + geom_boxplot()  # x, y, lower, middle, upper, ymax, ymin, alpha, 
+# color, fill, group, linetype, shape, size, weight
+
+# continuous x , continuous y --
+e <- ggplot(hydro, aes(x = yday, y = temp))
+
+e + geom_point() # x, y, alpha, color, fill, shape, size, stroke
+e + geom_smooth() # x, y, alpha, color, fill, group, linetype, size, weight
+e + geom_text(aes(label = month), nudge_x = 1, nudge_y = 1, check_overlap = TRUE)
+# x, y, label, alpha, angle, color, family, fontface, hjust, lineheight, size, vjust
+e + geom_quantile() # x, y, alpha, color, group, linetype, size, weight
+
+# continuous bivariate distribution --
+h <- ggplot(hydro, aes(x = psal, y = temp))
+
+h + geom_bin2d()
+h + geom_density2d()
+h + geom_hex()
+```
+
+<br>
+<br>
+<br>

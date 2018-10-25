@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Data analysis with R</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/spacelab.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
+<link href="site_libs/ionicons-2.0.1/css/ionicons.min.css" rel="stylesheet" />
+
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="css_site/style_site.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 52px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+
+.section h2 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+.section h3 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+.section h4 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+.section h5 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+.section h6 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = false;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://marinedatascience.co">
+        <img id="mds_logo" alt="" src="img_site/mds_logo_grey@2x.png" width="30" height="30" >
+        MDS
+      </a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+          <a href="index.html">
+            <span class="fa fa-home"></span>
+              Data Analysis with R
+          </a>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+            <span class="fa fa-graduation-cap"></span>
+              Lectures
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu" role="menu">
+            <li class="dropdown-header">Programming in R</li>
+            <li class="dropdown-item">
+              <a href="lecture01_intro2data_science_and_r.html ">1-Introduction to data science and R</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture02_r_basics.html">2-Basics in R</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture03_data_structures.html">3-Data structures and basic calculations</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture04_operators.html">4-Operators</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture05_data_wrangling_import.html">5-Data wrangling - 1.Import</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture06_data_wrangling_tidy_data.html">6-Data wrangling - 2.Tidy Data</a>
+            </li>
+            <li class="dropdown-header">Data exploration &amp; visualization</li>
+            <li class="dropdown-item">
+              <a href="lecture07_data_wrangling_transformation.html">7-Data wrangling - 3.Transformation</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture08_intro2visualization_1.html">8-Intro2Visualization - Part 1</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture09_intro2visualization_2.html">9-Intro2Visualization - Part 2(Adjusting plots)</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture10_categorical_data.html">10-Handling and visualization of categorical data</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture11_rmarkdown.html">11-R Markdown for communication</a>
+            </li>
+            <li class="dropdown-header">Statistical Modelling</li>
+            <li class="dropdown-item">
+              <a href="lecture12_stat_modelling_1.html">12-Intro2Statistical Modelling - Part 1</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture13_stat_modelling_2.html">13-Intro2Statistical Modelling - Part 2</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture14_stat_modelling_3.html">14-Model building and selection</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture15_stat_modelling_4.html">15-Modelling demonstration</a>
+            </li>
+            <li class="dropdown-header">Programming in R</li>
+            <li class="dropdown-item">
+              <a href="lecture16_string_manipulation.html">16-String manipulation and regular expressions</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture17_functionsniterations_1.html">17-Functions and Iteration 1 (Loops)</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture18_iterations_2.html">18-Iteration 2 (purrr and the map family)</a>
+            </li>
+            <li class="divider"></li>
+            <li class="dropdown-header">slides, keyboard shortcuts:</li>
+            <li class="dropdown-header">o: outline</li>
+            <li class="dropdown-header">w: widescreen on/off</li>
+            <li class="dropdown-header">f: fullscreen on/off</li>
+            <li class="dropdown-header">ctrl +/ ctrl -: zoom in/out</li>
+            <li class="dropdown-header">p: presenter mode with additional info (NOT in Safari)</li>
+          </ul>
+        </li>
+        <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+          <span class="fa fa-gear"></span>
+            Exercises
+          <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu" role="menu">
+          <li class="dropdown-header">Practicals</li>
+          <li class="dropdown-item">
+            <a href="ex_resources.html">Resources</a>
+          </li>
+          <li class="dropdown-item">
+            <a href="ex_swirl.html">Quizzes with swirl</a>
+          </li>
+          <li class="divider"></li>
+          <li class="dropdown-header">Case studies</li>
+          <li class="dropdown-item">
+            <a href="ex_case_study_1.html">Case study 1</a>
+          </li>
+          <li class="dropdown-item">
+            <a href="ex_case_study_2.html">Case study 2</a>
+          </li>
+          <li class="dropdown-item">
+            <a href="ex_case_study_1_solutions.html">Case study 1 - solution</a>
+          </li>
+          <li class="dropdown-item">
+            <a href="ex_case_study_2_solutions.html">Case study 2 - solution</a>
+          </li>
+          <li class="divider"></li>
+          <li class="dropdown-header">Demo Code</li>
+          <li class="dropdown-item">
+            <a href="ex_lecture08_code_geom_functions.html">Lecture 8 - Geom functions</a>
+          </li>
+          <li class="dropdown-item">
+            <a href="ex_lecture08_code_ggplots_in_slides.html">Lecture 8 - Code for ggplots in lecture</a>
+          </li>
+          <li class="dropdown-item">
+            <a href="ex_lecture14_code_find_the_model.html">Lecture 14 - Find the model</a>
+          </li>
+          <li class="dropdown-item">
+            <a href="ex_lecture15_model_building_demo.html">Lecture 15 - Model building demo</a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="misc.html">
+          <span class="ion ion-wrench"></span>
+            Misc
+        </a>
+      </li>
+      <li>
+        <a href="video.html">
+          <span class="ion ion-ios-videocam"></span>
+            Videos
+        </a>
+      </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li>
+        <a href="about.html">
+          <span class="fa fa-newspaper"></span>
+            About
+        </a>
+      </li>
+      <li>
+        <a href="mailto:saskia.otto@uni-hamburg.de">
+          <span class="fa fa-send"></span>
+            Contact
+        </a>
+      </li>
+    </ul>
+   </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Data analysis with R</h1>
+
+</div>
+
+
+<style>
+<!-- /* On screens that are 768px or more show the background image on the left*/ -->
+@media screen and (min-width: 768px) {
+body {
+  background-image: url("img_site/satellite_great_barrier_reef_2_2.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: left;
+    background-size: 26% 100%;
+  }
+}
+</style>
+<p>This is a course taught as part of the curriculum of the Master program <a href="https://www.biologie.uni-hamburg.de/en/studium/master/marine-oekosystem-und-fischereiwissenschaften.html">MARSYS-MARine EcoSYStem and Fishery Sciences</a> at the <a href="https://www.biologie.uni-hamburg.de/en/einrichtungen/imf.html">Institute of Marine Ecosystem and Fishery Science (IMF)</a>, University of Hamburg, Germany.</p>
+<p>The course is designed for 36hours in total (~120min per pecture), excluding the time students spend on their case studies, and held over the duration of one semester with 2 lectures per week. The course can also be used as a short-term (e.g. 1 week) intensive training or in a self-study mode at the Bachelor, Master or PhD level.</p>
+<p><img src="img_site/Data_science_1.png" alt="Dat Science principles" style="float:right;clear:left;width:250px;border:0;padding:0% 4%;"/></p>
+<p><br></p>
+<p>This course will <strong>introduce</strong> the <strong>principles of data science</strong> and how to mine out insights from data to understand complex behaviors, trends, and inferences. It will teach <strong>skills in three major areas</strong> with a focus on marine topics. However, the course can be utilized by any other scientist as key concepts are the same across disciplines.</p>
+<p><br> <img src="img_site/Tidyverse_packages.png" alt="Tidyverse packages" style="float:left;clear:left;width:650px;border:0;padding:0% 4% 0% 0%;"/></p>
+<p><br> <br></p>
+<p><em>Data Analysis with R</em> builds heavily on the <strong>tidyverse framework</strong> and introduces various of its packages, which provide an R syntax ‘dialect’ to simplify data import, processing and visualization.</p>
+<p><br> <br></p>
+<div id="course-learning-outcomes" class="section level2">
+<h2>Course learning outcomes</h2>
+<p>At the end of the course students will</p>
+<ul>
+<li>understand the principles of data science</li>
+<li>be trained in formulating and investigating research questions within the marine context</li>
+<li>feel confident working with one of the most common and popular software for data analysis</li>
+<li>will be familiar with various data types and data structures</li>
+<li>have learned how to
+<ul>
+<li>import data into and export from R</li>
+<li>subset, manipulate and transform data</li>
+<li>write own functions and apply iterations such as loops</li>
+<li>compute descriptive statistics</li>
+</ul></li>
+<li>be able to visualize data in various ways, including creating maps</li>
+<li>understand the principles of statistical modelling and the mathematics behind simple linear regression models</li>
+<li>be able to
+<ul>
+<li>apply different linear model families,</li>
+<li>compare and select models,</li>
+<li>visualize model results,</li>
+<li>evaluate model diagnostics using real datasets</li>
+</ul></li>
+<li>learn how to work as part of a research team to produce scientific products</li>
+</ul>
+</div>
+<div id="requirements" class="section level2">
+<h2>Requirements</h2>
+<p>This course assumes no prior knowledge in computer programming or statistical modelling. Some knowledge in basic statics, however, will be advantageous. For an efficient workflow, please make sure to download the data and install everything before working through the material provided. The course will be tought in the institutes’ computer room using R Studio Server Pro. The server version can be accessed from any location through an internet browser so no further preparation is required. But if you want to work on your own computer using a desktop version look at lecture 1 for installation informations.</p>
+</div>
+<div id="course-structure" class="section level2">
+<h2>Course structure</h2>
+<div id="lectures" class="section level3">
+<h3>Lectures</h3>
+<p>The course provides 18 lectures (each ~ 120min) covering the topics <strong>Programming in R</strong>, <strong>Data Exploration &amp; Visualization</strong> and <strong>Statistical Modelling</strong>. Each lecture contains throughout interactive quizzes and exercises that should be done by each student individually. Some of the exercises require also a bit of homework. Please note that the interactive quizzes only work in the browser and not in the PDF files.</p>
+<p>During the slide show the following single character keyboard shortcuts enable alternate display modes:</p>
+<p><kbd>o</kbd> enables overview mode</p>
+<p><kbd>w</kbd> toggles widescreen mode</p>
+<p><kbd>f</kbd> enables fullscreen mode</p>
+<p><kbd>h</kbd> enables code highlight mode</p>
+<p><kbd>control</kbd> (Windows) or <kbd>command</kbd> (Mac) AND <kbd>+</kbd> / <kbd>-</kbd> to zoom in or out<br></p>
+<p><kbd>p</kbd> opens a separate window for additional information (does not work in Safari).</p>
+<p>Pressing <kbd>esc</kbd> exits all of these modes.</p>
+</div>
+<div id="swirl-course" class="section level3">
+<h3><em>swirl</em> course</h3>
+<p>In addition, all quiz questions in the lectures have been now converted into a <a href="http://swirlstats.com/swirlify/index.html">swirl</a> course so that students can answer the quiz questions directly from within R, without all the additional information shown in the slides.</p>
+</div>
+<div id="case-studies" class="section level3">
+<h3>Case studies</h3>
+<p>2 Case studies are provided:</p>
+<ol style="list-style-type: decimal">
+<li>one on data exploration and visualization using hydrographical data for the Baltic Sea → suitable after lecture 11</li>
+<li>one on statistical modelling using fish catch data for the Baltic Sea → suitable after lecture 15 or later</li>
+</ol>
+<p>These case studies are meant as group exercises (3-4 students) but can be easily split into individual tasks. Each group is expected to work in R Markdown for communicating their work progress and results.</p>
+<p>The solution script for case study 2 will be made accessible for a short time after assignments were submitted. If you are not part of the course and interested in the solution script feel free to contact me!</p>
+<p><br></p>
+<hr />
+<script id="dsq-count-scr" src="//mareds-github-io-r-course.disqus.com/count.js" async></script>
+<div id="disqus_thread" class="disqusPadding">
+
+</div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://mareds-github-io-r-course.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>
+Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+</noscript>
+<br> <br> <br>
+<p style="text-align: right; font-size: small;">
+Page built on: 📆 2018-03-10 ‒ 🕢 12:05:32
+</p>
+<p><a href="http://hits.dwyl.io/mareds/r_course"><img src="http://hits.dwyl.io/mareds/r_course.svg" alt="HitCount" /></a> <br> <br></p>
+</div>
+</div>
+
+</div> <!-- articleBandContent -->
+</div> <!-- pageContent -->
+
+<footer class="site_footer">
+<div id="maredsFooter" class="footer">
+  <div class="footerContent">
+
+    <!-- column 1 -->
+    <div class="col-md-2" style="padding-top:.25%; text-align:center; color:#626262;">
+      <a href="https://github.com/mareds">
+        <i class="fa fa-github fa-lg"></i> MARinE Data Science</a> 
+    </div>
+    
+    <!-- column 1 -->
+    <div class="col-md-2" style="padding-top:.25%; text-align:center; color:#626262;">
+      <a href="https://github.com/saskiaotto">
+        <i class="fa fa-github fa-lg"></i> saskiaotto</a>
+    </div>
+
+    <!-- column 2 -->
+    <div class="col-md-6">
+      <!-- <blockquote style="line-height:10px;border-left: 2px solid #999999;"> -->
+          <p style="font-size:15px;color:#626262;border-left: 2px solid #999999;padding-left:5px; padding-top:.25%; font-style:italic;">
+            The difference between stupidity and genius is that genius has its limits.
+            <span style="font-size:11px;color:#909090">A.E.</span></p>
+      <!-- </blockquote> -->
+    </div>
+    
+      <!-- column 3 -->
+    <div class="col-md-2" style="padding-top:.25%; text-align:right; color:#626262;">
+      <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+          CC-BY-SA 4.0</a>
+    </div>
+
+  </div> <!-- footerContent -->
+</div> <!-- footer -->
+
+
+</footer>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

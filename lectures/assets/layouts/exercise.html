@@ -1,0 +1,33 @@
+<slide class="{{ slide.class }}" id="{{ slide.id }}">
+<hgroup>
+  {{{ slide.header}}}
+</hgroup>
+<article data-timings="{{ slide.dt }}">
+  <div style="background-color:#F5F5F5; text-align:left; vertical-align: middle; padding:20px 47px;">
+    {{{ slide.content }}}
+  </div>
+  <footer>
+    <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+      <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+    </div>
+    <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+      <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+      font-style: italic; top: 610px; ">Data analysis with R</a>
+    </div>
+  </footer>
+</article>
+<!-- Presenter Notes -->
+{{# slide.pnotes}}
+<aside class="note">
+  <section>
+    {{{ html }}}
+  </section>
+</aside>
+{{/ slide.pnotes}}
+</slide>
+
+<style>
+#{{{ slide.id }}} {
+  background-color: #EEC900;
+}
+</style>

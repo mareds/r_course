@@ -1,0 +1,701 @@
+/* -----------------------------
+# CSS file for website style:
+# mareds/r_course
+# Copyright Saskia A. Otto 2018
+ ----------------------------- */
+
+
+/* blockquote {
+  font-style: italic
+  border-left: 2.5px solid #eee;
+
+  blockquote {  from spacelab.min.css
+    padding: 10px 20px;
+    margin: 0 0 20px;
+    font-size: 17.5px;
+    border-left: 5px solid #eeeeee;
+}
+
+} */
+
+code {
+  font-family: 'Monaco', 'EF Lucida Mono', 'Arial monospaced', monospace;
+}
+
+/* from https://css-tricks.com/snippets/css/sticky-footer/
+* to make sure that the footer stretches with the window
+*/
+* {
+  margin: 0;
+}
+html, body {
+  height: 100%;
+}
+html, body {
+  height: 100%;
+}
+.page-wrap {
+  min-height: 100%;
+  /* equal to footer height */
+  margin-bottom: -142px;
+}
+.page-wrap:after {
+  content: "";
+  display: block;
+}
+
+/* ----------------------------- */
+
+
+body {
+  padding: 0;
+  margin: 0;
+  /*font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;*/
+  font-size: 14px;
+  line-height: 130%;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 350;
+      color: #313c40; /* 606c71 */
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    color: #313c40; /*#  3D3D3D  606c71     159957     155799   last:158F99*/
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    line-height: 30pt;
+  }
+
+  h1 {
+   font-size: 20pt;
+   /*padding-top: 10%;*/
+  }
+
+  h1.title {
+    font-size: 25pt;
+    color: #158F99
+  }
+
+
+  h2 {
+    font-size: 16pt;
+  }
+
+  h3 {
+    font-size: 14pt;
+  }
+
+  p {
+    margin-bottom: 1em;
+  }
+
+
+  .img-footer {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0;
+    /*margin-bottom: auto;*/
+    width: 90%;
+}
+
+/*
+* ------- To change the navbar --------
+* (copied from the bootstrap-theme.css and then modified)
+*/
+
+
+.navbar-inverse {
+  background-color: #159957;
+  background-image: linear-gradient(120deg, #155799, #159957);
+}
+.navbar-inverse .badge{background-color:#fff;color:#155799}
+
+.nav .open>a,.nav .open>a:hover,.nav .open>a:focus{border-color:#155799}
+
+.nav .open>a,.nav .open>a:hover,.nav .open>a:focus{border-color:#155799}
+
+.navbar-brand
+
+.label-primary{background-color:#155799}
+
+.label-info{background-color:#155799}
+
+.badge{background-color:#155799}
+
+.list-group-item.active>.badge,.nav-pills>.active>a>.badge{
+  color:#165C93} /* #155799 #1C6090 */
+
+.list-group-item.active,.list-group-item.active:hover,
+.list-group-item.active:focus{
+  z-index:2;color:#ffffff;background-color:#165C93;border-color:#165C93;
+background-image: linear-gradient(120deg, #165C93, #156A86)}
+
+a.thumbnail:hover,a.thumbnail:focus,a.thumbnail.active{border-color:#155799}
+
+.navbar-default .navbar-brand:hover,.navbar-default .navbar-brand:focus{color:#155799; background-color:transparent}
+.navbar-default .navbar-nav>li>a:hover,.navbar-default .navbar-nav>li>a:focus{color:#155799;background-color:transparent}
+.navbar-default .navbar-nav>.active>a,.navbar-default .navbar-nav>.active>a:hover,
+.navbar-default .navbar-nav>.active>a:focus{color:#155799;background-color:transparent}
+.navbar-default .navbar-nav>.open>a:focus{background-color:transparent;color:#155799}
+
+.pagination>li>span{color:#155799} /* #155799 */
+.pagination>li>a:hover,.pagination>li>span:hover,.pagination>li>a:focus,
+.pagination>li>span:focus{z-index:2;color:#1B6789;background-color:#eeeeee;border-color:#dddddd}
+
+
+.nav a{
+   font-size: 1.1em !important;
+}
+
+
+/* Change the size of the dropdown items (by defining my own class) */
+
+.dropdown-header {
+    display: block;
+    padding: 3px 10px;
+    font-size: 10px;
+    line-height: 1.1;
+    color: #999999;
+    white-space: nowrap;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.dropdown-item {
+    display: block;
+    padding: 0;
+    font-size: 11px;
+    line-height: 1.1;
+    color: #313c40;
+    white-space: nowrap;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+
+/* navbar logo, taken from robert mitchell V ----*/
+#mds_logo {
+  width: 100%;
+  max-width: 40px;
+  height: auto;
+  padding: 0;
+  margin: 0;
+  position: relative;
+  display: inline-block;
+}
+
+
+.navbar-brand {
+    float: left;
+    padding-top: 7.5px;
+    padding-bottom: 5px;
+    font-size: 18px;
+    line-height: 20px;
+    height: 50px;
+}
+
+
+/* footer style taken from robert mitchell V ----*/
+
+#maredsFooter {
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  z-index: 2;
+  box-sizing: border-box;
+  height: 3.5em;
+}
+
+
+#maredsFooter.footer {
+  background-color: #3D3D3D;
+  margin-top: auto;
+  padding-top: 0.5%;
+  box-shadow: 0px 3px 50px 0px rgba(43,45,66,0.4);
+  font-weight: 300;
+  font-size: 13px;
+  line-height: 25px;
+}
+
+#maredsFooter .footer {
+  color: #606c71;  /* darker grey */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  line-height: 14px;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+#maredsFooter .footer {
+  color: #606c71;  /* darker grey */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  line-height: 14px;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  padding-top: 0.5%;
+}
+
+
+
+/* .footer blockquote {
+  font-style: italic
+  border-left: 2.5px solid #eee!important;
+}
+
+blockquote footer {
+    padding: 10px 20px;
+    margin: 0 0 20px;
+    font-size: 17.5px;
+    border-left: 5px solid #eeeeee
+} */
+
+#scrollTop {
+  color: #FFFFFF!important; /* white */
+}
+
+
+#disqusFooter {
+  background-color: #3D3D3D;
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  z-index: 2;
+  box-sizing: border-box;
+  height: 5.5em;
+}
+
+
+#disqusFooter.footer {
+  background-color: #3D3D3D;
+  margin-top: auto;
+  padding-top: 0.5%;
+  box-shadow: 0px 3px 50px 0px rgba(43,45,66,0.4);
+  font-weight: 300;
+  font-size: 13px;
+  line-height: 25px;
+}
+
+#disqusFooter .footer {
+  background-color: #3D3D3D;
+  color: #626262;  /* darker grey */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  line-height: 14px;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+
+.disqusPadding {
+  padding: 80px 5%;
+}
+
+.footerContent {
+  color: var(--dark-grey);
+  font-size: 16px;
+}
+
+.footerContent a {
+  color: var(--dark-grey);
+}
+
+.footerContent a:hover {
+  color: var(--light-grey);
+}
+
+
+
+
+/*
+ * tango
+ * adopted from style sheet of rmbv
+ */
+
+code.sourceCode .co { color: #919191; font-style: 100i; } /* Comment */
+
+
+/*
+* Copied and pasted from the 'spacebar' theme to change color of dropdown-menu
+* (from to ##446E9B #155799)
+*/
+
+.btn-primary{color:#ffffff;background-color:#158F99;border-color:#158F99}
+
+.btn-primary.disabled:hover,.btn-primary[disabled]:hover,fieldset[disabled] .btn-primary:hover,
+.btn-primary.disabled:focus,.btn-primary[disabled]:focus,fieldset[disabled] .btn-primary:focus,
+.btn-primary.disabled.focus,.btn-primary[disabled].focus,
+fieldset[disabled] .btn-primary.focus{background-color:#158F99;border-color:#158F99}
+
+.btn-primary .badge{color:#158F99;background-color:#ffffff}
+
+.dropdown-menu>li>a:hover,.dropdown-menu>li>a:focus{text-decoration:none;color:#ffffff;background-color:#158F99}
+
+.dropdown-menu>.active>a,.dropdown-menu>.active>a:hover,
+.dropdown-menu>.active>a:focus{color:#ffffff;text-decoration:none;outline:0;background-color:#158F99}
+
+
+
+/* Change navbar list when screen gets smaller */
+/* (adopted from: https://www.bootply.com/105174) */
+
+
+/* das klappt, sieht aber zwischen 768px und 992px anders aus als < 768px */
+/*  hier ist alles unter 991px definiert (also mobile), in spacelab.min.css alles für desktop*/
+/*  klappt doch nicht weil in minimal Version sind die dropdown menues nicht scrollbar*/
+/* @media (max-width: 991px) {
+    .navbar-header {
+        float: none;
+    }
+    .navbar-toggle {
+        display: block;
+    }
+    .navbar-collapse {
+        border-top: 1px solid transparent;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+        overflow: hidden !important;
+    }
+    .navbar-collapse.collapse {
+        display: none!important;
+    }
+    .navbar-collapse.collapse.in {
+        display: block!important;
+    }
+    .navbar-collapse *[class*='navbar-'] {
+        float: none!important;
+        margin: 7.5px -15px;
+    }
+    .navbar-nav > li {
+        float: none;
+    }
+    .navbar-nav > li > a {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+} */
+
+
+/* Folgendes klappt nicht weil spacelab.min.css einen niedrigeren WERT hat und das dann als erstes passier; ich muesste meine eigene id zu navbar (inverse) machen, dann koennte ich es evtl. ueberschreiben */
+/* @media (min-width: 992px) {
+  .lead {
+    font-size: 21px;
+  }
+}
+
+@media (min-width: 992px) {
+  .navbar-right .dropdown-menu {
+    right: 0;
+    left: auto;
+  }
+  .navbar-right .dropdown-menu-left {
+    right: auto;
+    left: 0;
+  }
+}
+
+@media (min-width: 992px) {
+  .nav-tabs.nav-justified > li {
+    display: table-cell;
+    width: 1%;
+  }
+  .nav-tabs.nav-justified > li > a {
+    margin-bottom: 0;
+  }
+}
+
+@media (min-width: 992px) {
+  .nav-tabs.nav-justified > li > a {
+    border-bottom: 1px solid #ddd;
+    border-radius: 4px 4px 0 0;
+  }
+  .nav-tabs.nav-justified > .active > a,
+   .nav-tabs.nav-justified > .active > a:hover,
+   .nav-tabs.nav-justified > .active > a:focus {
+    border-bottom-color: #fff;
+  }
+}
+
+@media (min-width: 992px) {
+  .nav-justified > li {
+    display: table-cell;
+    width: 1%;
+  }
+  .nav-justified > li > a {
+    margin-bottom: 0;
+  }
+}
+.nav-tabs-justified {
+  border-bottom: 0;
+}
+.nav-tabs-justified > li > a {
+  margin-right: 0;
+  border-radius: 4px;
+}
+.nav-tabs-justified > .active > a,
+.nav-tabs-justified > .active > a:hover,
+.nav-tabs-justified > .active > a:focus {
+  border: 1px solid #ddd;
+}
+@media (min-width: 992px) {
+  .nav-tabs-justified > li > a {
+    border-bottom: 1px solid #ddd;
+    border-radius: 4px 4px 0 0;
+  }
+  .nav-tabs-justified > .active > a,
+  .nav-tabs-justified > .active > a:hover,
+  .nav-tabs-justified > .active > a:focus {
+    border-bottom-color: #fff;
+  }
+}
+
+@media (min-width: 992px) {
+  .navbar {
+    border-radius: 4px;
+  }
+}
+@media (min-width: 992px) {
+  .navbar-header {
+    float: left;
+  }
+}
+
+@media (min-width: 992px) {
+  .navbar-collapse {
+    width: auto;
+    border-top: 0;
+    -webkit-box-shadow: none;
+            box-shadow: none;
+  }
+  .navbar-collapse.collapse {
+    display: block !important;
+    height: auto !important;
+    padding-bottom: 0;
+    overflow: visible !important;
+  }
+  .navbar-collapse.in {
+    overflow-y: visible;
+  }
+  .navbar-fixed-top .navbar-collapse,
+  .navbar-static-top .navbar-collapse,
+  .navbar-fixed-bottom .navbar-collapse {
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
+
+@media (min-width: 992px) {
+  .container > .navbar-header,
+  .container-fluid > .navbar-header,
+  .container > .navbar-collapse,
+  .container-fluid > .navbar-collapse {
+    margin-right: 0;
+    margin-left: 0;
+  }
+}
+
+@media (min-width: 992px) {
+  .navbar-static-top {
+    border-radius: 0;
+  }
+}
+
+@media (min-width: 992px) {
+  .navbar-fixed-top,
+  .navbar-fixed-bottom {
+    border-radius: 0;
+  }
+}
+
+@media (min-width: 992px) {
+  .navbar > .container .navbar-brand,
+  .navbar > .container-fluid .navbar-brand {
+    margin-left: -15px;
+  }
+}
+@media (min-width: 992px) {
+  .navbar-toggle {
+    display: none;
+  }
+}
+
+@media (max-width: 949px) {
+  .navbar-nav .open .dropdown-menu {
+    position: static;
+    float: none;
+    width: auto;
+    margin-top: 0;
+    background-color: transparent;
+    border: 0;
+    -webkit-box-shadow: none;
+            box-shadow: none;
+  }
+  .navbar-nav .open .dropdown-menu > li > a,
+  .navbar-nav .open .dropdown-menu .dropdown-header {
+    padding: 5px 15px 5px 25px;
+  }
+  .navbar-nav .open .dropdown-menu > li > a {
+    line-height: 20px;
+  }
+  .navbar-nav .open .dropdown-menu > li > a:hover,
+  .navbar-nav .open .dropdown-menu > li > a:focus {
+    background-image: none;
+  }
+}
+@media (min-width: 992px) {
+  .navbar-nav {
+    float: left;
+    margin: 0;
+  }
+  .navbar-nav > li {
+    float: left;
+  }
+  .navbar-nav > li > a {
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+}
+
+@media (min-width: 992px) {
+  .navbar-form .form-group {
+    display: inline-block;
+    margin-bottom: 0;
+    vertical-align: middle;
+  }
+  .navbar-form .form-control {
+    display: inline-block;
+    width: auto;
+    vertical-align: middle;
+  }
+  .navbar-form .form-control-static {
+    display: inline-block;
+  }
+  .navbar-form .input-group {
+    display: inline-table;
+    vertical-align: middle;
+  }
+  .navbar-form .input-group .input-group-addon,
+  .navbar-form .input-group .input-group-btn,
+  .navbar-form .input-group .form-control {
+    width: auto;
+  }
+  .navbar-form .input-group > .form-control {
+    width: 100%;
+  }
+  .navbar-form .control-label {
+    margin-bottom: 0;
+    vertical-align: middle;
+  }
+  .navbar-form .radio,
+  .navbar-form .checkbox {
+    display: inline-block;
+    margin-top: 0;
+    margin-bottom: 0;
+    vertical-align: middle;
+  }
+  .navbar-form .radio label,
+  .navbar-form .checkbox label {
+    padding-left: 0;
+  }
+  .navbar-form .radio input[type="radio"],
+  .navbar-form .checkbox input[type="checkbox"] {
+    position: relative;
+    margin-left: 0;
+  }
+  .navbar-form .has-feedback .form-control-feedback {
+    top: 0;
+  }
+}
+@media (max-width: 949px) {
+  .navbar-form .form-group {
+    margin-bottom: 5px;
+  }
+  .navbar-form .form-group:last-child {
+    margin-bottom: 0;
+  }
+}
+@media (min-width: 992px) {
+  .navbar-form {
+    width: auto;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-right: 0;
+    margin-left: 0;
+    border: 0;
+    -webkit-box-shadow: none;
+            box-shadow: none;
+  }
+}
+
+@media (min-width: 992px) {
+  .navbar-text {
+    float: left;
+    margin-right: 15px;
+    margin-left: 15px;
+  }
+}
+@media (min-width: 992px) {
+  .navbar-left {
+    float: left !important;
+  }
+  .navbar-right {
+    float: right !important;
+    margin-right: -15px;
+  }
+  .navbar-right ~ .navbar-right {
+    margin-right: 0;
+  }
+}
+
+@media (min-width: 992px) {
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+    color: #777;
+  }
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+    color: #333;
+    background-color: transparent;
+  }
+  .navbar-default .navbar-nav .open .dropdown-menu > .active > a,
+  .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
+  .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
+    color: #555;
+    background-color: #e7e7e7;
+  }
+  .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a,
+  .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a:hover,
+  .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a:focus {
+    color: #ccc;
+    background-color: transparent;
+  }
+}
+
+@media (max-width: 949px) {
+  .navbar-inverse .navbar-nav .open .dropdown-menu > .dropdown-header {
+    border-color: #080808;
+  }
+  .navbar-inverse .navbar-nav .open .dropdown-menu .divider {
+    background-color: #080808;
+  }
+  .navbar-inverse .navbar-nav .open .dropdown-menu > li > a {
+    color: #9d9d9d;
+  }
+  .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:hover,
+  .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:focus {
+    color: #fff;
+    background-color: transparent;
+  }
+  .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a,
+  .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a:hover,
+  .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a:focus {
+    color: #fff;
+    background-color: #080808;
+  }
+  .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > a,
+  .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > a:hover,
+  .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > a:focus {
+    color: #444;
+    background-color: transparent;
+  }
+} */

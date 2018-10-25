@@ -1,0 +1,122 @@
+/*
+  IR_Black style (c) Vasily Mikhailitchenko <vaskas@programica.ru>
+*/
+
+pre code {
+  display: block; padding: 0.5em;
+  background: #36648B; color: #f8f8f8;
+  /*font-family: 'Monaco';*/
+  overflow: hidden;
+  border-radius: 5px;
+  /*border: 1px solid lightgray;*/
+  box-shadow: 10px 10px 8px 1px rgba(0, 0, 0, 0.2), 1px 3px 3px 2px rgba(0, 0, 0, 0.5);
+}
+
+
+pre .shebang,
+pre .comment,
+pre .template_comment,
+pre .javadoc {
+  color: #A1A1A1;
+}
+
+pre .keyword,
+pre .tag,
+pre .tex .command,
+pre .request,
+pre .status {
+  color: #B0B0B0;
+}
+
+pre .sub .keyword,
+pre .method,
+pre .list .title {
+  color: ##B0B0B0;
+}
+
+pre .string,
+pre .tag .value,
+pre .cdata,
+pre .filter .argument,
+pre .attr_selector,
+pre .apache .cbracket,
+pre .date {
+  color: #00FFFF;
+}
+
+pre .subst {
+  color: #DAEFA3;
+}
+
+pre .regexp {
+  color: #E9C062;
+}
+
+pre .title,
+pre .sub .identifier,
+pre .pi,
+pre .decorator,
+pre .tex .special,
+pre .haskell .type,
+pre .constant,
+pre .smalltalk .class,
+pre .javadoctag,
+pre .yardoctag,
+pre .phpdoc,
+pre .nginx .built_in {
+  color: #FFFFB6;
+}
+
+pre .symbol,
+pre .ruby .symbol .string,
+pre .ruby .symbol .keyword,
+pre .ruby .symbol .keymethods,
+pre .number,
+pre .variable,
+pre .vbscript,
+pre .literal {
+  color: #FF73FD;/*TRUE/FALSE;*/
+}
+
+pre .css .tag {
+  color: #96CBFE;
+}
+
+pre .css .rules .property,
+pre .css .id {
+  color: #FFFFB6;
+}
+
+pre .css .class {
+  color: #FFF;
+}
+
+pre .hexcolor {
+  color: #C6C5FE;
+}
+
+pre .number {
+  color: #FFC125;
+}
+
+
+pre .diff .deletion,
+pre .tag .value,
+pre .preprocessor,
+pre .built_in,
+pre .sql .aggregate,
+pre .javadoc,
+pre .smalltalk .class,
+pre .smalltalk .localvars,
+pre .smalltalk .array,
+pre .css .rules .value,
+pre .attr_selector,
+pre .pseudo,
+pre .apache .cbracket,
+pre .tex .formula {
+  background: #B9D3EE; color:#000000;
+}
+
+pre .tex .formula {
+  opacity: 0.7;
+}

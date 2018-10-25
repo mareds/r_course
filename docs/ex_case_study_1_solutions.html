@@ -1,0 +1,2385 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Case study 1: Hydrographical dynamics in the Baltic Sea</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/spacelab.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
+<link href="site_libs/ionicons-2.0.1/css/ionicons.min.css" rel="stylesheet" />
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; background-color: #f8f8f8; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+pre, code { background-color: #f8f8f8; }
+code > span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code > span.dt { color: #204a87; } /* DataType */
+code > span.dv { color: #0000cf; } /* DecVal */
+code > span.bn { color: #0000cf; } /* BaseN */
+code > span.fl { color: #0000cf; } /* Float */
+code > span.ch { color: #4e9a06; } /* Char */
+code > span.st { color: #4e9a06; } /* String */
+code > span.co { color: #8f5902; font-style: italic; } /* Comment */
+code > span.ot { color: #8f5902; } /* Other */
+code > span.al { color: #ef2929; } /* Alert */
+code > span.fu { color: #000000; } /* Function */
+code > span.er { color: #a40000; font-weight: bold; } /* Error */
+code > span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #000000; } /* Constant */
+code > span.sc { color: #000000; } /* SpecialChar */
+code > span.vs { color: #4e9a06; } /* VerbatimString */
+code > span.ss { color: #4e9a06; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #000000; } /* Variable */
+code > span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code > span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code > span.ex { } /* Extension */
+code > span.at { color: #c4a000; } /* Attribute */
+code > span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code > span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="css_site/style_site.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 52px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+
+.section h2 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+.section h3 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+.section h4 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+.section h5 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+.section h6 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://marinedatascience.co">
+        <img id="mds_logo" alt="" src="img_site/mds_logo_grey@2x.png" width="30" height="30" >
+        MDS
+      </a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+          <a href="index.html">
+            <span class="fa fa-home"></span>
+              Data Analysis with R
+          </a>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+            <span class="fa fa-graduation-cap"></span>
+              Lectures
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu" role="menu">
+            <li class="dropdown-header">Programming in R</li>
+            <li class="dropdown-item">
+              <a href="lecture01_intro2data_science_and_r.html ">1-Introduction to data science and R</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture02_r_basics.html">2-Basics in R</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture03_data_structures.html">3-Data structures and basic calculations</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture04_operators.html">4-Operators</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture05_data_wrangling_import.html">5-Data wrangling - 1.Import</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture06_data_wrangling_tidy_data.html">6-Data wrangling - 2.Tidy Data</a>
+            </li>
+            <li class="dropdown-header">Data exploration &amp; visualization</li>
+            <li class="dropdown-item">
+              <a href="lecture07_data_wrangling_transformation.html">7-Data wrangling - 3.Transformation</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture08_intro2visualization_1.html">8-Intro2Visualization - Part 1</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture09_intro2visualization_2.html">9-Intro2Visualization - Part 2(Adjusting plots)</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture10_categorical_data.html">10-Handling and visualization of categorical data</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture11_rmarkdown.html">11-R Markdown for communication</a>
+            </li>
+            <li class="dropdown-header">Statistical Modelling</li>
+            <li class="dropdown-item">
+              <a href="lecture12_stat_modelling_1.html">12-Intro2Statistical Modelling - Part 1</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture13_stat_modelling_2.html">13-Intro2Statistical Modelling - Part 2</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture14_stat_modelling_3.html">14-Model building and selection</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture15_stat_modelling_4.html">15-Modelling demonstration</a>
+            </li>
+            <li class="dropdown-header">Programming in R</li>
+            <li class="dropdown-item">
+              <a href="lecture16_string_manipulation.html">16-String manipulation and regular expressions</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture17_functionsniterations_1.html">17-Functions and Iteration 1 (Loops)</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture18_iterations_2.html">18-Iteration 2 (purrr and the map family)</a>
+            </li>
+            <li class="divider"></li>
+            <li class="dropdown-header">slides, keyboard shortcuts:</li>
+            <li class="dropdown-header">o: outline</li>
+            <li class="dropdown-header">w: widescreen on/off</li>
+            <li class="dropdown-header">f: fullscreen on/off</li>
+            <li class="dropdown-header">ctrl +/ ctrl -: zoom in/out</li>
+            <li class="dropdown-header">p: presenter mode with additional info (NOT in Safari)</li>
+          </ul>
+        </li>
+        <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+          <span class="fa fa-gear"></span>
+            Exercises
+          <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu" role="menu">
+          <li class="dropdown-header">Practicals</li>
+          <li class="dropdown-item">
+            <a href="ex_resources.html">Resources</a>
+          </li>
+          <li class="dropdown-item">
+            <a href="ex_swirl.html">Quizzes with swirl</a>
+          </li>
+          <li class="divider"></li>
+          <li class="dropdown-header">Case studies</li>
+          <li class="dropdown-item">
+            <a href="ex_case_study_1.html">Case study 1</a>
+          </li>
+          <li class="dropdown-item">
+            <a href="ex_case_study_2.html">Case study 2</a>
+          </li>
+          <li class="dropdown-item">
+            <a href="ex_case_study_1_solutions.html">Case study 1 - solution</a>
+          </li>
+          <li class="dropdown-item">
+            <a href="ex_case_study_2_solutions.html">Case study 2 - solution</a>
+          </li>
+          <li class="divider"></li>
+          <li class="dropdown-header">Demo Code</li>
+          <li class="dropdown-item">
+            <a href="ex_lecture08_code_geom_functions.html">Lecture 8 - Geom functions</a>
+          </li>
+          <li class="dropdown-item">
+            <a href="ex_lecture08_code_ggplots_in_slides.html">Lecture 8 - Code for ggplots in lecture</a>
+          </li>
+          <li class="dropdown-item">
+            <a href="ex_lecture14_code_find_the_model.html">Lecture 14 - Find the model</a>
+          </li>
+          <li class="dropdown-item">
+            <a href="ex_lecture15_model_building_demo.html">Lecture 15 - Model building demo</a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="misc.html">
+          <span class="ion ion-wrench"></span>
+            Misc
+        </a>
+      </li>
+      <li>
+        <a href="video.html">
+          <span class="ion ion-ios-videocam"></span>
+            Videos
+        </a>
+      </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li>
+        <a href="about.html">
+          <span class="fa fa-newspaper"></span>
+            About
+        </a>
+      </li>
+      <li>
+        <a href="mailto:saskia.otto@uni-hamburg.de">
+          <span class="fa fa-send"></span>
+            Contact
+        </a>
+      </li>
+    </ul>
+   </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Case study 1:<br>Hydrographical dynamics in the Baltic Sea</h1>
+<h3 class="subtitle"><em>SOLUTION SCRIPT</em></h3>
+
+</div>
+
+
+<hr />
+<div class="img-with-text">
+<a href="https://earthobservatory.nasa.gov/IOTD/view.php?id=84047"> <!-- https://eoimages.gsfc.nasa.gov/images/imagerecords/84000/84047/ISS040-E-012110_lrg.jpg --> <img src="img_site/Baltic_satellite.jpg" alt="Darst"style="width:900px;height:300px;border:0;" > </a>
+<p>
+<span class="source-img" style="float:right; font-size:10px;">Foto: ISS Crew Earth Observations Facility and the Earth Science and Remote Sensing Unit, Johnson Space Center (under CC0)</span>
+</p>
+</div>
+<div id="your-task" class="section level1">
+<h1>Your task</h1>
+<p>This case study is meant to repeat all single steps you learnt in the previous lectures and to summarize them into one analysis as you would do also with a real analysis. Some of the tidying and data quality check steps you probably will have done already with the previous exercises → then simply put them together in your RMarkdown file, this time adding a bit more text on why you did what.</p>
+<hr />
+<div id="importing-and-tidying-the-data" class="section level2">
+<h2>1: Importing and tidying the data</h2>
+<div id="import" class="section level3">
+<h3>1.1 Import</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Load relevant libraries</span>
+<span class="kw">library</span>(tidyverse)
+<span class="kw">library</span>(lubridate)
+
+<span class="co"># Set your working directory if you haven&#39;t before (should be the same than </span>
+<span class="co"># for the R Markdown file) and import the data</span>
+hydro &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/1111473b.csv&quot;</span>) <span class="co"># I have the data in a subfolder called &#39;data&#39;</span>
+<span class="kw">dim</span>(hydro)</code></pre></div>
+<pre><code>## [1] 30012    11</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(hydro)</code></pre></div>
+<pre><code>##  [1] &quot;Cruise&quot;                   &quot;Station&quot;                 
+##  [3] &quot;Type&quot;                     &quot;yyyy-mm-ddThh:mm&quot;        
+##  [5] &quot;Latitude [degrees_north]&quot; &quot;Longitude [degrees_east]&quot;
+##  [7] &quot;Bot. Depth [m]&quot;           &quot;PRES [db]&quot;               
+##  [9] &quot;TEMP [deg C]&quot;             &quot;PSAL [psu]&quot;              
+## [11] &quot;DOXY [ml/l]&quot;</code></pre>
+<p>The names of the 11 columns are pretty long and include white space and special characters. Assigning new names that are shorter and simpler are highly recommended (decide latest here which naming convention you want to follow and then stick to it):</p>
+<ul>
+<li>lower case, upper case (not recommended) or camel case?</li>
+<li>underscore or point for separating words?<br> → Examples: data_time / date.time / dateTime / DateTime</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(hydro) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;cruise&quot;</span>, <span class="st">&quot;station&quot;</span>, <span class="st">&quot;type&quot;</span>, <span class="st">&quot;date_time&quot;</span>, <span class="st">&quot;lat&quot;</span>, <span class="st">&quot;long&quot;</span>,
+  <span class="st">&quot;depth&quot;</span>, <span class="st">&quot;pres&quot;</span>, <span class="st">&quot;temp&quot;</span>, <span class="st">&quot;sal&quot;</span>, <span class="st">&quot;doxy&quot;</span>)</code></pre></div>
+<p>Check if the parsed formats for the variables are correct:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glimpse</span>(hydro) <span class="co"># function from the tibble package, similar to str(hydro)</span></code></pre></div>
+<pre><code>## Observations: 30,012
+## Variables: 11
+## $ cruise    &lt;chr&gt; &quot;????&quot;, &quot;????&quot;, &quot;????&quot;, &quot;????&quot;, &quot;????&quot;, &quot;????&quot;, &quot;???...
+## $ station   &lt;chr&gt; &quot;0247&quot;, &quot;0247&quot;, &quot;0247&quot;, &quot;0247&quot;, &quot;0247&quot;, &quot;0247&quot;, &quot;024...
+## $ type      &lt;chr&gt; &quot;B&quot;, &quot;B&quot;, &quot;B&quot;, &quot;B&quot;, &quot;B&quot;, &quot;B&quot;, &quot;B&quot;, &quot;B&quot;, &quot;B&quot;, &quot;B&quot;, &quot;B...
+## $ date_time &lt;dttm&gt; 2015-02-17 09:54:00, 2015-02-17 09:54:00, 2015-02-1...
+## $ lat       &lt;dbl&gt; 55.00, 55.00, 55.00, 55.00, 55.00, 55.00, 55.00, 55....
+## $ long      &lt;dbl&gt; 13.3000, 13.3000, 13.3000, 13.3000, 13.3000, 13.3000...
+## $ depth     &lt;chr&gt; &quot;0048&quot;, &quot;0048&quot;, &quot;0048&quot;, &quot;0048&quot;, &quot;0048&quot;, &quot;0048&quot;, &quot;004...
+## $ pres      &lt;dbl&gt; 0.2, 1.0, 5.0, 10.0, 15.0, 20.0, 25.0, 30.0, 35.0, 4...
+## $ temp      &lt;dbl&gt; 3.57, 3.57, 3.56, 3.56, 3.55, 3.55, 3.56, 3.57, 3.60...
+## $ sal       &lt;dbl&gt; 9.029, 9.006, 9.008, 9.053, 9.055, 9.111, 9.108, 9.1...
+## $ doxy      &lt;dbl&gt; 6.76, 6.71, 6.47, 6.17, 6.03, 6.03, 6.08, 6.03, 5.98...</code></pre>
+<p>Most columns seem to be parsed correctly:</p>
+<ul>
+<li>the metadata <code>cruise</code>, <code>station</code>, and <code>type</code> were parsed as <strong>character</strong> vectors</li>
+<li>the date and time column was parsed as <strong>dttm</strong>, which includes both data and time</li>
+<li>the coordinates as well as all measurement variables (<code>pres</code>, <code>temp</code>, <code>sal</code>, and <code>doxy</code>) were imported as <strong>double</strong> vectors</li>
+<li>BUT, you’ll notice that the column <code>depth</code>, representing the bottom depth at that station, was parsed as <strong>character</strong> vector. But as the original column name “Bot.depth [m]” implies, it represents a numeric variable</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">unique</span>(hydro<span class="op">$</span>depth)</code></pre></div>
+<pre><code>##   [1] &quot;0048&quot; &quot;0089&quot; &quot;0047&quot; NA     &quot;0011&quot; &quot;0016&quot; &quot;0029&quot; &quot;0045&quot; &quot;0046&quot; &quot;0040&quot;
+##  [11] &quot;0044&quot; &quot;0060&quot; &quot;0070&quot; &quot;0092&quot; &quot;0091&quot; &quot;0095&quot; &quot;0014&quot; &quot;0022&quot; &quot;0030&quot; &quot;0041&quot;
+##  [21] &quot;0031&quot; &quot;0069&quot; &quot;0094&quot; &quot;0090&quot; &quot;0028&quot; &quot;0013&quot; &quot;0032&quot; &quot;0064&quot; &quot;0051&quot; &quot;0063&quot;
+##  [31] &quot;0056&quot; &quot;0055&quot; &quot;0061&quot; &quot;0058&quot; &quot;0054&quot; &quot;0053&quot; &quot;0024&quot; &quot;0049&quot; &quot;0074&quot; &quot;0129&quot;
+##  [41] &quot;0103&quot; &quot;0110&quot; &quot;0096&quot; &quot;0062&quot; &quot;0038&quot; &quot;0042&quot; &quot;0083&quot; &quot;0113&quot; &quot;0118&quot; &quot;0087&quot;
+##  [51] &quot;0085&quot; &quot;0088&quot; &quot;0084&quot; &quot;0072&quot; &quot;0099&quot; &quot;0079&quot; &quot;0081&quot; &quot;0102&quot; &quot;0086&quot; &quot;0068&quot;
+##  [61] &quot;0067&quot; &quot;0052&quot; &quot;0059&quot; &quot;0075&quot; &quot;0057&quot; &quot;0066&quot; &quot;0043&quot; &quot;0035&quot; &quot;0082&quot; &quot;0076&quot;
+##  [71] &quot;0093&quot; &quot;0071&quot; &quot;0080&quot; &quot;0077&quot; &quot;0078&quot; &quot;0105&quot; &quot;0021&quot; &quot;0023&quot; &quot;0073&quot; &quot;0050&quot;
+##  [81] &quot;0117&quot; &quot;0136&quot; &quot;0130&quot; &quot;0152&quot; &quot;0155&quot; &quot;0149&quot; &quot;0168&quot; &quot;0160&quot; &quot;0153&quot; &quot;0133&quot;
+##  [91] &quot;0106&quot; &quot;0147&quot; &quot;0065&quot; &quot;0132&quot; &quot;0116&quot; &quot;0100&quot; &quot;0104&quot; &quot;0108&quot; &quot;0037&quot; &quot;0097&quot;
+## [101] &quot;0114&quot; &quot;0111&quot; &quot;0185&quot; &quot;0101&quot; &quot;0127&quot; &quot;0143&quot; &quot;0126&quot; &quot;0033&quot; &quot;0027&quot; &quot;0036&quot;
+## [111] &quot;0018&quot; &quot;0039&quot; &quot;0034&quot; &quot;0019&quot; &quot;0002&quot; &quot;0010&quot; &quot;0008&quot; &quot;0006&quot; &quot;0015&quot; &quot;0026&quot;
+## [121] &quot;0004&quot; &quot;0017&quot; &quot;0025&quot; &quot;0003&quot; &quot;0009&quot; &quot;0007&quot; &quot;0012&quot; &quot;0176&quot; &quot;0445&quot; &quot;0202&quot;
+## [131] &quot;0144&quot; &quot;0240&quot; &quot;0198&quot; &quot;0150&quot; &quot;0162&quot; &quot;0120&quot; &quot;0195&quot; &quot;0238&quot; &quot;0449&quot; &quot;0287&quot;
+## [141] &quot;0134&quot; &quot;0219&quot; &quot;0107&quot; &quot;0173&quot; &quot;0196&quot; &quot;0123&quot; &quot;0131&quot; &quot;0182&quot; &quot;0172&quot; &quot;0175&quot;
+## [151] &quot;0122&quot; &quot;0140&quot; &quot;0109&quot; &quot;0142&quot; &quot;0203&quot; &quot;0158&quot; &quot;0194&quot; &quot;0239&quot; &quot;0145&quot; &quot;0224&quot;
+## [161] &quot;0205&quot; &quot;0201&quot; &quot;0098&quot; &quot;0119&quot; &quot;0218&quot; &quot;0112&quot; &quot;0124&quot; &quot;0125&quot; &quot;0286&quot; &quot;0181&quot;
+## [171] &quot;0210&quot; &quot;0179&quot; &quot;0215&quot; &quot;0138&quot; &quot;0192&quot; &quot;0164&quot; &quot;0171&quot; &quot;0193&quot; &quot;0141&quot; &quot;0204&quot;
+## [181] &quot;0331&quot; &quot;0200&quot; &quot;0121&quot; &quot;0228&quot; &quot;0242&quot; &quot;0230&quot; &quot;0197&quot; &quot;0161&quot; &quot;0166&quot; &quot;0191&quot;
+## [191] &quot;0169&quot; &quot;0170&quot; &quot;0163&quot; &quot;0180&quot; &quot;0285&quot; &quot;0221&quot; &quot;0020&quot; &quot;0199&quot; &quot;0165&quot; &quot;0435&quot;
+## [201] &quot;0443&quot; &quot;0005&quot; &quot;0154&quot; &quot;0222&quot; &quot;0128&quot; &quot;0151&quot; &quot;0460&quot; &quot;0455&quot; &quot;0462&quot; &quot;0451&quot;
+## [211] &quot;0459&quot; &quot;0466&quot;</code></pre>
+<p>The depth values do not contain any special character, white space, etc. but are probably parsed as character as they all contain 1 or 2 zeros as first digits. You can use 2 options to convert this charcter column into an integer column:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#hydro$depth &lt;- as.integer(hydro$depth) # base function</span>
+hydro<span class="op">$</span>depth &lt;-<span class="st"> </span><span class="kw">parse_integer</span>(hydro<span class="op">$</span>depth) <span class="co"># from the readr package</span>
+<span class="co"># Quick test whether conversion worked</span>
+<span class="kw">typeof</span>(hydro<span class="op">$</span>depth)</code></pre></div>
+<pre><code>## [1] &quot;integer&quot;</code></pre>
+<p>Now we add the month and day, which we simply extract from the <code>date_time</code> column using the lubridate package. Sometimes it is useful to have particularly the month as categorical variable so we will add a 2nd month column (<code>fmonth</code>), which will be the factorized months:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Basic way of adding a variable to an existing data frame</span>
+hydro<span class="op">$</span>month &lt;-<span class="st"> </span><span class="kw">month</span>(hydro<span class="op">$</span>date_time)
+hydro<span class="op">$</span>day &lt;-<span class="st"> </span><span class="kw">day</span>(hydro<span class="op">$</span>date_time)
+<span class="co"># Convert month into a factor and save it under a different name (now using the tidy way)</span>
+hydro &lt;-<span class="st"> </span>hydro <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">fmonth =</span> <span class="kw">factor</span>(month, <span class="dt">levels =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">12</span>,
+  <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Jan&quot;</span>,<span class="st">&quot;Feb&quot;</span>,<span class="st">&quot;Mar&quot;</span>,<span class="st">&quot;April&quot;</span>,<span class="st">&quot;May&quot;</span>,<span class="st">&quot;Jun&quot;</span>,<span class="st">&quot;Jul&quot;</span>,<span class="st">&quot;Aug&quot;</span>,<span class="st">&quot;Sep&quot;</span>,<span class="st">&quot;Oct&quot;</span>,<span class="st">&quot;Nov&quot;</span>,<span class="st">&quot;Dec&quot;</span>)))</code></pre></div>
+</div>
+<div id="tidy-data" class="section level3">
+<h3>1.2 Tidy data</h3>
+<div id="data-structure" class="section level4">
+<h4>1.2.1 Data structure</h4>
+<p>You can see in the table below that the dataset is already quite tidy with one measurement <strong>per row</strong> (i.e. one sample per depth level at a specific station) and the measured parameter (temp, sal, etc.) <strong>per column</strong> in addition to the sample information (in terms of the station and measured depth):</p>
+<ul>
+<li>Row 1 - 12 are all measurements taken by the unnamed cruise <em>????</em> at station <em>0247</em>, located at 55.00°N and 13.30°E, where bottom depth is 48m. Measurements were taken here at different depth intervals from 0.2m to 46m depth (see <code>pres</code>) on February 17th, 9:54 a.m.</li>
+</ul>
+<p>Typically, we are interested in each measured parameter alone so there is no need to gather the data more (i.e. make an even longer table by stacking the measured parameters).</p>
+<p>For now, uniting or separating certain columns is also not necessary.</p>
+<table class="table table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+cruise
+</th>
+<th style="text-align:left;">
+station
+</th>
+<th style="text-align:left;">
+type
+</th>
+<th style="text-align:left;">
+date_time
+</th>
+<th style="text-align:right;">
+lat
+</th>
+<th style="text-align:right;">
+long
+</th>
+<th style="text-align:right;">
+depth
+</th>
+<th style="text-align:right;">
+pres
+</th>
+<th style="text-align:right;">
+temp
+</th>
+<th style="text-align:right;">
+sal
+</th>
+<th style="text-align:right;">
+doxy
+</th>
+<th style="text-align:right;">
+month
+</th>
+<th style="text-align:right;">
+day
+</th>
+<th style="text-align:left;">
+fmonth
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;background-color: #F5F5DC;">
+????
+</td>
+<td style="text-align:left;background-color: #F5F5DC;">
+0247
+</td>
+<td style="text-align:left;background-color: #F5F5DC;">
+B
+</td>
+<td style="text-align:left;background-color: #F5F5DC;">
+2015-02-17 09:54:00
+</td>
+<td style="text-align:right;background-color: #F5F5DC;">
+55.00
+</td>
+<td style="text-align:right;background-color: #F5F5DC;">
+13.3000
+</td>
+<td style="text-align:right;background-color: #F5F5DC;">
+48
+</td>
+<td style="text-align:right;background-color: #F5F5DC;color: black;">
+0.2
+</td>
+<td style="text-align:right;background-color: #F5F5DC;color: black;">
+3.57
+</td>
+<td style="text-align:right;background-color: #F5F5DC;color: black;">
+9.029
+</td>
+<td style="text-align:right;background-color: #F5F5DC;color: black;">
+6.76
+</td>
+<td style="text-align:right;background-color: #F5F5DC;">
+2
+</td>
+<td style="text-align:right;background-color: #F5F5DC;">
+17
+</td>
+<td style="text-align:left;background-color: #F5F5DC;">
+Feb
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: #F5F5DC;">
+????
+</td>
+<td style="text-align:left;background-color: #F5F5DC;">
+0247
+</td>
+<td style="text-align:left;background-color: #F5F5DC;">
+B
+</td>
+<td style="text-align:left;background-color: #F5F5DC;">
+2015-02-17 09:54:00
+</td>
+<td style="text-align:right;background-color: #F5F5DC;">
+55.00
+</td>
+<td style="text-align:right;background-color: #F5F5DC;">
+13.3000
+</td>
+<td style="text-align:right;background-color: #F5F5DC;">
+48
+</td>
+<td style="text-align:right;background-color: #F5F5DC;color: black;">
+1.0
+</td>
+<td style="text-align:right;background-color: #F5F5DC;color: black;">
+3.57
+</td>
+<td style="text-align:right;background-color: #F5F5DC;color: black;">
+9.006
+</td>
+<td style="text-align:right;background-color: #F5F5DC;color: black;">
+6.71
+</td>
+<td style="text-align:right;background-color: #F5F5DC;">
+2
+</td>
+<td style="text-align:right;background-color: #F5F5DC;">
+17
+</td>
+<td style="text-align:left;background-color: #F5F5DC;">
+Feb
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: #F5F5DC;">
+????
+</td>
+<td style="text-align:left;background-color: #F5F5DC;">
+0247
+</td>
+<td style="text-align:left;background-color: #F5F5DC;">
+B
+</td>
+<td style="text-align:left;background-color: #F5F5DC;">
+2015-02-17 09:54:00
+</td>
+<td style="text-align:right;background-color: #F5F5DC;">
+55.00
+</td>
+<td style="text-align:right;background-color: #F5F5DC;">
+13.3000
+</td>
+<td style="text-align:right;background-color: #F5F5DC;">
+48
+</td>
+<td style="text-align:right;background-color: #F5F5DC;color: black;">
+5.0
+</td>
+<td style="text-align:right;background-color: #F5F5DC;color: black;">
+3.56
+</td>
+<td style="text-align:right;background-color: #F5F5DC;color: black;">
+9.008
+</td>
+<td style="text-align:right;background-color: #F5F5DC;color: black;">
+6.47
+</td>
+<td style="text-align:right;background-color: #F5F5DC;">
+2
+</td>
+<td style="text-align:right;background-color: #F5F5DC;">
+17
+</td>
+<td style="text-align:left;background-color: #F5F5DC;">
+Feb
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: #F5F5DC;">
+????
+</td>
+<td style="text-align:left;background-color: #F5F5DC;">
+0247
+</td>
+<td style="text-align:left;background-color: #F5F5DC;">
+B
+</td>
+<td style="text-align:left;background-color: #F5F5DC;">
+2015-02-17 09:54:00
+</td>
+<td style="text-align:right;background-color: #F5F5DC;">
+55.00
+</td>
+<td style="text-align:right;background-color: #F5F5DC;">
+13.3000
+</td>
+<td style="text-align:right;background-color: #F5F5DC;">
+48
+</td>
+<td style="text-align:right;background-color: #F5F5DC;color: black;">
+10.0
+</td>
+<td style="text-align:right;background-color: #F5F5DC;color: black;">
+3.56
+</td>
+<td style="text-align:right;background-color: #F5F5DC;color: black;">
+9.053
+</td>
+<td style="text-align:right;background-color: #F5F5DC;color: black;">
+6.17
+</td>
+<td style="text-align:right;background-color: #F5F5DC;">
+2
+</td>
+<td style="text-align:right;background-color: #F5F5DC;">
+17
+</td>
+<td style="text-align:left;background-color: #F5F5DC;">
+Feb
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: #F5F5DC;">
+????
+</td>
+<td style="text-align:left;background-color: #F5F5DC;">
+0247
+</td>
+<td style="text-align:left;background-color: #F5F5DC;">
+B
+</td>
+<td style="text-align:left;background-color: #F5F5DC;">
+2015-02-17 09:54:00
+</td>
+<td style="text-align:right;background-color: #F5F5DC;">
+55.00
+</td>
+<td style="text-align:right;background-color: #F5F5DC;">
+13.3000
+</td>
+<td style="text-align:right;background-color: #F5F5DC;">
+48
+</td>
+<td style="text-align:right;background-color: #F5F5DC;color: black;">
+15.0
+</td>
+<td style="text-align:right;background-color: #F5F5DC;color: black;">
+3.55
+</td>
+<td style="text-align:right;background-color: #F5F5DC;color: black;">
+9.055
+</td>
+<td style="text-align:right;background-color: #F5F5DC;color: black;">
+6.03
+</td>
+<td style="text-align:right;background-color: #F5F5DC;">
+2
+</td>
+<td style="text-align:right;background-color: #F5F5DC;">
+17
+</td>
+<td style="text-align:left;background-color: #F5F5DC;">
+Feb
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: #F5F5DC;">
+????
+</td>
+<td style="text-align:left;background-color: #F5F5DC;">
+0247
+</td>
+<td style="text-align:left;background-color: #F5F5DC;">
+B
+</td>
+<td style="text-align:left;background-color: #F5F5DC;">
+2015-02-17 09:54:00
+</td>
+<td style="text-align:right;background-color: #F5F5DC;">
+55.00
+</td>
+<td style="text-align:right;background-color: #F5F5DC;">
+13.3000
+</td>
+<td style="text-align:right;background-color: #F5F5DC;">
+48
+</td>
+<td style="text-align:right;background-color: #F5F5DC;color: black;">
+20.0
+</td>
+<td style="text-align:right;background-color: #F5F5DC;color: black;">
+3.55
+</td>
+<td style="text-align:right;background-color: #F5F5DC;color: black;">
+9.111
+</td>
+<td style="text-align:right;background-color: #F5F5DC;color: black;">
+6.03
+</td>
+<td style="text-align:right;background-color: #F5F5DC;">
+2
+</td>
+<td style="text-align:right;background-color: #F5F5DC;">
+17
+</td>
+<td style="text-align:left;background-color: #F5F5DC;">
+Feb
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: #F5F5DC;">
+????
+</td>
+<td style="text-align:left;background-color: #F5F5DC;">
+0247
+</td>
+<td style="text-align:left;background-color: #F5F5DC;">
+B
+</td>
+<td style="text-align:left;background-color: #F5F5DC;">
+2015-02-17 09:54:00
+</td>
+<td style="text-align:right;background-color: #F5F5DC;">
+55.00
+</td>
+<td style="text-align:right;background-color: #F5F5DC;">
+13.3000
+</td>
+<td style="text-align:right;background-color: #F5F5DC;">
+48
+</td>
+<td style="text-align:right;background-color: #F5F5DC;color: black;">
+25.0
+</td>
+<td style="text-align:right;background-color: #F5F5DC;color: black;">
+3.56
+</td>
+<td style="text-align:right;background-color: #F5F5DC;color: black;">
+9.108
+</td>
+<td style="text-align:right;background-color: #F5F5DC;color: black;">
+6.08
+</td>
+<td style="text-align:right;background-color: #F5F5DC;">
+2
+</td>
+<td style="text-align:right;background-color: #F5F5DC;">
+17
+</td>
+<td style="text-align:left;background-color: #F5F5DC;">
+Feb
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: #F5F5DC;">
+????
+</td>
+<td style="text-align:left;background-color: #F5F5DC;">
+0247
+</td>
+<td style="text-align:left;background-color: #F5F5DC;">
+B
+</td>
+<td style="text-align:left;background-color: #F5F5DC;">
+2015-02-17 09:54:00
+</td>
+<td style="text-align:right;background-color: #F5F5DC;">
+55.00
+</td>
+<td style="text-align:right;background-color: #F5F5DC;">
+13.3000
+</td>
+<td style="text-align:right;background-color: #F5F5DC;">
+48
+</td>
+<td style="text-align:right;background-color: #F5F5DC;color: black;">
+30.0
+</td>
+<td style="text-align:right;background-color: #F5F5DC;color: black;">
+3.57
+</td>
+<td style="text-align:right;background-color: #F5F5DC;color: black;">
+9.150
+</td>
+<td style="text-align:right;background-color: #F5F5DC;color: black;">
+6.03
+</td>
+<td style="text-align:right;background-color: #F5F5DC;">
+2
+</td>
+<td style="text-align:right;background-color: #F5F5DC;">
+17
+</td>
+<td style="text-align:left;background-color: #F5F5DC;">
+Feb
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: #F5F5DC;">
+????
+</td>
+<td style="text-align:left;background-color: #F5F5DC;">
+0247
+</td>
+<td style="text-align:left;background-color: #F5F5DC;">
+B
+</td>
+<td style="text-align:left;background-color: #F5F5DC;">
+2015-02-17 09:54:00
+</td>
+<td style="text-align:right;background-color: #F5F5DC;">
+55.00
+</td>
+<td style="text-align:right;background-color: #F5F5DC;">
+13.3000
+</td>
+<td style="text-align:right;background-color: #F5F5DC;">
+48
+</td>
+<td style="text-align:right;background-color: #F5F5DC;color: black;">
+35.0
+</td>
+<td style="text-align:right;background-color: #F5F5DC;color: black;">
+3.60
+</td>
+<td style="text-align:right;background-color: #F5F5DC;color: black;">
+9.210
+</td>
+<td style="text-align:right;background-color: #F5F5DC;color: black;">
+5.98
+</td>
+<td style="text-align:right;background-color: #F5F5DC;">
+2
+</td>
+<td style="text-align:right;background-color: #F5F5DC;">
+17
+</td>
+<td style="text-align:left;background-color: #F5F5DC;">
+Feb
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: #F5F5DC;">
+????
+</td>
+<td style="text-align:left;background-color: #F5F5DC;">
+0247
+</td>
+<td style="text-align:left;background-color: #F5F5DC;">
+B
+</td>
+<td style="text-align:left;background-color: #F5F5DC;">
+2015-02-17 09:54:00
+</td>
+<td style="text-align:right;background-color: #F5F5DC;">
+55.00
+</td>
+<td style="text-align:right;background-color: #F5F5DC;">
+13.3000
+</td>
+<td style="text-align:right;background-color: #F5F5DC;">
+48
+</td>
+<td style="text-align:right;background-color: #F5F5DC;color: black;">
+40.0
+</td>
+<td style="text-align:right;background-color: #F5F5DC;color: black;">
+3.79
+</td>
+<td style="text-align:right;background-color: #F5F5DC;color: black;">
+9.490
+</td>
+<td style="text-align:right;background-color: #F5F5DC;color: black;">
+6.03
+</td>
+<td style="text-align:right;background-color: #F5F5DC;">
+2
+</td>
+<td style="text-align:right;background-color: #F5F5DC;">
+17
+</td>
+<td style="text-align:left;background-color: #F5F5DC;">
+Feb
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: #F5F5DC;">
+????
+</td>
+<td style="text-align:left;background-color: #F5F5DC;">
+0247
+</td>
+<td style="text-align:left;background-color: #F5F5DC;">
+B
+</td>
+<td style="text-align:left;background-color: #F5F5DC;">
+2015-02-17 09:54:00
+</td>
+<td style="text-align:right;background-color: #F5F5DC;">
+55.00
+</td>
+<td style="text-align:right;background-color: #F5F5DC;">
+13.3000
+</td>
+<td style="text-align:right;background-color: #F5F5DC;">
+48
+</td>
+<td style="text-align:right;background-color: #F5F5DC;color: black;">
+45.0
+</td>
+<td style="text-align:right;background-color: #F5F5DC;color: black;">
+4.24
+</td>
+<td style="text-align:right;background-color: #F5F5DC;color: black;">
+12.094
+</td>
+<td style="text-align:right;background-color: #F5F5DC;color: black;">
+5.68
+</td>
+<td style="text-align:right;background-color: #F5F5DC;">
+2
+</td>
+<td style="text-align:right;background-color: #F5F5DC;">
+17
+</td>
+<td style="text-align:left;background-color: #F5F5DC;">
+Feb
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: #F5F5DC;">
+????
+</td>
+<td style="text-align:left;background-color: #F5F5DC;">
+0247
+</td>
+<td style="text-align:left;background-color: #F5F5DC;">
+B
+</td>
+<td style="text-align:left;background-color: #F5F5DC;">
+2015-02-17 09:54:00
+</td>
+<td style="text-align:right;background-color: #F5F5DC;">
+55.00
+</td>
+<td style="text-align:right;background-color: #F5F5DC;">
+13.3000
+</td>
+<td style="text-align:right;background-color: #F5F5DC;">
+48
+</td>
+<td style="text-align:right;background-color: #F5F5DC;color: black;">
+46.0
+</td>
+<td style="text-align:right;background-color: #F5F5DC;color: black;">
+5.06
+</td>
+<td style="text-align:right;background-color: #F5F5DC;color: black;">
+17.973
+</td>
+<td style="text-align:right;background-color: #F5F5DC;color: black;">
+5.10
+</td>
+<td style="text-align:right;background-color: #F5F5DC;">
+2
+</td>
+<td style="text-align:right;background-color: #F5F5DC;">
+17
+</td>
+<td style="text-align:left;background-color: #F5F5DC;">
+Feb
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: #C1CDCD;">
+????
+</td>
+<td style="text-align:left;background-color: #C1CDCD;">
+0793
+</td>
+<td style="text-align:left;background-color: #C1CDCD;">
+B
+</td>
+<td style="text-align:left;background-color: #C1CDCD;">
+2015-06-12 08:15:00
+</td>
+<td style="text-align:right;background-color: #C1CDCD;">
+55.25
+</td>
+<td style="text-align:right;background-color: #C1CDCD;">
+15.9833
+</td>
+<td style="text-align:right;background-color: #C1CDCD;">
+89
+</td>
+<td style="text-align:right;background-color: #C1CDCD;color: black;">
+0.8
+</td>
+<td style="text-align:right;background-color: #C1CDCD;color: black;">
+12.83
+</td>
+<td style="text-align:right;background-color: #C1CDCD;color: black;">
+7.630
+</td>
+<td style="text-align:right;background-color: #C1CDCD;color: black;">
+5.29
+</td>
+<td style="text-align:right;background-color: #C1CDCD;">
+6
+</td>
+<td style="text-align:right;background-color: #C1CDCD;">
+12
+</td>
+<td style="text-align:left;background-color: #C1CDCD;">
+Jun
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: #C1CDCD;">
+????
+</td>
+<td style="text-align:left;background-color: #C1CDCD;">
+0793
+</td>
+<td style="text-align:left;background-color: #C1CDCD;">
+B
+</td>
+<td style="text-align:left;background-color: #C1CDCD;">
+2015-06-12 08:15:00
+</td>
+<td style="text-align:right;background-color: #C1CDCD;">
+55.25
+</td>
+<td style="text-align:right;background-color: #C1CDCD;">
+15.9833
+</td>
+<td style="text-align:right;background-color: #C1CDCD;">
+89
+</td>
+<td style="text-align:right;background-color: #C1CDCD;color: black;">
+1.0
+</td>
+<td style="text-align:right;background-color: #C1CDCD;color: black;">
+12.83
+</td>
+<td style="text-align:right;background-color: #C1CDCD;color: black;">
+7.622
+</td>
+<td style="text-align:right;background-color: #C1CDCD;color: black;">
+5.29
+</td>
+<td style="text-align:right;background-color: #C1CDCD;">
+6
+</td>
+<td style="text-align:right;background-color: #C1CDCD;">
+12
+</td>
+<td style="text-align:left;background-color: #C1CDCD;">
+Jun
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="missing-values" class="section level4">
+<h4>1.2.2 Missing values</h4>
+<p>First, we need to check whether the dataset contains any NAs, and if so how many. The function <code>any()</code> is useful here as we can see whether at least one of the values in the logical vector is true:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">any</span>(<span class="kw">is.na</span>(hydro))</code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<p>Lets see how many NAs we have:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(<span class="kw">is.na</span>(hydro))</code></pre></div>
+<pre><code>## [1] 13809</code></pre>
+<p>We can see that 13809 out of 330132 cells (30012 rows x 11 columns) contain NAs. To quickly see which column contains most NAs, use the <code>summary()</code> function:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(hydro)</code></pre></div>
+<pre><code>##     cruise            station              type          
+##  Length:30012       Length:30012       Length:30012      
+##  Class :character   Class :character   Class :character  
+##  Mode  :character   Mode  :character   Mode  :character  
+##                                                          
+##                                                          
+##                                                          
+##                                                          
+##    date_time                        lat             long      
+##  Min.   :2015-01-08 03:10:00   Min.   :53.67   Min.   :13.03  
+##  1st Qu.:2015-03-24 05:00:00   1st Qu.:55.23   1st Qu.:16.02  
+##  Median :2015-07-11 03:32:00   Median :56.63   Median :19.04  
+##  Mean   :2015-07-01 11:52:28   Mean   :57.45   Mean   :18.92  
+##  3rd Qu.:2015-09-24 06:25:00   3rd Qu.:59.48   3rd Qu.:20.63  
+##  Max.   :2015-12-17 09:00:00   Max.   :65.91   Max.   :28.71  
+##                                                               
+##      depth             pres             temp             sal        
+##  Min.   :  2.00   Min.   :  0.00   Min.   :-0.700   Min.   : 0.065  
+##  1st Qu.: 56.00   1st Qu.: 10.00   1st Qu.: 4.200   1st Qu.: 6.548  
+##  Median : 82.00   Median : 30.00   Median : 6.067   Median : 7.430  
+##  Mean   : 93.91   Mean   : 38.09   Mean   : 7.668   Mean   : 8.082  
+##  3rd Qu.:108.00   3rd Qu.: 55.00   3rd Qu.:10.500   3rd Qu.: 8.436  
+##  Max.   :466.00   Max.   :453.00   Max.   :24.400   Max.   :34.016  
+##  NA&#39;s   :2409                      NA&#39;s   :1714     NA&#39;s   :2382    
+##       doxy            month             day            fmonth     
+##  Min.   : 0.000   Min.   : 1.000   Min.   : 1.00   Sep    : 3786  
+##  1st Qu.: 5.870   1st Qu.: 3.000   1st Qu.: 8.00   Nov    : 3411  
+##  Median : 6.960   Median : 7.000   Median :15.00   Mar    : 3379  
+##  Mean   : 6.493   Mean   : 6.509   Mean   :15.24   Jul    : 3115  
+##  3rd Qu.: 8.200   3rd Qu.: 9.000   3rd Qu.:22.00   Feb    : 3103  
+##  Max.   :11.760   Max.   :12.000   Max.   :31.00   Aug    : 2805  
+##  NA&#39;s   :7304                                      (Other):10413</code></pre>
+<p>You’ll note that only the measured parameters <code>temp</code>, <code>sal</code>, and <code>doxy</code> contain NAs, with 3 to 4 times as many NAs in <code>doxy</code> than in the other two.</p>
+<p>With such high numbers of missing values it is always good to explore whether there is a particular pattern behind, e.g. certain cruises might have never measured oxygen conditions or some parameters were not measured in specific months, etc. Lets aggregate the data for specific cruises or months and see if the number of missing values is highly unbalanced:</p>
+<p><strong>Per cruise</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">hydro <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># we will group by cruise so we can count the sum per cruise </span>
+<span class="st">  </span><span class="kw">group_by</span>(cruise) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(
+    <span class="co"># we calculate the sum over the logical vectors for temp, sal, and doxy</span>
+    <span class="dt">na_all =</span> <span class="kw">sum</span>(<span class="kw">is.na</span>(temp), <span class="kw">is.na</span>(sal), <span class="kw">is.na</span>(doxy)),
+    <span class="co"># to compare with the overall number of measurement per cruise</span>
+    <span class="dt">n_measure =</span> <span class="kw">n</span>(),
+    <span class="co"># calculate the proportion of NAs overall and per parameter</span>
+    <span class="dt">na_prop =</span> <span class="kw">round</span>( na_all <span class="op">/</span><span class="st"> </span>(n_measure<span class="op">*</span><span class="dv">3</span>), <span class="dv">3</span>), <span class="co"># *3 as we have 3 parameters per measurement</span>
+    <span class="dt">na_prop_temp =</span> <span class="kw">round</span>( <span class="kw">sum</span>(<span class="kw">is.na</span>(temp)) <span class="op">/</span><span class="st"> </span>n_measure, <span class="dv">3</span>),
+    <span class="dt">na_prop_sal =</span> <span class="kw">round</span>( <span class="kw">sum</span>(<span class="kw">is.na</span>(sal)) <span class="op">/</span><span class="st"> </span>n_measure, <span class="dv">3</span>),
+    <span class="dt">na_prop_doxy =</span> <span class="kw">round</span>( <span class="kw">sum</span>(<span class="kw">is.na</span>(doxy)) <span class="op">/</span><span class="st"> </span>n_measure, <span class="dv">3</span>)
+    ) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="co"># lets sort and select the 8 cruises with the highest NA proportion</span>
+<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(na_prop)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">top_n</span>(<span class="dv">8</span>, na_prop) </code></pre></div>
+<pre><code>## # A tibble: 8 x 7
+##   cruise na_all n_measure na_prop na_prop_temp na_prop_sal na_prop_doxy
+##   &lt;chr&gt;   &lt;int&gt;     &lt;int&gt;   &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;
+## 1 ESSA     1701       773   0.734       0.943        0.943        0.314
+## 2 672B       72        36   0.667       0.500        1.00         0.500
+## 3 67LL      456       278   0.547       0.331        0.978        0.331
+## 4 7799      202       166   0.406       0.295        0.307        0.614
+## 5 77FY      529       493   0.358       0.0790       0            0.994
+## 6 ESQT      207       194   0.356       0.304        0.304        0.459
+## 7 77LA      179       171   0.349       0.0530       0            0.994
+## 8 3490     1388      1362   0.340       0.142        0.518        0.358</code></pre>
+<p>You can see that cruise <strong>ESSA</strong> has the highest number of missing values relative to its overall measurements. Most NAs occurr for temperature and salinity indicated by the high proportion of nearly 1 (meaning, there are hardly any values for both parameters). The cruise <strong>762B</strong> with the second highest NA proportion measured no salinity at all (prop of 1!) and either temperature or oxygen but never both (both have a prop. of 0.5 so there cannot be any overlap). The cruises <strong>77FY</strong> and <strong>77LA</strong> have hardly measured oxygen conditions while the other cruises seem to have droped irregularly measurements of one of the 3 parameters. For now, there is not much we could or should do except for understanding the sampling design of the research vessels and considering later to drop some cruise data.</p>
+<p><strong>Per month</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">hydro <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">group_by</span>(fmonth) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(
+    <span class="dt">na_all =</span> <span class="kw">sum</span>(<span class="kw">is.na</span>(temp), <span class="kw">is.na</span>(sal), <span class="kw">is.na</span>(doxy)),
+    <span class="dt">n_measure =</span> <span class="kw">n</span>(),
+    <span class="dt">na_prop =</span> <span class="kw">round</span>( na_all <span class="op">/</span><span class="st"> </span>(n_measure<span class="op">*</span><span class="dv">3</span>), <span class="dv">3</span>), 
+    <span class="dt">na_prop_temp =</span> <span class="kw">round</span>( <span class="kw">sum</span>(<span class="kw">is.na</span>(temp)) <span class="op">/</span><span class="st"> </span>n_measure, <span class="dv">3</span>),
+    <span class="dt">na_prop_sal =</span> <span class="kw">round</span>( <span class="kw">sum</span>(<span class="kw">is.na</span>(sal)) <span class="op">/</span><span class="st"> </span>n_measure, <span class="dv">3</span>),
+    <span class="dt">na_prop_doxy =</span> <span class="kw">round</span>( <span class="kw">sum</span>(<span class="kw">is.na</span>(doxy)) <span class="op">/</span><span class="st"> </span>n_measure, <span class="dv">3</span>)
+    ) </code></pre></div>
+<pre><code>## # A tibble: 12 x 7
+##    fmonth na_all n_measure na_prop na_prop_temp na_prop_sal na_prop_doxy
+##    &lt;fct&gt;   &lt;int&gt;     &lt;int&gt;   &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;
+##  1 Jan       707      1595  0.148        0.0460      0.0530        0.344
+##  2 Feb       927      3103  0.100        0.0150      0.0260        0.257
+##  3 Mar      1077      3379  0.106        0.0340      0.0320        0.253
+##  4 April     752       795  0.315        0.223       0.252         0.472
+##  5 May       876      2578  0.113        0.0910      0.121         0.128
+##  6 Jun      1071      2588  0.138        0.0600      0.103         0.251
+##  7 Jul       968      3115  0.104        0.0770      0.115         0.119
+##  8 Aug      1353      2805  0.161        0.111       0.147         0.225
+##  9 Sep       974      3786  0.0860       0.0320      0.0610        0.163
+## 10 Oct      1533      2162  0.236        0.0850      0.108         0.516
+## 11 Nov       893      3411  0.0870       0.0130      0.0240        0.224
+## 12 Dec       269       695  0.129        0.0140      0.0140        0.358</code></pre>
+<p>The proportion of overall missing values is quite evenly distributed over the year, which applies also to temperature and salinity alone. <strong>April</strong> sticks out, however, with about one third of measurements missing. The oxygen conditions have been additionally less frequently sampled in October. This information is relevant if you want to assess the seasonal developments or compare individual spring months with each other. Be aware that differences you might find could be driven by the lack of information at specific times. Lets see if the high number of NAs in April are randomly distributed or clustered in specific weeks:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">hydro <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(fmonth <span class="op">==</span><span class="st"> &quot;April&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(day) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(
+    <span class="dt">na_all =</span> <span class="kw">sum</span>(<span class="kw">is.na</span>(temp), <span class="kw">is.na</span>(sal), <span class="kw">is.na</span>(doxy)),
+    <span class="dt">n_measure =</span> <span class="kw">n</span>(),
+    <span class="dt">na_prop =</span> <span class="kw">round</span>( na_all <span class="op">/</span><span class="st"> </span>(n_measure<span class="op">*</span><span class="dv">3</span>), <span class="dv">3</span>), 
+    <span class="dt">na_prop_temp =</span> <span class="kw">round</span>( <span class="kw">sum</span>(<span class="kw">is.na</span>(temp)) <span class="op">/</span><span class="st"> </span>n_measure, <span class="dv">3</span>),
+    <span class="dt">na_prop_sal =</span> <span class="kw">round</span>( <span class="kw">sum</span>(<span class="kw">is.na</span>(sal)) <span class="op">/</span><span class="st"> </span>n_measure, <span class="dv">3</span>),
+    <span class="dt">na_prop_doxy =</span> <span class="kw">round</span>( <span class="kw">sum</span>(<span class="kw">is.na</span>(doxy)) <span class="op">/</span><span class="st"> </span>n_measure, <span class="dv">3</span>)
+    ) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(na_prop))</code></pre></div>
+<pre><code>## # A tibble: 17 x 7
+##      day na_all n_measure na_prop na_prop_temp na_prop_sal na_prop_doxy
+##    &lt;int&gt;  &lt;int&gt;     &lt;int&gt;   &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;
+##  1    15    115        52  0.737        0.885       0.962         0.365
+##  2    16     55        33  0.556        0.606       0.606         0.455
+##  3    23     17        13  0.436        0.385       0.385         0.538
+##  4    24     21        19  0.368        0.368       0.368         0.368
+##  5    14     49        45  0.363        0.200       0.200         0.689
+##  6    22    118       117  0.336        0.350       0.402         0.256
+##  7     8     21        22  0.318        0.136       0.136         0.682
+##  8    20     47        51  0.307        0           0             0.922
+##  9     7     31        34  0.304        0.0880      0.0880        0.735
+## 10    13     25        29  0.287        0.0340      0.0340        0.793
+## 11    28     31        41  0.252        0.146       0.244         0.366
+## 12    21    119       161  0.246        0.155       0.211         0.373
+## 13    27     52        75  0.231        0.133       0.133         0.427
+## 14    25     29        43  0.225        0           0             0.674
+## 15     1      3         7  0.143        0.143       0.143         0.143
+## 16    26     17        45  0.126        0           0             0.378
+## 17     9      2         8  0.0830       0           0             0.250</code></pre>
+<p>It seems that every other week, and particularly around the 15/16th, some measurements were dropped, but this is not specific to one parameter only.</p>
+<p><strong>So what to do with the NAs</strong>??</p>
+<ul>
+<li>That will very much depend on your research question. If you decide to drop all rows where at least one parameter has an NA you will end up dropping many rows (minimum 7304, which is the number of NAs in doxy, and maximum 13809 if none overlaps).</li>
+<li>Now lets imagine NAs do not overlap between parameters and you are not interested in oxygen conditions: Since you deleted all rows where <code>doxy</code> contained NAs, you also deleted valuable temperature and salinity values you could have used otherwise.</li>
+<li>The best is to delete or replace NAs individually for every specific research question. Depending on the question and statistical method you choose you might also deal differently with NAs.</li>
+</ul>
+</div>
+<div id="awkward-values-potential-typing-errors" class="section level4">
+<h4>1.2.3 Awkward values / potential typing errors</h4>
+<p>Lets see whether the dataset shows extreme or untypical values using the <code>summary()</code> function again:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">hydro <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span>(cruise<span class="op">:</span>type), <span class="op">-</span>(month<span class="op">:</span>fmonth)) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># without the first and last 3 columns</span>
+<span class="st">  </span><span class="kw">summary</span>()</code></pre></div>
+<pre><code>##    date_time                        lat             long      
+##  Min.   :2015-01-08 03:10:00   Min.   :53.67   Min.   :13.03  
+##  1st Qu.:2015-03-24 05:00:00   1st Qu.:55.23   1st Qu.:16.02  
+##  Median :2015-07-11 03:32:00   Median :56.63   Median :19.04  
+##  Mean   :2015-07-01 11:52:28   Mean   :57.45   Mean   :18.92  
+##  3rd Qu.:2015-09-24 06:25:00   3rd Qu.:59.48   3rd Qu.:20.63  
+##  Max.   :2015-12-17 09:00:00   Max.   :65.91   Max.   :28.71  
+##                                                               
+##      depth             pres             temp             sal        
+##  Min.   :  2.00   Min.   :  0.00   Min.   :-0.700   Min.   : 0.065  
+##  1st Qu.: 56.00   1st Qu.: 10.00   1st Qu.: 4.200   1st Qu.: 6.548  
+##  Median : 82.00   Median : 30.00   Median : 6.067   Median : 7.430  
+##  Mean   : 93.91   Mean   : 38.09   Mean   : 7.668   Mean   : 8.082  
+##  3rd Qu.:108.00   3rd Qu.: 55.00   3rd Qu.:10.500   3rd Qu.: 8.436  
+##  Max.   :466.00   Max.   :453.00   Max.   :24.400   Max.   :34.016  
+##  NA&#39;s   :2409                      NA&#39;s   :1714     NA&#39;s   :2382    
+##       doxy       
+##  Min.   : 0.000  
+##  1st Qu.: 5.870  
+##  Median : 6.960  
+##  Mean   : 6.493  
+##  3rd Qu.: 8.200  
+##  Max.   :11.760  
+##  NA&#39;s   :7304</code></pre>
+<ul>
+<li><code>date_time</code> has values between January and December 2015 and no other year → ok</li>
+<li><code>lat</code> is between 53.7 and 66°N, which covers the Baltic Sea latitudinal range → ok</li>
+<li><code>long</code> is between 13 and 28.7°E, which does not cover the Western Baltic Sea → if the Western Baltic (Danish Straight, Kattegat, The Sound) should be included as well, the ICES database query needs to modified (select manually the coordinates instead of selecting the Baltic Sea option)</li>
+<li>The bottom depth (<code>depth</code>) is maximum 466m, which corresponds to <strong>Landsort depth</strong>, the deepest abyss of the Baltic Sea, reaching 459 meters at the deepest point → the slightly higher max. depth in this dataset could be a measurement error, but as the difference is not big (and bottom depth less our research question in this case study) we will keep it as it is.</li>
+<li><code>pres</code> representing also the measurement depth is with 0 to 543m within a realistic range → ok</li>
+<li><code>temp</code> has minimum values slightly below 0°C (-0.7°C); under freshwater condition this would mean that the water was frozen, but saline water reduces the freezing point (ocean water freezes at about -1.9°C) so the temperature range shows no unrealistic low or high value (surface temperature in summer can reach to 24°C as in this dataset) → ok</li>
+<li><code>sal</code> ranges from 0 (freshwater condition) to 34 (ocean condition) → ok</li>
+<li><code>doxy</code> ranges from 0 (anoxic conditions) to 11.8 mg/l which represents a realistic range → ok</li>
+</ul>
+<p><strong>So overall, the data is pretty tidy and does not require any data modification or pre-processing.</strong></p>
+<hr />
+</div>
+</div>
+</div>
+<div id="assessing-the-data-quality" class="section level2">
+<h2>2: Assessing the data quality</h2>
+<p>This step repeats what we covered in lecture 7 (Data wrangling: transformations):</p>
+<div id="depth-measurements" class="section level3">
+<h3>2.1 Depth measurements</h3>
+<p>If you consider aggregating your data over different depth ranges (e.g. surface, mid-layer, deepwater) or if you want to filter certain depths you should be aware of the most frequently sampled depth or the most common depth profiles taken (are mesurements taken every metre, every 5 metres?)</p>
+<div id="frequencies-of-sampled-depths" class="section level4">
+<h4>2.1.1 Frequencies of sampled depths</h4>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">hydro <span class="op">%&gt;%</span>
+<span class="st"> </span><span class="kw">select</span>(pres) <span class="op">%&gt;%</span>
+<span class="st"> </span><span class="kw">group_by</span>(pres) <span class="op">%&gt;%</span>
+<span class="st"> </span><span class="kw">count</span>()</code></pre></div>
+<pre><code>## # A tibble: 1,193 x 2
+## # Groups:   pres [1,193]
+##     pres     n
+##    &lt;dbl&gt; &lt;int&gt;
+##  1 0      1524
+##  2 0.200     4
+##  3 0.400     1
+##  4 0.500   282
+##  5 0.570     1
+##  6 0.600     4
+##  7 0.700     3
+##  8 0.800     8
+##  9 0.900    25
+## 10 1.00   1552
+## # ... with 1,183 more rows</code></pre>
+<p>You can see that the number of unique values is very high (1,193) and that measurements were taken at various different depths, differing sometimes only by decimetres or centimetres, but integer numbers are most frequent. If we calculate a frequency table, those samples at intermediate depths will fall out. Alternatively, we could round the depths to the next highest integer (so that 0.4m is considered 1m) using the function <code>ceiling()</code>:</p>
+</div>
+<div id="common-sampling-profile" class="section level4">
+<h4>2.1.2 Common sampling profile</h4>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">hydro <span class="op">%&gt;%</span>
+<span class="kw">transmute</span>(<span class="dt">pres =</span> <span class="kw">ceiling</span>(pres)) <span class="op">%&gt;%</span>
+<span class="st"> </span><span class="kw">group_by</span>(pres) <span class="op">%&gt;%</span>
+<span class="st"> </span><span class="kw">count</span>() <span class="op">%&gt;%</span>
+<span class="st"> </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span>
+<span class="st"> </span><span class="kw">top_n</span>(<span class="dv">10</span>)</code></pre></div>
+<pre><code>## # A tibble: 10 x 2
+##     pres     n
+##    &lt;dbl&gt; &lt;int&gt;
+##  1  0     1524
+##  2  1.00  1880
+##  3  5.00  2370
+##  4 10.0   2232
+##  5 15.0   1736
+##  6 20.0   1797
+##  7 25.0   1083
+##  8 30.0   1565
+##  9 40.0   1609
+## 10 50.0   1246</code></pre>
+<p>You see here the most common sampling profile with measurements taken at the surface (at 0m or 1m), then at 5m-steps, and after 30m in 10m-steps (partly already after 20m as the 25m depth is comparably less often sampled). This indicates that aggregating over a depth range of 11-19m will include only 1 measurement, which is 15m. If you consider a depth range of 10-19m you will have mainly values for 10 and 15m so the actual range you will look at is not 10-19m but <strong>10-15m</strong>! To get a 10m range, it is better to consider 10-20m, so you aggregate over 3 measurements per sampling that fully cover your range of interest (with 10m, 15m and 20m).</p>
+</div>
+</div>
+<div id="temporal-coverage-of-samplings-and-replications" class="section level3">
+<h3>2.2 Temporal coverage of samplings and replications</h3>
+<p>If you want to aggregate your data over the months, you should be aware of</p>
+<div id="number-of-stations-sampled-per-month-balanced" class="section level4">
+<h4>2.2.1 Number of stations sampled per month → balanced?</h4>
+<p>As we are only interested in the number of stations per month, both variables are first selected and then duplicated entries (i.e. the individual depth measurements per sampling) removed. This way we can count the number of rows per month, which becomes equivalent to the number of stations.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">hydro <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(station, month) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">distinct</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(month) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">count</span>() </code></pre></div>
+<pre><code>## # A tibble: 12 x 2
+## # Groups:   month [12]
+##    month     n
+##    &lt;dbl&gt; &lt;int&gt;
+##  1  1.00   117
+##  2  2.00   215
+##  3  3.00   246
+##  4  4.00    99
+##  5  5.00   226
+##  6  6.00   226
+##  7  7.00   287
+##  8  8.00   242
+##  9  9.00   299
+## 10 10.0    213
+## 11 11.0    285
+## 12 12.0     62</code></pre>
+<p>You see that January, April, and December are less frequently sampled than the other months. Such unbalanced sampling design has implications for the group variances and related statistical models such as ANOVA (Analysis of Variance).</p>
+</div>
+<div id="sampling-frequency-per-stations-how-many-stations-are-sampled-more-than-once-per-month" class="section level4">
+<h4>2.2.2 Sampling frequency per stations: how many stations are sampled more than once per month?</h4>
+<p>Here, we are interested in each sampling per station, which is defined by the <code>date_time</code> column. Hence, we keep this column in the selected subset:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">freq_stat &lt;-<span class="st"> </span>hydro <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(station, date_time, month) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">distinct</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="co"># this code chunk sums up the number of samplings per station and month</span>
+<span class="st">  </span><span class="kw">group_by</span>(month, station) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">count</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="co"># now we filter only stations repeatedly sampled per month</span>
+<span class="st">  </span><span class="kw">filter</span>(n <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>) 
+
+<span class="co"># Number of stations sampled twice, three or more times</span>
+freq_stat <span class="op">%&gt;%</span><span class="st">  </span><span class="kw">group_by</span>(n) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">count</span>() </code></pre></div>
+<pre><code>## # A tibble: 4 x 2
+## # Groups:   n [4]
+##       n    nn
+##   &lt;int&gt; &lt;int&gt;
+## 1     2   257
+## 2     3    31
+## 3     4     8
+## 4     5     1</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Number of stations sampled repeatedly per month</span>
+freq_stat <span class="op">%&gt;%</span><span class="st">  </span><span class="kw">group_by</span>(month) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">count</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>(<span class="dt">n=</span><span class="dv">25</span>)</code></pre></div>
+<pre><code>## # A tibble: 11 x 2
+## # Groups:   month [11]
+##    month    nn
+##    &lt;dbl&gt; &lt;int&gt;
+##  1  1.00    14
+##  2  2.00    35
+##  3  3.00    37
+##  4  4.00    22
+##  5  5.00    26
+##  6  6.00    38
+##  7  7.00    33
+##  8  8.00    37
+##  9  9.00    38
+## 10 10.0      4
+## 11 11.0     13</code></pre>
+<p>Most stations were sampled twice per month, particularly in the late winter and late summer months.</p>
+<ul>
+<li>To account for the unbalanced sampling scheme also in terms of sampling replications per station/month it would be advisable to first calculate a station mean (aggregating over the different samplings) before you calculate a monthly mean.</li>
+<li>Lets imagine, that most sampling replications take place in the northern part of the Baltic Sea and you want to compare mean surface temperatures for the entire Baltic Sea. If you have twice as many temperature values for the North than for the South due to replications you would get a mean temporature that is biased towards northern conditions.</li>
+<li>Instead of calculating a station mean before you average across stations you could use a weighted mean instead of an arithmetic mean using the inverse of the sample replications as weights (see also <a href="#anchor1">section 3.1.1</a>).</li>
+</ul>
+</div>
+<div id="temporal-gaps-in-sampling-over-the-year-that-might-bias-your-monthly-mean-results" class="section level4">
+<h4>2.2.3 Temporal gaps in sampling over the year → that might bias your monthly mean results</h4>
+<p>You have seen that January, April, and December were less frequently sampled. Lets look into these 3 months and see whether the sampling was temporally clustered. There are many ways in approaching this question. Here is one solution where the Julian days (the day of the year) are computed with the lubridate function <code>yday()</code> and the difference between successive Julian days are then calculated. To not create artifical gaps by selecting non-consecutive months we will consider all months for now:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">hydro <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">julian_day =</span> lubridate<span class="op">::</span><span class="kw">yday</span>(date_time)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(julian_day, fmonth, day) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">distinct</span>() <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">arrange</span>(julian_day) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>( <span class="dt">timegap =</span> <span class="kw">c</span>(<span class="ot">NA</span>, <span class="kw">diff</span>(julian_day)) ) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(fmonth) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(timegap <span class="op">&gt;</span><span class="st"> </span><span class="dv">3</span>)</code></pre></div>
+<pre><code>## # A tibble: 8 x 4
+## # Groups:   fmonth [6]
+##   julian_day fmonth   day timegap
+##        &lt;dbl&gt; &lt;fct&gt;  &lt;int&gt;   &lt;dbl&gt;
+## 1       19.0 Jan       19    4.00
+## 2       97.0 April      7    6.00
+## 3      103   April     13    4.00
+## 4      110   April     20    4.00
+## 5      124   May        4    6.00
+## 6      180   Jun       29    4.00
+## 7      306   Nov        2    4.00
+## 8      341   Dec        7    4.00</code></pre>
+<p>None of the gaps are longer than a week in January, April, or December (or any other month). But you see that April has three 4-6 days break suggesting again that this month was not very representatively sampled in 2015 (the 6-day break overlaps with the Eastern holidays). Any difference found for April is likely to be an artefact of the irregular sampling frequency.</p>
+</div>
+</div>
+<div id="spatial-coverage-of-sampling-stations" class="section level3">
+<h3>2.3 Spatial coverage of sampling stations</h3>
+<p>Before we proceed to the actual research questions we should look at the spatial coverage for the entire year as well as for each month:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world &lt;-<span class="st"> </span><span class="kw">map_data</span>(<span class="st">&quot;world&quot;</span>)
+worldmap &lt;-<span class="st"> </span><span class="kw">ggplot</span>(world, <span class="kw">aes</span>(<span class="dt">x =</span> long, <span class="dt">y =</span> lat)) <span class="op">+</span>
+<span class="kw">geom_polygon</span>(<span class="kw">aes</span>(<span class="dt">group =</span> group), <span class="dt">fill =</span> <span class="st">&quot;ivory3&quot;</span>, <span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>)
+baltic &lt;-<span class="st"> </span>worldmap <span class="op">+</span><span class="st"> </span><span class="kw">coord_map</span>(<span class="st">&quot;ortho&quot;</span>, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">10</span>, <span class="dv">30</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">54</span>,<span class="dv">66</span>))
+baltic <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="dt">data =</span> hydro, <span class="kw">aes</span>(<span class="dt">x =</span> long, <span class="dt">y =</span> lat), <span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">colour =</span> <span class="st">&quot;blue2&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>fmonth) <span class="op">+</span>
+<span class="st">  </span><span class="kw">ggtitle</span>(<span class="dt">label =</span> <span class="st">&quot;Spatial coverage of sampled stations per month&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Longitude&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Latitude&quot;</span>) <span class="op">+</span>
+<span class="st">  </span>ggthemes<span class="op">::</span><span class="kw">theme_base</span>() </code></pre></div>
+<p><img src="case_study01_solution_plotting_files/unnamed-chunk-20-1.png" width="1440" style="display: block; margin: auto;" /> This graphic illustrates quite clearly that the Baltic Sea was not completely monitored during the year. Some areas were left unobserved especially during the autumn/winter months, while other areas were sampled at high spatial resolution (e.g. the Southern Baltic in November). There is also a pattern in terms of coastal and offshore stations, e.g. coastal stations make up the greatest proportion in August. This irregular spatial design becomes particularly important when looking at the interaction between spatial and temporal dynamics. You might be completely misguided when interpreting the difference in temperature or oxygen between North and South in November since you hardly have data for the Northern region!</p>
+<p>The figure also shows that the dataset contains a station that is not located in the Baltic Sea but in a Norwegian fjord (in October). Lets remove this station:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Filter Norwegian station</span>
+norway &lt;-<span class="st"> </span>hydro <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(lat <span class="op">&gt;</span><span class="st"> </span><span class="dv">64</span>, long <span class="op">&lt;</span><span class="st"> </span><span class="dv">16</span>) 
+<span class="co"># Exclude this station from hydro data</span>
+hydro &lt;-<span class="st"> </span><span class="kw">anti_join</span>(hydro, norway)</code></pre></div>
+<p><strong>Two ways to overcome the spatial heterogeneity in the sampling design</strong> (which we won’t cover here):</p>
+<ol style="list-style-type: decimal">
+<li>Calculate weighted means for each months and assign weights to each stations that reflect the sampling frequency in that area (e.g. in September and November, all stations from the South should have a lower weight than the more Northern stations). Subdividing the entire system into a spatial grid could be useful here.</li>
+<li>Apply a stratified sampling on the dataset: Assign the stations to a spatial grid and than randomly sample a specific number of stations per grid cell and month.</li>
+</ol>
+<hr />
+</div>
+</div>
+<div id="exploring-ecological-research-questions-3.2" class="section level2">
+<h2>3: Exploring ecological research questions (3.2)</h2>
+<div id="temporal-components" class="section level3">
+<h3>3.1 Temporal components</h3>
+<p>To study the seasonal dynamic we could use Julian days or months, depending on the sampling coverage. Since we have seen that some (consecutive) days were not sampled choosing months for this dataset might be the better option. In any case, before you can calculate the mean of a specific parameter per Julian day or month, you should</p>
+<ul>
+<li>decide which depth layer you want to consider and then aggregate over all measurements per layer and sampling</li>
+<li>average over all samplings per stations per Julian day or month</li>
+</ul>
+<p>If you don’t do this your temporal parameter mean, e.g. monthly mean temperatures, will have a bias towards</p>
+<ul>
+<li>a certain depth, e.g. if you have many more measurements from the surface than deeper layers within your 0-100m depth layer → can easily happen if you have many shallow coastal stations in your data,</li>
+<li>certain stations (and hence regions) that are sampled more frequently.</li>
+</ul>
+<p>Because of the irregular sampling scheme, it is highly recommended to always add the sample sizes to the plots and use the standard error instead of standard deviation when visualizing errors!</p>
+<p>As depth layers you can choose whatever interests you. Most commonly, the surface conditions are contrasted with the bottom conditions. For the surface, the upper 10m or 20m are typically chosen and easily comparable across stations, independent of the shallowness of each station. In terms of the bottom conditions, it is more challenging as individual stations have different bottom depths. Bottom temperatures will vary greatly between shallow coastal stations and deep offshore stations. Also, if one choses a depth &gt; 200m as bottom depth many station will be disregarded in the analysis. One way around is to filter the extreme shallow stations (e.g. &lt; 30m) and then take the last 15m towards the bottom.</p>
+<div id="anchor1" class="section level4">
+<h4>3.1.1 Seasonal pattern in the overall temperature, salinity, and oxygen conditions (for the complete Baltic Sea)</h4>
+<p>To address this question we will run the calculation step-by-step per water layer. Any NAs will simply be omitted here. For the following barplots we will use the factorised month (<code>fmonth</code>):</p>
+<div id="anchor3" class="section level5">
+<h5>Sea surface conditions</h5>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># 1st, we get the appropriate water layer and calculate a mean per parameter</span>
+surf_lay &lt;-<span class="st"> </span>hydro <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(pres <span class="op">&lt;=</span><span class="dv">20</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(cruise, station, date_time, fmonth) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(
+    <span class="dt">temp =</span> <span class="kw">mean</span>(temp, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+    <span class="dt">sal =</span> <span class="kw">mean</span>(sal, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+    <span class="dt">doxy =</span> <span class="kw">mean</span>(doxy, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+    <span class="dt">n =</span> <span class="kw">n</span>() <span class="co"># this can be helpful to see how many measurements were averaged</span>
+  )
+<span class="kw">print</span>(surf_lay, <span class="dt">n =</span> <span class="dv">5</span>)</code></pre></div>
+<pre><code>## # A tibble: 2,848 x 8
+## # Groups:   cruise, station, date_time [?]
+##   cruise station date_time           fmonth   temp   sal  doxy     n
+##   &lt;chr&gt;  &lt;chr&gt;   &lt;dttm&gt;              &lt;fct&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt;
+## 1 ????   0247    2015-02-17 09:54:00 Feb      3.56  9.04  6.36     6
+## 2 ????   0793    2015-06-12 08:15:00 Jun     12.2   7.63  5.40     7
+## 3 ????   1133    2015-08-03 08:06:00 Aug    NaN     7.58  4.80     7
+## 4 ????   1321    2015-08-20 10:37:00 Aug     17.6   8.31  4.51     6
+## 5 ????   1383    2015-08-31 08:21:00 Aug     17.8   7.61  5.21     5
+## # ... with 2,843 more rows</code></pre>
+<p>You see that the third <code>temp</code> value is a <strong>NaN</strong> (= Not a Number). That is because no temperature value was taken during that sampling:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">hydro <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(pres <span class="op">&lt;=</span><span class="dv">20</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">slice</span>(<span class="dv">14</span><span class="op">:</span><span class="dv">20</span>)</code></pre></div>
+<pre><code>## # A tibble: 7 x 14
+##   cruise station type  date_time             lat  long depth  pres  temp
+##   &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt; &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 ????   1133    B     2015-08-03 08:06:00  55.2  16.0    89  0       NA
+## 2 ????   1133    B     2015-08-03 08:06:00  55.2  16.0    89  1.00    NA
+## 3 ????   1133    B     2015-08-03 08:06:00  55.2  16.0    89  5.00    NA
+## 4 ????   1133    B     2015-08-03 08:06:00  55.2  16.0    89  5.20    NA
+## 5 ????   1133    B     2015-08-03 08:06:00  55.2  16.0    89 10.0     NA
+## 6 ????   1133    B     2015-08-03 08:06:00  55.2  16.0    89 15.0     NA
+## 7 ????   1133    B     2015-08-03 08:06:00  55.2  16.0    89 20.0     NA
+## # ... with 5 more variables: sal &lt;dbl&gt;, doxy &lt;dbl&gt;, month &lt;dbl&gt;,
+## #   day &lt;int&gt;, fmonth &lt;fct&gt;</code></pre>
+<p>You don’t have to do anything about it, as we will aggregate over the samplings anyway omitting again NAs and NaNs.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># 2nd, we average over the samplings per station and month</span>
+surf_stat &lt;-<span class="st"> </span>surf_lay <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(station, fmonth) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># now we removed cruise and date_time</span>
+<span class="st">  </span><span class="kw">summarise</span>(
+    <span class="dt">temp =</span> <span class="kw">mean</span>(temp, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+    <span class="dt">sal =</span> <span class="kw">mean</span>(sal, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+    <span class="dt">doxy =</span> <span class="kw">mean</span>(doxy, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+    <span class="dt">n =</span> <span class="kw">n</span>() <span class="co"># this can be helpful to see how many measurements were averaged</span>
+  )  
+<span class="kw">print</span>(surf_stat, <span class="dt">n =</span> <span class="dv">5</span>)</code></pre></div>
+<pre><code>## # A tibble: 2,503 x 6
+## # Groups:   station [?]
+##   station fmonth  temp   sal   doxy     n
+##   &lt;chr&gt;   &lt;fct&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;int&gt;
+## 1 0001    Jan     2.91 6.28    8.61     3
+## 2 0001    Mar     3.16 6.04    8.85     4
+## 3 0001    April   3.94 6.55  NaN        1
+## 4 0001    May     4.48 4.05    9.72     1
+## 5 0001    Jul    22.5  0.550   4.34     1
+## # ... with 2,498 more rows</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># 3rd, we average over all stations per month. Since this is what we want to plot later, </span>
+<span class="co"># we need to calculate also the standard error (as param for station variation). </span>
+<span class="co"># Since there isn&#39;t any base function we will define one ourselves, taking NAs into account:</span>
+se &lt;-<span class="st"> </span><span class="cf">function</span>(x) {
+  n &lt;-<span class="st"> </span><span class="kw">length</span>(x[<span class="op">!</span><span class="kw">is.na</span>(x)])
+  <span class="cf">if</span> (n <span class="op">&gt;</span><span class="st"> </span><span class="dv">2</span>) {
+    out &lt;-<span class="st"> </span><span class="kw">sd</span>(x, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="op">/</span><span class="st"> </span><span class="kw">sqrt</span>(n)
+  } <span class="cf">else</span> {
+    out &lt;-<span class="st"> </span><span class="ot">NA</span>
+  }
+  <span class="kw">return</span>(out)
+}
+
+surf_month &lt;-<span class="st"> </span>surf_stat <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(fmonth) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># now we removed station</span>
+<span class="st">  </span><span class="kw">summarise</span>(
+    <span class="dt">temp_mean =</span> <span class="kw">mean</span>(temp, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+    <span class="dt">sal_mean =</span> <span class="kw">mean</span>(sal, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+    <span class="dt">doxy_mean =</span> <span class="kw">mean</span>(doxy, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+    <span class="dt">temp_se =</span> <span class="kw">se</span>(temp),
+    <span class="dt">sal_se  =</span> <span class="kw">se</span>(sal),
+    <span class="dt">doxy_se  =</span> <span class="kw">se</span>(doxy),
+    <span class="dt">n =</span> <span class="kw">n</span>() <span class="co"># this can be helpful to see how many measurements were averaged</span>
+  )  
+<span class="kw">print</span>(surf_month, <span class="dt">n =</span> <span class="dv">12</span>)</code></pre></div>
+<pre><code>## # A tibble: 12 x 8
+##    fmonth temp_mean sal_mean doxy_mean temp_se sal_se doxy_se     n
+##    &lt;fct&gt;      &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt; &lt;int&gt;
+##  1 Jan         2.87     6.34      8.51  0.153  0.149   0.0354   115
+##  2 Feb         3.05     7.20      8.65  0.0804 0.112   0.0404   215
+##  3 Mar         3.88     7.23      9.01  0.0571 0.0820  0.0362   245
+##  4 April       6.08     5.75      8.79  0.340  0.203   0.0851    98
+##  5 May         7.60     5.67      8.28  0.226  0.136   0.0580   225
+##  6 Jun        13.0      6.37      7.27  0.184  0.121   0.0542   222
+##  7 Jul        15.2      6.18      6.61  0.165  0.0955  0.0331   286
+##  8 Aug        17.1      5.89      6.34  0.127  0.120   0.0455   242
+##  9 Sep        15.9      7.02      6.44  0.0579 0.0674  0.0336   298
+## 10 Oct        12.4      6.53      7.03  0.163  0.103   0.0432   211
+## 11 Nov         9.98     7.53      7.32  0.0731 0.0673  0.0289   285
+## 12 Dec         7.08     7.11      7.77  0.203  0.314   0.0865    61</code></pre>
+<p>Alternatively to step 2-3, we could also apply weighted means straight away, which will give the same results. However, calculating a weighted standard error is not straightforward:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># We need to first define a new function for a weighted standard error</span>
+weighted_se &lt;-<span class="st"> </span><span class="cf">function</span>(x, w) {
+  s &lt;-<span class="st"> </span><span class="kw">which</span>(<span class="kw">is.finite</span>(x <span class="op">+</span><span class="st"> </span>w))
+  <span class="cf">if</span> (<span class="kw">length</span>(s) <span class="op">&gt;</span><span class="st"> </span><span class="dv">2</span>) {
+    w &lt;-<span class="st"> </span>w[s]
+    x &lt;-<span class="st"> </span>x[s]
+    weighted_n &lt;-<span class="st"> </span><span class="kw">sum</span>(w)
+    xbar &lt;-<span class="st"> </span><span class="kw">weighted.mean</span>(x, w)
+    var &lt;-<span class="st"> </span><span class="kw">sum</span>(w <span class="op">*</span><span class="st"> </span>(x <span class="op">-</span><span class="st"> </span>xbar)<span class="op">^</span><span class="dv">2</span>) <span class="op">*</span><span class="st"> </span>(<span class="kw">sum</span>(w)<span class="op">/</span>(<span class="kw">sum</span>(w)<span class="op">^</span><span class="dv">2</span> <span class="op">-</span><span class="st"> </span><span class="kw">sum</span>(w<span class="op">^</span><span class="dv">2</span>)))
+    out &lt;-<span class="st"> </span><span class="kw">sqrt</span>(var) <span class="op">/</span><span class="st"> </span><span class="kw">sqrt</span>(weighted_n)
+  } <span class="cf">else</span> {
+    out &lt;-<span class="st"> </span><span class="ot">NA</span>
+  }
+  <span class="kw">return</span>(out)
+}
+
+<span class="co"># Calculate measurement frequency per parameter (!) and add it to the &#39;surf_lay&#39; dataset</span>
+surf_freq_stat &lt;-<span class="st"> </span>surf_lay <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(fmonth, station) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>cruise, <span class="op">-</span>date_time, <span class="op">-</span>n) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">summarise</span>(
+    <span class="dt">temp_freq =</span> <span class="kw">sum</span>(<span class="kw">is.finite</span>(temp)),
+    <span class="dt">sal_freq =</span> <span class="kw">sum</span>(<span class="kw">is.finite</span>(sal)),
+    <span class="dt">doxy_freq =</span> <span class="kw">sum</span>(<span class="kw">is.finite</span>(doxy)) 
+    )
+
+surf_month &lt;-<span class="st"> </span>surf_lay <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(fmonth) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>cruise, <span class="op">-</span>date_time, n) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">left_join</span>(surf_freq_stat) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(
+    <span class="dt">temp_mean =</span> <span class="kw">weighted.mean</span>(temp, <span class="dt">w =</span> <span class="dv">1</span><span class="op">/</span>temp_freq, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+    <span class="dt">sal_mean =</span> <span class="kw">weighted.mean</span>(sal, <span class="dt">w =</span> <span class="dv">1</span><span class="op">/</span>sal_freq, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+    <span class="dt">doxy_mean =</span> <span class="kw">weighted.mean</span>(doxy, <span class="dt">w =</span> <span class="dv">1</span><span class="op">/</span>doxy_freq, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+    <span class="dt">temp_se =</span> <span class="kw">weighted_se</span>(temp, <span class="dt">w =</span> <span class="dv">1</span><span class="op">/</span>temp_freq),
+    <span class="dt">sal_se  =</span> <span class="kw">weighted_se</span>(sal, <span class="dt">w =</span> <span class="dv">1</span><span class="op">/</span>sal_freq),
+    <span class="dt">doxy_se  =</span> <span class="kw">weighted_se</span>(doxy, <span class="dt">w =</span> <span class="dv">1</span><span class="op">/</span>doxy_freq),
+    <span class="dt">n =</span> <span class="kw">n</span>() 
+  )  </code></pre></div>
+<p>The advantage of the weighted mean/se approach is that you can modify the weights as you see fit.</p>
+<p>For the visualization, you can use single plots per parameter or plot them together using the facetting function on the long format, which we will do here:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">surf_month_se &lt;-<span class="st"> </span>surf_month <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>(temp_mean<span class="op">:</span>doxy_mean),<span class="op">-</span>n) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">gather</span>(<span class="op">-</span>fmonth, <span class="dt">key =</span> <span class="st">&quot;param&quot;</span>, <span class="dt">value =</span> <span class="st">&quot;se&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">param =</span> <span class="kw">case_when</span>(
+    param <span class="op">==</span><span class="st"> &quot;temp_se&quot;</span> <span class="op">~</span><span class="st"> &quot;temperature&quot;</span>,
+    param <span class="op">==</span><span class="st"> &quot;sal_se&quot;</span> <span class="op">~</span><span class="st"> &quot;salinity&quot;</span>,
+    param <span class="op">==</span><span class="st"> &quot;doxy_se&quot;</span> <span class="op">~</span><span class="st"> &quot;dissolved oxygen&quot;</span>
+  ))
+
+surf_month_l &lt;-<span class="st"> </span>surf_month <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>(temp_se<span class="op">:</span>n)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">gather</span>(<span class="op">-</span>fmonth, <span class="dt">key =</span> <span class="st">&quot;param&quot;</span>, <span class="dt">value =</span> <span class="st">&quot;mean&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">param =</span> <span class="kw">case_when</span>(
+    param <span class="op">==</span><span class="st"> &quot;temp_mean&quot;</span> <span class="op">~</span><span class="st"> &quot;temperature&quot;</span>,
+    param <span class="op">==</span><span class="st"> &quot;sal_mean&quot;</span> <span class="op">~</span><span class="st"> &quot;salinity&quot;</span>,
+    param <span class="op">==</span><span class="st"> &quot;doxy_mean&quot;</span> <span class="op">~</span><span class="st"> &quot;dissolved oxygen&quot;</span>
+  )) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">left_join</span>(surf_month_se) 
+
+<span class="kw">ggplot</span>(surf_month_l, <span class="kw">aes</span>(<span class="dt">x =</span> fmonth, <span class="dt">y =</span> mean, <span class="dt">ymin =</span> mean <span class="op">-</span><span class="st"> </span>se, <span class="dt">ymax =</span> mean <span class="op">+</span><span class="st"> </span>se,
+  <span class="dt">fill =</span> fmonth)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">scale_fill_grey</span>() <span class="op">+</span><span class="st"> </span><span class="kw">guides</span>(<span class="dt">fill =</span> <span class="st">&quot;none&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_col</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_errorbar</span>(<span class="dt">colour =</span> <span class="st">&quot;burlywood4&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">facet_grid</span>(. <span class="op">~</span><span class="st"> </span>param, <span class="dt">scales =</span> <span class="st">&quot;free_y&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Surface conditions (0-20m) in the entire Baltic Sea&quot;</span>,
+    <span class="dt">x =</span> <span class="st">&quot;Month&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Mean value&quot;</span>)</code></pre></div>
+<p><img src="case_study01_solution_plotting_files/unnamed-chunk-27-1.png" width="1440" style="display: block; margin: auto;" /> You’ll see that dissolved oxygen conditions decrease slightly towards summer and increase again in autumn. This reflects the increase in the zooplankton stock size over summer and the following phytoplankton autumn peak when zooplankter have decreased in numbers. Salinity does not show strong intra-annual variation but temperature does: it shows a clear seasonal trend typical for temperate regions with a unimodal distribution, peaking in the summer month August and being lowest in January/February. But beware that some of the monthly differences you see are also driven by an overrepresentation of a specific area, e.g. the South in September-November. Temperature is likely to be higher in the South at that time, hence the high temperature values you see in the plot for 9-11 might be much lower for the entire Baltic Sea!</p>
+<p>So lets see if this seasonal pattern holds for every region in the Baltic Sea later in <a href="#anchor2">3.1.2</a>.</p>
+</div>
+<div id="bottom-water-conditions" class="section level5">
+<h5>Bottom water conditions</h5>
+<p>The only difference to the previous approach on the sea surface conditions is how we extract the values for the bottom layer, which will be described in the following:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># 1st, we filter the shallow stations and then all measurements that are 10m above the bottom</span>
+bot_lay &lt;-<span class="st"> </span>hydro <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(depth <span class="op">&gt;</span><span class="st"> </span><span class="dv">30</span>, pres <span class="op">&gt;=</span><span class="st"> </span>(depth<span class="op">-</span><span class="dv">10</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="co"># complete.cases returns a logical vector indicating which cases are complete</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">comp_case =</span> <span class="kw">complete.cases</span>(.<span class="op">$</span>temp, .<span class="op">$</span>sal, .<span class="op">$</span>doxy)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(cruise, station, date_time, fmonth) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(
+    <span class="dt">temp =</span> <span class="kw">mean</span>(temp, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+    <span class="dt">sal =</span> <span class="kw">mean</span>(sal, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+    <span class="dt">doxy =</span> <span class="kw">mean</span>(doxy, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+    <span class="dt">n =</span> <span class="kw">n</span>(),
+    <span class="dt">n_all3 =</span> <span class="kw">sum</span>(comp_case)
+  )
+<span class="kw">print</span>(bot_lay, <span class="dt">n =</span> <span class="dv">5</span>)</code></pre></div>
+<pre><code>## # A tibble: 1,537 x 9
+## # Groups:   cruise, station, date_time [?]
+##   cruise station date_time           fmonth   temp   sal  doxy     n
+##   &lt;chr&gt;  &lt;chr&gt;   &lt;dttm&gt;              &lt;fct&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt;
+## 1 ????   0247    2015-02-17 09:54:00 Feb      4.36  13.2 5.60      3
+## 2 ????   0793    2015-06-12 08:15:00 Jun      6.99  19.0 1.45      5
+## 3 ????   1133    2015-08-03 08:06:00 Aug    NaN     19.3 0.880     3
+## 4 ????   1321    2015-08-20 10:37:00 Aug     10.2   10.6 2.96      4
+## 5 ????   1383    2015-08-31 08:21:00 Aug      6.98  19.0 1.25      5
+## # ... with 1,532 more rows, and 1 more variable: n_all3 &lt;int&gt;</code></pre>
+<p>Now we proceed as we did for the surface conditions…</p>
+<p><img src="case_study01_solution_plotting_files/unnamed-chunk-30-1.png" width="1440" style="display: block; margin: auto;" /></p>
+<p>The oxygen condition do not vary so much from the surface condition (slight increase in spring followed by a drop in summer and an increase again towards autumn). But differences in salinity condition are much stronger between months at the bottom, although it does not follow a seasonal trend. The differences here are most probably driven by the irregular sampling design. If you recall, in September and November, sampling took mainly place in the South around the Bornholm basin. The Southern and Western Baltic Sea towards the entrance is more saline, particularly at the bottom. A higher sample size in this region does therefore impact the calculation of an overall salinity mean.</p>
+<p>Temperature differs also from the surface condition and shows less the unimodel pattern peaking in summer. Instead, temperature remains at higher levels during autumn. But again, this pattern could be linked to the unbalanced station coverage and it remains the question how the seasonal pattern varies between different areas.</p>
+</div>
+</div>
+<div id="anchor2" class="section level4">
+<h4>3.1.2 Spatial variation in the seasonal dynamic</h4>
+<p>Our dataset comprises of coordinates per station but no further regional information such as the <a href="http://www.fao.org/fishery/area/Area27/en">ICES subdivisions</a>. In such case one can apply a quick-and-dirty approach by dividing the stations into coarse sub-areas.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create a data frame with the sub-areal extents</span>
+y1 &lt;-<span class="st"> </span><span class="kw">min</span>(hydro<span class="op">$</span>lat)
+y2 &lt;-<span class="st"> </span><span class="kw">max</span>(hydro<span class="op">$</span>lat)
+x1 &lt;-<span class="st"> </span><span class="kw">min</span>(hydro<span class="op">$</span>long)
+x2 &lt;-<span class="st"> </span><span class="kw">max</span>(hydro<span class="op">$</span>long)
+
+areas &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">area =</span> <span class="kw">factor</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="dt">levels =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, 
+  <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Western BS&quot;</span>, <span class="st">&quot;Central BS&quot;</span>, <span class="st">&quot;Eastern BS&quot;</span>, <span class="st">&quot;Northern BS&quot;</span>)),
+  <span class="dt">min_lat =</span> <span class="kw">c</span>(y1, y1, <span class="dv">55</span>, <span class="dv">62</span>),
+  <span class="dt">max_lat =</span> <span class="kw">c</span>(y2, <span class="dv">62</span>, <span class="dv">62</span>, y2),
+  <span class="dt">min_long =</span> <span class="kw">c</span>(x1, <span class="dv">15</span>, <span class="dv">22</span>, x1 ),
+  <span class="dt">max_long =</span> <span class="kw">c</span>(<span class="dv">15</span>, <span class="dv">22</span>, x2, x2) )</code></pre></div>
+<p>There are various ways to assign these areas to each station. You could</p>
+<ul>
+<li>write your own function and then apply it to each row using a function of the <code>apply</code> family or the <a href="http://purrr.tidyverse.org">purrr</a> package (see lecture 17 and 18),</li>
+<li>assign to each stations the respective area depending on whether the lat and long coordinates meet the conditions for the aeral extend (applying e.g. nested loops) or</li>
+<li>convert both point data (i.e. the surf_stat data frame with the station coordinates) and the area data frame into a point and polygon simple feature respectively (see the vignette for the <a href="https://cran.r-project.org/web/packages/sf/vignettes/sf1.html">sf package</a> and than apply a spatial join.</li>
+</ul>
+<p>But since we haven’t covered any of that so far I will show you a simple workaround with the sea surface data:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">surf_lay &lt;-<span class="st"> </span>hydro <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(pres <span class="op">&lt;=</span><span class="dv">20</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(cruise, station, date_time, fmonth, lat, long) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(
+    <span class="dt">temp =</span> <span class="kw">mean</span>(temp, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+    <span class="dt">sal =</span> <span class="kw">mean</span>(sal, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+    <span class="dt">doxy =</span> <span class="kw">mean</span>(doxy, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+    <span class="dt">n =</span> <span class="kw">n</span>() 
+  ) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ungroup</span>()
+
+<span class="co"># Apply 4 filter routines, one for each area, add the area column and then row-bind the 4 subsets</span>
+wbs &lt;-<span class="st"> </span>surf_lay <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(lat <span class="op">&gt;=</span><span class="st"> </span>areas<span class="op">$</span>min_lat[<span class="dv">1</span>] <span class="op">&amp;</span><span class="st"> </span>lat <span class="op">&lt;=</span><span class="st"> </span>areas<span class="op">$</span>max_lat[<span class="dv">1</span>],
+    long <span class="op">&gt;=</span><span class="st"> </span>areas<span class="op">$</span>min_long[<span class="dv">1</span>] <span class="op">&amp;</span><span class="st"> </span>long <span class="op">&lt;=</span><span class="st"> </span>areas<span class="op">$</span>max_long[<span class="dv">1</span>]) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">area =</span> <span class="dv">1</span>)
+
+cbs &lt;-<span class="st"> </span>surf_lay <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(lat <span class="op">&gt;=</span><span class="st"> </span>areas<span class="op">$</span>min_lat[<span class="dv">2</span>] <span class="op">&amp;</span><span class="st"> </span>lat <span class="op">&lt;=</span><span class="st"> </span>areas<span class="op">$</span>max_lat[<span class="dv">2</span>],
+    long <span class="op">&gt;</span><span class="st"> </span>areas<span class="op">$</span>min_long[<span class="dv">2</span>] <span class="op">&amp;</span><span class="st"> </span>long <span class="op">&lt;=</span><span class="st"> </span>areas<span class="op">$</span>max_long[<span class="dv">2</span>]) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">area =</span> <span class="dv">2</span>)
+
+ebs &lt;-<span class="st"> </span>surf_lay <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(lat <span class="op">&gt;=</span><span class="st"> </span>areas<span class="op">$</span>min_lat[<span class="dv">3</span>] <span class="op">&amp;</span><span class="st"> </span>lat <span class="op">&lt;=</span><span class="st"> </span>areas<span class="op">$</span>max_lat[<span class="dv">3</span>],
+    long <span class="op">&gt;</span><span class="st"> </span>areas<span class="op">$</span>min_long[<span class="dv">3</span>] <span class="op">&amp;</span><span class="st"> </span>long <span class="op">&lt;=</span><span class="st"> </span>areas<span class="op">$</span>max_long[<span class="dv">3</span>]) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">area =</span> <span class="dv">3</span>)
+
+nbs &lt;-<span class="st"> </span>surf_lay <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(lat <span class="op">&gt;</span><span class="st"> </span>areas<span class="op">$</span>min_lat[<span class="dv">4</span>] <span class="op">&amp;</span><span class="st"> </span>lat <span class="op">&lt;=</span><span class="st"> </span>areas<span class="op">$</span>max_lat[<span class="dv">4</span>],
+    long <span class="op">&gt;=</span><span class="st"> </span>areas<span class="op">$</span>min_long[<span class="dv">4</span>] <span class="op">&amp;</span><span class="st"> </span>long <span class="op">&lt;=</span><span class="st"> </span>areas<span class="op">$</span>max_long[<span class="dv">4</span>]) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">area =</span> <span class="dv">4</span>)
+
+<span class="co"># Row-bind the tables</span>
+surf_area &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(<span class="kw">list</span>(wbs,cbs,ebs,nbs)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">area =</span> <span class="kw">factor</span>(area, <span class="dt">levels =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, 
+  <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Western BS&quot;</span>, <span class="st">&quot;Central BS&quot;</span>, <span class="st">&quot;Eastern BS&quot;</span>, <span class="st">&quot;Northern BS&quot;</span>)))
+    
+<span class="kw">dim</span>(surf_lay); <span class="kw">dim</span>(surf_area)</code></pre></div>
+<pre><code>## [1] 2848   10</code></pre>
+<pre><code>## [1] 2848   11</code></pre>
+<p>Both tables have the same dimensions indicating that each station got assigned to only one area!</p>
+<p>Now we continue with our monthly means per area as we did with the total monthly means (<a href="#anchor3">section 3.1a</a>):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Average over the samplings per station, month, and area</span>
+surf_stat &lt;-<span class="st"> </span>surf_area <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(station, fmonth, area) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">summarise</span>(
+    <span class="dt">temp =</span> <span class="kw">mean</span>(temp, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+    <span class="dt">sal =</span> <span class="kw">mean</span>(sal, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+    <span class="dt">doxy =</span> <span class="kw">mean</span>(doxy, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+    <span class="dt">n =</span> <span class="kw">n</span>() 
+  )  
+
+<span class="co"># Average over all stations per month and area. </span>
+surf_month &lt;-<span class="st"> </span>surf_stat <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(fmonth, area) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">summarise</span>(
+    <span class="dt">temp_mean =</span> <span class="kw">mean</span>(temp, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+    <span class="dt">sal_mean =</span> <span class="kw">mean</span>(sal, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+    <span class="dt">doxy_mean =</span> <span class="kw">mean</span>(doxy, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+    <span class="dt">temp_se =</span> <span class="kw">se</span>(temp),
+    <span class="dt">sal_se  =</span> <span class="kw">se</span>(sal),
+    <span class="dt">doxy_se  =</span> <span class="kw">se</span>(doxy),
+    <span class="dt">n =</span> <span class="kw">n</span>() 
+  )  
+
+surf_month <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(n <span class="op">&lt;</span><span class="st"> </span><span class="dv">10</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>(<span class="dt">n =</span> <span class="dv">20</span>)</code></pre></div>
+<pre><code>## # A tibble: 8 x 9
+## # Groups:   fmonth [5]
+##   fmonth area    temp_mean sal_mean doxy_mean temp_se sal_se doxy_se     n
+##   &lt;fct&gt;  &lt;fct&gt;       &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt; &lt;int&gt;
+## 1 Jan    Northe…     2.01      4.19      9.22   0.460  0.516 NA          8
+## 2 Feb    Easter…     0.325     5.85      9.27  NA     NA     NA          2
+## 3 Mar    Easter…     1.90      5.01      8.83   0.221  0.478  0.278      7
+## 4 Mar    Northe…     0.575     3.81      9.63   0.199  0.398  0.0772     7
+## 5 Nov    Easter…     9.77      5.92      7.28   0.157  0.337  0.109      3
+## 6 Nov    Northe…     5.66      4.53      8.04   0.370  0.202  0.123      6
+## 7 Dec    Easter…     7.28      6.22      7.47  NA     NA     NA          2
+## 8 Dec    Northe…     3.94      3.25      9.20   0.767  0.592 NA          6</code></pre>
+<p>The count column <code>n</code> in the <code>surf_month</code> table becomes very useful now as it demonstrates, when filtering for low values, that some areas are not well sampled in certain month, e.g. the Eastern Baltic Sea (representing the Gulf of Finland and the Gulf of Riga) was sampled only twice in February and December.</p>
+<p>We apply the same calculation for the bottom conditions (not shown here) and compare the monthly figures:</p>
+<p><img src="case_study01_solution_plotting_files/unnamed-chunk-35-1.png" width="1440" style="display: block; margin: auto;" /></p>
+<p>You can see from this figure that at the surface the seasonal dynamics do not vary greatly between areas. Except the magnitude of the salinity and temperature differs, being generally higher in the South and Western region. In addition, the Western Baltic featured during 2015 also a slightly seasonal pattern with decreasing values towards summer and increasing again thereafter. But this pattern is also quite noisy as indicated by the wide error bars.</p>
+<p>This spatial comparison does not support the initial hypothesis raised that some of the monthly differences might be driven by an overrepresentation of a specific area. The high September-November temperature regimes (higher than Jan- May) found for the entire Baltic Sea can be seen in all 4 areas, independent of the sample size.</p>
+<p><img src="case_study01_solution_plotting_files/unnamed-chunk-36-1.png" width="1440" style="display: block; margin: auto;" /></p>
+<p>The bottom conditions show a slightly different picture:</p>
+<ul>
+<li><p>Oxygen: The overall seasonal trend in dissolved oxygen conditions, with its peak in May and a drop thereafter, is slightly reflected in all areas except for the Eastern BS. Here oxygen levels are higher earlier in the year and drop already in March. What differs particularly between areas is the magnitude in monthly changes, e.g. the max. difference in the Eastern BS is about 7.4 mg/l and in the Northern BS about 2.4 mg/l.</p></li>
+<li><p>Salinity: The strong intra-annual variation at the bottom found for the whole study area resembles mainly the dynamics in the Western and Central BS, while the generally lower salinity levels in the Eastern and Northern BS change little during the year. This confirms our previous hypothesis that the unbalanced sampling design has quite a strong impact on the overall pattern. A stratified sampling approach would be very suitable to identify a Baltic-wide seasonal trend in bottom salinity conditions.</p></li>
+<li><p>Temperature: Temperature is generally low at the beginning of the year and higher during the second half, but this change is least pronounced in the Central BS and strongest in the Western BS. The whole-region monthly comparison reflects fairly well the core dynamic of all 4 areas, although the magnitude in changes in quite area-specific.</p></li>
+</ul>
+<p><strong>To conclude, the Baltic Sea features rather strong seasonal patterns in oxygen and temperature conditions. These are more pronounced at the surface and differ much less between regions.</strong></p>
+<hr />
+</div>
+</div>
+<div id="spatial-components-horizontally" class="section level3">
+<h3>3.2 Spatial components (horizontally)</h3>
+<div id="spatial-gradient-of-temperature-salinity-and-oxygen-conditions-across-the-baltic-sea" class="section level4">
+<h4>3.2.1 Spatial gradient of temperature, salinity, and oxygen conditions across the Baltic Sea?</h4>
+<p>The code is only shown for the surface conditions:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Same as for temporal trend: Calculate surface layer mean per station</span>
+surf_lay &lt;-<span class="st"> </span>hydro <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(pres <span class="op">&lt;=</span><span class="dv">20</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(cruise, station, date_time, fmonth, lat, long) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(
+    <span class="dt">temp =</span> <span class="kw">mean</span>(temp, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+    <span class="dt">sal =</span> <span class="kw">mean</span>(sal, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+    <span class="dt">doxy =</span> <span class="kw">mean</span>(doxy, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
+  )
+<span class="co"># Now calculate mean per station, averaged over all times</span>
+surf_stat &lt;-<span class="st"> </span>surf_lay <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(station, lat, long) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">summarise</span>(
+    <span class="dt">temp =</span> <span class="kw">mean</span>(temp, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+    <span class="dt">sal =</span> <span class="kw">mean</span>(sal, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+    <span class="dt">doxy =</span> <span class="kw">mean</span>(doxy, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
+  )  </code></pre></div>
+<p>There are many ways to visualize the distribution of the parameters. The most simplest way is to plot the stations in the lat-long space and scale the points based on the parameter values:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p_surf &lt;-<span class="st"> </span><span class="kw">ggplot</span>(surf_stat, <span class="kw">aes</span>(long, lat)) <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>()
+p_o &lt;-<span class="st"> </span>p_surf <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">colour =</span> doxy)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># viridis colour palette: </span>
+<span class="st">  </span><span class="kw">scale_colour_viridis_c</span>(<span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">12</span>), <span class="dt">na.value =</span> <span class="st">&quot;black&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;surface dissolved oxygen&quot;</span>)
+p_s &lt;-<span class="st"> </span>p_surf <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">colour =</span> sal)) <span class="op">+</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">scale_colour_gradient2</span>(<span class="dt">midpoint =</span> <span class="fl">7.5</span>,
+      <span class="dt">high =</span> <span class="st">&quot;darkblue&quot;</span>, <span class="dt">mid =</span> <span class="st">&quot;cornsilk3&quot;</span>, <span class="dt">low =</span> <span class="st">&quot;darkgreen&quot;</span>,
+    <span class="dt">na.value =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">15</span>)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;surface salinity&quot;</span>)
+p_t &lt;-<span class="st"> </span>p_surf <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">colour =</span> temp)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">scale_colour_gradient2</span>(<span class="dt">midpoint =</span> <span class="fl">12.5</span>,
+    <span class="dt">low =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">mid =</span> <span class="st">&quot;yellow&quot;</span>, <span class="dt">high =</span> <span class="st">&quot;red&quot;</span>, 
+    <span class="dt">na.value =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">25</span>)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;surface temperature&quot;</span>)
+
+gridExtra<span class="op">::</span><span class="kw">grid.arrange</span>(p_o, p_s, p_t, <span class="dt">nrow =</span> <span class="dv">1</span>)</code></pre></div>
+<p><img src="case_study01_solution_plotting_files/unnamed-chunk-38-1.png" width="1440" style="display: block; margin: auto;" /></p>
+<p><img src="case_study01_solution_plotting_files/unnamed-chunk-39-1.png" width="1440" style="display: block; margin: auto;" /></p>
+<p>In summary, - oxygen conditions show not a pronounced gradient pattern along the SW-NE axis as temperature and salinity. - salinity changes at the surface more gradually while at the bottom differences in salinity condition are much greater (&gt; 10 psu) and more stepwise, reflecting the topography with its series of basins separated by shallow areas and sills. - temperature is similarly higher in the South-West but varies also substantially at smaller scales. Here, the strong intra-annual variation confounds the overall pattern and splitting the data into monthly subsets is strongly recommended (as we do in the next section).</p>
+</div>
+<div id="seasonal-or-monthly-changes-in-the-spatial-pattern-of-these-3-parameters" class="section level4">
+<h4>3.2.2 Seasonal or monthly changes in the spatial pattern of these 3 parameters</h4>
+<div id="dissolved-oxygen-conditions" class="section level5">
+<h5>Dissolved oxygen conditions</h5>
+<p>To answer this, we simply need to calculate the stations means per month, keep the month factor in our data and facet our plot. For dissolved oxygen at the surface the code would look like this</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># We use the tibble containing the aggregated surface conditions</span>
+surf_stat &lt;-<span class="st"> </span>surf_lay <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(station, lat, long, fmonth) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">summarise</span>(
+    <span class="dt">temp =</span> <span class="kw">mean</span>(temp, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+    <span class="dt">sal =</span> <span class="kw">mean</span>(sal, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+    <span class="dt">doxy =</span> <span class="kw">mean</span>(doxy, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
+  ) 
+p_surf &lt;-<span class="st"> </span><span class="kw">ggplot</span>(surf_stat, <span class="kw">aes</span>(long, lat, <span class="dt">group =</span> fmonth)) <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>()
+p_surf <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">colour =</span> doxy)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">scale_colour_viridis_c</span>(<span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">12</span>), <span class="dt">na.value =</span> <span class="st">&quot;black&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>fmonth, <span class="dt">nrow =</span> <span class="dv">3</span>, <span class="dt">ncol =</span> <span class="dv">4</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Monthly surface conditions&quot;</span>)</code></pre></div>
+<p><img src="case_study01_solution_plotting_files/unnamed-chunk-40-1.png" width="1440" style="display: block; margin: auto;" /></p>
+<p><img src="case_study01_solution_plotting_files/unnamed-chunk-41-1.png" width="1440" style="display: block; margin: auto;" /></p>
+<p>Again, we see the decrease in oxygen over the year, but there are little spatial differences at the bottom or surface in any month, except for May were the decrease started earlier in the South. Note that the sample sizes vary, particularly for the bottom layer and with big spatial gaps (black points = NAs), so any conclusion will be a bit shaky.</p>
+</div>
+<div id="salinity" class="section level5">
+<h5>Salinity</h5>
+<p><img src="case_study01_solution_plotting_files/unnamed-chunk-42-1.png" width="1440" style="display: block; margin: auto;" /><img src="case_study01_solution_plotting_files/unnamed-chunk-42-2.png" width="1440" style="display: block; margin: auto;" /></p>
+<p>Spatial patterns in surface and bottom salinity conditions seem to be rather constant over the year. In every month you see that salinity is slightly higher offshore and in the Sout-West.</p>
+<p><img src="case_study01_solution_plotting_files/unnamed-chunk-43-1.png" width="1440" style="display: block; margin: auto;" /><img src="case_study01_solution_plotting_files/unnamed-chunk-43-2.png" width="1440" style="display: block; margin: auto;" /></p>
+<p>The monthly maps show you that - the sea surface temperature is generally higher in the South-West. - Throughout the Baltic Sea temperature increases towards summer with highest values in August. - The onset of the increase differs in space: in the SW it started already in April, in the North 2 months later (in June). - Due to the phase shift in seasonality the Baltic Sea features a stronger gradient in spring.</p>
+</div>
+</div>
+<div id="if-there-is-a-gradient-is-it-a-continuous-one-or-can-you-define-certain-areas-that-are-similar" class="section level4">
+<h4>3.2.3 If there is a gradient, is it a continuous one or can you define certain areas that are similar?</h4>
+<p>The surface conditions seem to change more continuously than the bottom conditions in the above plots, which is not surprising as the bottom has a distinct topology with deep basings separated by sills hindering a constant waterflow unlike at the surface.</p>
+<p>On the other hand, a lack of a specific pattern might also be caused by the type of visualization. Scatter plots with overlaying points and gaps scattered irregular in space are not ideal. Interpolating the points and visualizing it as contour or surface plot could be helpful. But be aware that some of the patterns you can see in interpolated plots are purely an artefact of missing values!</p>
+<p>Lets look at the surface condition in May and bottom condition in February (chosen because of more or less even spatial coverage and higher spatial differences in the 3 params). Various different packages offer some functions for spatial interpolations and you should think seriously which interpolation methods to use. I will demonstrate here the <em>inverse distance weighted interpolation</em> (IDW) from the <code>gstat</code>package and later for the depth profile the Multilevel B-spline Approximation (MBA) approach. But of course, you can try the MBA also here or any other interpolation method.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Load required geo packages</span>
+<span class="kw">library</span>(gstat)
+<span class="kw">library</span>(sp)
+
+surf_may_doxy &lt;-<span class="st"> </span>surf_stat <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(fmonth <span class="op">==</span><span class="st"> &quot;Jun&quot;</span>, <span class="op">!</span><span class="kw">is.na</span>(doxy))
+<span class="co"># get spatial extent of sampling stations for interpolation</span>
+dat &lt;-<span class="st"> </span>surf_may_doxy
+dat<span class="op">$</span>x &lt;-<span class="st"> </span>dat<span class="op">$</span>long
+dat<span class="op">$</span>y &lt;-<span class="st"> </span>dat<span class="op">$</span>lat
+x_min &lt;-<span class="st"> </span><span class="kw">min</span>(dat<span class="op">$</span>x, <span class="dt">na.rm =</span> T) <span class="op">-</span><span class="st"> </span><span class="kw">min</span>(dat<span class="op">$</span>x, <span class="dt">na.rm =</span> T)<span class="op">/</span><span class="dv">100</span>
+x_max &lt;-<span class="st"> </span><span class="kw">max</span>(dat<span class="op">$</span>x, <span class="dt">na.rm =</span> T) <span class="op">+</span><span class="st"> </span><span class="kw">max</span>(dat<span class="op">$</span>x, <span class="dt">na.rm =</span> T)<span class="op">/</span><span class="dv">100</span>
+y_min &lt;-<span class="st"> </span><span class="kw">min</span>(dat<span class="op">$</span>y, <span class="dt">na.rm =</span> T) <span class="op">-</span><span class="st"> </span><span class="kw">min</span>(dat<span class="op">$</span>y, <span class="dt">na.rm =</span> T)<span class="op">/</span><span class="dv">100</span>
+y_max &lt;-<span class="st"> </span><span class="kw">max</span>(dat<span class="op">$</span>y, <span class="dt">na.rm =</span> T) <span class="op">+</span><span class="st"> </span><span class="kw">max</span>(dat<span class="op">$</span>y, <span class="dt">na.rm =</span> T)<span class="op">/</span><span class="dv">100</span>
+<span class="co"># expand points to grid</span>
+grd &lt;-<span class="st"> </span><span class="kw">expand.grid</span>(
+  <span class="dt">x =</span> <span class="kw">seq</span>(<span class="dt">from =</span> x_min, <span class="dt">to =</span> x_max, <span class="dt">by =</span> .<span class="dv">1</span>),
+  <span class="dt">y =</span> <span class="kw">seq</span>(<span class="dt">from =</span> y_min, <span class="dt">to =</span> y_max, <span class="dt">by =</span> .<span class="dv">1</span>))
+<span class="kw">coordinates</span>(grd) &lt;-<span class="st"> </span><span class="er">~</span>x <span class="op">+</span><span class="st"> </span>y
+<span class="kw">gridded</span>(grd) &lt;-<span class="st"> </span><span class="ot">TRUE</span>
+
+<span class="co"># The following converts dat into a SpatialPointsDataFrame object (sp package)</span>
+<span class="co"># needed for the idw function</span>
+<span class="kw">coordinates</span>(dat) =<span class="st"> </span><span class="er">~</span>x <span class="op">+</span><span class="st"> </span>y
+### Interpolate surface and fix the output:
+idw_mod &lt;-<span class="st"> </span><span class="kw">idw</span>(<span class="dt">formula =</span> doxy <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">locations =</span> dat,
+  <span class="dt">newdata =</span> grd)  <span class="co"># apply idw model for the data</span></code></pre></div>
+<pre><code>## [inverse distance weighted interpolation]</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">idw_mod &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(idw_mod)  
+
+<span class="co"># Now the map</span>
+world &lt;-<span class="st"> </span><span class="kw">map_data</span>(<span class="st">&quot;world&quot;</span>)
+p_surf_oxy &lt;-<span class="st"> </span><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_tile</span>(<span class="dt">data =</span> idw_mod, <span class="kw">aes</span>(x,y,
+  <span class="dt">fill =</span> <span class="kw">round</span>(var1.pred, <span class="dv">0</span>))) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_fill_viridis_c</span>(<span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">12</span>)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> surf_may_doxy, <span class="kw">aes</span>(<span class="dt">x =</span> long, <span class="dt">y =</span> lat), <span class="dt">shape =</span> <span class="dv">21</span>,
+     <span class="dt">colour =</span> <span class="st">&quot;grey80&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.4</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_polygon</span>(<span class="dt">data =</span> world, <span class="kw">aes</span>(<span class="dt">x =</span> long, <span class="dt">y =</span> lat, <span class="dt">group =</span> group),
+    <span class="dt">fill =</span> <span class="st">&quot;white&quot;</span>, <span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">coord_map</span>(<span class="st">&quot;ortho&quot;</span>,  <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">12</span>, <span class="dv">28</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">54</span>,<span class="dv">66</span>)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">fill =</span> <span class="st">&quot;doxy&quot;</span>,
+       <span class="dt">title =</span> <span class="st">&quot;Interpolated surface conditions in June&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme</span>(<span class="dt">panel.grid =</span> <span class="kw">element_blank</span>())
+<span class="co">#p_surf_oxy</span></code></pre></div>
+<p><img src="case_study01_solution_plotting_files/unnamed-chunk-46-1.png" width="1152" style="display: block; margin: auto;" /></p>
+<hr />
+</div>
+</div>
+<div id="spatial-components-vertically" class="section level3">
+<h3>3.3 Spatial components (vertically)</h3>
+<p>Can you identify a water stratification in terms of temperature, salinity, and oxygen conditions? For which parameters, which months and which areas?</p>
+<div id="approach-1" class="section level4">
+<h4>Approach 1</h4>
+<p>One way could be to choose single stations and plot all 3 parameters together to visualize the stratification at a specific point in space and time.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Select here one station</span>
+dat &lt;-<span class="st"> </span>hydro <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(station <span class="op">==</span><span class="st"> &quot;0040&quot;</span>, cruise <span class="op">==</span><span class="st"> &quot;06MT&quot;</span>) 
+
+<span class="kw">ggplot</span>(dat, <span class="kw">aes</span>(<span class="dt">x=</span>pres)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">y =</span> temp), <span class="dt">colour =</span> <span class="st">&quot;darkorange1&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">y =</span> sal), <span class="dt">colour =</span> <span class="st">&quot;cadetblue4&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">y =</span> doxy<span class="op">+</span><span class="dv">10</span>), <span class="dt">colour =</span> <span class="st">&quot;darkorchid4&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">sec.axis =</span> <span class="kw">sec_axis</span>(<span class="op">~</span>.<span class="op">-</span><span class="dv">10</span>, <span class="dt">name =</span> <span class="st">&quot;Diss oxygen conc. (mg/l)&quot;</span>)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_x_reverse</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Temperature (°C) &amp; Salinity (psu)&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">xlab</span>(<span class="st">&quot;Depth&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">coord_flip</span>()</code></pre></div>
+<p><img src="case_study01_solution_plotting_files/unnamed-chunk-47-1.png" width="384" style="display: block; margin: auto;" /></p>
+</div>
+<div id="approach-2" class="section level4">
+<h4>Approach 2</h4>
+<p>We plot the depth profile of a single parameter but for all stations to identify spatial differences.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">hydro <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(depth <span class="op">&gt;</span><span class="st"> </span><span class="dv">30</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">unite</span>(station, date_time,  <span class="dt">col =</span> <span class="st">&quot;id&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;/&quot;</span>) <span class="op">%&gt;%</span>
+<span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x=</span>pres, <span class="dt">group =</span> id)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">y =</span> sal), <span class="dt">colour =</span> <span class="st">&quot;cadetblue4&quot;</span>, <span class="dt">alpha =</span> .<span class="dv">2</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">y =</span> sal), <span class="dt">colour =</span> <span class="st">&quot;cadetblue4&quot;</span>, <span class="dt">alpha =</span> .<span class="dv">2</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_x_reverse</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">coord_flip</span>()</code></pre></div>
+<p><img src="case_study01_solution_plotting_files/unnamed-chunk-48-1.png" width="576" style="display: block; margin: auto;" /></p>
+</div>
+<div id="approach-3" class="section level4">
+<h4>Approach 3</h4>
+<p>We add the areas to the complete dataset and split the previous salinity plot by area.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wbs &lt;-<span class="st"> </span>hydro <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(lat <span class="op">&gt;=</span><span class="st"> </span>areas<span class="op">$</span>min_lat[<span class="dv">1</span>] <span class="op">&amp;</span><span class="st"> </span>lat <span class="op">&lt;=</span><span class="st"> </span>areas<span class="op">$</span>max_lat[<span class="dv">1</span>],
+    long <span class="op">&gt;=</span><span class="st"> </span>areas<span class="op">$</span>min_long[<span class="dv">1</span>] <span class="op">&amp;</span><span class="st"> </span>long <span class="op">&lt;=</span><span class="st"> </span>areas<span class="op">$</span>max_long[<span class="dv">1</span>]) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">area =</span> <span class="dv">1</span>)
+
+cbs &lt;-<span class="st"> </span>hydro <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(lat <span class="op">&gt;=</span><span class="st"> </span>areas<span class="op">$</span>min_lat[<span class="dv">2</span>] <span class="op">&amp;</span><span class="st"> </span>lat <span class="op">&lt;=</span><span class="st"> </span>areas<span class="op">$</span>max_lat[<span class="dv">2</span>],
+    long <span class="op">&gt;</span><span class="st"> </span>areas<span class="op">$</span>min_long[<span class="dv">2</span>] <span class="op">&amp;</span><span class="st"> </span>long <span class="op">&lt;=</span><span class="st"> </span>areas<span class="op">$</span>max_long[<span class="dv">2</span>]) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">area =</span> <span class="dv">2</span>)
+
+ebs &lt;-<span class="st"> </span>hydro <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(lat <span class="op">&gt;=</span><span class="st"> </span>areas<span class="op">$</span>min_lat[<span class="dv">3</span>] <span class="op">&amp;</span><span class="st"> </span>lat <span class="op">&lt;=</span><span class="st"> </span>areas<span class="op">$</span>max_lat[<span class="dv">3</span>],
+    long <span class="op">&gt;</span><span class="st"> </span>areas<span class="op">$</span>min_long[<span class="dv">3</span>] <span class="op">&amp;</span><span class="st"> </span>long <span class="op">&lt;=</span><span class="st"> </span>areas<span class="op">$</span>max_long[<span class="dv">3</span>]) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">area =</span> <span class="dv">3</span>)
+
+nbs &lt;-<span class="st"> </span>hydro <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(lat <span class="op">&gt;</span><span class="st"> </span>areas<span class="op">$</span>min_lat[<span class="dv">4</span>] <span class="op">&amp;</span><span class="st"> </span>lat <span class="op">&lt;=</span><span class="st"> </span>areas<span class="op">$</span>max_lat[<span class="dv">4</span>],
+    long <span class="op">&gt;=</span><span class="st"> </span>areas<span class="op">$</span>min_long[<span class="dv">4</span>] <span class="op">&amp;</span><span class="st"> </span>long <span class="op">&lt;=</span><span class="st"> </span>areas<span class="op">$</span>max_long[<span class="dv">4</span>]) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">area =</span> <span class="dv">4</span>)
+
+<span class="co"># Row-bind the tables</span>
+hydro_area &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(<span class="kw">list</span>(wbs,cbs,ebs,nbs)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">area =</span> <span class="kw">factor</span>(area, <span class="dt">levels =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, 
+  <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Western BS&quot;</span>, <span class="st">&quot;Central BS&quot;</span>, <span class="st">&quot;Eastern BS&quot;</span>, <span class="st">&quot;Northern BS&quot;</span>)))
+
+hydro_area <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(depth <span class="op">&gt;</span><span class="st"> </span><span class="dv">30</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">unite</span>(station, date_time,  <span class="dt">col =</span> <span class="st">&quot;id&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;/&quot;</span>) <span class="op">%&gt;%</span>
+<span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x=</span>pres, <span class="dt">group =</span> id)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">y =</span> sal), <span class="dt">colour =</span> <span class="st">&quot;cadetblue4&quot;</span>, <span class="dt">alpha =</span> .<span class="dv">2</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">y =</span> sal), <span class="dt">colour =</span> <span class="st">&quot;cadetblue4&quot;</span>, <span class="dt">alpha =</span> .<span class="dv">2</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">coord_flip</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_x_reverse</span>(<span class="dt">limits =</span><span class="kw">c</span>(<span class="dv">150</span>,<span class="dv">0</span>)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">facet_grid</span>(.<span class="op">~</span>area, <span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>) </code></pre></div>
+<p><img src="case_study01_solution_plotting_files/unnamed-chunk-49-1.png" width="1152" style="display: block; margin: auto;" /></p>
+</div>
+<div id="approach-4" class="section level4">
+<h4>Approach 4</h4>
+<p>We add the areas to the complete dataset and than aggregate over all values per depth level (we use 1m depth) for each month and area. We then facet over all months and parameters and add a horizontal line at 50m depth to help identify spatio-temporal stratification patterns in oxygen, salinity and temperature.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Round the pressure values to full integers for the aggregation</span>
+hydro_area<span class="op">$</span>pres &lt;-<span class="st"> </span><span class="kw">round</span>(hydro_area<span class="op">$</span>pres, <span class="dv">0</span>)
+
+hydro_area <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(depth <span class="op">&gt;</span><span class="st"> </span><span class="dv">30</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="kw">group_by</span>(fmonth, area, pres) <span class="op">%&gt;%</span>
+<span class="st"> </span><span class="kw">summarise</span>(
+   <span class="dt">temp =</span> <span class="kw">mean</span>(temp, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+   <span class="dt">sal =</span> <span class="kw">mean</span>(sal, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+   <span class="dt">doxy =</span> <span class="kw">mean</span>(doxy, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
+  )  <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="co"># For facetting over parameters data needs to be long</span>
+<span class="st">  </span><span class="kw">gather</span>(<span class="op">-</span>(fmonth<span class="op">:</span>pres),<span class="dt">key =</span> <span class="st">&quot;param&quot;</span>, <span class="dt">value =</span> <span class="st">&quot;mean&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">param =</span> <span class="kw">case_when</span>(
+    param <span class="op">==</span><span class="st"> &quot;temp&quot;</span> <span class="op">~</span><span class="st"> &quot;temperature&quot;</span>,
+    param <span class="op">==</span><span class="st"> &quot;sal&quot;</span> <span class="op">~</span><span class="st"> &quot;salinity&quot;</span>,
+    param <span class="op">==</span><span class="st"> &quot;doxy&quot;</span> <span class="op">~</span><span class="st"> &quot;dissolved oxygen&quot;</span>
+  )) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x=</span>pres)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_x_reverse</span>(<span class="dt">limits =</span><span class="kw">c</span>(<span class="dv">150</span>,<span class="dv">0</span>)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> <span class="dv">50</span>, <span class="dt">colour =</span> <span class="st">&quot;grey20&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">y =</span> mean, <span class="dt">colour =</span> area)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Temperature (°C)&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">xlab</span>(<span class="st">&quot;Depth&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">coord_flip</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">facet_grid</span>(fmonth <span class="op">~</span><span class="st"> </span>param, <span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_colour_brewer</span>(<span class="dt">palette =</span> <span class="st">&quot;Set1&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_bw</span>() </code></pre></div>
+<p><img src="case_study01_solution_plotting_files/unnamed-chunk-50-1.png" width="672" style="display: block; margin: auto;" /></p>
+<hr />
+</div>
+</div>
+<div id="comparison-with-findings-of-rak-2016" class="section level3">
+<h3>3.4 Comparison with findings of Rak (2016)</h3>
+<p>If you select only stations that are close to the transect described in the paper figure 1 (i.e. stations around 55°N and between 15° and 19°E), do you find a similar vertical distribution of temperature, salinity, and oxygen for February than Rak (2016):</p>
+<p><a href="https://www.sciencedirect.com/science/article/pii/S0078323416300033"> <img src="img_site/Rak_TSOprofile.png" alt="Rak 2016, Fig. 5" style="width:700px;border:0;" > </a></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rak &lt;-<span class="st"> </span>hydro <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(fmonth <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Feb&quot;</span>), depth <span class="op">&gt;</span><span class="st"> </span><span class="dv">30</span>,
+    <span class="kw">between</span>(lat, <span class="fl">55.2</span>, <span class="fl">55.4</span>), <span class="kw">between</span>(long, <span class="dv">13</span>, <span class="fl">19.5</span>) ) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(long, pres) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(
+    <span class="dt">temp =</span> <span class="kw">mean</span>(temp, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+    <span class="dt">sal =</span> <span class="kw">mean</span>(sal, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+    <span class="dt">doxy =</span> <span class="kw">mean</span>(doxy, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+    <span class="dt">depth =</span> <span class="kw">mean</span>(depth, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+    <span class="dt">n =</span> <span class="kw">n</span>()
+  )
+
+theme_opt &lt;-<span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">panel.grid =</span> <span class="kw">element_blank</span>())
+
+rak_t &lt;-<span class="st"> </span>rak <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(doxy)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ungroup</span>()
+p_t &lt;-<span class="st"> </span><span class="kw">ggplot</span>(rak_t, <span class="kw">aes</span>(<span class="dt">x =</span> long)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">y =</span> pres, <span class="dt">colour =</span> temp)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_colour_gradient2</span>(<span class="dt">midpoint =</span> <span class="fl">6.5</span>,
+    <span class="dt">high =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">mid =</span> <span class="st">&quot;yellow&quot;</span>, <span class="dt">low =</span> <span class="st">&quot;blue&quot;</span>,
+    <span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">10</span>)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_y_reverse</span>(<span class="dt">limits =</span><span class="kw">c</span>(<span class="dv">100</span>,<span class="dv">0</span>)) <span class="op">+</span>
+<span class="st">  </span>theme_opt
+
+rak_s &lt;-<span class="st"> </span>rak <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(doxy)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ungroup</span>()
+p_s &lt;-<span class="st"> </span><span class="kw">ggplot</span>(rak_s, <span class="kw">aes</span>(<span class="dt">x =</span> long)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">y =</span> pres, <span class="dt">colour =</span> sal)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_colour_gradient2</span>(<span class="dt">midpoint =</span> <span class="dv">15</span>,
+    <span class="dt">high =</span> <span class="st">&quot;darkblue&quot;</span>, <span class="dt">mid =</span> <span class="st">&quot;yellow&quot;</span>, <span class="dt">low =</span> <span class="st">&quot;darkgreen&quot;</span>,
+    <span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">25</span>)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_y_reverse</span>(<span class="dt">limits =</span><span class="kw">c</span>(<span class="dv">100</span>,<span class="dv">0</span>)) <span class="op">+</span>
+<span class="st">  </span>theme_opt
+
+rak_o &lt;-<span class="st"> </span>rak <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(doxy)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ungroup</span>()
+p_o &lt;-<span class="st"> </span><span class="kw">ggplot</span>(rak_o, <span class="kw">aes</span>(<span class="dt">x =</span> long)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">y =</span> pres, <span class="dt">colour =</span> doxy)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_colour_viridis_c</span>(<span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">10</span>)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_y_reverse</span>(<span class="dt">limits =</span><span class="kw">c</span>(<span class="dv">100</span>,<span class="dv">0</span>)) <span class="op">+</span>
+<span class="st">  </span>theme_opt
+
+gridExtra<span class="op">::</span><span class="kw">grid.arrange</span>(p_t, p_s, p_o, <span class="dt">nrow =</span> <span class="dv">3</span>)</code></pre></div>
+<p><img src="case_study01_solution_plotting_files/unnamed-chunk-51-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>The data points do not go all down to 100m as the bottom depths changes along the transect. To add the seafloor to the plot use the geom <code>geom_ribbon</code>, which is an area plot defined by <code>ymin</code> and <code>ymax</code> along the x axis. As <code>ymin</code> we can use the 100m depth and as ymax the bottom depth of each sampled station:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># We use the full rak df for the seafloor estimation</span>
+bottom &lt;-<span class="st"> </span>rak <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(long, depth) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">distinct</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ungroup</span>()
+
+<span class="co"># Add the geom_ribbon with the bottom df simply to the previous plots</span>
+<span class="co"># (that is possible since the y aesthetic was not defined in ggplot() but in </span>
+<span class="co"># geom_point() )</span>
+p_t2 &lt;-<span class="st"> </span>p_t <span class="op">+</span><span class="st"> </span><span class="kw">geom_ribbon</span>(<span class="dt">data =</span> bottom, <span class="kw">aes</span>(<span class="dt">ymin =</span> depth, 
+    <span class="dt">ymax =</span> <span class="kw">rep</span>(<span class="dv">100</span>, <span class="kw">length</span>(depth))), <span class="dt">fill =</span> <span class="st">&quot;grey70&quot;</span>)
+
+p_s2 &lt;-<span class="st"> </span>p_s <span class="op">+</span><span class="st"> </span><span class="kw">geom_ribbon</span>(<span class="dt">data =</span> bottom, <span class="kw">aes</span>(<span class="dt">ymin =</span> depth, 
+    <span class="dt">ymax =</span> <span class="kw">rep</span>(<span class="dv">100</span>, <span class="kw">length</span>(depth))), <span class="dt">fill =</span> <span class="st">&quot;grey70&quot;</span>)
+
+p_o2 &lt;-<span class="st"> </span>p_o <span class="op">+</span><span class="st"> </span><span class="kw">geom_ribbon</span>(<span class="dt">data =</span> bottom, <span class="kw">aes</span>(<span class="dt">ymin =</span> depth, 
+    <span class="dt">ymax =</span> <span class="kw">rep</span>(<span class="dv">100</span>, <span class="kw">length</span>(depth))), <span class="dt">fill =</span> <span class="st">&quot;grey70&quot;</span>)
+
+gridExtra<span class="op">::</span><span class="kw">grid.arrange</span>(p_t2, p_s2, p_o2, <span class="dt">nrow =</span> <span class="dv">3</span>)</code></pre></div>
+<p><img src="case_study01_solution_plotting_files/unnamed-chunk-52-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>Nice, but 3 things could be improved:</p>
+<ol style="list-style-type: decimal">
+<li>Get rid of the peaks in the bottom line → by smoothen the depth values</li>
+<li>Get rid of the white margin → by adding <code>coord_cartesian(expand = FALSE)</code></li>
+<li>Create a surface plot similar to the one in the Rak paper.</li>
+</ol>
+<p>For the smoothing we can use a simple interpolation function from the stats package that returns a list of points, which linearly interpolate given a set of data points:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Calculate bottom values using linear interpolation</span>
+bottom_smooth &lt;-<span class="st"> </span><span class="kw">approx</span>(bottom<span class="op">$</span>long, bottom<span class="op">$</span>depth, <span class="dt">n =</span> <span class="kw">length</span>(bottom<span class="op">$</span>depth)) 
+  <span class="co"># (n must be the same value as interp()&#39;s nx )</span>
+<span class="co"># Convert list into a data frame</span>
+bottom_smooth &lt;-<span class="st"> </span><span class="kw">do.call</span>(cbind.data.frame, bottom_smooth)
+<span class="kw">names</span>(bottom_smooth) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;long&quot;</span>, <span class="st">&quot;depth&quot;</span>)
+
+p_t2 &lt;-<span class="st"> </span>p_t <span class="op">+</span><span class="st"> </span><span class="kw">geom_ribbon</span>(<span class="dt">data =</span> bottom_smooth, <span class="kw">aes</span>(<span class="dt">ymin =</span> depth, 
+    <span class="dt">ymax =</span> <span class="kw">rep</span>(<span class="dv">100</span>, <span class="kw">length</span>(depth))), <span class="dt">fill =</span> <span class="st">&quot;grey70&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">expand =</span> <span class="ot">FALSE</span>)
+
+p_s2 &lt;-<span class="st"> </span>p_s <span class="op">+</span><span class="st"> </span><span class="kw">geom_ribbon</span>(<span class="dt">data =</span> bottom_smooth, <span class="kw">aes</span>(<span class="dt">ymin =</span> depth, 
+    <span class="dt">ymax =</span> <span class="kw">rep</span>(<span class="dv">100</span>, <span class="kw">length</span>(depth))), <span class="dt">fill =</span> <span class="st">&quot;grey70&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">expand =</span> <span class="ot">FALSE</span>)
+
+p_o2 &lt;-<span class="st"> </span>p_o <span class="op">+</span><span class="st"> </span><span class="kw">geom_ribbon</span>(<span class="dt">data =</span> bottom_smooth, <span class="kw">aes</span>(<span class="dt">ymin =</span> depth, 
+    <span class="dt">ymax =</span> <span class="kw">rep</span>(<span class="dv">100</span>, <span class="kw">length</span>(depth))), <span class="dt">fill =</span> <span class="st">&quot;grey70&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">expand =</span> <span class="ot">FALSE</span>)
+
+gridExtra<span class="op">::</span><span class="kw">grid.arrange</span>(p_t2, p_s2, p_o2, <span class="dt">nrow =</span> <span class="dv">3</span>)</code></pre></div>
+<p><img src="case_study01_solution_plotting_files/unnamed-chunk-53-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>The function <code>mba.surf()</code> from the <a href="https://www.rdocumentation.org/packages/MBA/versions/0.0-8">MBA</a> package is a useful interpolation method, which is similar to the interpolation in the free software <a href="https://odv.awi.de">Ocean Data View (ODV)</a>. The input is a matrix or dataframe with 3 columns: x, y, and z (here long, pres (as depth), and e.g. temp), and the number of points along x and y. If the x and y numbers are not even, it is suggested to set the <code>sp</code> argument to <code>FALSE</code>, so that the resulting surface is returned as a <code>SpatialPixelsDataFrame</code> object instead of a <code>x*y matrix</code> containing the interpolated z values. In any case, I recommend you set <code>sp = FALSE</code> because the <code>x*y matrix</code> contains, in fact, y as rows and x as columns so one can easily mess up the results when bringing the data into a tidy format for ggplot. Also, one can easily create a dataframe in the long format by simply extracting the 3 columns from the spatial object.</p>
+<p><code>mba.surf()</code> returns a list with the first sublist <code>$xyz.est</code> being the <code>SpatialPixelsDataFrame</code> object where we need to extract x,y, and z from. This class contains so-called <em>slots</em> with the coordinates, projection, bounding box, attribute data, etc. To access the different slots you have to use the <code>@</code> symbol.</p>
+<p>For comparability with the figure 5 in Rak (2016) we will use the same color scheme for all 3 plots. The required code is demonstrated for <code>temp</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(MBA)
+
+rak_mba &lt;-<span class="st"> </span>rak_t <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(long, pres, temp) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mba.surf</span>(<span class="dt">no.X =</span> <span class="dv">300</span>, <span class="dt">no.Y =</span> <span class="dv">300</span>, <span class="dt">extend =</span> T, <span class="dt">sp =</span> <span class="ot">TRUE</span>)
+interp_t &lt;-<span class="st"> </span><span class="kw">data.frame</span>(rak_mba<span class="op">$</span>xyz.est<span class="op">@</span>coords, rak_mba<span class="op">$</span>xyz.est<span class="op">@</span>data)
+<span class="kw">names</span>(interp_t) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;long&quot;</span>, <span class="st">&quot;depth&quot;</span>, <span class="st">&quot;temp&quot;</span>)
+
+p_t &lt;-<span class="st">  </span><span class="kw">ggplot</span>(interp_t, <span class="kw">aes</span>(long, depth)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_raster</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> temp)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_contour</span>(<span class="kw">aes</span>(<span class="dt">z =</span> temp), <span class="dt">bins =</span> <span class="dv">6</span>, <span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_fill_gradient2</span>(<span class="dt">midpoint =</span> <span class="fl">6.75</span>, <span class="dt">limits =</span> <span class="kw">c</span>(<span class="fl">3.5</span>, <span class="dv">10</span>),
+    <span class="dt">high =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">mid =</span> <span class="st">&quot;yellow&quot;</span>, <span class="dt">low =</span> <span class="st">&quot;blue&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="co"># the depth ribbon has to come last to overlay the interpolation</span>
+<span class="st">  </span><span class="kw">geom_ribbon</span>(<span class="dt">data =</span> bottom_smooth, <span class="kw">aes</span>(<span class="dt">x =</span> long, <span class="dt">ymin =</span> depth, 
+    <span class="dt">ymax =</span> <span class="kw">rep</span>(<span class="dv">100</span>, <span class="kw">length</span>(depth))), <span class="dt">fill =</span> <span class="st">&quot;grey50&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_y_reverse</span>(<span class="dt">limits =</span><span class="kw">c</span>(<span class="dv">100</span>,<span class="dv">0</span>)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">y =</span> <span class="st">&quot;Depth (m)&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Longitude&quot;</span>)  <span class="op">+</span>
+<span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">expand =</span> <span class="ot">FALSE</span>) <span class="op">+</span>
+<span class="st">  </span>theme_opt</code></pre></div>
+<p><img src="case_study01_solution_plotting_files/unnamed-chunk-56-1.png" width="864" style="display: block; margin: auto;" /></p>
+<p>Similarities and differences:</p>
+<ul>
+<li>We find the same temperature gradient of 4-10°C from the bottom to the surface with peak values around the halocline (i.e. a vertical zone in the water column in which salinity changes rapidly with depth) in the Bornholm Basin.</li>
+<li>The vertical salinity distribution is similar in both datasets but overall slightly higher in the hydro dataset.<br />
+</li>
+<li>The oxygen values in the <code>hydro</code> dataset are overall lower and show less small-scale variation. This could be partly due to the choice of the interplation method.</li>
+</ul>
+<p><br> <br> <br></p>
+</div>
+</div>
+</div>
+
+</div> <!-- articleBandContent -->
+</div> <!-- pageContent -->
+
+<footer class="site_footer">
+<div id="maredsFooter" class="footer">
+  <div class="footerContent">
+
+    <!-- column 1 -->
+    <div class="col-md-2" style="padding-top:.25%; text-align:center; color:#626262;">
+      <a href="https://github.com/mareds">
+        <i class="fa fa-github fa-lg"></i> MARinE Data Science</a> 
+    </div>
+    
+    <!-- column 1 -->
+    <div class="col-md-2" style="padding-top:.25%; text-align:center; color:#626262;">
+      <a href="https://github.com/saskiaotto">
+        <i class="fa fa-github fa-lg"></i> saskiaotto</a>
+    </div>
+
+    <!-- column 2 -->
+    <div class="col-md-6">
+      <!-- <blockquote style="line-height:10px;border-left: 2px solid #999999;"> -->
+          <p style="font-size:15px;color:#626262;border-left: 2px solid #999999;padding-left:5px; padding-top:.25%; font-style:italic;">
+            The difference between stupidity and genius is that genius has its limits.
+            <span style="font-size:11px;color:#909090">A.E.</span></p>
+      <!-- </blockquote> -->
+    </div>
+    
+      <!-- column 3 -->
+    <div class="col-md-2" style="padding-top:.25%; text-align:right; color:#626262;">
+      <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+          CC-BY-SA 4.0</a>
+    </div>
+
+  </div> <!-- footerContent -->
+</div> <!-- footer -->
+
+
+</footer>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

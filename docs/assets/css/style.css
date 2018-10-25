@@ -1,0 +1,446 @@
+/* Styles for Title Slide */
+aside.gdbar img {
+  width: 190px;
+  height: 65px;
+  position: absolute;
+  right: 0;
+  margin: 15px 10px;
+}
+
+
+.title-slide {
+ background-image: url(https://i.guim.co.uk/img/media/a8d9b2e856c0856ad69c1539cf5b700c96cf5e02/0_0_4800_6400/master/4800.jpg?w=1920&q=55&auto=format&usm=12&fit=max&s=5785ccbac59b113a3377bf3c12c45bf2);
+ background-size:  cover;
+}
+
+
+.title-slide hgroup > h1,
+.title-slide hgroup > h2,
+.title-slide hgroup > h3 {/* REVIEW:  */
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+.title-slide hgroup h1 {
+  font-size: 50px !important;
+  line-height: 50px !important;
+  line-height: 1.4;
+  letter-spacing: -3px;
+  color: #515151 !important;
+}
+
+.title-slide hgroup > h2{
+  font-size: 35px !important;
+  line-height: 35px !important;
+  font-weight: bold;
+  padding-right:400px !important;
+  letter-spacing: -2px !important;
+  color: #B63838 !important;  /*#7A7A7A */
+}
+
+.title-slide hgroup > p{
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 30px !important;
+  color: #515151 !important;
+}
+
+
+
+/* Styles for .segue Slide */
+.segue h1 {
+  font-weight: 600;
+  font-size: 60px !important;
+  line-height: 60px !important;
+  letter-spacing: -2px !important;
+  color: #fff !important;
+  font-family: Helvetica, Arial, sans-serif;
+  padding-right: 50px;
+}
+
+.segue h2 {
+  font-weight: 700;
+  font-size: 50px !important;
+  line-height: 50px !important;
+  letter-spacing: -4px !important;
+  color: #c7254e!important;
+  font-family: Helvetica !important;
+}
+
+
+/* Styles for normal Slide */
+slide:not(.segue) p{
+	font-size: 23px !important;
+	color: #222 !important;
+	font-family: Helvetica, Arial, sans-serif;
+	font-style: normal;
+}
+
+
+slide:not(.segue) h1{
+  color: #FAFAFA !important;
+  font-size: 35px !important;
+  font-family: Helvetica, Arial, sans-serif;
+  font-style: normal;
+  font-weight: bold;
+}
+
+slide:not(.segue) h2{
+  color: #8B8B83 !important;
+  font-size: 35px !important;
+  font-family: Helvetica, Arial, sans-serif;
+  font-style: normal;
+  font-weight: bold;
+}
+
+
+slide:not(.segue) h3{
+  font-size: 27px !important;
+  color: #8B8B83 !important;
+	font-family: Helvetica, Arial, sans-serif;
+	/* font-style: italic;*/
+	font-weight: bold;
+	text-align: left;
+}
+
+body {
+  background: #303030;
+}
+
+ul {
+	font-size: 22px !important;
+	color: #222 !important;
+	font-family: Helvetica, Arial, sans-serif;
+	margin-top: 20px;
+	line-height: 1em;
+}
+
+ul li{
+ font-size: 22px;
+ font-family: Helvetica, Arial, sans-serif;
+ margin-top: 20px;
+}
+
+ol li{
+ font-size: 22px;
+ font-family: Helvetica, Arial, sans-serif;
+ margin-top: 20px;
+}
+
+
+
+slides > slide article ul li::before {
+  content: '';
+}
+
+slides > slide article ul {
+  list-style-type: disc;
+}
+
+slides > slide article ul > li > ul {
+  list-style-type: circle;
+}
+
+
+blockquote {
+	background-color: #f2f2f2 !important;
+}
+
+strong {
+	color: #193B57 !important;  /* #101070; #122A3E, ist das die blaue farbe?*/
+}
+
+blue {
+	color: #0000CC;
+	font-weight: bold;
+}
+
+.rmdtable {
+	color: #222 !important;
+}
+
+big {
+	font-size: 40px !important;
+}
+
+small {
+  /*does not work with the line height*/
+	font-size: 20px !important;
+  line-height: 20px!important;
+  margin-top: 0em;
+  margin-bottom: 0em;
+}
+
+/*
+Tried many versions
+p.small {
+  font-size: 20px !important;
+  line-height: 20px!important;
+  margin-top: 0em;
+  margin-bottom: 0em;
+}
+
+smalltext {
+	font-size: 10px !important;
+  line-height: 0.2;
+}
+
+div.small {
+  font-size: 20px !important;
+  line-height: 20px!important;
+  margin-top: 0em;
+  margin-bottom: 0em;
+  color: #222 !important;
+	font-family: 'Helvetica';
+	font-style: normal;
+}
+
+div.b {
+    line-height: 1.6;
+}
+
+div.c {
+  font-size: 20px !important;
+    line-height: 80%;
+}
+
+div.d {
+    line-height: 200%;
+}
+*/
+
+
+
+
+/* Tables */
+table caption{
+  margin-top: 20pt;
+  font-weight: normal;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+table {
+  font-size: 35px !important;
+  font-family: Helvetica, Arial, sans-serif;
+  line-height: 32px;
+  font-weight: bolder;
+  color: rgb(102, 102, 102);
+  border: none;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table td {
+  border-bottom: 1px solid #CFCEBD;
+  font-size: 25px !important;
+  font-family: Helvetica, Arial, sans-serif;
+}
+table tr:nth-child(2n+1) {
+/*  background: #E8F2FF; */
+  background: #EFEEDD;
+}
+
+table th {
+	font-size: 25px !important;
+	font-family: Helvetica, Arial, sans-serif;
+  text-transform: capitalize;
+  background: #636054;
+  color: white;
+  text-transform: uppercase;
+}
+
+
+/* Style for images and sources  */
+.img-with-text {
+    text-align: right;
+    width: [width of img];
+}
+
+.img-with-text img {
+    display: block;
+    margin: 0 auto;
+}
+
+.source-img {
+	font-size: 12px !important;
+}
+
+/* add link to home button */
+a.home:link, a.home:visited {
+    /* padding: 14px 25px; */
+    /* text-align: center; */
+    text-decoration: none !important;
+}
+a.home:hover, a.home:active {
+    font-size:150%; !important;
+}
+
+
+
+/* Style for pnotes info */
+.info-p {
+  padding: 5px 8px 5px 8px;
+  margin-bottom: 0px;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+  font-size:20px;
+  background-color: #ff7518;
+  border: 1px solid transparent;
+  -webkit-border-radius: 0;
+     -moz-border-radius: 0;
+          border-radius: 0;
+  color: #ffffff;
+  background-color: #ff0039;
+  border-color: transparent;
+  position: absolute;
+  left: 965px;
+  top: 650px;
+}
+
+/* changed to kbd */
+kbd{padding:0 1.1%;
+  padding-bottom: 0.5%;
+  font-family:monospace, monospace;
+  font-size:90%;
+  line-height: 120%;
+  color:#ffffff;
+  background-color:#333333;
+  border-radius:3px;
+  -webkit-box-shadow:inset 0 -1px 0 rgba(0,0,0,0.25);
+  box-shadow:inset 0 -1px 0 rgba(0,0,0,0.25);
+  position: absolute;
+  left: 955px;
+  top: 650px;
+}
+
+kbd kbd{padding:0px 1.1%;
+  padding-bottom: 0.5%;
+  font-size:100%;
+  line-height: 120%;
+  font-weight:bold;
+  -webkit-box-shadow:none;box-shadow:none}
+
+/* Style for link (copied from default.css) */
+/* (klappt aber leider nicht!!!) */
+  a {
+    color: #2a7cdf;
+    text-decoration: none !important;
+    /* border-bottom: 1px solid rgba(42, 124, 223, 0.5); */
+  }
+  /* line 307, ../scss/default.scss */
+  a:hover {
+    color: black
+  }
+
+/*
+.alert {
+  padding: 8px 35px 8px 14px;
+  margin-bottom: 20px;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+  font-size:19px;
+  background-color: #ff7518;
+  border: 1px solid transparent;
+  -webkit-border-radius: 0;
+     -moz-border-radius: 0;
+          border-radius: 0;
+}
+
+.alert-danger,
+.alert-error {
+  color: #ffffff;
+  background-color: #ff0039;
+  border-color: transparent;
+}
+
+<div class="alert alert-danger" style="position: absolute; left: 930px; top: 650px">
+  <h4></h4> <small style="font-size: 20px">p</small>
+</div>
+*/
+
+.thank-you-slide {
+ background-image: url(https://i.guim.co.uk/img/media/a8d9b2e856c0856ad69c1539cf5b700c96cf5e02/0_0_4800_6400/master/4800.jpg?w=1920&q=55&auto=format&usm=12&fit=max&s=5785ccbac59b113a3377bf3c12c45bf2);
+}
+
+.thank-you-slide article > h1{
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 70px;
+  font-weight: bold;
+  color: #515151 !important;
+}
+
+/* inline code */
+
+code {
+  color: #c7254e;
+  padding: 0 2px;
+  background-color: #E5E5E5;
+  margin-top: -10px;
+}
+
+/* r code (for sao_theme) */
+
+code.no-highlight {
+  background: #B9D3EE; color:#000000;
+  margin-top: -20px;
+  line-height: 120%;/*1em;*/
+  font-family: 'Courier New', Courier, monospace;
+  color: black;/*#212121;*/
+  overflow: hidden;
+  border-radius: 5px;
+  /*border: 1px solid lightgray;*/
+  box-shadow: 10px 10px 8px 1px rgba(0, 0, 0, 0.2), 1px 3px 3px 2px rgba(0, 0, 0, 0.5);
+}
+
+code {
+  font-size: 95%;
+
+}
+
+
+code.r.innerCode {
+  margin-top: -21px;
+}
+
+
+slide.smallcode pre {
+  font-size: 11px;
+}
+
+
+/*
+  Bootstrap like grid
+  from http://www.w3schools.com/css/css_rwd_grid.asp
+*/
+
+* {
+  box-sizing: border-box;
+}
+
+.col-1 {width: 6.33%;}
+.col-2 {width: 14.66%;}
+.col-3 {width: 23%;}
+.col-4 {width: 31.33%;}
+.col-5 {width: 39.66%;}
+.col-6 {width: 48%;}
+.col-7 {width: 56.33%;}
+.col-8 {width: 64.66%;}
+.col-9 {width: 73%;}
+.col-10 {width: 81.33%;}
+.col-11 {width: 89.66%;}
+.col-12 {width: 98%;}
+
+
+slides > slide:not(.nobackground):after {
+  content: "
+}
+
+
+/* Defining own textbox class */
+.textbox {
+  background: #B4EEB4;
+	color:#000000;
+	/* background-color: #BCEE68; */
+	width: 400px;
+	border: 0;
+	padding: 10px;
+	margin: 0;
+	border-radius: 5px;
+  box-shadow: 10px 10px 8px 1px rgba(0, 0, 0, 0.2), 1px 3px 3px 2px rgba(0, 0, 0, 0.5);
+}

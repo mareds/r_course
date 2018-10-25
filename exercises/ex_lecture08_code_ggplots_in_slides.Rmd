@@ -1,0 +1,272 @@
+---
+title: "Lecture 8"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(tidy=FALSE, warning=FALSE, message=FALSE, cache=FALSE)
+knitr::opts_chunk$set(dev.args=list(bg="transparent"))    
+knitr::opts_chunk$set(fig.retina = 2)
+```
+
+##  R Code from the presentation slides
+
+```{r, eval=FALSE}
+library(tidyverse)
+library(lubridate)
+
+# Import the downloaded data (set your own working directory)
+hydro <- read_csv("data/1111473b.csv")
+names(hydro) <- c("cruise", "station", "type", "date_time", 
+  "lat", "long", "depth", "pres", "temp", "psal", "doxy")
+hydro$month <- month(hydro$date_time)
+hydro$day <- day(hydro$date_time)
+
+
+# Demonstration with iris dataset -------------------
+
+# Step 1 - start a plot with `ggplot()` --
+ggplot(iris, aes(x = Sepal.Length, 
+  y = Petal.Length))
+
+# Step 2 - add layers: `geom_point()` --
+ggplot(iris, aes(x = Sepal.Length, 
+  y = Petal.Length)) +
+  geom_point()
+
+ggplot(iris, aes(x = Sepal.Length, 
+  y = Petal.Length)) +
+  geom_point(aes(col = Species))
+
+# Step 2 - add layers: `geom_smooth()` --
+ggplot(iris, aes(x = Sepal.Length, 
+  y = Petal.Length)) +
+  geom_point(aes(col = Species)) +
+  geom_smooth()
+
+ggplot(iris, aes(x = Sepal.Length, 
+  y = Petal.Length)) +
+  geom_point(aes(col = Species)) +
+  geom_smooth(aes(col = Species), 
+    method = "lm")
+
+ggplot(iris, aes(x = Sepal.Length, 
+  y = Petal.Length, col = Species)) +
+  geom_point() +
+  geom_smooth(method = "lm")
+
+### Step 3 - add scales: `scale_colour_brewer()`
+ggplot(iris, aes(x = Sepal.Length, 
+  y = Petal.Length, col = Species)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  scale_colour_brewer() 
+
+# Step 4 - add facets: `facet_wrap()` --
+ggplot(iris, aes(x = Sepal.Length, 
+  y = Petal.Length, col = Species)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  scale_colour_brewer() +
+  facet_wrap(~Species, nrow=3)
+
+ggplot(iris, aes(x = Sepal.Length, 
+  y = Petal.Length, col = Species)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  scale_colour_brewer() +
+  facet_wrap(~Species, nrow=3)
+
+# Step 5 - modify coordinate system: `coord_polar()` --
+ggplot(iris, aes(x = Sepal.Length, 
+  y = Petal.Length, col = Species)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  scale_colour_brewer() +
+  facet_wrap(~Species, nrow=3) +
+  coord_polar()
+
+# Step 6 - save the plot: `ggsave()` --
+ggplot(iris, aes(x = Sepal.Length, 
+  y = Petal.Length, col = Species)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  scale_colour_brewer() +
+  facet_wrap(~Species, nrow=3) +
+  coord_polar()
+
+ggsave("Iris_length_relationships.pdf", width = 4, height = 4)
+
+
+# Common Plot examples ---------------------------------
+
+# BARPLOT  --
+hydro_sub <- hydro %>%
+  filter(pres < 10, month %in% c("1","2","3","4","5")) %>%
+  select(month, station) %>%
+  distinct()
+bar <- ggplot(hydro_sub, aes(x = as.factor(month)))
+bar + geom_bar(fill = "#9ACD32") + 
+  xlab("x") + 
+  theme_bw() +
+  theme(
+    panel.background = element_rect(fill = "transparent", colour = NA), 
+    plot.background = element_rect(fill = "transparent", colour = NA), 
+    panel.grid = element_blank()
+  )
+
+# HISTOGRAM and DENSITY PLOT --
+hydro_sub <- hydro %>%
+  filter(pres < 10, month == 7) %>%
+  group_by(month, station, date_time) %>%
+  summarize(mean_sst = mean(temp, na.rm = TRUE))
+
+hist <- ggplot(hydro_sub, aes(x = mean_sst))
+hist + geom_histogram(aes(y = ..density..), fill = "skyblue3", colour = "black") + 
+  geom_density(alpha = 0.4, fill = "yellow", col = "yellow") +
+  xlab("x") + 
+  theme_bw() +
+  theme(
+    panel.background = element_rect(fill = "transparent", colour = NA), 
+    plot.background = element_rect(fill = "transparent", colour = NA), 
+    panel.grid = element_blank()
+  )
+
+# BOXPLOT --
+hydro_sub <- hydro %>%
+  filter(pres < 10, month %in% c("5", "6","7")) %>%
+  group_by(month, station, date_time) %>%
+  summarize(mean_sst = mean(temp, na.rm = TRUE))
+
+boxp <- ggplot(hydro_sub, aes(x = month, y = mean_sst))
+boxp + geom_boxplot(outlier.colour = "red", outlier.alpha = 0.2,
+  fill = "rosybrown2") +
+  xlab("x") + ylab("y") +
+  theme_bw() +
+  theme(
+    panel.background = element_rect(fill = "transparent", colour = NA), 
+    plot.background = element_rect(fill = "transparent", colour = NA), 
+    panel.grid = element_blank()
+  )
+
+# SCATTERPLOT --
+hydro_sub <- hydro %>%
+  filter(pres < 10, month %in% c("1","3")) 
+bar <- ggplot(hydro_sub, aes(x = psal, y = temp))
+bar + geom_point(fill = "#9ACD32") + 
+  xlab("x") + ylab("y") +
+  theme_bw() +
+  theme(
+    panel.background = element_rect(fill = "transparent", colour = NA), 
+    plot.background = element_rect(fill = "transparent", colour = NA), 
+    panel.grid = element_blank()
+  )
+
+# SCATTERPLOT with aes mapping for colour and geom_smoother --
+# (in 4 panels)
+hydro_sub <- hydro %>%
+  filter(pres < 10, month %in% c("1","3")) 
+bar <- ggplot(hydro_sub, aes(x = psal, y = temp, col = month)) +
+  xlab("x") + ylab("y") +
+  theme_bw() +
+  theme(
+    panel.background = element_rect(fill = "transparent", colour = NA), 
+    plot.background = element_rect(fill = "transparent", colour = NA), 
+    panel.grid = element_blank(),
+    legend.position = "none"
+  ) 
+b1 <- bar + geom_point(aes(col = lat))  
+b2 <- bar + geom_point() + scale_color_manual(values = c("steelblue3", "#F0CE05"))
+b3 <- bar + geom_point() + geom_smooth(method = "lm") +
+  scale_color_manual(values = c("steelblue3", "#F0CE05"))
+b4 <- bar + geom_point() + geom_smooth() +
+  scale_color_manual(values = c("steelblue3", "#F0CE05"))
+
+gridExtra::grid.arrange(grobs = list(b1, b2, b3, b4), nrow = 2) 
+
+
+# Some examples with the ICES hydro data-------------------------
+
+# A barplot to see the frequency of monthly samplings  --
+hydro_sub <- hydro %>%
+  select(month, station, date_time) %>%
+  distinct()
+
+ggplot(hydro_sub,aes(x=factor(month))) +
+  geom_bar()
+
+# A scatterplot to see all stations, coloured by month --
+hydro_sub <- hydro %>%
+  select(month,station,lat,long) %>%
+  distinct()
+
+ggplot(hydro_sub, aes(x = long,  
+  y = lat, col = factor(month))) +
+  geom_point() 
+
+# A histogram to see the distribution of (all) temperature values --
+p <- hydro %>% ggplot(aes(x = temp)) +
+  geom_histogram()
+p
+
+# A boxplot to compare the surface temperature between months --
+hydro %>% filter(pres < 5) %>%
+  group_by(month, station, date_time, cruise) %>%
+  summarise(mean_sst = mean(temp)) %>%
+  ggplot(aes(x = factor(month), y = mean_sst)) +
+  geom_boxplot(outlier.colour = "red", outlier.alpha = 0.2)
+
+# Correlation plot between temperature and salinity --
+ggplot(hydro, aes(x = psal, y = temp, col = day)) +
+  geom_point()
+
+# .. now separated by month --
+ggplot(hydro, aes(x = psal, y = temp, col = day)) +
+  geom_point() +
+  facet_wrap(~factor(month), nrow = 3)
+
+# Depth profile at one station in July --
+hydro_sub <- hydro %>% 
+  filter(station=="0403",month==7,day==11) 
+p_temp <- ggplot(hydro_sub, aes(y=pres)) +
+  geom_point(aes(x = temp), col="red") +
+  ylim(70, 0)
+p_sal <- ggplot(hydro_sub, aes(y=pres)) +
+  geom_point(aes(x = psal)) +
+  ylim(70, 0)
+p_oxy <- ggplot(hydro_sub, aes(y=pres)) +
+  geom_point(aes(x = doxy), col="blue") +
+  ylim(70, 0)
+gridExtra::grid.arrange(grobs = list(
+  p_temp, p_sal, p_oxy), nrow=1)
+
+# Some extension examples: `ggridges` --
+#install.packages("ggridges")
+library(ggridges)
+hydro %>% filter(pres < 10) %>%
+  group_by(station, month, day) %>%
+  summarise(sst = mean(temp)) %>%
+  ggplot(aes(x = sst, y = factor(month), fill = as.factor(month))) +
+  geom_density_ridges(scale = 12) +
+  scale_fill_cyclical(values = c("blue", "green"))
+
+# Some extension examples: `ggmap` --
+#install.packages("ggmap")
+library(ggmap)
+b <-matrix(c(min(hydro$long), max(hydro$long), 
+  min(hydro$lat), max(hydro$lat)), byrow=T,nrow=2)
+colnames(b) <- c("min","max")
+rownames(b) <- c("x","y")
+map_bs <- ggmap(get_map(location = b, zoom = 5))
+map_bs + geom_point(data=hydro, aes(long, lat), 
+  size=0.5, color="red")
+```
+
+
+<br>
+<br>
+<br>
+
+
+
+

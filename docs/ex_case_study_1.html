@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Case study 1: Hydrographical dynamics in the Baltic Sea</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/spacelab.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
+<link href="site_libs/ionicons-2.0.1/css/ionicons.min.css" rel="stylesheet" />
+
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="css_site/style_site.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 52px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+
+.section h2 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+.section h3 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+.section h4 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+.section h5 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+.section h6 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = false;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://marinedatascience.co">
+        <img id="mds_logo" alt="" src="img_site/mds_logo_grey@2x.png" width="30" height="30" >
+        MDS
+      </a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+          <a href="index.html">
+            <span class="fa fa-home"></span>
+              Data Analysis with R
+          </a>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+            <span class="fa fa-graduation-cap"></span>
+              Lectures
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu" role="menu">
+            <li class="dropdown-header">Programming in R</li>
+            <li class="dropdown-item">
+              <a href="lecture01_intro2data_science_and_r.html ">1-Introduction to data science and R</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture02_r_basics.html">2-Basics in R</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture03_data_structures.html">3-Data structures and basic calculations</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture04_operators.html">4-Operators</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture05_data_wrangling_import.html">5-Data wrangling - 1.Import</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture06_data_wrangling_tidy_data.html">6-Data wrangling - 2.Tidy Data</a>
+            </li>
+            <li class="dropdown-header">Data exploration &amp; visualization</li>
+            <li class="dropdown-item">
+              <a href="lecture07_data_wrangling_transformation.html">7-Data wrangling - 3.Transformation</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture08_intro2visualization_1.html">8-Intro2Visualization - Part 1</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture09_intro2visualization_2.html">9-Intro2Visualization - Part 2(Adjusting plots)</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture10_categorical_data.html">10-Handling and visualization of categorical data</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture11_rmarkdown.html">11-R Markdown for communication</a>
+            </li>
+            <li class="dropdown-header">Statistical Modelling</li>
+            <li class="dropdown-item">
+              <a href="lecture12_stat_modelling_1.html">12-Intro2Statistical Modelling - Part 1</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture13_stat_modelling_2.html">13-Intro2Statistical Modelling - Part 2</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture14_stat_modelling_3.html">14-Model building and selection</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture15_stat_modelling_4.html">15-Modelling demonstration</a>
+            </li>
+            <li class="dropdown-header">Programming in R</li>
+            <li class="dropdown-item">
+              <a href="lecture16_string_manipulation.html">16-String manipulation and regular expressions</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture17_functionsniterations_1.html">17-Functions and Iteration 1 (Loops)</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture18_iterations_2.html">18-Iteration 2 (purrr and the map family)</a>
+            </li>
+            <li class="divider"></li>
+            <li class="dropdown-header">slides, keyboard shortcuts:</li>
+            <li class="dropdown-header">o: outline</li>
+            <li class="dropdown-header">w: widescreen on/off</li>
+            <li class="dropdown-header">f: fullscreen on/off</li>
+            <li class="dropdown-header">ctrl +/ ctrl -: zoom in/out</li>
+            <li class="dropdown-header">p: presenter mode with additional info (NOT in Safari)</li>
+          </ul>
+        </li>
+        <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+          <span class="fa fa-gear"></span>
+            Exercises
+          <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu" role="menu">
+          <li class="dropdown-header">Practicals</li>
+          <li class="dropdown-item">
+            <a href="ex_resources.html">Resources</a>
+          </li>
+          <li class="dropdown-item">
+            <a href="ex_swirl.html">Quizzes with swirl</a>
+          </li>
+          <li class="divider"></li>
+          <li class="dropdown-header">Case studies</li>
+          <li class="dropdown-item">
+            <a href="ex_case_study_1.html">Case study 1</a>
+          </li>
+          <li class="dropdown-item">
+            <a href="ex_case_study_2.html">Case study 2</a>
+          </li>
+          <li class="dropdown-item">
+            <a href="ex_case_study_1_solutions.html">Case study 1 - solution</a>
+          </li>
+          <li class="dropdown-item">
+            <a href="ex_case_study_2_solutions.html">Case study 2 - solution</a>
+          </li>
+          <li class="divider"></li>
+          <li class="dropdown-header">Demo Code</li>
+          <li class="dropdown-item">
+            <a href="ex_lecture08_code_geom_functions.html">Lecture 8 - Geom functions</a>
+          </li>
+          <li class="dropdown-item">
+            <a href="ex_lecture08_code_ggplots_in_slides.html">Lecture 8 - Code for ggplots in lecture</a>
+          </li>
+          <li class="dropdown-item">
+            <a href="ex_lecture14_code_find_the_model.html">Lecture 14 - Find the model</a>
+          </li>
+          <li class="dropdown-item">
+            <a href="ex_lecture15_model_building_demo.html">Lecture 15 - Model building demo</a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="misc.html">
+          <span class="ion ion-wrench"></span>
+            Misc
+        </a>
+      </li>
+      <li>
+        <a href="video.html">
+          <span class="ion ion-ios-videocam"></span>
+            Videos
+        </a>
+      </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li>
+        <a href="about.html">
+          <span class="fa fa-newspaper"></span>
+            About
+        </a>
+      </li>
+      <li>
+        <a href="mailto:saskia.otto@uni-hamburg.de">
+          <span class="fa fa-send"></span>
+            Contact
+        </a>
+      </li>
+    </ul>
+   </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Case study 1:<br>Hydrographical dynamics in the Baltic Sea</h1>
+
+</div>
+
+
+<hr />
+<div class="img-with-text">
+<a href="https://earthobservatory.nasa.gov/IOTD/view.php?id=84047"> <!-- https://eoimages.gsfc.nasa.gov/images/imagerecords/84000/84047/ISS040-E-012110_lrg.jpg --> <img src="img_site/Baltic_satellite.jpg" alt="Darst"style="width:900px;height:300px;border:0;" > </a>
+<p>
+<span class="source-img" style="float:right; font-size:10px;">Foto: ISS Crew Earth Observations Facility and the Earth Science and Remote Sensing Unit, Johnson Space Center (under CC0)</span>
+</p>
+</div>
+<div id="background" class="section level1">
+<h1>Background</h1>
+<p>The Baltic Sea in Northern Europe is worldwide one of the greatest brackish water systems, extending over 13 degrees of latitude and thus featuring a strong temperature gradient across the different basins. Due to its semi-enclosed nature with a narrow connection to the North Sea, the Baltic Sea experiences a net positive freshwater balance. In the deep areas of the Central Baltic Sea, this leads to a permanent stratification with a highly saline deepwater (values &gt; 12) being separated from low salinity surface waters (values &lt; 9). Vertical mixing of the water masses is hence restricted by a halocline at about 60-100 m depth. The exchange of deepwater in these areas can only occur by strong pulses of salt water inflow. These so-called “major Baltic inflows” (MBI)<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a><sup>,</sup><a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a>, can change the oceanological regime of the whole water column and improve the living conditions of for example benthic animals by the distribution of oxygenated water. During the summer months a thermocline develops at a depth of 20-30 m leading to an enhanced vertical habitat differentiation. Such stratifications create sub-habitats for fish and zooplankton species<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a><sup>,</sup><a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a><sup>,</sup><a href="#fn5" class="footnoteRef" id="fnref5"><sup>5</sup></a></p>
+<p>Over the past 3 decades we observed decreased frequencies of MBIs, which have been attributed to changed atmospheric forcing conditions. This resulted in decreased salinity levels due to the shallowing of the halocline affecting cod recruitment success and the zooplankton stock size of <em>Pseudocalanus acuspes</em> <a href="#fn6" class="footnoteRef" id="fnref6"><sup>6</sup></a><sup>,</sup><a href="#fn7" class="footnoteRef" id="fnref7"><sup>7</sup></a>. After a 12-year stagnation period an MBI was recorded in January 2015, which brought highly saline waters into the Bornholm Basin (20 psu, according to Rak<a href="#fn8" class="footnoteRef" id="fnref8"><sup>8</sup></a>).</p>
+<br>
+<div class="img-with-text">
+<a href="http://helcom.fi/PublishingImages/baltic-sea-trends/environment-fact-sheets/hydrography/"> <img src="img_site/fig%206_SST_BSEFS2014.jpg" alt="SST-Aug13"style="float:left;clear:left;width:350px;height:350px;border:0;"> </a> <a href="http://www.helcom.fi/PublishingImages/baltic-sea-trends/environment-fact-sheets/hydrography/"> <img src="img_site/BSEFS2014_%20Hydrography%20and%20oxygen%20in%20the%20deep%20basins_Fig%203a.jpg" alt="Hypoxia"style="width:437.5px;height:350px;border:0;" > </a>
+<p>
+<span class="source-img" style="float:right; font-size:10px;">Maps: HELCOM environment fact sheets (under CC0)</span>
+</p>
+</div>
+<p><br></p>
+</div>
+<div id="your-task" class="section level1">
+<h1>Your task</h1>
+<p>This case study is meant to repeat all the single steps you learnt in the previous lectures and to summarize them into one analysis as you would do also with a real analysis. Some of the steps you probably will have done already with the previous exercises → then simply put them together in your RMarkdown file, this time adding a bit more text on why you did what.</p>
+<p>You will explore the oceanographical datasets downloaded from the <a href="http://ocean.ices.dk/HydChem/HydChem.aspx?plot=yes">ICES data portal</a> for the Baltic Sea and the year 2015. The dataset contains of 30012 rows and 11 columns. A brief description of each column follows:</p>
+<table class="table table-striped table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Field
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Cruise
+</td>
+<td style="text-align:left;">
+4-digit codes referring to the research vessel (e.g. 34AR represents the Finnish vessel ARANDA)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Station
+</td>
+<td style="text-align:left;">
+4-digit codes assigned to every station
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Type
+</td>
+<td style="text-align:left;">
+Type of measurement: B = bottle data
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+yyyy-mm-ddThh:mm
+</td>
+<td style="text-align:left;">
+Date and time
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Latitude [degrees_north]
+</td>
+<td style="text-align:left;">
+Station coordinates: Latitude in decimal degrees
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Longitude [degrees_east]
+</td>
+<td style="text-align:left;">
+Station coordinates: Longitude in decimal degrees
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Bot. Depth [m]
+</td>
+<td style="text-align:left;">
+Bottom depth at station (in metre)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PRES [db]
+</td>
+<td style="text-align:left;">
+Pressure of measurement depth, in decibar (equivalent to metre depth)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+TEMP [deg C]
+</td>
+<td style="text-align:left;">
+Water temperature at specific measurement depth, in degree Celcius
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PSAL [psu]
+</td>
+<td style="text-align:left;">
+Salinity at specific measurement depth, measured in unit of PSU (Practical Salinity Unit)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DOXY [ml/l]
+</td>
+<td style="text-align:left;">
+Concentration of dissolved oxygen at specific measurement depth, in mililitre per litre
+</td>
+</tr>
+</tbody>
+</table>
+<div id="the-rmarkdown-file" class="section level2">
+<h2>The RMarkdown file</h2>
+<p>Create an HTML RMarkdown file with the Case study as the title (see above). You should have the following YAML header:</p>
+<pre><code>---  
+title: &quot;Case study 1: Hydrographical dynamics in the Baltic Sea&quot;
+author: &quot;Group letter and all (full) names of the group members&quot;
+date: &quot;November 2017&quot;
+output:
+  html_document:
+    toc: yes
+---  </code></pre>
+<p>Take advantage of all the formatting options using Pandoc’s Markdown syntax, e.g. #, ##, ###, horizontal lines (with ***), etc. (see for more info the <a href="http://rmarkdown.rstudio.com/lesson-15.html">RMarkdown cheatsheet</a>!)</p>
+<p>All your text should be OUTSIDE the R code chunks, all the R code and some comments for yourself INSIDE these chunks.</p>
+<div id="please-follow-these-guidelines" class="section level3">
+<h3>Please follow these guidelines:</h3>
+<ul>
+<li><strong>Every step</strong> should be <strong>documented</strong> (use headers for this).</li>
+<li>Try to write in <strong>English</strong>.</li>
+<li><strong>Inform</strong> the reader (which will be me in the first place) <strong>why</strong> you do certain steps (e.g. why do you not do anything about NAs or why you convert them into something else).</li>
+<li>Every result you compute should be <strong>summarised in your own words and interpreted</strong> (if it is not part of one of the questions than 2 or 3 sentences will be sufficient).</li>
+<li>If you have any question write them with the following <mark>highlight</mark> syntax: <code>&lt;mark&gt;Question: Your text....&lt;/mark&gt;</code> → now you learned HTML coding :-)!</li>
+</ul>
+<hr />
+</div>
+</div>
+<div id="step-1-data-wrangling" class="section level2">
+<h2>Step 1: Data wrangling</h2>
+<p>As you learned now, before you can do any data manipulation and visualization you need to get the data into R in a tidy format:</p>
+<ol style="list-style-type: decimal">
+<li>Import file “1111473b.csv”.</li>
+<li>Check if the <strong>parsed formats</strong> for the variabeles are <strong>correct</strong>, check the date format.</li>
+<li><strong>Rename</strong> the variables to something shorter following the R syntax guidelines.</li>
+<li>Make the data tidy:
+<ul>
+<li>Is any <strong>restructuring</strong> needed?</li>
+<li>Is any <strong>separation or union</strong> needed?</li>
+<li>Are the <strong>data </strong>types correct?</li>
+<li>Do you need to handle <strong>NAs</strong>?</li>
+<li>Are there any <strong>awkward values</strong> in the data (potential typing errors)?</li>
+</ul></li>
+</ol>
+<p>Before you can explore the dataset lets to some final data tidying in terms of the <strong>date</strong>: Create <strong>additional variables</strong> that contain only <code>year</code>, <code>month</code>, <code>day</code>, and <code>yday</code> (day-of-the-year), but keep the original date/time column.</p>
+<p>Depending on the question of interest you need to transform and/or aggregate your dataset every time differently, e.g.</p>
+<ul>
+<li>you might need to aggregate over the different depth measurements if you are only interested in the sampling itself</li>
+<li>you might need to aggregate over the different depth measurements AND the samplings if you are only interested in the stations.</li>
+</ul>
+<p>Remember, the <a href="https://cran.r-project.org/web/packages/dplyr/vignettes/dplyr.html">dplyr</a> package offers many functions for doing all kinds of data manipulations (the <a href="https://www.rstudio.com/resources/cheatsheets/">cheatsheet</a> is really helpful)!</p>
+<hr />
+</div>
+<div id="step-2-data-quality-check" class="section level2">
+<h2>Step 2: Data quality check</h2>
+<p>(see also the exercises in lecture 7 - Data wrangling: 3.transformations)</p>
+<ol style="list-style-type: decimal">
+<li>If you consider aggregating your data over different depth ranges (e.g. surface, mid-layer, deepwater) or if you want to filter certain depths you should be aware of</li>
+</ol>
+<ol style="list-style-type: lower-roman">
+<li>the most frequently sampled depth and</li>
+<li>the most common depth profiles taken (Every 1 metre, every 5 metres?)</li>
+</ol>
+<ol start="2" style="list-style-type: decimal">
+<li>If you want to aggregate your data over the months, you should be aware of</li>
+</ol>
+<ol style="list-style-type: lower-roman">
+<li>the number of stations sampled → if unbalanced, a weighted mean might be more suitable?</li>
+<li>whether stations were sampled more than once in that month → should you calculate a station mean (aggregating the different samplings) first before you calculate a monthly mean? Would it make a difference? (<strong>Always try out the different versions and compare!</strong>)</li>
+<li>where there any temporal gap during the year where no sampling took place? → that might bias your monthly mean results</li>
+</ol>
+<ol start="3" style="list-style-type: decimal">
+<li>If you want to exclude <strong>NAs</strong> or treat them in a specific way, it is good to know whether they occur <strong>randomly</strong> in your dataset or if there is a <strong>specific pattern</strong></li>
+</ol>
+<ol style="list-style-type: lower-roman">
+<li>are NAs in the dataset related to specific months or cruises? → maybe you want to consider excluding the entire cruise/month?</li>
+</ol>
+<hr />
+</div>
+<div id="step-3-ecological-questions" class="section level2">
+<h2>Step 3: Ecological questions</h2>
+<p>The following list of questions summarises mainly all the ideas you collected. I want you to investigate (numerically by looking at summarized data tables and graphically by producing different ggplots):</p>
+<ol style="list-style-type: decimal">
+<li><strong>Temporal</strong> components</li>
+</ol>
+<ol style="list-style-type: lower-roman">
+<li>Can you find a seasonal pattern in the overall temperature, salinity, and oxygen conditions (for the complete Baltic Sea)?</li>
+<li>Is the seasonal dynamic everywhere the same or does it vary in different areas/basins?</li>
+</ol>
+<ol start="2" style="list-style-type: decimal">
+<li><strong>Spatial</strong> components (<strong>horizontally</strong>)</li>
+</ol>
+<ol style="list-style-type: lower-roman">
+<li>Can you see in the data a spatial gradient of temperature, salinity, and oxygen conditions across the Baltic Sea?</li>
+<li>If there is a gradient, is it a continuous one or can you define certain areas that are similar?</li>
+<li>Are there any seasonal or monthly changes in the spatial pattern of these 3 parameters?</li>
+</ol>
+<ol start="3" style="list-style-type: decimal">
+<li><strong>Spatial</strong> components (<strong>vertically</strong></li>
+</ol>
+<ol style="list-style-type: lower-roman">
+<li>Can you identify a water stratification in terms of temperature, salinity, and oxygen conditions? For which parameters, which months and which areas?</li>
+</ol>
+<ol start="4" style="list-style-type: decimal">
+<li><strong>Comparison</strong> with findings of Rak (2016):</li>
+</ol>
+<ol style="list-style-type: lower-roman">
+<li>If you select only stations that are close to the transect described in Figure 1 (i.e. stations around 55°N and between 15° and 19°E), do you find a similar vertical distribution of temperature, salinity, and oxygen for January and February?</li>
+</ol>
+<ol start="5" style="list-style-type: decimal">
+<li>2015 vs. 2014 (<strong>voluntarily</strong>):</li>
+</ol>
+<ol style="list-style-type: lower-roman">
+<li>If you are interested to compare the depth profile from 2015 (after the MBI) with the time before (e.g. 2014) than download the data from ICES and apply the same steps to the data to make a comparison. Do you see and improvement in salinity and particularly oxygen conditions in the Central Baltic Sea in 2015?</li>
+</ol>
+<hr />
+</div>
+</div>
+<div id="references" class="section level1">
+<h1>References</h1>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Wyrtki, K. 1954. “Der Große Salzeinbruch in Die Ostee Im November Und Dezember 1951.” Kiel. Meeresforsch. 10, no. 1: 19-25.<a href="#fnref1">↩</a></p></li>
+<li id="fn2"><p>Fonselius, S. H. 1969. “Hydrography of the Baltic Deep Basins Iii.” In Series Hydrography, 97: Fishery Board of Sweden<a href="#fnref2">↩</a></p></li>
+<li id="fn3"><p>Otto, S.A., Diekmann, R., Flinkman J., Kornilovs G., and C. Möllmann. 2014. “Habitat Heterogeneity Determines Climate Impact on Zooplankton Community Structure and Dynamics.” PLoS ONE 9, no. 3: e90875.<a href="#fnref3">↩</a></p></li>
+<li id="fn4"><p>Schaber, M., H. H. Hinrichsen, S. Neuenfeldt, and R. Voss. 2009. “Hydroacoustic Resolution of Small-Scale Vertical Distribution in Baltic Cod Gadus Morhua—Habitat Choice and Limits During Spawning.” Mar. Ecol. Prog. Ser. 377: 239-53.<a href="#fnref4">↩</a></p></li>
+<li id="fn5"><p>Schulz, J., C. Möllmann, and H. J. Hirche. 2007. “Vertical Zonation of the Zooplankton Community in the Central Baltic Sea in Relation to Hydrographic Stratification as Revealed by Multivariate Discriminant Function and Canonical Analysis.” J. Mar. Syst. 67, no. 1-2: 47-58.<a href="#fnref5">↩</a></p></li>
+<li id="fn6"><p>Möllmann, C., R. Diekmann, B. Müller-Karulis, G. Kornilovs, M. Plikshs, and P. Axe. 2009. “Reorganization of a Large Marine Ecosystem Due to Atmospheric and Anthropogenic Pressure: A Discontinuous Regime Shift in the Central Baltic Sea.” Glob. Change Biol. 15: 1377-93.<a href="#fnref6">↩</a></p></li>
+<li id="fn7"><p>Otto, S.A., Kornilovs, G., Llope, M. and C. Möllmann. 2014. “Interactions among Density, Climate, and Food Web Effects Determine Long-Term Life Cycle Dynamics of a Key Copepod.” Mar. Ecol. Prog. Ser. 498: 73-84.<a href="#fnref7">↩</a></p></li>
+<li id="fn8"><p><a href="http://www.sciencedirect.com/science/article/pii/S0078323416300033">Rak, D. 2016. “The Inflow in the Baltic Proper as Recorded in January–February 2015.” Oceanologia 58, no. 3:241-47.</a><a href="#fnref8">↩</a></p></li>
+</ol>
+</div>
+
+</div> <!-- articleBandContent -->
+</div> <!-- pageContent -->
+
+<footer class="site_footer">
+<div id="maredsFooter" class="footer">
+  <div class="footerContent">
+
+    <!-- column 1 -->
+    <div class="col-md-2" style="padding-top:.25%; text-align:center; color:#626262;">
+      <a href="https://github.com/mareds">
+        <i class="fa fa-github fa-lg"></i> MARinE Data Science</a> 
+    </div>
+    
+    <!-- column 1 -->
+    <div class="col-md-2" style="padding-top:.25%; text-align:center; color:#626262;">
+      <a href="https://github.com/saskiaotto">
+        <i class="fa fa-github fa-lg"></i> saskiaotto</a>
+    </div>
+
+    <!-- column 2 -->
+    <div class="col-md-6">
+      <!-- <blockquote style="line-height:10px;border-left: 2px solid #999999;"> -->
+          <p style="font-size:15px;color:#626262;border-left: 2px solid #999999;padding-left:5px; padding-top:.25%; font-style:italic;">
+            The difference between stupidity and genius is that genius has its limits.
+            <span style="font-size:11px;color:#909090">A.E.</span></p>
+      <!-- </blockquote> -->
+    </div>
+    
+      <!-- column 3 -->
+    <div class="col-md-2" style="padding-top:.25%; text-align:right; color:#626262;">
+      <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+          CC-BY-SA 4.0</a>
+    </div>
+
+  </div> <!-- footerContent -->
+</div> <!-- footer -->
+
+
+</footer>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

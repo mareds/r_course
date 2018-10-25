@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Lecture 8</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/spacelab.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
+<link href="site_libs/ionicons-2.0.1/css/ionicons.min.css" rel="stylesheet" />
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; background-color: #f8f8f8; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+pre, code { background-color: #f8f8f8; }
+code > span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code > span.dt { color: #204a87; } /* DataType */
+code > span.dv { color: #0000cf; } /* DecVal */
+code > span.bn { color: #0000cf; } /* BaseN */
+code > span.fl { color: #0000cf; } /* Float */
+code > span.ch { color: #4e9a06; } /* Char */
+code > span.st { color: #4e9a06; } /* String */
+code > span.co { color: #8f5902; font-style: italic; } /* Comment */
+code > span.ot { color: #8f5902; } /* Other */
+code > span.al { color: #ef2929; } /* Alert */
+code > span.fu { color: #000000; } /* Function */
+code > span.er { color: #a40000; font-weight: bold; } /* Error */
+code > span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #000000; } /* Constant */
+code > span.sc { color: #000000; } /* SpecialChar */
+code > span.vs { color: #4e9a06; } /* VerbatimString */
+code > span.ss { color: #4e9a06; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #000000; } /* Variable */
+code > span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code > span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code > span.ex { } /* Extension */
+code > span.at { color: #c4a000; } /* Attribute */
+code > span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code > span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="css_site/style_site.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 52px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+
+.section h2 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+.section h3 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+.section h4 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+.section h5 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+.section h6 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://marinedatascience.co">
+        <img id="mds_logo" alt="" src="img_site/mds_logo_grey@2x.png" width="30" height="30" >
+        MDS
+      </a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+          <a href="index.html">
+            <span class="fa fa-home"></span>
+              Data Analysis with R
+          </a>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+            <span class="fa fa-graduation-cap"></span>
+              Lectures
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu" role="menu">
+            <li class="dropdown-header">Programming in R</li>
+            <li class="dropdown-item">
+              <a href="lecture01_intro2data_science_and_r.html ">1-Introduction to data science and R</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture02_r_basics.html">2-Basics in R</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture03_data_structures.html">3-Data structures and basic calculations</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture04_operators.html">4-Operators</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture05_data_wrangling_import.html">5-Data wrangling - 1.Import</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture06_data_wrangling_tidy_data.html">6-Data wrangling - 2.Tidy Data</a>
+            </li>
+            <li class="dropdown-header">Data exploration &amp; visualization</li>
+            <li class="dropdown-item">
+              <a href="lecture07_data_wrangling_transformation.html">7-Data wrangling - 3.Transformation</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture08_intro2visualization_1.html">8-Intro2Visualization - Part 1</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture09_intro2visualization_2.html">9-Intro2Visualization - Part 2(Adjusting plots)</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture10_categorical_data.html">10-Handling and visualization of categorical data</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture11_rmarkdown.html">11-R Markdown for communication</a>
+            </li>
+            <li class="dropdown-header">Statistical Modelling</li>
+            <li class="dropdown-item">
+              <a href="lecture12_stat_modelling_1.html">12-Intro2Statistical Modelling - Part 1</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture13_stat_modelling_2.html">13-Intro2Statistical Modelling - Part 2</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture14_stat_modelling_3.html">14-Model building and selection</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture15_stat_modelling_4.html">15-Modelling demonstration</a>
+            </li>
+            <li class="dropdown-header">Programming in R</li>
+            <li class="dropdown-item">
+              <a href="lecture16_string_manipulation.html">16-String manipulation and regular expressions</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture17_functionsniterations_1.html">17-Functions and Iteration 1 (Loops)</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="lecture18_iterations_2.html">18-Iteration 2 (purrr and the map family)</a>
+            </li>
+            <li class="divider"></li>
+            <li class="dropdown-header">slides, keyboard shortcuts:</li>
+            <li class="dropdown-header">o: outline</li>
+            <li class="dropdown-header">w: widescreen on/off</li>
+            <li class="dropdown-header">f: fullscreen on/off</li>
+            <li class="dropdown-header">ctrl +/ ctrl -: zoom in/out</li>
+            <li class="dropdown-header">p: presenter mode with additional info (NOT in Safari)</li>
+          </ul>
+        </li>
+        <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+          <span class="fa fa-gear"></span>
+            Exercises
+          <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu" role="menu">
+          <li class="dropdown-header">Practicals</li>
+          <li class="dropdown-item">
+            <a href="ex_resources.html">Resources</a>
+          </li>
+          <li class="dropdown-item">
+            <a href="ex_swirl.html">Quizzes with swirl</a>
+          </li>
+          <li class="divider"></li>
+          <li class="dropdown-header">Case studies</li>
+          <li class="dropdown-item">
+            <a href="ex_case_study_1.html">Case study 1</a>
+          </li>
+          <li class="dropdown-item">
+            <a href="ex_case_study_2.html">Case study 2</a>
+          </li>
+          <li class="dropdown-item">
+            <a href="ex_case_study_1_solutions.html">Case study 1 - solution</a>
+          </li>
+          <li class="dropdown-item">
+            <a href="ex_case_study_2_solutions.html">Case study 2 - solution</a>
+          </li>
+          <li class="divider"></li>
+          <li class="dropdown-header">Demo Code</li>
+          <li class="dropdown-item">
+            <a href="ex_lecture08_code_geom_functions.html">Lecture 8 - Geom functions</a>
+          </li>
+          <li class="dropdown-item">
+            <a href="ex_lecture08_code_ggplots_in_slides.html">Lecture 8 - Code for ggplots in lecture</a>
+          </li>
+          <li class="dropdown-item">
+            <a href="ex_lecture14_code_find_the_model.html">Lecture 14 - Find the model</a>
+          </li>
+          <li class="dropdown-item">
+            <a href="ex_lecture15_model_building_demo.html">Lecture 15 - Model building demo</a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="misc.html">
+          <span class="ion ion-wrench"></span>
+            Misc
+        </a>
+      </li>
+      <li>
+        <a href="video.html">
+          <span class="ion ion-ios-videocam"></span>
+            Videos
+        </a>
+      </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li>
+        <a href="about.html">
+          <span class="fa fa-newspaper"></span>
+            About
+        </a>
+      </li>
+      <li>
+        <a href="mailto:saskia.otto@uni-hamburg.de">
+          <span class="fa fa-send"></span>
+            Contact
+        </a>
+      </li>
+    </ul>
+   </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Lecture 8</h1>
+
+</div>
+
+
+<div id="r-code-from-the-presentation-slides" class="section level2">
+<h2>R Code from the presentation slides</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
+<span class="kw">library</span>(lubridate)
+
+<span class="co"># Import the downloaded data (set your own working directory)</span>
+hydro &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/1111473b.csv&quot;</span>)
+<span class="kw">names</span>(hydro) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;cruise&quot;</span>, <span class="st">&quot;station&quot;</span>, <span class="st">&quot;type&quot;</span>, <span class="st">&quot;date_time&quot;</span>, 
+  <span class="st">&quot;lat&quot;</span>, <span class="st">&quot;long&quot;</span>, <span class="st">&quot;depth&quot;</span>, <span class="st">&quot;pres&quot;</span>, <span class="st">&quot;temp&quot;</span>, <span class="st">&quot;psal&quot;</span>, <span class="st">&quot;doxy&quot;</span>)
+hydro<span class="op">$</span>month &lt;-<span class="st"> </span><span class="kw">month</span>(hydro<span class="op">$</span>date_time)
+hydro<span class="op">$</span>day &lt;-<span class="st"> </span><span class="kw">day</span>(hydro<span class="op">$</span>date_time)
+
+
+<span class="co"># Demonstration with iris dataset -------------------</span>
+
+<span class="co"># Step 1 - start a plot with `ggplot()` --</span>
+<span class="kw">ggplot</span>(iris, <span class="kw">aes</span>(<span class="dt">x =</span> Sepal.Length, 
+  <span class="dt">y =</span> Petal.Length))
+
+<span class="co"># Step 2 - add layers: `geom_point()` --</span>
+<span class="kw">ggplot</span>(iris, <span class="kw">aes</span>(<span class="dt">x =</span> Sepal.Length, 
+  <span class="dt">y =</span> Petal.Length)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>()
+
+<span class="kw">ggplot</span>(iris, <span class="kw">aes</span>(<span class="dt">x =</span> Sepal.Length, 
+  <span class="dt">y =</span> Petal.Length)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">col =</span> Species))
+
+<span class="co"># Step 2 - add layers: `geom_smooth()` --</span>
+<span class="kw">ggplot</span>(iris, <span class="kw">aes</span>(<span class="dt">x =</span> Sepal.Length, 
+  <span class="dt">y =</span> Petal.Length)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">col =</span> Species)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_smooth</span>()
+
+<span class="kw">ggplot</span>(iris, <span class="kw">aes</span>(<span class="dt">x =</span> Sepal.Length, 
+  <span class="dt">y =</span> Petal.Length)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">col =</span> Species)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="kw">aes</span>(<span class="dt">col =</span> Species), 
+    <span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>)
+
+<span class="kw">ggplot</span>(iris, <span class="kw">aes</span>(<span class="dt">x =</span> Sepal.Length, 
+  <span class="dt">y =</span> Petal.Length, <span class="dt">col =</span> Species)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>)
+
+### Step 3 - add scales: `scale_colour_brewer()`
+<span class="kw">ggplot</span>(iris, <span class="kw">aes</span>(<span class="dt">x =</span> Sepal.Length, 
+  <span class="dt">y =</span> Petal.Length, <span class="dt">col =</span> Species)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_colour_brewer</span>() 
+
+<span class="co"># Step 4 - add facets: `facet_wrap()` --</span>
+<span class="kw">ggplot</span>(iris, <span class="kw">aes</span>(<span class="dt">x =</span> Sepal.Length, 
+  <span class="dt">y =</span> Petal.Length, <span class="dt">col =</span> Species)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_colour_brewer</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>Species, <span class="dt">nrow=</span><span class="dv">3</span>)
+
+<span class="kw">ggplot</span>(iris, <span class="kw">aes</span>(<span class="dt">x =</span> Sepal.Length, 
+  <span class="dt">y =</span> Petal.Length, <span class="dt">col =</span> Species)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_colour_brewer</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>Species, <span class="dt">nrow=</span><span class="dv">3</span>)
+
+<span class="co"># Step 5 - modify coordinate system: `coord_polar()` --</span>
+<span class="kw">ggplot</span>(iris, <span class="kw">aes</span>(<span class="dt">x =</span> Sepal.Length, 
+  <span class="dt">y =</span> Petal.Length, <span class="dt">col =</span> Species)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_colour_brewer</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>Species, <span class="dt">nrow=</span><span class="dv">3</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">coord_polar</span>()
+
+<span class="co"># Step 6 - save the plot: `ggsave()` --</span>
+<span class="kw">ggplot</span>(iris, <span class="kw">aes</span>(<span class="dt">x =</span> Sepal.Length, 
+  <span class="dt">y =</span> Petal.Length, <span class="dt">col =</span> Species)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_colour_brewer</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>Species, <span class="dt">nrow=</span><span class="dv">3</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">coord_polar</span>()
+
+<span class="kw">ggsave</span>(<span class="st">&quot;Iris_length_relationships.pdf&quot;</span>, <span class="dt">width =</span> <span class="dv">4</span>, <span class="dt">height =</span> <span class="dv">4</span>)
+
+
+<span class="co"># Common Plot examples ---------------------------------</span>
+
+<span class="co"># BARPLOT  --</span>
+hydro_sub &lt;-<span class="st"> </span>hydro <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(pres <span class="op">&lt;</span><span class="st"> </span><span class="dv">10</span>, month <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;1&quot;</span>,<span class="st">&quot;2&quot;</span>,<span class="st">&quot;3&quot;</span>,<span class="st">&quot;4&quot;</span>,<span class="st">&quot;5&quot;</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(month, station) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">distinct</span>()
+bar &lt;-<span class="st"> </span><span class="kw">ggplot</span>(hydro_sub, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">as.factor</span>(month)))
+bar <span class="op">+</span><span class="st"> </span><span class="kw">geom_bar</span>(<span class="dt">fill =</span> <span class="st">&quot;#9ACD32&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;x&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme</span>(
+    <span class="dt">panel.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="st">&quot;transparent&quot;</span>, <span class="dt">colour =</span> <span class="ot">NA</span>), 
+    <span class="dt">plot.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="st">&quot;transparent&quot;</span>, <span class="dt">colour =</span> <span class="ot">NA</span>), 
+    <span class="dt">panel.grid =</span> <span class="kw">element_blank</span>()
+  )
+
+<span class="co"># HISTOGRAM and DENSITY PLOT --</span>
+hydro_sub &lt;-<span class="st"> </span>hydro <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(pres <span class="op">&lt;</span><span class="st"> </span><span class="dv">10</span>, month <span class="op">==</span><span class="st"> </span><span class="dv">7</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(month, station, date_time) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">mean_sst =</span> <span class="kw">mean</span>(temp, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))
+
+hist &lt;-<span class="st"> </span><span class="kw">ggplot</span>(hydro_sub, <span class="kw">aes</span>(<span class="dt">x =</span> mean_sst))
+hist <span class="op">+</span><span class="st"> </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y =</span> ..density..), <span class="dt">fill =</span> <span class="st">&quot;skyblue3&quot;</span>, <span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_density</span>(<span class="dt">alpha =</span> <span class="fl">0.4</span>, <span class="dt">fill =</span> <span class="st">&quot;yellow&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;yellow&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;x&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme</span>(
+    <span class="dt">panel.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="st">&quot;transparent&quot;</span>, <span class="dt">colour =</span> <span class="ot">NA</span>), 
+    <span class="dt">plot.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="st">&quot;transparent&quot;</span>, <span class="dt">colour =</span> <span class="ot">NA</span>), 
+    <span class="dt">panel.grid =</span> <span class="kw">element_blank</span>()
+  )
+
+<span class="co"># BOXPLOT --</span>
+hydro_sub &lt;-<span class="st"> </span>hydro <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(pres <span class="op">&lt;</span><span class="st"> </span><span class="dv">10</span>, month <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;5&quot;</span>, <span class="st">&quot;6&quot;</span>,<span class="st">&quot;7&quot;</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(month, station, date_time) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">mean_sst =</span> <span class="kw">mean</span>(temp, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))
+
+boxp &lt;-<span class="st"> </span><span class="kw">ggplot</span>(hydro_sub, <span class="kw">aes</span>(<span class="dt">x =</span> month, <span class="dt">y =</span> mean_sst))
+boxp <span class="op">+</span><span class="st"> </span><span class="kw">geom_boxplot</span>(<span class="dt">outlier.colour =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">outlier.alpha =</span> <span class="fl">0.2</span>,
+  <span class="dt">fill =</span> <span class="st">&quot;rosybrown2&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;x&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;y&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme</span>(
+    <span class="dt">panel.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="st">&quot;transparent&quot;</span>, <span class="dt">colour =</span> <span class="ot">NA</span>), 
+    <span class="dt">plot.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="st">&quot;transparent&quot;</span>, <span class="dt">colour =</span> <span class="ot">NA</span>), 
+    <span class="dt">panel.grid =</span> <span class="kw">element_blank</span>()
+  )
+
+<span class="co"># SCATTERPLOT --</span>
+hydro_sub &lt;-<span class="st"> </span>hydro <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(pres <span class="op">&lt;</span><span class="st"> </span><span class="dv">10</span>, month <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;1&quot;</span>,<span class="st">&quot;3&quot;</span>)) 
+bar &lt;-<span class="st"> </span><span class="kw">ggplot</span>(hydro_sub, <span class="kw">aes</span>(<span class="dt">x =</span> psal, <span class="dt">y =</span> temp))
+bar <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="dt">fill =</span> <span class="st">&quot;#9ACD32&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;x&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;y&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme</span>(
+    <span class="dt">panel.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="st">&quot;transparent&quot;</span>, <span class="dt">colour =</span> <span class="ot">NA</span>), 
+    <span class="dt">plot.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="st">&quot;transparent&quot;</span>, <span class="dt">colour =</span> <span class="ot">NA</span>), 
+    <span class="dt">panel.grid =</span> <span class="kw">element_blank</span>()
+  )
+
+<span class="co"># SCATTERPLOT with aes mapping for colour and geom_smoother --</span>
+<span class="co"># (in 4 panels)</span>
+hydro_sub &lt;-<span class="st"> </span>hydro <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(pres <span class="op">&lt;</span><span class="st"> </span><span class="dv">10</span>, month <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;1&quot;</span>,<span class="st">&quot;3&quot;</span>)) 
+bar &lt;-<span class="st"> </span><span class="kw">ggplot</span>(hydro_sub, <span class="kw">aes</span>(<span class="dt">x =</span> psal, <span class="dt">y =</span> temp, <span class="dt">col =</span> month)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;x&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;y&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme</span>(
+    <span class="dt">panel.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="st">&quot;transparent&quot;</span>, <span class="dt">colour =</span> <span class="ot">NA</span>), 
+    <span class="dt">plot.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="st">&quot;transparent&quot;</span>, <span class="dt">colour =</span> <span class="ot">NA</span>), 
+    <span class="dt">panel.grid =</span> <span class="kw">element_blank</span>(),
+    <span class="dt">legend.position =</span> <span class="st">&quot;none&quot;</span>
+  ) 
+b1 &lt;-<span class="st"> </span>bar <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">col =</span> lat))  
+b2 &lt;-<span class="st"> </span>bar <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;steelblue3&quot;</span>, <span class="st">&quot;#F0CE05&quot;</span>))
+b3 &lt;-<span class="st"> </span>bar <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;steelblue3&quot;</span>, <span class="st">&quot;#F0CE05&quot;</span>))
+b4 &lt;-<span class="st"> </span>bar <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_smooth</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;steelblue3&quot;</span>, <span class="st">&quot;#F0CE05&quot;</span>))
+
+gridExtra<span class="op">::</span><span class="kw">grid.arrange</span>(<span class="dt">grobs =</span> <span class="kw">list</span>(b1, b2, b3, b4), <span class="dt">nrow =</span> <span class="dv">2</span>) 
+
+
+<span class="co"># Some examples with the ICES hydro data-------------------------</span>
+
+<span class="co"># A barplot to see the frequency of monthly samplings  --</span>
+hydro_sub &lt;-<span class="st"> </span>hydro <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(month, station, date_time) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">distinct</span>()
+
+<span class="kw">ggplot</span>(hydro_sub,<span class="kw">aes</span>(<span class="dt">x=</span><span class="kw">factor</span>(month))) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_bar</span>()
+
+<span class="co"># A scatterplot to see all stations, coloured by month --</span>
+hydro_sub &lt;-<span class="st"> </span>hydro <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(month,station,lat,long) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">distinct</span>()
+
+<span class="kw">ggplot</span>(hydro_sub, <span class="kw">aes</span>(<span class="dt">x =</span> long,  
+  <span class="dt">y =</span> lat, <span class="dt">col =</span> <span class="kw">factor</span>(month))) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>() 
+
+<span class="co"># A histogram to see the distribution of (all) temperature values --</span>
+p &lt;-<span class="st"> </span>hydro <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> temp)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_histogram</span>()
+p
+
+<span class="co"># A boxplot to compare the surface temperature between months --</span>
+hydro <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(pres <span class="op">&lt;</span><span class="st"> </span><span class="dv">5</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(month, station, date_time, cruise) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">mean_sst =</span> <span class="kw">mean</span>(temp)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">factor</span>(month), <span class="dt">y =</span> mean_sst)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">outlier.colour =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">outlier.alpha =</span> <span class="fl">0.2</span>)
+
+<span class="co"># Correlation plot between temperature and salinity --</span>
+<span class="kw">ggplot</span>(hydro, <span class="kw">aes</span>(<span class="dt">x =</span> psal, <span class="dt">y =</span> temp, <span class="dt">col =</span> day)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>()
+
+<span class="co"># .. now separated by month --</span>
+<span class="kw">ggplot</span>(hydro, <span class="kw">aes</span>(<span class="dt">x =</span> psal, <span class="dt">y =</span> temp, <span class="dt">col =</span> day)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="kw">factor</span>(month), <span class="dt">nrow =</span> <span class="dv">3</span>)
+
+<span class="co"># Depth profile at one station in July --</span>
+hydro_sub &lt;-<span class="st"> </span>hydro <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(station<span class="op">==</span><span class="st">&quot;0403&quot;</span>,month<span class="op">==</span><span class="dv">7</span>,day<span class="op">==</span><span class="dv">11</span>) 
+p_temp &lt;-<span class="st"> </span><span class="kw">ggplot</span>(hydro_sub, <span class="kw">aes</span>(<span class="dt">y=</span>pres)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">x =</span> temp), <span class="dt">col=</span><span class="st">&quot;red&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">ylim</span>(<span class="dv">70</span>, <span class="dv">0</span>)
+p_sal &lt;-<span class="st"> </span><span class="kw">ggplot</span>(hydro_sub, <span class="kw">aes</span>(<span class="dt">y=</span>pres)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">x =</span> psal)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">ylim</span>(<span class="dv">70</span>, <span class="dv">0</span>)
+p_oxy &lt;-<span class="st"> </span><span class="kw">ggplot</span>(hydro_sub, <span class="kw">aes</span>(<span class="dt">y=</span>pres)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">x =</span> doxy), <span class="dt">col=</span><span class="st">&quot;blue&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">ylim</span>(<span class="dv">70</span>, <span class="dv">0</span>)
+gridExtra<span class="op">::</span><span class="kw">grid.arrange</span>(<span class="dt">grobs =</span> <span class="kw">list</span>(
+  p_temp, p_sal, p_oxy), <span class="dt">nrow=</span><span class="dv">1</span>)
+
+<span class="co"># Some extension examples: `ggridges` --</span>
+<span class="co">#install.packages(&quot;ggridges&quot;)</span>
+<span class="kw">library</span>(ggridges)
+hydro <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(pres <span class="op">&lt;</span><span class="st"> </span><span class="dv">10</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(station, month, day) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">sst =</span> <span class="kw">mean</span>(temp)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> sst, <span class="dt">y =</span> <span class="kw">factor</span>(month), <span class="dt">fill =</span> <span class="kw">as.factor</span>(month))) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_density_ridges</span>(<span class="dt">scale =</span> <span class="dv">12</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_fill_cyclical</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;blue&quot;</span>, <span class="st">&quot;green&quot;</span>))
+
+<span class="co"># Some extension examples: `ggmap` --</span>
+<span class="co">#install.packages(&quot;ggmap&quot;)</span>
+<span class="kw">library</span>(ggmap)
+b &lt;-<span class="kw">matrix</span>(<span class="kw">c</span>(<span class="kw">min</span>(hydro<span class="op">$</span>long), <span class="kw">max</span>(hydro<span class="op">$</span>long), 
+  <span class="kw">min</span>(hydro<span class="op">$</span>lat), <span class="kw">max</span>(hydro<span class="op">$</span>lat)), <span class="dt">byrow=</span>T,<span class="dt">nrow=</span><span class="dv">2</span>)
+<span class="kw">colnames</span>(b) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;min&quot;</span>,<span class="st">&quot;max&quot;</span>)
+<span class="kw">rownames</span>(b) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;x&quot;</span>,<span class="st">&quot;y&quot;</span>)
+map_bs &lt;-<span class="st"> </span><span class="kw">ggmap</span>(<span class="kw">get_map</span>(<span class="dt">location =</span> b, <span class="dt">zoom =</span> <span class="dv">5</span>))
+map_bs <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="dt">data=</span>hydro, <span class="kw">aes</span>(long, lat), 
+  <span class="dt">size=</span><span class="fl">0.5</span>, <span class="dt">color=</span><span class="st">&quot;red&quot;</span>)</code></pre></div>
+<p><br> <br> <br></p>
+</div>
+
+</div> <!-- articleBandContent -->
+</div> <!-- pageContent -->
+
+<footer class="site_footer">
+<div id="maredsFooter" class="footer">
+  <div class="footerContent">
+
+    <!-- column 1 -->
+    <div class="col-md-2" style="padding-top:.25%; text-align:center; color:#626262;">
+      <a href="https://github.com/mareds">
+        <i class="fa fa-github fa-lg"></i> MARinE Data Science</a> 
+    </div>
+    
+    <!-- column 1 -->
+    <div class="col-md-2" style="padding-top:.25%; text-align:center; color:#626262;">
+      <a href="https://github.com/saskiaotto">
+        <i class="fa fa-github fa-lg"></i> saskiaotto</a>
+    </div>
+
+    <!-- column 2 -->
+    <div class="col-md-6">
+      <!-- <blockquote style="line-height:10px;border-left: 2px solid #999999;"> -->
+          <p style="font-size:15px;color:#626262;border-left: 2px solid #999999;padding-left:5px; padding-top:.25%; font-style:italic;">
+            The difference between stupidity and genius is that genius has its limits.
+            <span style="font-size:11px;color:#909090">A.E.</span></p>
+      <!-- </blockquote> -->
+    </div>
+    
+      <!-- column 3 -->
+    <div class="col-md-2" style="padding-top:.25%; text-align:right; color:#626262;">
+      <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+          CC-BY-SA 4.0</a>
+    </div>
+
+  </div> <!-- footerContent -->
+</div> <!-- footer -->
+
+
+</footer>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

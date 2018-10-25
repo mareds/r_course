@@ -1,0 +1,3373 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Data Analysis with R</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Data Analysis with R">
+  <meta name="author" content="Saskia A. Otto">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/sao_theme.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="libraries/widgets/quiz/css/demo.css"></link>
+<link rel=stylesheet href="libraries/widgets/bootstrap/css/bootstrap.css"></link>
+<link rel=stylesheet href="libraries/widgets/interactive/css/aceeditor.css"></link>
+<link rel=stylesheet href="./assets/css/box_styles.css"></link>
+<link rel=stylesheet href="./assets/css/ribbons.css"></link>
+<link rel=stylesheet href="./assets/css/style.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+      <slide class="nobackground">
+    <article class="flexbox vcenter">
+      <span>
+        <img width='500px' src="assets/img/BigLogo_MDS.png">
+      </span>
+    </article>
+  </slide>
+    <slide class="title-slide segue nobackground">
+  <!-- <aside class="gdbar">
+    <img src="assets/img/uham_logo.png">
+  </aside>-->
+  <div style="position: absolute; left: 50px; top: 50px; z-index:100">
+      <img src = "assets/img/uham_logo.png" height="67" width="200">
+  </div>
+  <hgroup class="auto-fadein">
+    <h1>Data Analysis with R</h1>
+    <h2>9 - Intro2Visualization -  Adjusting plots</h2>
+    <p>Saskia A. Otto<br/>Postdoctoral Researcher</p>
+  </hgroup>
+  <article></article>
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="segue" style="background:#CDCDC1;">
+  <hgroup>
+    <h1>From default to custom</h1>
+  </hgroup>
+  <article>
+    <p><img src="img/Data_science_1b.png" style="height:150px;border:0;position: absolute; left: 900px; top: 50px" </img> </p>
+
+  </article>
+</slide>
+<slide class="" id="slide-2" style="background:;">
+  <article data-timings="">
+    <p>Explore spatial patterns of summer sea surface temperature in the Baltic Sea graphically:</p>
+
+<h3>How to get from left to right?</h3>
+
+<div style="position: absolute; left:25px; top: 200px; z-index:100">
+    <img src="img/Thermal_regime_default.png" alt="" width=450px height=450px>
+</div>
+
+<div style="position: absolute; left: 550px; top: 100px; z-index:100">
+    <img src="img/Thermal_regime_custom.png" alt="" width=450px height=450px>
+</div>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="segue" style="background:grey;">
+  <hgroup>
+    <h1>Before you get there ...recap ...</h1>
+  </hgroup>
+  <article>
+    
+  </article>
+</slide>
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h3>Creating plots in a stepwise process</h3>
+  </hgroup>
+  <article data-timings="">
+    <div style="position: absolute; left: 720px; top: 30px; z-index:100">
+    <img src="img/ggplot2_grammar_principle.png" alt="" width=380px height=300px>
+</div>
+
+<div style='float:left;width:64%;'>
+  <ul>
+<li>Start with <code>ggplot(data, mapping = aes())</code> where you supply a <em>dataset</em> and (default) <strong>aesthetic mapping</strong></li>
+<li>Add a <strong>layer</strong> by calling a <code>geom_function</code></li>
+<li>Then add on (not required as defaults supplied)<br>
+
+<ul>
+<li><strong>scales</strong> like <code>xlim()</code></li>
+<li><strong>faceting</strong> like <code>facet_wrap()</code><br></li>
+<li><strong>coordinate systems</strong> like <code>coord_flip()</code></li>
+<li><strong>themes</strong> like <code>theme_bw()</code></li>
+</ul></li>
+<li><em>Save</em> a plot to disk with <code>ggsave()</code></li>
+</ul>
+
+<p><span class="source-img" style="position: absolute; left: 400px; top: 600px">source of image (topright): older version of <a href='https://github.com/rstudio/cheatsheets/raw/master/data-visualization-2.1.pdf' title=''>Data Visualization with ggplot</a> cheat sheet (licensed under CC-BY-SA)</span>
+</p>
+
+</div>
+<div style='float:right;width:32%;'>
+  
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h3>You will now learn how to <strong>override the default</strong> settings</h3>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">p &lt;- ggplot(hydro, aes(long, lat))
+str(p)
+</code></pre>
+
+<p><img src="img/ggplot_obj_structure.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" width="1000px" style="display: block; margin: auto;" /></p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="segue" style="background:#1874CD;">
+  <hgroup>
+    <h1><small>ggplot</small> - Aesthetics</h1>
+  </hgroup>
+  <article>
+    <p><img src="img/Data_science_1b.png" style="height:150px;border:0;position: absolute; left: 900px; top: 50px" </img> </p>
+
+  </article>
+</slide>
+<slide class="" id="slide-7" style="background:;">
+  <article data-timings="">
+    <p><q> ggplot(data, <strong>aes(x, y, color, size, shape, linetype, fill, alpha, label, family, width, hjust, vjust, ...)</strong>)</q></p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h3>Aesthetics: visual properties of the objects in your plot</h3>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>You can display a point in different ways by changing the values of its aesthetics (e.g. size, shape, and colour of border and inside):
+<img src="img/points_symbols.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" width="400px" style="display: block; margin: auto;" /></li>
+</ul>
+
+<ul class = "build incremental">
+<li>Use <code>aes()</code> to associate the name of the aesthetic <strong>with a variable</strong> to display, for single values <code>aes()</code> not needed</li>
+<li>Once you map an aesthetic, ggplot2 takes care of the rest:
+
+<ul>
+<li>selects a reasonable scale </li>
+<li>constructs a legend that explains the mapping between levels and values </li>
+</ul></li>
+<li>For x and y aesthetics, ggplot2 does not create a legend, but it creates an axis line with tick marks and a label</li>
+</ul>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-9" style="background:;">
+  <article data-timings="">
+    
+<div style='float:left;width:48%;'>
+  <p>Assign single value for aesthethic colour (<code>aes()</code> not needed):</p>
+
+<pre><code class="r">ggplot(hydro_april, aes(long, lat)) +
+  geom_point(colour = &quot;red&quot;)
+</code></pre>
+
+<p><img src="lecture09_plotting_files/unnamed-chunk-5-1.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" width="360" style="display: block; margin: auto;" /></p>
+
+</div>
+<div style='float:right;width:48%;'>
+  
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-10" style="background:;">
+  <article data-timings="">
+    
+<div style='float:left;width:48%;'>
+  <p>Assign single value for aesthethic colour (<code>aes()</code> not needed):</p>
+
+<pre><code class="r">ggplot(hydro_april, aes(long, lat)) +
+  geom_point(colour = &quot;red&quot;)
+</code></pre>
+
+<p><img src="lecture09_plotting_files/unnamed-chunk-6-1.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" width="360" style="display: block; margin: auto;" /></p>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p>Map colour to variable &quot;day&quot; with automatic colour setting: </p>
+
+<pre><code class="r">ggplot(hydro_april, aes(long, lat)) +
+  geom_point(aes(colour = factor(day)))
+</code></pre>
+
+<p><img src="lecture09_plotting_files/unnamed-chunk-7-1.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" width="432" style="display: block; margin: auto;" /></p>
+
+<div class="alert alert-orange", style="width: 440px">
+  <h4>Note:</h4> If you don't like the default settings, you need to add a scale function later.
+</div>
+
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h3>Colour</h3>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;'>
+  <p>Colour is the most popular aesthetic after
+position. It is also the easiest to misuse.</p>
+
+<p>It can be specified with</p>
+
+<ul>
+<li>A <strong>name</strong>, e.g., &quot;red&quot;. R has 657 built-in named colours, which can be listed with <code>colours()</code>. </li>
+<li>An <strong>RGB specification</strong>, with a string of the form &quot;#RRGGBB&quot;</li>
+<li>The Stowers Institute provides a <a href="http://research.stowers.org/mcm/efg/R/Color/Chart/ColorChart.pdf">nice printable pdf</a> that lists all colours.</li>
+</ul>
+
+</div>
+<div style='float:right;width:48%;'>
+  
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h3>Colour</h3>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;'>
+  <p>Colour is the most popular aesthetic after
+position. It is also the easiest to misuse.</p>
+
+<p>It can be specified with</p>
+
+<ul>
+<li>A <strong>name</strong>, e.g., &quot;red&quot;. R has 657 built-in named colours, which can be listed with <code>colours()</code>. </li>
+<li>An <strong>RGB specification</strong>, with a string of the form &quot;#RRGGBB&quot;</li>
+<li>The Stowers Institute provides a <a href="http://research.stowers.org/mcm/efg/R/Color/Chart/ColorChart.pdf">nice printable pdf</a> that lists all colours.</li>
+</ul>
+
+</div>
+<div style='float:right;width:48%;'>
+  <pre><code class="r">col_df &lt;- data.frame(x = 1:4, y = 1:4)
+ggplot(col_df, aes(x, y)) +
+  geom_point(colour = c(&quot;blue4&quot;, 
+    &quot;grey60&quot;, &quot;#556B2F&quot;, &quot;#8B7355&quot;), 
+    size = 7) 
+</code></pre>
+
+<p><img src="lecture09_plotting_files/unnamed-chunk-8-1.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" width="288" style="display: block; margin: auto;" /></p>
+
+<div class="alert alert-orange", style="width: 440px">
+  <h4>Note:</h4> Only single values are assigned to the colour aesthethic, hence, the `aes()` mapping (to a variable) is not needed.
+</div>
+
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h3>Colour (cont)</h3>
+  </hgroup>
+  <article data-timings="">
+    <p>For some geoms/point shapes you can specify 2 colour aesthetics: the border colour (=<strong>colour</strong>) and the inside (=<strong>fill</strong>) </p>
+
+<pre><code class="r">ggplot(hydro, aes(x = fmonth)) +
+  geom_bar(aes(colour = fmonth), fill = &quot;white&quot;)
+</code></pre>
+
+<p><img src="lecture09_plotting_files/unnamed-chunk-9-1.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" width="360" style="display: block; margin: auto;" /></p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h3>Colour (cont)</h3>
+  </hgroup>
+  <article data-timings="">
+    <p>To make colours transparent use <strong>alpha</strong> aesthethics</p>
+
+<ul>
+<li>range from 0 = transparent to 1 = opaque</li>
+</ul>
+
+<div style='float:left;width:48%;'>
+  <pre><code class="r">col_df &lt;- data.frame(x = 1:5, y = 1:5)
+ggplot(col_df, aes(x, y)) +
+  geom_point(fill = &quot;red&quot;, 
+    alpha = c(.1,.3,.5,.7,1.0), 
+    size = 5, shape = 21) 
+</code></pre>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p><img src="lecture09_plotting_files/unnamed-chunk-11-1.png" title="plot of chunk unnamed-chunk-11" alt="plot of chunk unnamed-chunk-11" width="432" style="display: block; margin: auto;" /></p>
+
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-15" style="background:;">
+  <hgroup>
+    <h3>Types of shape</h3>
+  </hgroup>
+  <article data-timings="">
+    <p>Default shape is 19</p>
+
+<div style='float:left;width:48%;'>
+  <pre><code class="r">shapes &lt;- data.frame(
+  shape = c(0:19, 22, 21, 24, 23, 20),
+  x = 0:24 %/% 5, y = -(0:24 %% 5))
+
+ggplot(shapes, aes(x, y)) + 
+  geom_point(aes(shape = shape),  
+    size = 10, fill = &quot;red&quot;) +
+  geom_text(aes(label = shape), 
+    hjust = 0, nudge_x = 0.15) +
+  scale_shape_identity() +
+  expand_limits(x = 4.1) +
+  scale_x_continuous(NULL,breaks=NULL) + 
+  scale_y_continuous(NULL,breaks=NULL)
+</code></pre>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p><img src="lecture09_plotting_files/unnamed-chunk-13-1.png" title="plot of chunk unnamed-chunk-13" alt="plot of chunk unnamed-chunk-13" width="504" /></p>
+
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-16" style="background:;">
+  <hgroup>
+    <h3>Linetype</h3>
+  </hgroup>
+  <article data-timings="">
+    <p>Line types can be specified with an integer or name: 0 = blank, 1 = solid, 2 = dashed, 3 = dotted, 4 = dotdash, 5 = longdash, 6 = twodash, as shown below:</p>
+
+<div style='float:left;width:48%;'>
+  <pre><code class="r">lty &lt;- c(&quot;blank&quot;, &quot;solid&quot;, &quot;dashed&quot;, 
+  &quot;dotted&quot;, &quot;dotdash&quot;, 
+  &quot;longdash&quot;,&quot;twodash&quot;)
+linetypes &lt;- data.frame(
+  y = seq_along(lty), lty = lty) 
+ggplot(linetypes, aes(0, y)) + 
+  geom_segment(aes(xend = 5, 
+    yend = y, linetype = lty)) + 
+  scale_linetype_identity() + 
+  geom_text(aes(label = lty), 
+    hjust = 0, nudge_y = 0.2) +
+  scale_x_continuous(NULL,breaks=NULL) + 
+  scale_y_continuous(NULL,breaks=NULL)
+</code></pre>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p><img src="lecture09_plotting_files/unnamed-chunk-15-1.png" title="plot of chunk unnamed-chunk-15" alt="plot of chunk unnamed-chunk-15" width="432" style="display: block; margin: auto;" /></p>
+
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-17" style="background:;">
+  <hgroup>
+    <h3>Text - Font</h3>
+  </hgroup>
+  <article data-timings="">
+    <p>There are only three fonts that are guaranteed to work everywhere: &quot;<strong>sans</strong>&quot; (the default), &quot;<strong>serif</strong>&quot;, or &quot;<strong>mono</strong>&quot;:</p>
+
+<div style='float:left;width:48%;'>
+  <pre><code class="r">df &lt;- data.frame(x = 1, y = 3:1, 
+  family = c(&quot;sans&quot;, &quot;serif&quot;, &quot;mono&quot;))
+ggplot(df, aes(x, y)) + 
+  geom_text(aes(label = family, 
+    family = family), size = 15)
+</code></pre>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p><img src="lecture09_plotting_files/unnamed-chunk-17-1.png" title="plot of chunk unnamed-chunk-17" alt="plot of chunk unnamed-chunk-17" width="504" /></p>
+
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-18" style="background:;">
+  <hgroup>
+    <h3>Text - Justification</h3>
+  </hgroup>
+  <article data-timings="">
+    <p>Horizontal and vertical justification have the same parameterisation, either a <strong>string</strong> (“top”, “middle”, “bottom”, “left”, “center”, “right”) or a <strong>number</strong> between 0 and 1:</p>
+
+<div style='float:left;width:48%;'>
+  <ul>
+<li>top = 1, middle = 0.5, bottom = 0</li>
+<li>left = 0, center = 0.5, right = 1</li>
+</ul>
+
+<pre><code class="r">just &lt;- expand.grid(hjust = c(0,0.5,1), 
+  vjust = c(0, 0.5, 1))
+just$label &lt;- paste0(just$hjust, &quot;, &quot;, 
+  just$vjust)
+
+ggplot(just, aes(hjust, vjust)) +
+  geom_point(colour = &quot;grey70&quot;, 
+    size = 5) + 
+  geom_text(aes(label = label, 
+    hjust = hjust, vjust = vjust),
+    size = 7)
+</code></pre>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p><img src="lecture09_plotting_files/unnamed-chunk-19-1.png" title="plot of chunk unnamed-chunk-19" alt="plot of chunk unnamed-chunk-19" width="504" /></p>
+
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="segue" style="background:#EEC900;">
+  <hgroup>
+    <h1>Your turn</h1>
+  </hgroup>
+  <article>
+    
+  </article>
+</slide>
+<slide class="" id="slide-20">
+<hgroup>
+  <h1>Exercise 1: Aesthetics</h1>
+</hgroup>
+<article data-timings="">
+  <div style="background-color:#F5F5F5; text-align:left; vertical-align: middle; padding:20px 47px;">
+    <ol>
+<li>What happens if you map the same variable to multiple aesthetics?</li>
+<li>What does the <em>stroke</em> aesthetic do? What <em>shapes</em> does it work with? (Hint: use <code>?geom_point</code>)</li>
+<li>What happens if you map an aesthetic to something other than a variable name, like <code>aes(colour = psal &lt; 10)</code>?</li>
+<li>What’s gone wrong with this code? Why are the points not blue?</li>
+</ol>
+
+<pre><code class="r">ggplot(data = hydro) + 
+  geom_point(mapping = aes(x = psal, y = temp, color = &quot;blue&quot;))
+</code></pre>
+
+  </div>
+  <footer>
+    <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+      <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+    </div>
+    <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+      <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+      font-style: italic; top: 610px; ">Data analysis with R</a>
+    </div>
+  </footer>
+</article>
+<!-- Presenter Notes -->
+</slide>
+
+<style>
+#slide-20 {
+  background-color: #EEC900;
+}
+</style>
+<slide class="segue" style="background:#1874CD;">
+  <hgroup>
+    <h1><small>ggplot</small> - Scales</h1>
+  </hgroup>
+  <article>
+    <p><img src="img/Data_science_1b.png" style="height:150px;border:0;position: absolute; left: 900px; top: 50px" </img> </p>
+
+  </article>
+</slide>
+<slide class="" id="slide-22" style="background:;">
+  <hgroup>
+    <h2>Using scales</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>To <strong>change the default settings of an aesthetic</strong> use a scale that applies to that mapping (if you have used <code>aes()</code> for a specific aesthetic):
+
+<ul>
+<li><em>aesthetic mapping</em> = What variable to map to e.g. colour</li>
+<li><em>scale</em> =  How to map the variable to e.g. color</li>
+</ul></li>
+<li>Use the <strong>three part scale name</strong> convention and set additional arguments in the scale function if desired:</li>
+</ul>
+
+<p><img src="img/Scale_func_call.png" title="plot of chunk unnamed-chunk-21" alt="plot of chunk unnamed-chunk-21" width="600px" style="display: block; margin: auto;" /></p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-23" style="background:;">
+  <hgroup>
+    <h2>Common scales</h2>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;'>
+  <h3>Use with most aesthetics</h3>
+
+<p>scale_aesthetic ...</p>
+
+<ul>
+<li>_<strong>manual</strong>()</li>
+<li>_<strong>identity</strong>()</li>
+<li>_<strong>discrete</strong>()</li>
+<li>_<strong>continuous</strong>()</li>
+</ul>
+
+</div>
+<div style='float:right;width:48%;'>
+  <h3>Use with x or y aesthetics</h3>
+
+<ul>
+<li><code>scale_x_log10()</code> - Plot x on log10 scale</li>
+<li><code>scale_x_reverse()</code> - Reverse axis direction </li>
+<li><code>scale_x_sqrt()</code> - Plot x on square root scale</li>
+</ul>
+
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-24" style="background:;">
+  <hgroup>
+    <h2>Scale colour - discrete data</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>ggplot2&#39;s default discrete palettes
+(depends on how many colors are needed)</p>
+
+<p><img src="img/ggplot_default_colours.png" title="plot of chunk unnamed-chunk-22" alt="plot of chunk unnamed-chunk-22" width="500px" style="display: block; margin: auto;" /></p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-25" style="background:;">
+  <hgroup>
+    <h2>Scale colour - discrete data</h2>
+  </hgroup>
+  <article data-timings="">
+    <h3>Example of oceanographic stations sampled in summer months</h3>
+
+<pre><code class="r">sst_sum &lt;- hydro %&gt;% filter(pres == 1, fmonth %in% 5:8)
+sst_sum$fmonth &lt;- factor(sst_sum$fmonth) # to remove other factor levels
+p &lt;- ggplot(sst_sum, aes(x = long, y = lat, colour = fmonth)) + geom_point()
+</code></pre>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-26" style="background:;">
+  <hgroup>
+    <h3>Manually assign colours: <code>scale_colour_manual()</code></h3>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;'>
+  <p><img src="lecture09_plotting_files/unnamed-chunk-24-1.png" title="plot of chunk unnamed-chunk-24" alt="plot of chunk unnamed-chunk-24" width="432" style="display: block; margin: auto;" /></p>
+
+<pre><code class="r">p
+</code></pre>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p><img src="lecture09_plotting_files/unnamed-chunk-26-1.png" title="plot of chunk unnamed-chunk-26" alt="plot of chunk unnamed-chunk-26" width="432" style="display: block; margin: auto;" /></p>
+
+<pre><code class="r">p + scale_colour_manual(values = 
+  c(&quot;red&quot;,&quot;blue&quot;,&quot;grey30&quot;,&quot;green3&quot;))
+</code></pre>
+
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-27" style="background:;">
+  <hgroup>
+    <h3>Use ready-made schemes: <code>scale_colour_hue()</code></h3>
+  </hgroup>
+  <article data-timings="">
+    <p>scale_colour_hue is the <strong>default</strong> colour scale → does not generate colour-blind safe palettes</p>
+
+<div style='float:left;width:48%;'>
+  <p><img src="lecture09_plotting_files/unnamed-chunk-28-1.png" title="plot of chunk unnamed-chunk-28" alt="plot of chunk unnamed-chunk-28" width="360" style="display: block; margin: auto;" /></p>
+
+<pre><code class="r">p + scale_colour_hue()
+</code></pre>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p><img src="lecture09_plotting_files/unnamed-chunk-30-1.png" title="plot of chunk unnamed-chunk-30" alt="plot of chunk unnamed-chunk-30" width="360" style="display: block; margin: auto;" /></p>
+
+<pre><code class="r">p + scale_colour_hue(l = 50, c = 150, 
+  h = c(150, 270) )
+</code></pre>
+
+<div class="alert alert-orange" style="position: absolute; left: 950px; top: 475px">
+  <h4>Adjust:</h4> <small><strong>l</strong>uminosity, <strong>c</strong>hroma, and range of <strong>h</strong>ues</small>
+</div>
+
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-28" style="background:;">
+  <hgroup>
+    <h3>Use ready-made schemes: <code>scale_colour_grey()</code></h3>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;'>
+  <p><img src="lecture09_plotting_files/unnamed-chunk-32-1.png" title="plot of chunk unnamed-chunk-32" alt="plot of chunk unnamed-chunk-32" width="432" style="display: block; margin: auto;" /></p>
+
+<pre><code class="r">p + scale_colour_grey()
+</code></pre>
+
+</div>
+<div style='float:right;width:48%;'>
+  
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-29" style="background:;">
+  <hgroup>
+    <h3>Use ready-made schemes: <code>scale_colour_brewer()</code></h3>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;'>
+  <p><img src="lecture09_plotting_files/unnamed-chunk-34-1.png" title="plot of chunk unnamed-chunk-34" alt="plot of chunk unnamed-chunk-34" width="432" style="display: block; margin: auto;" /></p>
+
+<pre><code class="r">p + scale_colour_brewer()
+</code></pre>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p>The brewer scales provides nice colour schemes from the ColorBrewer particularly tailored for maps: <a href="http://colorbrewer2.org">http://colorbrewer2.org</a></p>
+
+<p>To see a list of each brewer palette, run the following command </p>
+
+<pre><code class="r">library(RColorBrewer)
+display.brewer.all()
+</code></pre>
+
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-30" style="background:;">
+  <article data-timings="">
+    <p><img src="img/scale_colour_brewer.png" title="plot of chunk unnamed-chunk-38" alt="plot of chunk unnamed-chunk-38" width="850px" style="display: block; margin: auto;" /></p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-31" style="background:;">
+  <hgroup>
+    <h2>Scale colour - continous data</h2>
+  </hgroup>
+  <article data-timings="">
+    <h3>Example of summer sea surface temperature (SST)</h3>
+
+<pre><code class="r"># Same dataset as before
+sst_sum &lt;- hydro %&gt;% filter(pres == 1, fmonth %in% 5:8)
+sst_sum$fmonth &lt;- factor(sst_sum$fmonth)
+p &lt;- ggplot(sst_sum, aes(x = long, y = lat, colour = temp)) + geom_point()
+</code></pre>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-32" style="background:;">
+  <hgroup>
+    <h3>Use different gradient schemes: <code>scale_colour_gradient()</code></h3>
+  </hgroup>
+  <article data-timings="">
+    <p>scale_colour_gradient is the <strong>default</strong> colour scale. Creates a <strong>two colour</strong> gradient (low-high):</p>
+
+<div style='float:left;width:48%;'>
+  <p><img src="lecture09_plotting_files/unnamed-chunk-40-1.png" title="plot of chunk unnamed-chunk-40" alt="plot of chunk unnamed-chunk-40" width="360" style="display: block; margin: auto;" /></p>
+
+<pre><code class="r">p
+</code></pre>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p><img src="lecture09_plotting_files/unnamed-chunk-42-1.png" title="plot of chunk unnamed-chunk-42" alt="plot of chunk unnamed-chunk-42" width="360" style="display: block; margin: auto;" /></p>
+
+<pre><code class="r">p + scale_colour_gradient()
+</code></pre>
+
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-33" style="background:;">
+  <hgroup>
+    <h3>Use different gradient schemes: <code>scale_colour_gradient()</code></h3>
+  </hgroup>
+  <article data-timings="">
+    <p>Change a few settings ...</p>
+
+<div style='float:left;width:48%;'>
+  <p><img src="lecture09_plotting_files/unnamed-chunk-44-1.png" title="plot of chunk unnamed-chunk-44" alt="plot of chunk unnamed-chunk-44" width="360" style="display: block; margin: auto;" /></p>
+
+<pre><code class="r">p + scale_colour_gradient(
+  low = &quot;yellow&quot;, high = &quot;red&quot;)
+</code></pre>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p><img src="lecture09_plotting_files/unnamed-chunk-46-1.png" title="plot of chunk unnamed-chunk-46" alt="plot of chunk unnamed-chunk-46" width="360" style="display: block; margin: auto;" /></p>
+
+<pre><code class="r">p + scale_colour_gradient(
+  low = &quot;white&quot;, high = &quot;maroon4&quot;, 
+  na.value = &quot;yellow&quot;)
+</code></pre>
+
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-34" style="background:;">
+  <hgroup>
+    <h3>Use different gradient schemes: <code>scale_colour_gradient2()</code></h3>
+  </hgroup>
+  <article data-timings="">
+    <p>Creates a <strong>diverging</strong> colour gradient (low-mid-high):</p>
+
+<div style='float:left;width:48%;'>
+  <p><img src="lecture09_plotting_files/unnamed-chunk-48-1.png" title="plot of chunk unnamed-chunk-48" alt="plot of chunk unnamed-chunk-48" width="360" style="display: block; margin: auto;" /></p>
+
+<pre><code class="r">p + scale_colour_gradient2(midpoint=10)
+</code></pre>
+
+<p>Set the midpoint from 0 to 10.</p>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p><img src="lecture09_plotting_files/unnamed-chunk-50-1.png" title="plot of chunk unnamed-chunk-50" alt="plot of chunk unnamed-chunk-50" width="360" style="display: block; margin: auto;" /></p>
+
+<pre><code class="r">p + scale_colour_gradient2(midpoint=15, 
+  low = &quot;blue&quot;, mid = &quot;yellow&quot;, 
+  high = &quot;red&quot;, na.value = &quot;black&quot;)
+</code></pre>
+
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-35" style="background:;">
+  <hgroup>
+    <h2>Overview of colour-related scales</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="img/Scales_colour_overview.png" title="plot of chunk unnamed-chunk-52" alt="plot of chunk unnamed-chunk-52" width="900px" style="display: block; margin: auto;" /></p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-36" style="background:;">
+  <hgroup>
+    <h2>Scale shape - discrete data</h2>
+  </hgroup>
+  <article data-timings="">
+    
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-37" style="background:;">
+  <hgroup>
+    <h2>Scale shape - discrete data</h2>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;'>
+  <p><img src="lecture09_plotting_files/unnamed-chunk-53-1.png" title="plot of chunk unnamed-chunk-53" alt="plot of chunk unnamed-chunk-53" width="432" style="display: block; margin: auto;" /></p>
+
+<pre><code class="r">p &lt;- ggplot(sst_sum, aes(long,lat)) + 
+  geom_point(aes(shape = fmonth)) 
+</code></pre>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p><img src="lecture09_plotting_files/unnamed-chunk-55-1.png" title="plot of chunk unnamed-chunk-55" alt="plot of chunk unnamed-chunk-55" width="432" style="display: block; margin: auto;" /></p>
+
+<pre><code class="r">p + scale_shape_manual(values = 0:3)  
+</code></pre>
+
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-38" style="background:;">
+  <hgroup>
+    <h2>Scale shape - discrete data</h2>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;'>
+  <p><img src="lecture09_plotting_files/unnamed-chunk-57-1.png" title="plot of chunk unnamed-chunk-57" alt="plot of chunk unnamed-chunk-57" width="432" style="display: block; margin: auto;" /></p>
+
+<pre><code class="r">p &lt;- ggplot(sst_sum, aes(long,lat)) + 
+  geom_point(aes(shape = fmonth)) 
+</code></pre>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p><img src="lecture09_plotting_files/unnamed-chunk-59-1.png" title="plot of chunk unnamed-chunk-59" alt="plot of chunk unnamed-chunk-59" width="432" style="display: block; margin: auto;" /></p>
+
+<pre><code class="r">p + scale_shape_manual(values = 0:3)  
+</code></pre>
+
+<div class="alert alert-orange" style="position: absolute; left: 580px; top: 25px">
+  <h4>Note:</h4> With different shapes it becomes more apparent that some stations were sampled in several months!
+</div>
+
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-39" style="background:;">
+  <hgroup>
+    <h2>Scale shape - continuous data</h2>
+  </hgroup>
+  <article data-timings="">
+    
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-40" style="background:;">
+  <hgroup>
+    <h2>Scale shape - continuous data</h2>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;'>
+  <p>When your data variable already contains values that could be used as  aesthetic values ggplot2 handles them directly without producing a legend (the variable is considered as scaled).</p>
+
+<p>Use <code>scale_shape_identity()</code> for continuous data:</p>
+
+<pre><code class="r">ggplot(hydro_april, aes(long, lat)) + 
+  geom_point(aes(shape = day)) +
+  scale_shape_identity() 
+</code></pre>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p><img src="lecture09_plotting_files/unnamed-chunk-62-1.png" title="plot of chunk unnamed-chunk-62" alt="plot of chunk unnamed-chunk-62" width="504" style="display: block; margin: auto;" /></p>
+
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-41" style="background:;">
+  <hgroup>
+    <h2>Scale size - continuous data</h2>
+  </hgroup>
+  <article data-timings="">
+    <h3>Example of sea surface temperature (SST) in June</h3>
+
+<pre><code class="r">sst_june &lt;- hydro %&gt;% filter(pres == 1, fmonth == &quot;6&quot;)
+</code></pre>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-42" style="background:;">
+  <hgroup>
+    <h2>Scale size - continuous data</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>You can use <code>scale_size()</code>, <code>scale_size_area()</code>, or <code>scale_radius()</code>:</p>
+
+<div style='float:left;width:48%;'>
+  <p><img src="lecture09_plotting_files/unnamed-chunk-64-1.png" title="plot of chunk unnamed-chunk-64" alt="plot of chunk unnamed-chunk-64" width="360" style="display: block; margin: auto;" /></p>
+
+<pre><code class="r">p &lt;- ggplot(sst_june, aes(long,lat))+ 
+  geom_point(aes(size = temp),
+    colour = &quot;orange2&quot;, alpha=0.3)
+</code></pre>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p><img src="lecture09_plotting_files/unnamed-chunk-66-1.png" title="plot of chunk unnamed-chunk-66" alt="plot of chunk unnamed-chunk-66" width="360" style="display: block; margin: auto;" /></p>
+
+<pre><code class="r">p + scale_radius(range=c(1,10), 
+    breaks=seq(5,20,2.5), limits=c(4,20))
+</code></pre>
+
+<div class="alert alert-orange" style="position: absolute; left: 600px; top: 25px">
+  <h4>Note:</h4> Using transparent colours (with alpha aesthetics) shows also nicely overlying points!
+</div>
+
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-43" style="background:;">
+  <article data-timings="">
+    <p>There are scales for every aesthetic ggplot2 uses. To see a complete list with examples, visit <a href="http://docs.ggplot2.org/current">http://docs.ggplot2.org/current</a></p>
+
+<p><img src="img/Scales_func_overview.png" title="plot of chunk unnamed-chunk-68" alt="plot of chunk unnamed-chunk-68" width="1000px" style="display: block; margin: auto;" /></p>
+
+<p><span class="source-img" style="position: absolute; left: 650px; top: 650px">Screenshot from webpage (taken Dec. 2017)</span></p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="segue" style="background:#EEC900;">
+  <hgroup>
+    <h1>Your turn...</h1>
+  </hgroup>
+  <article>
+    
+  </article>
+</slide>
+<slide class="" id="slide-45">
+<hgroup>
+  <h1>Exercise 2: Scaling</h1>
+</hgroup>
+<article data-timings="">
+  <div style="background-color:#F5F5F5; text-align:left; vertical-align: middle; padding:20px 47px;">
+    <p>Look at <code>display.brewer.all()</code>in the <strong>RColorbrewer</strong> package. Experiment with the different palettes available for the brewer scale. Add a color scheme that you like for <em>temp</em> in the <code>sst_sum</code> data.</p>
+
+  </div>
+  <footer>
+    <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+      <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+    </div>
+    <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+      <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+      font-style: italic; top: 610px; ">Data analysis with R</a>
+    </div>
+  </footer>
+</article>
+<!-- Presenter Notes -->
+</slide>
+
+<style>
+#slide-45 {
+  background-color: #EEC900;
+}
+</style>
+<slide class="segue" style="background:#1874CD;">
+  <hgroup>
+    <h1><small>ggplot</small> - Faceting</h1>
+  </hgroup>
+  <article>
+    <p><img src="img/Data_science_1b.png" style="height:150px;border:0;position: absolute; left: 900px; top: 50px" </img> </p>
+
+  </article>
+</slide>
+<slide class="" id="slide-47" style="background:;">
+  <article data-timings="">
+    <p><small>Facets divide a plot into subplots based on the values of one or more discrete variables</small></p>
+
+<p><img src="img/Faceting.png" title="plot of chunk unnamed-chunk-70" alt="plot of chunk unnamed-chunk-70" width="800px" style="display: block; margin: auto;" /></p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-48" style="background:;">
+  <article data-timings="">
+    <p>To adjust facet labels set labeller </p>
+
+<pre><code class="r">p + facet_grid(pres ~ fmonth, labeller = label_both)
+</code></pre>
+
+<p><img src="lecture09_plotting_files/unnamed-chunk-72-1.png" title="plot of chunk unnamed-chunk-72" alt="plot of chunk unnamed-chunk-72" width="720" style="display: block; margin: auto;" /></p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="segue" style="background:#EEC900;">
+  <hgroup>
+    <h1>Your turn</h1>
+  </hgroup>
+  <article>
+    
+  </article>
+</slide>
+<slide class="" id="slide-50">
+<hgroup>
+  <h1>Exercise 3: Faceting</h1>
+</hgroup>
+<article data-timings="">
+  <div style="background-color:#F5F5F5; text-align:left; vertical-align: middle; padding:20px 47px;">
+    <ol>
+<li>What happens if you facet on a continuous variable?</li>
+<li>What are the advantages to using faceting instead of the colour aesthetic? What are the disadvantages? How might the balance change if you had a larger dataset?</li>
+<li>When using <code>facet_grid()</code> you should usually put the variable with more unique levels in the columns. Why?</li>
+<li>Read <code>?facet_wrap</code>. What does <em>nrow</em> do? What does <em>ncol</em> do? What other options control the layout of the individual panels? Why doesn’t <code>facet_grid()</code> have <em>nrow</em> and <em>ncol</em> argument?</li>
+</ol>
+
+  </div>
+  <footer>
+    <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+      <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+    </div>
+    <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+      <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+      font-style: italic; top: 610px; ">Data analysis with R</a>
+    </div>
+  </footer>
+</article>
+<!-- Presenter Notes -->
+</slide>
+
+<style>
+#slide-50 {
+  background-color: #EEC900;
+}
+</style>
+<slide class="" id="slide-51">
+<hgroup>
+  
+</hgroup>
+<article data-timings="">
+  <div style="background-color:#F5F5F5; text-align:left; vertical-align: middle; padding:20px 47px;">
+    <p>5.What plots are generated by the following code? What does <code>.</code> do?</p>
+
+<pre><code class="r">temp_sum &lt;- hydro %&gt;% filter(pres %in% c(1, 50), fmonth %in% 5:8)
+
+ggplot(data = temp_sum) + 
+  geom_point(mapping = aes(x = long, y = lat)) +
+  facet_grid(fmonth ~ .)
+
+ggplot(data = temp_sum) + 
+  geom_point(mapping = aes(x = long, y = lat)) +
+  facet_grid(. ~ pres)
+</code></pre>
+
+  </div>
+  <footer>
+    <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+      <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+    </div>
+    <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+      <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+      font-style: italic; top: 610px; ">Data analysis with R</a>
+    </div>
+  </footer>
+</article>
+<!-- Presenter Notes -->
+</slide>
+
+<style>
+#slide-51 {
+  background-color: #EEC900;
+}
+</style>
+<slide class="segue" style="background:#1874CD;">
+  <hgroup>
+    <h1><small>ggplot</small> - Coordinate systems</h1>
+  </hgroup>
+  <article>
+    <p><img src="img/Data_science_1b.png" style="height:150px;border:0;position: absolute; left: 900px; top: 50px" </img> </p>
+
+  </article>
+</slide>
+<slide class="" id="slide-53" style="background:;">
+  <hgroup>
+    <h2>Using coordinate systems</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Determine the coordinate plane to draw the graph on.</li>
+<li>Use the <strong>two part scale name</strong> convention and set additional arguments in the coord_function if desired:</li>
+</ul>
+
+<p><img src="img/Coord_func_call.png" title="plot of chunk unnamed-chunk-74" alt="plot of chunk unnamed-chunk-74" width="600px" style="display: block; margin: auto;" /></p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-54" style="background:;">
+  <article data-timings="">
+    <p><small>Which months are most frequently sampled?</small></p>
+
+<p><img src="img/Coordinate_systems.png" title="plot of chunk unnamed-chunk-76" alt="plot of chunk unnamed-chunk-76" width="820px" style="display: block; margin: auto;" /></p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-55" style="background:;">
+  <hgroup>
+    <h2>Useful changes of coord: Pie charts</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>In the grammar of graphics, a pie chart is a <strong>stacked</strong> bar graph in <strong>polar</strong> coordinates.</p>
+
+<div style='float:left;width:48%;'>
+  <pre><code class="r">monthly_pie &lt;- hydro %&gt;% 
+  select(fmonth, station, cruise, 
+    date_time) %&gt;% distinct() %&gt;% 
+  group_by(fmonth) %&gt;% 
+  mutate(year = &quot;y&quot;)
+
+ggplot(monthly_pie, aes(year)) + 
+  geom_bar(aes(fill = fmonth)) + 
+  scale_fill_brewer(
+    palette=&quot;Paired&quot;) +
+  coord_polar(theta=&quot;y&quot;, direction=-1)
+</code></pre>
+
+<p><small>What is now needed is some element cleaning...</small></p>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p><img src="lecture09_plotting_files/unnamed-chunk-78-1.png" title="plot of chunk unnamed-chunk-78" alt="plot of chunk unnamed-chunk-78" width="432" style="display: block; margin: auto;" /></p>
+
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-56" style="background:;">
+  <hgroup>
+    <h2>Useful changes of coord: Map projections</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><code>coord_map()</code> projects a portion of the earth, which is approximately spherical, onto a flat 2D plane using any projection defined by the mapproj package. </p>
+
+<div style='float:left;width:48%;'>
+  <p><img src="lecture09_plotting_files/unnamed-chunk-79-1.png" title="plot of chunk unnamed-chunk-79" alt="plot of chunk unnamed-chunk-79" width="432" style="display: block; margin: auto;" /></p>
+
+<pre><code class="r"># Showing the world map:
+world &lt;- map_data(&quot;world&quot;)
+worldmap &lt;- ggplot(world, aes(
+    x=long, y=lat, group=group)) +
+  geom_polygon(fill = &quot;white&quot;, 
+    colour = &quot;black&quot;) 
+</code></pre>
+
+</div>
+<div style='float:right;width:48%;'>
+  <pre><code class="r">worldmap + coord_map(&quot;ortho&quot;, 
+  orientation = c(55, 20, 0))
+</code></pre>
+
+<p><img src="lecture09_plotting_files/unnamed-chunk-82-1.png" title="plot of chunk unnamed-chunk-82" alt="plot of chunk unnamed-chunk-82" width="360" style="display: block; margin: auto;" /></p>
+
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-57" style="background:;">
+  <hgroup>
+    <h3>Zooming into the Baltic Sea:</h3>
+  </hgroup>
+  <article data-timings="">
+    <p>Simply add the axis limits to <code>coord_map()</code></p>
+
+<div style='float:left;width:48%;'>
+  <pre><code class="r">worldmap + coord_map(&quot;ortho&quot;, 
+  orientation = c(55, 20, 0),
+  xlim = c(10, 30), ylim = c(54,66))
+</code></pre>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p><img src="lecture09_plotting_files/unnamed-chunk-84-1.png" title="plot of chunk unnamed-chunk-84" alt="plot of chunk unnamed-chunk-84" width="504" style="display: block; margin: auto auto auto 0;" /></p>
+
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="segue" style="background:#EEC900;">
+  <hgroup>
+    <h1>Your turn...</h1>
+  </hgroup>
+  <article>
+    
+  </article>
+</slide>
+<slide class="" id="slide-59">
+<hgroup>
+  <h1>Exercise 4: Coordinate systems</h1>
+</hgroup>
+<article data-timings="">
+  <div style="background-color:#F5F5F5; text-align:left; vertical-align: middle; padding:20px 47px;">
+    <ol>
+<li>Figure out out to change the order of the month in the flipped coordinate system (lower left plot in the overview figure)</li>
+<li>Turn a stacked bar chart into a pie chart using coord_polar().</li>
+<li>What’s the difference between <code>coord_map()</code> and <code>coord_quickmap()</code>?</li>
+</ol>
+
+  </div>
+  <footer>
+    <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+      <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+    </div>
+    <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+      <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+      font-style: italic; top: 610px; ">Data analysis with R</a>
+    </div>
+  </footer>
+</article>
+<!-- Presenter Notes -->
+</slide>
+
+<style>
+#slide-59 {
+  background-color: #EEC900;
+}
+</style>
+<slide class="segue" style="background:#1874CD;">
+  <hgroup>
+    <h1><small>ggplot</small> - Making your figures look nice: labels, legends, and themes</h1>
+  </hgroup>
+  <article>
+    <p><img src="img/Data_science_1b.png" style="height:150px;border:0;position: absolute; left: 900px; top: 50px" </img> </p>
+
+  </article>
+</slide>
+<slide class="" id="slide-61" style="background:;">
+  <hgroup>
+    <h2>Labels</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Good labels are critical for <strong>making</strong> your <strong>plots understandable</strong> to a wider audience.</li>
+<li>Both <em>axis</em> and <em>legend</em> labels should show the <strong>full variable name</strong> or a <strong>commonly used abbreviation</strong>.</li>
+<li>The <em>title</em> and <em>subtitle</em> should provide <strong>main findings</strong>.</li>
+</ul>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-62" style="background:;">
+  <hgroup>
+    <h2>Labels</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Good labels are critical for <strong>making</strong> your <strong>plots understandable</strong> to a wider audience.</li>
+<li>Both <em>axis</em> and <em>legend</em> labels should show the <strong>full variable name</strong> or a <strong>commonly used abbreviation</strong>.</li>
+<li><p>The <em>title</em> and <em>subtitle</em> should provide <strong>main findings</strong>.</p></li>
+<li><p>There are <mark>different functions</mark> available to change labels:</p>
+
+<ul>
+<li><code>xlab()</code>: change the label of the <strong>x-axis</strong></li>
+<li><code>ylab()</code>: change the label of the <strong>y-axis</strong></li>
+<li><code>ggtitle()</code>: provide a title (and subtitle)</li>
+<li><code>labs()</code>: change all labels</li>
+</ul></li>
+</ul>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-63" style="background:;">
+  <hgroup>
+    <h3>Example with sea surface temperature in June</h3>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;'>
+  <p><img src="lecture09_plotting_files/unnamed-chunk-85-1.png" title="plot of chunk unnamed-chunk-85" alt="plot of chunk unnamed-chunk-85" width="504" style="display: block; margin: auto;" /></p>
+
+</div>
+<div style='float:right;width:48%;'>
+  <pre><code class="r">p &lt;- ggplot(sst_june, aes(long,lat)) +
+  geom_point(aes(colour = temp)) +
+  scale_colour_gradient(
+    low = &quot;white&quot;, high = &quot;red&quot;)
+
+# Labels added here
+p + xlab(&quot;Longitude&quot;) +
+  ylab(&quot;Latitude&quot;) +
+  ggtitle(label = &quot;Thermal patterns 
+    in the Baltic Sea&quot;,
+    subtitle = &quot;Sea surface temperature 
+    (1m depth) in June 2015&quot;)
+</code></pre>
+
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-64" style="background:;">
+  <hgroup>
+    <h2>Legends</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Control over the legends is decentralized:
+
+<ul>
+<li>Choose the type of legend for each aesthetic with <code>guides()</code></li>
+<li>Make adjustments to the legend with <code>guide_legend()</code> or <code>guide_colourbar()</code>, which can be specified in each scale_* function or in <code>guides()</code>:</li>
+</ul></li>
+</ul>
+
+<p><img src="img/Guides_func_call.png" title="plot of chunk unnamed-chunk-87" alt="plot of chunk unnamed-chunk-87" width="600px" style="display: block; margin: auto;" /></p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-65" style="background:;">
+  <hgroup>
+    <h3>Example with sea surface temperature in summer</h3>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;'>
+  <pre><code class="r">p &lt;- ggplot(sst_sum, aes(long,lat)) +
+  geom_point(aes(colour = temp, 
+    shape = fmonth)) +
+  scale_colour_gradient(
+    low = &quot;white&quot;, high = &quot;red&quot;)
+</code></pre>
+
+<pre><code class="r">p2 &lt;- p + guides(colour = 
+      guide_colourbar(order = 1,
+        title = &quot;SST (in °C)&quot;),
+    shape = guide_legend(
+      order = 2,
+      title = &quot;Summer months&quot;,
+      title.position = &quot;bottom&quot;,
+      nrow = 2, byrow = TRUE,
+      title.theme = element_text(
+        colour = &quot;red&quot;, angle = 0)))
+</code></pre>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p><img src="lecture09_plotting_files/unnamed-chunk-90-1.png" title="plot of chunk unnamed-chunk-90" alt="plot of chunk unnamed-chunk-90" width="288" style="display: block; margin: auto auto auto 0;" /></p>
+
+<p><img src="lecture09_plotting_files/unnamed-chunk-91-1.png" title="plot of chunk unnamed-chunk-91" alt="plot of chunk unnamed-chunk-91" width="432" style="display: block; margin: auto auto auto 0;" /></p>
+
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-66" style="background:;">
+  <hgroup>
+    <h2>Not happy with the labels?</h2>
+  </hgroup>
+  <article data-timings="">
+    
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-67" style="background:;">
+  <hgroup>
+    <h2>Not happy with the labels?</h2>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;'>
+  <p>You can change the labels (and more) in the <strong>scale_*_functions</strong>:</p>
+
+<pre><code class="r">p3 &lt;- p2 + scale_shape_discrete(
+    labels=c(&quot;May&quot;,&quot;June&quot;,&quot;July&quot;,&quot;Aug&quot;))
+p3
+</code></pre>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p><img src="lecture09_plotting_files/unnamed-chunk-93-1.png" title="plot of chunk unnamed-chunk-93" alt="plot of chunk unnamed-chunk-93" width="504" style="display: block; margin: auto auto auto 0;" /></p>
+
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-68" style="background:;">
+  <hgroup>
+    <h2>Not happy with the position of the legend?</h2>
+  </hgroup>
+  <article data-timings="">
+    <h3>→ Lets get to the last topic ...</h3>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="segue" style="background:url(img/Themes_pre-made_2.png);background-size:cover;">
+  <hgroup>
+    <h2>Themes</h2>
+  </hgroup>
+  <article>
+    
+  </article>
+</slide>
+<slide class="" id="slide-70" style="background:;">
+  <hgroup>
+    <h2>Themes</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>A theme determines how the plot looks.</li>
+<li>ggplot2 comes with <strong>several pre-loaded</strong> themes that control the appearance of non-data elements.</li>
+<li>Customization → You can <strong>modify individual details</strong> of the current theme with <code>theme()</code> or even create your own theme.</li>
+</ul>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-71" style="background:;">
+  <article data-timings="">
+    <p>Change the legend position with <code>theme()</code></p>
+
+<div style='float:left;width:48%;'>
+  <pre><code class="r">p3 + theme(legend.position = &quot;bottom&quot;, 
+  legend.justification = &quot;left&quot;) 
+</code></pre>
+
+<p><img src="lecture09_plotting_files/unnamed-chunk-95-1.png" title="plot of chunk unnamed-chunk-95" alt="plot of chunk unnamed-chunk-95" width="432" style="display: block; margin: auto;" /></p>
+
+</div>
+<div style='float:right;width:48%;'>
+  <pre><code class="r">p3 + theme(
+  legend.position = c(0.01, .95),
+  legend.justification = c(&quot;left&quot;, &quot;top&quot;),
+  legend.box.just = &quot;left&quot;
+)
+</code></pre>
+
+<p><img src="lecture09_plotting_files/unnamed-chunk-96-1.png" title="plot of chunk unnamed-chunk-96" alt="plot of chunk unnamed-chunk-96" width="360" style="display: block; margin: auto;" /></p>
+
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-72" style="background:;">
+  <hgroup>
+    <h2>Long list of theme components</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>See for more info</p>
+
+<ul>
+<li><code>?theme</code> and </li>
+<li><a href="https://github.com/wch/ggplot2/wiki/New-theme-system">Winston Chang&#39;s wiki</a> on github </li>
+</ul>
+
+<div style="position: absolute; left: 500px; top: 125px; z-index:100">
+    <img src="img/Theme_components.png" alt="" width=550px height=550px>
+</div>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-73" style="background:;">
+  <hgroup>
+    <h2>Pre-made themes</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>ggplot has 7  themes in-built, try them out yourself:</li>
+</ul>
+
+<pre><code>p3 + theme_bw()
+p3 + theme_gray()
+p3 + theme_classic()
+p3 + theme_light()
+p3 + theme_linedraw()
+p3 + theme_minimal()
+p3 + theme_void()
+</code></pre>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-74" style="background:;">
+  <article data-timings="">
+    <p><img src="lecture09_plotting_files/unnamed-chunk-97-1.png" title="plot of chunk unnamed-chunk-97" alt="plot of chunk unnamed-chunk-97" width="1080" style="display: block; margin: auto;" /></p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-75" style="background:;">
+  <hgroup>
+    <h2>Nice pre-made themes from external packages:</h2>
+  </hgroup>
+  <article data-timings="">
+    <h3><strong>ggthemes</strong> by Jeffrey Arnold</h3>
+
+<ul>
+<li><a href="https://github.com/jrnold/ggthemes">https://github.com/jrnold/ggthemes</a></li>
+<li><a href="https://cran.r-project.org/web/packages/ggthemes/vignettes/ggthemes.html">ggthemes vignette</a></li>
+<li>install.packages(&quot;ggthemes&quot;)</li>
+</ul>
+
+<h3><strong>ggtech</strong> by Ricardo Bion</h3>
+
+<ul>
+<li><a href="https://github.com/ricardo-bion/ggtech">https://github.com/ricardo-bion/ggtech</a></li>
+<li>devtools::install_github(&quot;ricardo-bion/ggtech&quot;, 
+                      dependencies=TRUE)</li>
+<li>ggtech offers themes that resemble google, airbnb, twitter, facebook<br></li>
+<li>You need to install various necessary fonts manually before using ggtech!</li>
+</ul>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-76" style="background:;">
+  <hgroup>
+    <h3><strong>ggthemes</strong> examples</h3>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="lecture09_plotting_files/unnamed-chunk-98-1.png" title="plot of chunk unnamed-chunk-98" alt="plot of chunk unnamed-chunk-98" width="1008" style="display: block; margin: auto;" /></p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="segue" style="background:#EEC900;">
+  <hgroup>
+    <h1>Your turn...</h1>
+  </hgroup>
+  <article>
+    
+  </article>
+</slide>
+<slide class="" id="slide-78">
+<hgroup>
+  <h1>Exercise 5: Labels, legends, and themes</h1>
+</hgroup>
+<article data-timings="">
+  <div style="background-color:#F5F5F5; text-align:left; vertical-align: middle; padding:20px 47px;">
+    <ol>
+<li>What does <code>labs()</code> do? Read the documentation.</li>
+<li>Create a ggplot (anyone you like) and explore the different built-in themes. You can also install the <strong>ggthemes</strong> package and choose one of those.</li>
+</ol>
+
+  </div>
+  <footer>
+    <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+      <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+    </div>
+    <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+      <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+      font-style: italic; top: 610px; ">Data analysis with R</a>
+    </div>
+  </footer>
+</article>
+<!-- Presenter Notes -->
+</slide>
+
+<style>
+#slide-78 {
+  background-color: #EEC900;
+}
+</style>
+<slide class="segue" style="background:#1874CD;">
+  <hgroup>
+    <h1>Multiple plots on one page</h1>
+  </hgroup>
+  <article>
+    <p><img src="img/Data_science_1b.png" style="height:150px;border:0;position: absolute; left: 900px; top: 50px" </img></p>
+
+  </article>
+</slide>
+<slide class="" id="slide-80" style="background:;">
+  <hgroup>
+    <h2>Arrange multiple plots on the same page</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>For ggplot objects the standard R functions <code>par()</code> and <code>layout()</code> do not work</li>
+<li>Alternative functions:
+
+<ul>
+<li><code>viewport()</code> and <code>grid.layout()</code> in the <a href="https://www.rdocumentation.org/packages/grid/versions/3.4.3">grid</a> package</li>
+<li><code>grid.arrange()</code> in the <a href="https://www.rdocumentation.org/packages/gridExtra/versions/2.3">gridExtra</a> package</li>
+<li><code>plot_grid()</code> and <code>draw_plot()</code> in the <a href="https://www.rdocumentation.org/packages/cowplot/versions/0.9.2">cowplot</a> package</li>
+</ul></li>
+<li>All these function use internally the following grid specifications (in &quot;npc&quot; units):</li>
+</ul>
+
+<p><img src="img/Grid_specs.png" title="plot of chunk unnamed-chunk-99" alt="plot of chunk unnamed-chunk-99" width="250px" style="display: block; margin: auto;" /></p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-81" style="background:;">
+  <hgroup>
+    <h2>Arrange multiple plots on the same page</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>For ggplot objects the standard R functions <code>par()</code> and <code>layout()</code> do not work</li>
+<li>Alternative functions:
+
+<ul>
+<li><code>viewport()</code> and <code>grid.layout()</code> in the <a href="https://www.rdocumentation.org/packages/grid/versions/3.4.3">grid</a> package</li>
+<li><code>grid.arrange()</code> in the <a href="https://www.rdocumentation.org/packages/gridExtra/versions/2.3">gridExtra</a> package</li>
+<li><code>plot_grid()</code> and <code>draw_plot()</code> in the <a href="https://www.rdocumentation.org/packages/cowplot/versions/0.9.2">cowplot</a> package</li>
+</ul></li>
+<li>All these function use internally the following grid specifications (in &quot;npc&quot; units):</li>
+<li>Each approach will be demonstrated using 3 different plots from the <code>hydro</code> dataset:
+
+<ul>
+<li>a: barplot showing the number of samplings per month</li>
+<li>b: scatterplot showing the temperature ~ salinity relationship</li>
+<li>c: monthly maps of temperature conditions</li>
+</ul></li>
+</ul>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-82" style="background:;">
+  <article data-timings="">
+    <p>Demo plots, each assigned to an object</p>
+
+<pre><code class="r">a &lt;- hydro %&gt;% 
+  select(fmonth, station, cruise, date_time) %&gt;%
+  distinct()  %&gt;% group_by(fmonth) %&gt;%
+  ggplot(aes(x = fmonth)) + 
+    geom_bar(aes(fill = fmonth)) + 
+    guides(fill = &quot;none&quot;) +
+    scale_fill_brewer(palette = &quot;Paired&quot;)
+
+b &lt;- ggplot(hydro, aes(x = psal, y = temp, col = day)) +
+  geom_point()
+
+c &lt;- hydro %&gt;% 
+  filter(pres %in% c(1, 50), fmonth %in% 5:8) %&gt;%
+  ggplot(aes(long,lat))+ 
+    geom_point(aes(colour = temp)) +
+    scale_colour_gradient(low = &quot;white&quot;, high = &quot;red&quot;) +
+    facet_grid(. ~ fmonth) 
+</code></pre>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-83" style="background:;">
+  <hgroup>
+    <h2>Creating subplots with <code>viewport()</code></h2>
+  </hgroup>
+  <article data-timings="">
+    <p>To have a small subplot embedded drawn on top of the main plot</p>
+
+<ol>
+<li>first plot the main plot,<br></li>
+<li>then draw the subplot in a smaller viewport using also the <code>print()</code>function</li>
+</ol>
+
+<p>The <code>viewport()</code> function, has as arguments <code>x</code>, <code>y</code>, <code>width</code> and <code>height</code> to control the position and size of the viewport.</p>
+
+<div style='float:left;width:48%;'>
+  <pre><code class="r">library(grid)
+# specify the viewport for the subplot
+subvp &lt;- viewport(x = 0.7, y = 0.8, 
+  width = 0.3, height = 0.3)
+b
+print(a, vp = subvp)
+</code></pre>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p><img src="lecture09_plotting_files/unnamed-chunk-102-1.png" title="plot of chunk unnamed-chunk-102" alt="plot of chunk unnamed-chunk-102" width="432" style="display: block; margin: auto auto auto 0;" /></p>
+
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-84" style="background:;">
+  <hgroup>
+    <h2>Arrange multiple plots with <code>grid.arrange()</code></h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li><code>grid.arrange()</code> set up a so-called gtable layout to place multiple <em>grobs</em> on a page in the current device.</li>
+<li>Takes for the grid layout <strong>number of rows and columns</strong> as arguments:</li>
+</ul>
+
+<div style='float:left;width:48%;'>
+  <pre><code class="r">library(gridExtra)
+grid.arrange(a, b, c, 
+  nrow = 2, ncol = 2)
+</code></pre>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p><img src="lecture09_plotting_files/unnamed-chunk-104-1.png" title="plot of chunk unnamed-chunk-104" alt="plot of chunk unnamed-chunk-104" width="504" style="display: block; margin: auto auto auto 0;" /></p>
+
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-85" style="background:;">
+  <hgroup>
+    <h3><code>grid.arrange()</code> with <code>arrangeGrob()</code></h3>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>To <strong>change</strong> the <strong>row or column span</strong> of a plot, use the function <code>arrangeGrob()</code> when listing the plotting objects. This function takes also the row or column number as input:</li>
+</ul>
+
+<div style='float:left;width:48%;'>
+  <pre><code class="r">grid.arrange(
+  arrangeGrob(a, b, ncol = 2), 
+  # a and b will be in the 1st row,  
+  # splitted into 2 columns  
+  c, # c will be in the 2nd row
+  nrow = 2
+  )
+</code></pre>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p><img src="lecture09_plotting_files/unnamed-chunk-106-1.png" title="plot of chunk unnamed-chunk-106" alt="plot of chunk unnamed-chunk-106" width="504" style="display: block; margin: auto auto auto 0;" /></p>
+
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-86" style="background:;">
+  <hgroup>
+    <h3><code>grid.arrange()</code> with argument <code>layout_matrix</code></h3>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>It is possible to use the <code>layout_matrix</code> argument for changing the row or column span of a plot (<strong>more flexible</strong> than <code>arrangeGrob()</code>):</li>
+</ul>
+
+<div style='float:left;width:48%;'>
+  <pre><code class="r">grid.arrange(a, b, c, 
+  nrow = 2, ncol = 2,
+  layout_matrix = matrix(
+    c(1,2,2,3,3,3), 
+    nrow = 2, byrow = TRUE))
+</code></pre>
+
+<p>6 grid cells are specified in the matrix</p>
+
+<ul>
+<li>plot <em>a</em> gets cell 1 (1st row/col)</li>
+<li>plot <em>b</em> gets 2 cells (row 1, col 2-3)</li>
+<li>plot <em>c</em> gets 3 cells (row 2, col 1-3)</li>
+</ul>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p><img src="lecture09_plotting_files/unnamed-chunk-108-1.png" title="plot of chunk unnamed-chunk-108" alt="plot of chunk unnamed-chunk-108" width="504" style="display: block; margin: auto auto auto 0;" /></p>
+
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-87" style="background:;">
+  <hgroup>
+    <h2>Graphics with the <strong>cowplot</strong> package</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>provides a publication-ready theme for ggplot2 </li>
+<li>has its own built-in default theme: white background and no grid (similar to <code>theme_classic()</code>), different font sizes</li>
+<li><code>plot_grid()</code> is a shortcut function with limited adjustments</li>
+</ul>
+
+<pre><code class="r">library(cowplot)
+plot_grid(a,b,c, labels = c(&quot;a)&quot;, &quot;b)&quot;, &quot;c)&quot;), ncol = 3)
+</code></pre>
+
+<p><img src="lecture09_plotting_files/unnamed-chunk-109-1.png" title="plot of chunk unnamed-chunk-109" alt="plot of chunk unnamed-chunk-109" width="864" style="display: block; margin: auto;" /></p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-88" style="background:;">
+  <hgroup>
+    <h2>Graphics with the <strong>cowplot</strong> package</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>For more adjustments (location and size) use in combination:</p>
+
+<ol>
+<li><code>ggdraw()</code> → initializes an empty drawing canvas</li>
+<li><code>draw_plot()</code> → places a single plot onto the canvas</li>
+<li><code>draw_plot_label()</code> → adds labels to the plots (default is upper left corner)</li>
+</ol>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-89" style="background:;">
+  <article data-timings="">
+    <pre><code class="r">abc &lt;- ggdraw() +
+  draw_plot(a, x = 0, y = .5, width = .5, height = .5) +
+  draw_plot(b, x = .5, y = .5, width = .5, height = .5) +
+  draw_plot(c, x = 0, y = 0, width = 1, height = .5) +
+  draw_plot_label(label = c(&quot;a)&quot;, &quot;b)&quot;, &quot;c)&quot;),
+    x = c(0, 0.5, 0), y = c(1, 1, 0.5), size = 15)
+abc
+</code></pre>
+
+<p><img src="lecture09_plotting_files/unnamed-chunk-110-1.png" title="plot of chunk unnamed-chunk-110" alt="plot of chunk unnamed-chunk-110" width="576" style="display: block; margin: auto;" /></p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-90" style="background:;">
+  <hgroup>
+    <h3>Saving cowplots</h3>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Recall: <code>ggsave()</code> (in <em>ggplot2</em>) can be used to save ggplots as
+pdf.</li>
+<li>A better solution for cowplots: <code>save_plot()</code> (in <em>cowplot</em>) → grid layout can be specified so that the output pdf is nicely formatted and scaled</li>
+</ul>
+
+<pre><code class="r">save_plot(&quot;abc3.pdf&quot;, abc, 
+  base_aspect_ratio = 1.3, # this makes room for a figure legend
+  # the grid specification adjusts the scales:
+  ncol = 2,  nrow = 2 )
+</code></pre>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="segue" style="background:#CDCDC1;">
+  <hgroup>
+    <h1>Coming back to the overall aim...</h1>
+  </hgroup>
+  <article>
+    <p><img src="img/Data_science_1b.png" style="height:150px;border:0;position: absolute; left: 900px; top: 50px" </img> </p>
+
+  </article>
+</slide>
+<slide class="" id="slide-92" style="background:;">
+  <article data-timings="">
+    <p>Explore spatial patterns of summer sea surface temperature in the Baltic Sea graphically:</p>
+
+<h3>How to get from left to right?</h3>
+
+<div style="position: absolute; left:25px; top: 200px; z-index:100">
+    <img src="img/Thermal_regime_default.png" alt="" width=450px height=450px>
+</div>
+
+<div style="position: absolute; left: 550px; top: 100px; z-index:100">
+    <img src="img/Thermal_regime_custom.png" alt="" width=450px height=450px>
+</div>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="segue" style="background:#EEC900;">
+  <hgroup>
+    <h1>Your turn...</h1>
+  </hgroup>
+  <article>
+    
+  </article>
+</slide>
+<slide class="" id="slide-94">
+<hgroup>
+  <h1>Exercise 6: Synthesis</h1>
+</hgroup>
+<article data-timings="">
+  <div style="background-color:#F5F5F5; text-align:left; vertical-align: middle; padding:20px 47px;">
+    <h3>You should be able to produce the right hand side plot now.</h3>
+
+<p>If you don&#39;t know how, follow these steps</p>
+
+<ol>
+<li>Modify the colour scale.</li>
+<li>Modify the text of the legend title</li>
+<li>Facet into different months instead of using the shape aesthetic.</li>
+<li>Add a title and axes labels.</li>
+<li>Choose a theme.</li>
+<li>Change the panel background colour.</li>
+<li>Modify the colour of the legend title</li>
+<li>CHALLENGE: Add the map to the plot. BUT: Reconsider the order of
+layers in the plat!</li>
+</ol>
+
+  </div>
+  <footer>
+    <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+      <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+    </div>
+    <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+      <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+      font-style: italic; top: 610px; ">Data analysis with R</a>
+    </div>
+  </footer>
+</article>
+<!-- Presenter Notes -->
+</slide>
+
+<style>
+#slide-94 {
+  background-color: #EEC900;
+}
+</style>
+<slide class="segue" style="background:#CD2626;">
+  <hgroup>
+    <h1>How do you feel now.....?</h1>
+  </hgroup>
+  <article>
+    
+  </article>
+</slide>
+<slide class="" id="slide-96" style="background:;">
+  <hgroup>
+    <h2>Totally confused?</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="img/Comic_confused.png" title="plot of chunk unnamed-chunk-112" alt="plot of chunk unnamed-chunk-112" width="400px" style="display: block; margin: auto;" /></p>
+
+<p>Try to reproduce some of the plots in this presentation and the quiz and read <a href="http://r4ds.had.co.nz/data-visualisation.html">chapter 3</a> on data visualization in &#39;R for Data Science&#39; or the book <a href="http://www.springer.com/de/book/9783319242750">ggplot2: Elegant Graphics for Data Analysis</a> by H. Wickham.</p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-97">
+  <hgroup>
+    <h2>Totally bored?</h2>
+  </hgroup>
+  <article class = 'flexbox vcenter'>
+    <p><img src="img/Comic_bored.png" title="plot of chunk unnamed-chunk-113" alt="plot of chunk unnamed-chunk-113" width="800px" style="display: block; margin: auto auto auto 0;" /></p>
+
+<p>Then figure out how to do an interpolation plot of the thermal regime along the latitude/longitude gradient.</p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-98" style="background:;">
+  <hgroup>
+    <h2>Totally content?</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Then go grab a coffee, lean back and enjoy the rest of the day...!</p>
+
+<p><img src="img/Comic_hammock.png" title="plot of chunk unnamed-chunk-114" alt="plot of chunk unnamed-chunk-114" width="600px" style="display: block; margin: auto;" /></p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="thank-you-slide segue" id="slide-99">
+  <footer>
+    <div style="position: absolute; left: 50px; top: 50px; z-index:100">
+        <img src = "assets/img/uham_logo.png" height="67" width="200">
+    </div>
+  </footer>
+  <article>
+    <h1 style="padding-top: 120px;">Thank You</h1>
+    <p>
+      For more information contact me:<a href="saskia.otto@uni-hamburg.de">
+      saskia.otto@uni-hamburg.de</a>
+      </p>
+      <p data-config-contact="">
+      <a href="http://www.researchgate.net/profile/Saskia_Otto"
+          style="color:#F48C0A; font-weight: bold;">
+        http://www.researchgate.net/profile/Saskia_Otto</a><br>
+      <a href="http://www.github.com/saskiaotto"
+          style="color: #F48C0A; font-weight: bold;">
+        http://www.github.com/saskiaotto</a>
+    </p>
+    <p style="font-size: 15px; position: absolute; left: 125px; top: 480px; z-index:100">
+    <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+      <img alt="Creative Commons License" style="border-width:0"
+        src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" /></a><br>
+        This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+        Creative Commons Attribution-ShareAlike 4.0 International License </a>except for the <br>
+        borrowed and mentioned with proper <i>source:</i> statements. <br>
+        <b>Image on title and end slide:</b> Section of an infrared satallite image showing the Larsen C
+        ice shelf on the Antarctic <br>
+        Peninsula - USGS/NASA Landsat: <a href="https://landsat.visibleearth.nasa.gov/view.php?id=90481">
+        A Crack of Light in the Polar Dark</a>, Landsat 8 - TIRS, June 17, 2017 <br>
+        (under CC0 license)
+    </p>
+  </article>
+</slide>
+<slide class="segue" style="background:#CD2626;">
+  <hgroup>
+    <h1>Solution - Exercise 6</h1>
+  </hgroup>
+  <article>
+    
+  </article>
+</slide>
+<slide class="" id="slide-101" style="background:;">
+  <hgroup>
+    <h3>This is how you could code the temperature regime plot</h3>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">world &lt;- map_data(&quot;world&quot;)
+worldmap &lt;- ggplot(world, aes(x = long, y = lat)) +
+  geom_polygon(aes(group = group), fill = &quot;ivory3&quot;, colour = &quot;black&quot;) 
+baltic &lt;- worldmap + coord_map(&quot;ortho&quot;,  xlim = c(10, 30), ylim = c(54,66))
+
+baltic + geom_point(data = sst_sum, aes(x = long, y = lat, colour = temp), size = 1) +
+  scale_colour_gradient(low = &quot;white&quot;, high = &quot;red&quot;) +
+  guides(colour = guide_colourbar(title = &quot;SST (in °C)&quot;)) +
+  facet_wrap(~fmonth, labeller = label_both) +
+  ggtitle(label = &quot;Thermal pattern in the Baltic Sea&quot;,
+    subtitle = &quot;SST in the summer months of 2015&quot;) +
+    xlab(&quot;Longitude&quot;) + ylab(&quot;Latitude&quot;) +
+  ggthemes::theme_base() +
+  theme(legend.position = &quot;bottom&quot;, legend.title.align = 1,
+    legend.title = element_text(colour = &quot;red&quot;, angle = 0), 
+      panel.background = element_rect(fill = &quot;lightblue1&quot;)
+  ) 
+</code></pre>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='From default to custom'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='NA'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Before you get there ...recap ...'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Creating plots in a stepwise process'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='You will now learn how to <strong>override the default</strong> settings'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='<small>ggplot</small> - Aesthetics'>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='NA'>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title='Aesthetics: visual properties of the objects in your plot'>
+         8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title='NA'>
+         9
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=10 title='NA'>
+         10
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=11 title='Colour'>
+         11
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=12 title='Colour'>
+         12
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=13 title='Colour (cont)'>
+         13
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=14 title='Colour (cont)'>
+         14
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=15 title='Types of shape'>
+         15
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=16 title='Linetype'>
+         16
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=17 title='Text - Font'>
+         17
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=18 title='Text - Justification'>
+         18
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=19 title='Your turn'>
+         19
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=20 title='Exercise 1: Aesthetics'>
+         20
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=21 title='<small>ggplot</small> - Scales'>
+         21
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=22 title='Using scales'>
+         22
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=23 title='Common scales'>
+         23
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=24 title='Scale colour - discrete data'>
+         24
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=25 title='Scale colour - discrete data'>
+         25
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=26 title='Manually assign colours: <code>scale_colour_manual()</code>'>
+         26
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=27 title='Use ready-made schemes: <code>scale_colour_hue()</code>'>
+         27
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=28 title='Use ready-made schemes: <code>scale_colour_grey()</code>'>
+         28
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=29 title='Use ready-made schemes: <code>scale_colour_brewer()</code>'>
+         29
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=30 title='NA'>
+         30
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=31 title='Scale colour - continous data'>
+         31
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=32 title='Use different gradient schemes: <code>scale_colour_gradient()</code>'>
+         32
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=33 title='Use different gradient schemes: <code>scale_colour_gradient()</code>'>
+         33
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=34 title='Use different gradient schemes: <code>scale_colour_gradient2()</code>'>
+         34
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=35 title='Overview of colour-related scales'>
+         35
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=36 title='Scale shape - discrete data'>
+         36
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=37 title='Scale shape - discrete data'>
+         37
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=38 title='Scale shape - discrete data'>
+         38
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=39 title='Scale shape - continuous data'>
+         39
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=40 title='Scale shape - continuous data'>
+         40
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=41 title='Scale size - continuous data'>
+         41
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=42 title='Scale size - continuous data'>
+         42
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=43 title='NA'>
+         43
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=44 title='Your turn...'>
+         44
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=45 title='Exercise 2: Scaling'>
+         45
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=46 title='<small>ggplot</small> - Faceting'>
+         46
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=47 title='NA'>
+         47
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=48 title='NA'>
+         48
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=49 title='Your turn'>
+         49
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=50 title='Exercise 3: Faceting'>
+         50
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=51 title='NA'>
+         51
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=52 title='<small>ggplot</small> - Coordinate systems'>
+         52
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=53 title='Using coordinate systems'>
+         53
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=54 title='NA'>
+         54
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=55 title='Useful changes of coord: Pie charts'>
+         55
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=56 title='Useful changes of coord: Map projections'>
+         56
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=57 title='Zooming into the Baltic Sea:'>
+         57
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=58 title='Your turn...'>
+         58
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=59 title='Exercise 4: Coordinate systems'>
+         59
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=60 title='<small>ggplot</small> - Making your figures look nice: labels, legends, and themes'>
+         60
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=61 title='Labels'>
+         61
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=62 title='Labels'>
+         62
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=63 title='Example with sea surface temperature in June'>
+         63
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=64 title='Legends'>
+         64
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=65 title='Example with sea surface temperature in summer'>
+         65
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=66 title='Not happy with the labels?'>
+         66
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=67 title='Not happy with the labels?'>
+         67
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=68 title='Not happy with the position of the legend?'>
+         68
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=69 title='Themes'>
+         69
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=70 title='Themes'>
+         70
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=71 title='NA'>
+         71
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=72 title='Long list of theme components'>
+         72
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=73 title='Pre-made themes'>
+         73
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=74 title='NA'>
+         74
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=75 title='Nice pre-made themes from external packages:'>
+         75
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=76 title='<strong>ggthemes</strong> examples'>
+         76
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=77 title='Your turn...'>
+         77
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=78 title='Exercise 5: Labels, legends, and themes'>
+         78
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=79 title='Multiple plots on one page'>
+         79
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=80 title='Arrange multiple plots on the same page'>
+         80
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=81 title='Arrange multiple plots on the same page'>
+         81
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=82 title='NA'>
+         82
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=83 title='Creating subplots with <code>viewport()</code>'>
+         83
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=84 title='Arrange multiple plots with <code>grid.arrange()</code>'>
+         84
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=85 title='<code>grid.arrange()</code> with <code>arrangeGrob()</code>'>
+         85
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=86 title='<code>grid.arrange()</code> with argument <code>layout_matrix</code>'>
+         86
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=87 title='Graphics with the <strong>cowplot</strong> package'>
+         87
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=88 title='Graphics with the <strong>cowplot</strong> package'>
+         88
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=89 title='NA'>
+         89
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=90 title='Saving cowplots'>
+         90
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=91 title='Coming back to the overall aim...'>
+         91
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=92 title='NA'>
+         92
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=93 title='Your turn...'>
+         93
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=94 title='Exercise 6: Synthesis'>
+         94
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=95 title='How do you feel now.....?'>
+         95
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=96 title='Totally confused?'>
+         96
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=97 title='Totally bored?'>
+         97
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=98 title='Totally content?'>
+         98
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=99 title='NA'>
+         99
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=100 title='Solution - Exercise 6'>
+         100
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=101 title='This is how you could code the temperature regime plot'>
+         101
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  <script src="libraries/widgets/quiz/js/jquery.quiz.js"></script>
+<script src="libraries/widgets/quiz/js/mustache.min.js"></script>
+<script src="libraries/widgets/quiz/js/quiz-app.js"></script>
+<script src="libraries/widgets/bootstrap/js/bootstrap.min.js"></script>
+<script src="libraries/widgets/bootstrap/js/bootbox.min.js"></script>
+<script src="libraries/widgets/interactive/js/ace/js/ace.js"></script>
+<script src="libraries/widgets/interactive/js/opencpu-0.5.js"></script>
+<script src="libraries/widgets/interactive/js/interactive.js"></script>
+
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<script>  
+  $(function (){ 
+    $("#example").popover(); 
+    $("[rel='tooltip']").tooltip(); 
+  });  
+  </script>  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

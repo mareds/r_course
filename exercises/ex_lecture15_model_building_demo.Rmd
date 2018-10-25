@@ -1,0 +1,518 @@
+---
+title: "Lecture 15"
+output:
+  html_document:
+    toc: yes
+    toc_float:
+      collapsed: true
+      smooth_scroll: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(tidy=FALSE, warning=FALSE, message=FALSE, cache=FALSE, dev.args=list(bg="transparent"),    
+fig.retina = 2, fig.path = "ex_lecture15_code_plotting_files/")
+```
+
+# Model building demonstration with plaice CPUE in the Baltic
+## Research question:
+
+**What factors explain best the pattern in age-specific Catch-Per-Unit-Effort (CPUE) of *Pleuronectes platessa* (plaice) in the first quarter of 2015?**
+
+Since we have longitude, latitude, and age in our dataset we can test whether these variables have any effect. Lets start with longitude as it is commonly known that plaice is more frequent in the Western Baltic Sea.
+
+Data import and transformation
+```{r data}
+library(tidyverse)
+library(lubridate)
+library(forcats)
+library(modelr)
+
+# Import the downloaded data (set your own working directory) --
+cpue <- read_csv("data/CPUE per age per area_2017-11-20 06_48_16.csv")
+
+# Transform the data (which is already tidy) -----------------
+
+# Subset data and convert to long format --
+# (so that CPUE is grouped for all age classes)
+plaice <- cpue %>% 
+  mutate(Area = factor(Area, levels = c(21,22,
+    23,24,25,26,27,28,29,30,31,32))) %>%
+  filter(Year == 2015, Quarter == 1, Species == "Pleuronectes platessa") %>%
+  select(Area, Quarter, Species, contains("Age")) %>%
+  gather(key = "Age", value = "CPUE", Age_0:Age_10) %>%
+  mutate(Age = factor(Age, levels = paste0("Age_", 0:10),
+    labels = c("0","1","2","3","4","5","6","7","8","9","10")))
+
+# Create a tibble wiht central coordinates for each area (ICES subdivision) --
+sd_coord <- tibble(
+  Area = factor(c(21,22,23,24,25,26,27,28,29,30,31,32)),
+  Lat = c(57,55,55.75,55,55.5,55.5,58,57.5,59.5,62,64.75,60),
+  Long = c(11.5,11,12.5,13.5,16,19.5,18,20,21,19.5,22.5,26)
+  )
+
+# Merge this table into the cpue data --
+plaice <- left_join(plaice, sd_coord, by = "Area")
+```
+
+---
+
+## Round 1
+
+### Step 1: Specification of model family 
+```{r, fig.align='left', fig.height=7, fig.width=13}
+plaice %>% 
+  ggplot(aes(x = Long, y = CPUE)) +
+  geom_jitter(aes(colour = Age)) +
+  scale_colour_brewer(
+    palette = "Paired") + 
+  guides(colour = "none") +
+  ggtitle("Plaice CPUE ~ Longitude (1.Quarter in 2015)")
+```
+Since a straight line seems less appropriate we will compare different model families including polynomials and transformation of Y.
+
+### Step 2: Model fitting
+
+```{r}
+plaice <- plaice %>% 
+  mutate(CPUE_log = log(CPUE + 0.001))
+
+m_lm <- lm(CPUE ~ Long, data = plaice)
+m_poly2 <- lm(CPUE ~ poly(Long,2), data = plaice)
+m_poly3 <- lm(CPUE ~ poly(Long,3), data = plaice)
+m_log_y <- lm(CPUE_log ~ Long, data = plaice)
+```
+
+### Step 3: Model partitioning - **predicted values** → model fit
+
+```{r, fig.align='center', fig.height=6, fig.width=13}
+pred_dat <- plaice %>%
+  data_grid(Long = seq_range(Long, 20)) %>% 
+  # generates an evenly spaced grid of data points with 
+  spread_predictions(m_lm, m_poly2, m_poly3, m_log_y) %>%
+  gather(m_lm:m_log_y, key = "Model", value = "Pred") %>%
+  mutate(Model = factor(Model))
+
+p1 <- pred_dat %>%
+  filter(Model !=  "m_log_y") %>%
+  ggplot(aes(x = Long, y = Pred)) +
+    geom_line(aes(linetype = Model)) +
+    geom_jitter(data = plaice, aes(y = CPUE, colour = Age)) +
+    scale_colour_brewer(palette = "Paired") + 
+    ylab("CPUE") +
+    ggtitle("Models with untransformed data")
+
+p2 <- pred_dat %>%
+  filter(Model ==  "m_log_y") %>%
+  ggplot(aes(x = Long, y = Pred)) +
+    geom_line(aes(linetype = Model)) +
+    geom_jitter(data = plaice, aes(y = CPUE_log, colour = Age)) +
+    scale_colour_brewer(palette = "Paired") + 
+    ylab("log(CPUE)") +
+    ggtitle("Model with log-transformed CPUE data")
+
+gridExtra::grid.arrange(p1, p2, ncol = 2)
+```
+
+Which model do you prefer? Which models are misfitting the data?
+Which problem becomes more apparent when log-transforming CPUE? 
+
+- There are too **many zeros** in the CPUE data!
+
+### Step 3: **Residuals** → model assumptions
+
+```{r, fig.align='center', fig.height=13, fig.width=13}
+par(mfrow = c(4,4))
+plot(m_lm, main = "m_lm")
+plot(m_poly2, main = "m_poly2")
+plot(m_poly3, main = "m_poly3")
+plot(m_log_y, main = "m_log_y")
+```
+
+---
+
+### Zero-inflation
+
+Too many zeros in the data can inflate the parameterization of coefficients. 
+
+- One can either apply specific models that account for it (e.g. zero-truncated or zero-inflated regression models),
+- convert the data into binary data (presence/absence) and apply a logistic regression,
+- or reduce the number of zeros by
+  - summing up the CPUE over all age classes (disadvantage: we reduce the sample size)
+  - or, in this demostration, by removing specific age classes
+
+→ In any case, we need to **rephrase our research question**!
+
+```{r}
+plaice %>% group_by(Age, CPUE) %>% 
+  filter(CPUE < 0.01) %>%
+  summarize(counts = n()) %>% print(n=40)
+```
+
+Lets remove age 0, 1 and > 6 and start with step 2 again
+
+```{r}
+plaice <- plaice %>% filter(Age %in% 2:6) %>%
+  mutate(Age = fct_drop(Age))
+```
+
+--- 
+
+## Round 2
+
+### Repeat step 2: Model fitting with new data
+
+```{r}
+m_lm <- lm(CPUE ~ Long, data = plaice)
+m_poly2 <- lm(CPUE ~ poly(Long,2), data = plaice)
+m_poly3 <- lm(CPUE ~ poly(Long,3), data = plaice)
+m_log_y <- lm(CPUE_log ~ Long, data = plaice)
+```
+
+For reasons of convenience I named the subset also 'plaice' so I can simply run the previous code again without many modifications.
+
+### Repeat step 3: Model partitioning - **predicted values**
+
+```{r, fig.align='center', fig.height=6, fig.width=13}
+pred_dat <- plaice %>%
+  data_grid(Long = seq_range(Long, 20)) %>% 
+  spread_predictions(m_lm, m_poly2, m_poly3, m_log_y) %>%
+  gather(m_lm:m_log_y, key = "Model", value = "Pred") %>%
+  mutate(Model = factor(Model))
+
+p1 <- pred_dat %>%
+  filter(Model !=  "m_log_y") %>%
+  ggplot(aes(x = Long, y = Pred)) +
+    geom_line(aes(linetype = Model)) +
+    geom_jitter(data = plaice, aes(y = CPUE, colour = Age)) +
+    scale_colour_brewer(palette = "Paired") + 
+    ylab("CPUE") +
+    ggtitle("Models with untransformed data")
+
+p2 <- pred_dat %>%
+  filter(Model ==  "m_log_y") %>%
+  ggplot(aes(x = Long, y = Pred)) +
+    geom_line(aes(linetype = Model)) +
+    geom_jitter(data = plaice, aes(y = CPUE_log, colour = Age)) +
+    scale_colour_brewer(palette = "Paired") + 
+    ylab("log(CPUE)") +
+    ggtitle("Model with log-transformed CPUE data")
+
+gridExtra::grid.arrange(p1, p2, ncol = 2)
+```
+
+How do the models perform now?
+
+### Repeat step 3: Model partitioning - **residuals**
+
+```{r, fig.align='center', fig.height=13, fig.width=13}
+par(mfrow = c(4,4))
+plot(m_lm, main = "m_lm")
+plot(m_poly2, main = "m_poly2")
+plot(m_poly3, main = "m_poly3")
+plot(m_log_y, main = "m_log_y")
+```
+
+
+## What next?
+
+- `m_log_y` shows the best residual distribution so we could focus on this model and move on the step 4; however, for some age classes this model greatly underestimates the CPUE.
+- The models with untransformed data do not look too bad either (particularly the polynomials) so we could keep them for now and see whether including more variables helps reducing the noise and improving the model fit.
+
+
+---
+
+### Step 4: Model residuals ~ another X variable
+
+```{r, fig.align='center', fig.height=7, fig.width=13}
+r <- plaice %>% spread_residuals(m_lm, m_poly2, m_poly3, m_log_y) %>%
+  ggplot() + geom_hline(yintercept = 0, 
+    colour = "blue", size = 0.5)
+
+r1_lat <- r + geom_point(aes(x = Lat, y = m_lm), 
+  colour = "red", alpha = 0.5) + ggtitle("m_lm")
+r2_lat <- r + geom_point(aes(x = Lat, y = m_poly2), 
+  colour = "red", alpha = 0.5) + ggtitle("m_poly2")
+r3_lat <- r + geom_point(aes(x = Lat, y = m_poly3), 
+  colour = "red", alpha = 0.5) + ggtitle("m_poly3")
+r4_lat <- r + geom_point(aes(x = Lat, y = m_log_y), 
+  colour = "red", alpha = 0.5) + ggtitle("m_log_y")
+r1_age <- r + geom_boxplot(aes(x = Age, y = m_lm)) 
+r2_age <- r + geom_boxplot(aes(x = Age, y = m_poly2)) 
+r3_age <- r + geom_boxplot(aes(x = Age, y = m_poly3)) 
+r4_age <- r + geom_boxplot(aes(x = Age, y = m_log_y)) 
+
+gridExtra::grid.arrange(grobs = list(
+  r1_lat,r2_lat,r3_lat,r4_lat,r1_age,r2_age,r3_age,r4_age), ncol = 4, nrow = 2)
+```
+
+Lets include the factor Age in all 4 models!
+
+### Step 5: Re-specify the model and visualize the predictions
+
+```{r}
+m_lm <- update(m_lm, .~. + Age)
+m_poly2 <- update(m_poly2, .~. + Age)
+m_poly3 <- update(m_poly3, .~. + Age)
+m_log_y <- update(m_log_y, .~. + Age)
+```
+
+```{r, fig.align='center', fig.height=5, fig.width=13}
+pred_dat <- plaice %>%
+  data_grid(Long = seq_range(Long, 20), Age = Age) %>% 
+  spread_predictions(m_lm, m_poly2, m_poly3, m_log_y) %>%
+  gather(m_lm:m_log_y, key = "Model", value = "Pred") %>%
+  mutate(Model = factor(Model))
+
+p <- plaice %>% 
+  ggplot(aes(x = Long, y = CPUE)) +
+    geom_jitter(aes(colour = Age)) +
+    scale_colour_brewer(palette = "Paired") + 
+    ylab("CPUE") 
+
+p1 <- p + geom_line(data = filter(pred_dat, Model == "m_lm"), 
+    aes(y = Pred, group = Age, colour = Age)) + ggtitle("m_lm") +
+  theme(legend.position = c(1,1) ,
+    legend.justification = c(1.1,1.1))
+
+p2 <- p + geom_line(data = filter(pred_dat, Model == "m_poly2"), 
+    aes(y = Pred, group = Age, colour = Age)) + ggtitle("m_poly2") +
+  guides(colour = "none")
+
+p3 <- p + geom_line(data = filter(pred_dat, Model == "m_poly3"), 
+    aes(y = Pred, group = Age, colour = Age)) + ggtitle("m_poly3") + 
+  guides(colour = "none")
+
+p4 <- plaice %>% 
+  ggplot(aes(x = Long, y = CPUE_log)) +
+    geom_jitter(aes(colour = Age)) +
+    scale_colour_brewer(palette = "Paired") + 
+    ylab("CPUE") +
+    geom_line(data = filter(pred_dat, Model == "m_log_y"), 
+      aes(y = Pred, group = Age, colour = Age)) + ggtitle("m_log_y") + 
+    guides(colour = "none")
+  
+gridExtra::grid.arrange(grobs = list(p1, p2, p3, p4), ncol = 4)
+```
+
+**Happy now?**
+
+Plotting the residual diagnostics of these models
+```{r, fig.align='center', fig.height=13, fig.width=13}
+par(mfrow = c(4,4))
+plot(m_lm, main = "m_lm")
+plot(m_poly2, main = "m_poly2")
+plot(m_poly3, main = "m_poly3")
+plot(m_log_y, main = "m_log_y")
+```
+
+### Step 6: Test for an interaction between `Long` and `Age`
+
+```{r}
+m_lm_int <- lm(CPUE ~ Long * Age, data = plaice)
+m_poly2_int <- lm(CPUE ~ poly(Long,2) * Age, data = plaice)
+m_poly3_int <- lm(CPUE ~ poly(Long,3) * Age, data = plaice)
+m_log_y_int <- lm(CPUE_log ~ Long * Age, data = plaice)
+```
+
+```{r, fig.align='center', fig.height=5, fig.width=13}
+pred_dat <- plaice %>%
+  data_grid(Long = seq_range(Long, 20), Age = Age) %>% 
+  spread_predictions(m_lm_int, m_poly2_int, m_poly3_int, m_log_y_int) %>%
+  gather(m_lm_int:m_log_y_int, key = "Model", value = "Pred") %>%
+  mutate(Model = factor(Model))
+
+p <- plaice %>% 
+  ggplot(aes(x = Long, y = CPUE)) +
+    geom_jitter(aes(colour = Age)) +
+    scale_colour_brewer(palette = "Paired") + 
+    ylab("CPUE") 
+
+p1 <- p + geom_line(data = filter(pred_dat, Model == "m_lm_int"), 
+    aes(y = Pred, group = Age, colour = Age)) + ggtitle("m_lm_int") +
+  theme(legend.position = c(1,1) ,
+    legend.justification = c(1.1,1.1))
+
+p2 <- p + geom_line(data = filter(pred_dat, Model == "m_poly2_int"), 
+    aes(y = Pred, group = Age, colour = Age)) + ggtitle("m_poly2_int") +
+  guides(colour = "none")
+
+p3 <- p + geom_line(data = filter(pred_dat, Model == "m_poly3_int"), 
+    aes(y = Pred, group = Age, colour = Age)) + ggtitle("m_poly3_int") + 
+  guides(colour = "none")
+
+p4 <- plaice %>% 
+  ggplot(aes(x = Long, y = CPUE_log)) +
+    geom_jitter(aes(colour = Age)) +
+    scale_colour_brewer(palette = "Paired") + 
+    ylab("CPUE") +
+    geom_line(data = filter(pred_dat, Model == "m_log_y_int"), 
+      aes(y = Pred, group = Age, colour = Age)) + ggtitle("m_log_y_int") + 
+    guides(colour = "none")
+  
+gridExtra::grid.arrange(grobs = list(p1, p2, p3, p4), ncol = 4)
+```
+
+**Better?**
+
+Plotting the residual diagnostics of these models
+```{r, fig.align='center', fig.height=13, fig.width=13}
+par(mfrow = c(4,4))
+plot(m_lm_int, main = "m_lm_int")
+plot(m_poly2_int, main = "m_poly2_int")
+plot(m_poly3_int, main = "m_poly3_int")
+plot(m_log_y_int, main = "m_log_y_int")
+```
+
+### Go back to step 4: Model residuals ~ latitude 
+
+```{r, echo = FALSE, fig.align='center', fig.height=6, fig.width=13}
+r <- plaice %>%
+  spread_residuals(m_lm, m_poly2, m_poly3, m_log_y) %>%
+  ggplot() + geom_hline(yintercept = 0,
+    colour = "blue", size = 0.5)
+
+r_int <- plaice %>%
+  spread_residuals(m_lm_int, m_poly2_int, m_poly3_int, m_log_y_int) %>%
+  ggplot() + geom_hline(yintercept = 0,
+    colour = "blue", size = 0.5)
+
+r1_lat <- r + geom_point(aes(x = Lat, y = m_lm),
+  colour = "red", alpha = 0.5) + ggtitle("m_lm")
+r2_lat <- r + geom_point(aes(x = Lat, y = m_poly2),
+  colour = "red", alpha = 0.5) + ggtitle("m_poly2")
+r3_lat <- r + geom_point(aes(x = Lat, y = m_poly3),
+  colour = "red", alpha = 0.5) + ggtitle("m_poly3")
+r4_lat <- r + geom_point(aes(x = Lat, y = m_log_y),
+  colour = "red", alpha = 0.5) + ggtitle("m_log_y")
+
+r1_int_lat <- r_int + geom_point(aes(x = Lat, y = m_lm_int),
+  colour = "red", alpha = 0.5) + ggtitle("m_lm_int")
+r2_int_lat <- r_int + geom_point(aes(x = Lat, y = m_poly2_int),
+  colour = "red", alpha = 0.5) + ggtitle("m_poly2_int")
+r3_int_lat <-r_int + geom_point(aes(x = Lat, y = m_poly3_int),
+  colour = "red", alpha = 0.5) + ggtitle("m_poly3_int")
+r4_int_lat <- r_int + geom_point(aes(x = Lat, y = m_log_y_int),
+  colour = "red", alpha = 0.5) + ggtitle("m_log_y_int")
+
+gridExtra::grid.arrange(grobs = list(
+  r1_lat, r2_lat, r3_lat, r4_lat,
+  r1_int_lat, r2_int_lat, r3_int_lat, r4_int_lat),
+  ncol = 4, nrow = 2)
+```
+
+No clear pattern that suggests to include latitude in the model (in the mod_log_y model it seems residuals decrease with latitude but that is mainly caused by the 2 outliers).
+
+---
+
+## So which one to choose? 
+
+- From the residual diagnostics it seems that `mod_log_y` with `Age` and `Long` is the best, but the cubic model is also quite good. 
+- Should an interaction term be included or not? Difficult to say from the graphics.
+- Lets use the **AIC** to guide our decision!
+  - It is wise to **include a NULL model** (with only an intercept) to see whether any of the covariate should be included or not.
+  - The AIC is only useful for comparison between models fitted to the same observations and same Y variables: you can't compare models fitted to different data subsets or if Y is partly transformed!
+
+### Overview of models we fitted
+```{r}
+# Generate a null-model for the untransformed models --
+m0 <- lm(CPUE ~ 1, data = plaice)
+m_lm_1 <- lm(CPUE ~ Long, data = plaice)
+m_lm_2 <- lm(CPUE ~ Long + Age, data = plaice)
+m_lm_3 <- lm(CPUE ~ Long * Age, data = plaice)
+m_poly2_1 <- lm(CPUE ~ poly(Long,2), data = plaice)
+m_poly2_2 <- lm(CPUE ~ poly(Long,2) + Age, data = plaice)
+m_poly2_3 <- lm(CPUE ~ poly(Long,2) * Age, data = plaice)
+m_poly3_1 <- lm(CPUE ~ poly(Long,3), data = plaice)
+m_poly3_2 <- lm(CPUE ~ poly(Long,3) + Age, data = plaice)
+m_poly3_3 <- lm(CPUE ~ poly(Long,3) * Age, data = plaice)
+
+# Generate a null-model for the log-models --
+m_log_y_0 <-lm(CPUE_log ~ 1, data = plaice)
+m_log_y_1 <-lm(CPUE_log ~ Long, data = plaice)
+m_log_y_2 <-lm(CPUE_log ~ Long + Age, data = plaice)
+m_log_y_3 <-lm(CPUE_log ~ Long * Age, data = plaice)
+```
+
+### AIC comparison
+```{r}
+# Untransf. models --
+AIC(m0, m_lm_1, m_lm_2, m_lm_3, m_poly2_1, m_poly2_2, m_poly2_3,
+  m_poly3_1, m_poly3_2, m_poly3_3)
+
+# Log-models --
+AIC(m_log_y_0, m_log_y_1, m_log_y_2, m_log_y_3)
+```
+
+- All models perform better than the NULL model but do not differ much from each other; no model sticks out as most adequate but simple model! Given an AIC difference of 2, none of the polynomial models performs better than the simple linear model and, in fact, m_lm_2 (Age + Long) would be the best choice based on the AIC.
+- The best log-model contains Age and Long but no interaction!
+
+---
+
+## Summary of final model
+
+### Numerical output of `m_log_y_2`
+```{r, collapse = TRUE}
+summary(m_log_y_2)
+```
+
+### Graphical output of `m_log_y_2`
+```{r, fig.align='center', fig.height=8, fig.width=13}
+pred_dat <- plaice %>%
+  data_grid(Long = seq_range(Long, 20), Age = Age)
+pred_dat$Pred <- predict(m_log_y_2, se = TRUE, newdata = pred_dat)$fit
+pred_dat$Pred_se <- predict(m_log_y_2, se = TRUE, newdata = pred_dat)$se.fit
+
+pred_dat_untrans <- pred_dat %>%
+  mutate(Pred = exp(Pred - 0.001), Pred_se = exp(Pred_se - 0.001))
+
+p_fin1 <- plaice %>% 
+  ggplot(aes(x = Long)) +
+    geom_ribbon(data = pred_dat,
+      aes(ymin = (Pred - Pred_se), ymax = (Pred + Pred_se),
+      group = Age, fill = Age), alpha = 0.5) +
+    geom_line(data = pred_dat,
+      aes(y = Pred, group = Age, colour = Age)) +
+    geom_jitter(aes(y = CPUE_log, colour = Age)) +
+    scale_colour_brewer(palette = "Paired") + 
+    scale_fill_brewer(palette = "Paired") + 
+    facet_grid(. ~ Age, labeller = label_both) +
+    guides(colour = "none") +
+    ylab("CPUE") + theme_bw() +
+    theme(panel.grid = element_blank()) +
+  ggtitle("Obs. and pred. (with s.e.) CPUE on the modelled log-scale")
+
+p_fin2 <- plaice %>% 
+  ggplot(aes(x = Long)) +
+    geom_ribbon(data = pred_dat_untrans,
+      aes(ymin = (Pred - Pred_se), ymax = (Pred + Pred_se),
+      group = Age, fill = Age), alpha = 0.5) +
+    geom_line(data = pred_dat_untrans,
+      aes(y = Pred, group = Age, colour = Age)) +
+    geom_jitter(aes(y = CPUE, colour = Age)) +
+    scale_colour_brewer(palette = "Paired") + 
+    scale_fill_brewer(palette = "Paired") + 
+    facet_grid(. ~ Age, labeller = label_both) +
+    guides(colour = "none") +
+    ylab("CPUE") + theme_bw() +
+    theme(panel.grid = element_blank()) +
+  ggtitle("Obs. and pred. (with s.e.) CPUE back transformed")
+
+gridExtra::grid.arrange(p_fin1, p_fin2, nrow = 2)
+```
+
+<br>
+<br>
+<br>
+
+
+
+
+
+
+
+
+
+
+
+
+
