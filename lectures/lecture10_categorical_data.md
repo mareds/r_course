@@ -12,73 +12,11 @@ knit        : slidify::knit2slides
 logo        : uham_logo.png
 biglogo     : BigLogo_MDS.png
 assets      : {assets: ../../assets}
---- &slide_no_footer .segue bg:#FF8C00
-
-
-
-
-
-# ICES DATRAS fish data
-<img src="img/Data_science_1b.png" style="height:150px;border:0;position: absolute; left: 900px; top: 50px" </img> 
-
---- &vcenter
-## We will query data from the DATRAS database
-
-<div class="img-with-text" style="position: absolute; left: 225px; top: 100px">
-    <img src="img/DATRAS_1.png" alt="" width=650px height=500px />
- <p><span class="source-img" style = "float:right">Screenshot from the ICES webpage: 
-  <a href='http://www.ices.dk/marine-data/data-portals/Pages/DATRAS.aspx' title=''>http://www.ices.dk/marine-data/data-portals/Pages/DATRAS.aspx</a></span></p>
-</div>
-
-
---- &vcenter
-## Query CPUE per age per area
-
-<a href="https://datras.ices.dk/Data_products/Download/Download_Data_public.aspx">
-  <img src="img/cpue_age_area.png" alt="DATRAS query1" style="width:700px;height:500px;border:0;" >
-</a> 
-
----
-## Load the data
-
-
-```r
-cpue <- read_csv("data/CPUE per age per area_2017-11-20 06_48_16.csv")
-print(cpue, n = 5)  
-```
-
-```no-highlight
-## # A tibble: 801 x 17
-##   Survey  Year Quarter  Area AphiaID Species Age_0 Age_1 Age_2 Age_3 Age_4
-##   <chr>  <int>   <int> <int>   <int> <chr>   <dbl> <dbl> <dbl> <dbl> <dbl>
-## 1 BITS    1991       1    24  126436 Gadus …     0 2.24   6.81  6.48  7.24
-## 2 BITS    1991       1    25  126436 Gadus …     0 3.47  24.6  39.9  58.8 
-## 3 BITS    1991       1    26  126436 Gadus …     0 8.79   8.52 38.1  29.6 
-## 4 BITS    1991       1    27  126436 Gadus …     0 0      0     0     0   
-## 5 BITS    1991       1    28  126436 Gadus …     0 0.173 25.8  42.5  34.5 
-## # ... with 796 more rows, and 6 more variables: Age_5 <dbl>, Age_6 <dbl>,
-## #   Age_7 <dbl>, Age_8 <dbl>, Age_9 <dbl>, Age_10 <dbl>
-```
-
---- 
-## So what are the `Areas`?
-### ICES subdivisions (SD) in the Baltic Sea
-
-<div class="img-with-text" style="position: absolute; left: 350px; top: 200px; z-index:100">
-    <img src="img/ICES_SD_BS.png" alt="" width=400px/>
- <p><span class="source-img" style = "float:right">
-    source: EAA and EFTTA position paper, Sept 30th, 2016 (<a href='http://www.eaa-europe.org/positions/western-baltic-cod-2016.html' title=''>http://www.eaa-europe.org</a>)</span></p>
-</div>
-
-
----
-### Now check whether the data is tidy and filter the year 2015
-
-> - Are you satisfied with `Survey`, `Quarter`, `Area`, or `Species` being character or integer vectors?
-> - Why not convert them into **factors** ...?
-
-
 --- &slide_no_footer .segue bg:#1874CD
+
+
+
+
 
 # Factors
 <img src="img/Data_science_1a.png" style="height:150px;border:0;position: absolute; left: 900px; top: 50px" </img> 
@@ -112,7 +50,7 @@ Factors are
 
 --- 
 ## String vs. factor
-Imagine that you have a vector or variable that contains month:
+Imagine that you have a vector or variable that contains months:
 
 
 ```r
@@ -121,12 +59,22 @@ x1 <- c("Dec", "Apr", "Jan", "Mar")
 
 Using a string to record this variable has two problems:
 
-1. There are only twelve possible months, and there’s nothing saving you from typos
-2. It doesn’t sort in a useful way
+--- 
+## String vs. factor
+Imagine that you have a vector or variable that contains months:
 
 
 ```r
-x2 <- c("Dec", "Apr", "Jam", "Mar")
+x1 <- c("Dec", "Apr", "Jan", "Mar")
+```
+
+Using a string to record this variable has two problems:
+
+1. It **doesn’t sort** in a useful way.
+2. There are only twelve possible months, and there’s nothing saving you from **typos**.
+
+
+```r
 sort(x1)
 ```
 
@@ -134,49 +82,79 @@ sort(x1)
 ## [1] "Apr" "Dec" "Jan" "Mar"
 ```
 
+```r
+x2 <- c("Dec", "Apr", "Jam", "Mar")
+```
+
 ---
 ## Creating factors
 
-You can fix both of these problems with a factor. To create a factor you must start by creating a vector of the valid levels:
+You can fix both of these problems with a factor. To create a factor you can convert any vector using the function `factor()`
 
 ```r
-library(forcats)
+f1 <- factor(x1)
+f1
+```
+
+```no-highlight
+## [1] Dec Apr Jan Mar
+## Levels: Apr Dec Jan Mar
+```
+
+---
+## Creating factors
+
+You can fix both of these problems with a factor. To create a factor you can convert any vector using the function `factor()`
+
+```r
+f1 <- factor(x1)
+f1
+```
+
+```no-highlight
+## [1] Dec Apr Jan Mar
+## Levels: Apr Dec Jan Mar
+```
+
+But this does **not yet** fix the problems...
+
+```r
+sort(f1)
+```
+
+```no-highlight
+## [1] Apr Dec Jan Mar
+## Levels: Apr Dec Jan Mar
+```
+<small>As you can see, the factor elements get sorted in the order of the levels - which is an alphabetical order.</small>
+
+---
+## Creating factors (cont)
+### Solution:
+
+Create a vector of the valid levels and add it as `levels` argument:
+
+```r
 month_levels <- c(
   "Jan", "Feb", "Mar", "Apr", "May", "Jun", 
   "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
 )
-```
-
-
-
----
-## Creating factors (cont)
-
-Now you can create a factor:
-
-```r
-y1 <- factor(x1, levels = month_levels)
-y1
+f1 <- factor(x1, levels = month_levels)
+f1
 ```
 
 ```no-highlight
 ## [1] Dec Apr Jan Mar
 ## Levels: Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec
 ```
+Note:
 
-
-```r
-sort(y1)
-```
-
-```no-highlight
-## [1] Jan Mar Apr Dec
-## Levels: Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec
-```
+- Whatever order you choose here will be the output order.
+- You can include levels here that are not necessarily in your vector.
 
 ---
 ## Creating factors (cont)
-Any values not in the set will be silently converted to NA:
+Any values not in the level vector will be silently converted to NA:
 
 
 ```r
@@ -189,22 +167,22 @@ y2
 ## Levels: Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec
 ```
 
-If you omit the levels, they’ll be taken from the data in alphabetical order:
+<br>
+To access the set of valid levels directly use `levels()`:
 
 
 ```r
-factor(x1)
+levels(f2)
 ```
 
 ```no-highlight
-## [1] Dec Apr Jan Mar
-## Levels: Apr Dec Jan Mar
+## [1] "Dec" "Apr" "Jan" "Mar"
 ```
 
 --- &twocol
 ## Factor levels 
 
-Sometimes you’d prefer that the order of the levels match the order of the first appearance in the data. You can do that when creating the factor by setting levels to `unique(x)` or after the factor conversion with `fct_inorder()`:
+Sometimes you’d prefer that the order of the levels match the order of the first appearance in the data. You can do that when creating the factor by setting levels to `unique(x)` or after the factor conversion with `fct_inorder()` (in forcats):
 
 *** =left
 
@@ -221,6 +199,7 @@ f1
 *** =right
 
 ```r
+library(forcats)
 f2 <- x1 %>% factor() %>% fct_inorder()
 f2
 ```
@@ -228,19 +207,6 @@ f2
 ```no-highlight
 ## [1] Dec Apr Jan Mar
 ## Levels: Dec Apr Jan Mar
-```
-
----
-## Factor levels (cont)
-To access the set of valid levels directly use `levels()`:
-
-
-```r
-levels(f2)
-```
-
-```no-highlight
-## [1] "Dec" "Apr" "Jan" "Mar"
 ```
 
 ---
@@ -253,21 +219,155 @@ levels(f2)
 - **Collapse factor levels** into manually defined groups: `fct_collapse()`
 
 ---
-## A demonstration with the CPUE dataset and the areas
+## Factor labels
 
+You can change the way how the factor levels are **displayed**. That can be useful if you want to **reduce typing effort**:
 
+---
+## Factor labels
+
+You can change the way how the factor levels are **displayed**. That can be useful if you want to **reduce typing effort**:
 
 
 ```r
-cpue$Area <- factor(cpue$Area) # (same as cpue <- mutate(cpue, Area = factor(Area)))
-levels(cpue$Area)
+x <- c(1,2,4,2,4,5,2,5,6,3,5,6,7,3,6,8,2,8)
+months <- factor(x, # your vector containing the months
+  levels = 1:12, # allowed values (in that order)
+  labels = c("jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec"))
+months
 ```
 
 ```no-highlight
-## [1] "21" "22" "23" "24" "25" "26" "27" "28"
+##  [1] jan feb apr feb apr may feb may jun mar may jun jul mar jun aug feb
+## [18] aug
+## Levels: jan feb mar apr may jun jul aug sep oct nov dec
 ```
 
-To plot the total CPUE of Atlantic cod (*Gadus morhua*) per area in 2015:
+To compare without labels
+
+```r
+factor(x, levels = 1:12)
+```
+
+```no-highlight
+##  [1] 1 2 4 2 4 5 2 5 6 3 5 6 7 3 6 8 2 8
+## Levels: 1 2 3 4 5 6 7 8 9 10 11 12
+```
+
+
+--- &slide_no_footer .segue bg:#EEC900
+
+# Your turn...
+
+--- &exercise
+# Exercise
+
+Create the following dataset
+
+```r
+manta_rays <- data.frame(
+  month = c(9, 3, 5, 1, 7, 12),
+  catch = c(843, 743, 1229, 500, 1197,607)
+  )
+```
+
+Now modify **manta_rays** to get these 2 plots:
+
+<img src="lecture10_plotting_files/unnamed-chunk-15-1.png" title="plot of chunk unnamed-chunk-15" alt="plot of chunk unnamed-chunk-15" width="720" style="display: block; margin: auto;" />
+
+
+--- &slide_no_footer .segue bg:#FF8C00
+
+# A real data demonstration with ICES DATRAS fish data
+<img src="img/Data_science_1b.png" style="height:150px;border:0;position: absolute; left: 900px; top: 50px" </img> 
+
+--- &vcenter
+## We will query data from the DATRAS database
+
+<div class="img-with-text" style="position: absolute; left: 225px; top: 100px">
+    <img src="img/DATRAS_1.png" alt="" width=650px height=500px />
+ <p><span class="source-img" style = "float:right">Screenshot from the ICES webpage: 
+  <a href='http://www.ices.dk/marine-data/data-portals/Pages/DATRAS.aspx' title=''>http://www.ices.dk/marine-data/data-portals/Pages/DATRAS.aspx</a></span></p>
+</div>
+
+
+--- &vcenter
+## Query CPUE per age per area
+
+<a href="https://datras.ices.dk/Data_products/Download/Download_Data_public.aspx">
+  <img src="img/cpue_age_area.png" alt="DATRAS query1" style="width:700px;height:500px;border:0;" >
+</a> 
+
+---
+## Load the data (using your file path)
+
+
+```r
+cpue <- read_csv("data/CPUE per age per area_2017-11-20 06_48_16.csv")
+print(cpue, n = 5)  
+```
+
+```no-highlight
+## # A tibble: 801 x 17
+##   Survey  Year Quarter  Area AphiaID Species Age_0 Age_1 Age_2 Age_3 Age_4
+##   <chr>  <int>   <int> <int>   <int> <chr>   <dbl> <dbl> <dbl> <dbl> <dbl>
+## 1 BITS    1991       1    24  126436 Gadus …     0 2.24   6.81  6.48  7.24
+## 2 BITS    1991       1    25  126436 Gadus …     0 3.47  24.6  39.9  58.8 
+## 3 BITS    1991       1    26  126436 Gadus …     0 8.79   8.52 38.1  29.6 
+## 4 BITS    1991       1    27  126436 Gadus …     0 0      0     0     0   
+## 5 BITS    1991       1    28  126436 Gadus …     0 0.173 25.8  42.5  34.5 
+## # ... with 796 more rows, and 6 more variables: Age_5 <dbl>, Age_6 <dbl>,
+## #   Age_7 <dbl>, Age_8 <dbl>, Age_9 <dbl>, Age_10 <dbl>
+```
+
+--- 
+## So what are the `Areas`?
+### ICES subdivisions (SD) in the Baltic Sea
+
+<div class="img-with-text" style="position: absolute; left: 350px; top: 200px; z-index:100">
+    <img src="img/ICES_SD_BS.png" alt="" width=400px/>
+ <p><span class="source-img" style = "float:right">
+    source: EAA and EFTTA position paper, Sept 30th, 2016 (<a href='http://www.eaa-europe.org/positions/western-baltic-cod-2016.html' title=''>http://www.eaa-europe.org</a>)</span></p>
+</div>
+
+
+---
+## Now check whether the data is tidy
+
+- Any NAs?
+- Is the format long or wide? Do you want to change it?
+- **Do the columns have the appropriate data type?**
+
+---
+## Now check whether the data is tidy
+
+- Any NAs?
+- Is the format long or wide? Do you want to change it?
+- **Do the columns have the appropriate data type?**
+  - Are you satisfied with `Survey`, `Quarter`, `Area`, or `Species` being character or integer vectors?
+  - Why not convert them into **factors** ...?
+
+---
+## Now check whether the data is tidy
+
+- Any NAs?
+- Is the format long or wide? Do you want to change it?
+- **Do the columns have the appropriate data type?**
+  - Are you satisfied with `Survey`, `Quarter`, `Area`, or `Species` being character or integer vectors?
+  - Why not convert them into **factors** ...?
+
+
+```r
+cpue$Quarter <- factor(cpue$Quarter)
+cpue$Area <- factor(cpue$Area)
+cpue$Species <- factor(cpue$Species)
+```
+
+---
+
+## Data transformation
+
+Lets plot the **total CPUE** of **Atlantic cod** (*Gadus morhua*) in the **first** quarter of **2015** per area:
 
 ```r
 cpue_total <- cpue %>% 
@@ -276,7 +376,11 @@ cpue_total <- cpue %>%
     mutate(total_cpue = rowSums(select(., contains("Age")))) 
 ```
 
---- &twocol
+<div class="boxorange1" >
+  <h4>Note:</h4> <p><span style="font-size:15px">When using the pipe operator and the <strong>select function</strong> within another function (here <code>rowMeans()</code>) you need to use as first argument the <strong>dot as placeholder</strong> for the data!</span></p></div>
+
+
+--- &twocol  
 ### Area sorted automatically
 
 *** =left
@@ -289,7 +393,7 @@ cpue_total %>%
 ```
 
 *** =right
-<img src="lecture10_plotting_files/unnamed-chunk-17-1.png" title="plot of chunk unnamed-chunk-17" alt="plot of chunk unnamed-chunk-17" width="432" style="display: block; margin: auto auto auto 0;" />
+<img src="lecture10_plotting_files/unnamed-chunk-20-1.png" title="plot of chunk unnamed-chunk-20" alt="plot of chunk unnamed-chunk-20" width="432" style="display: block; margin: auto auto auto 0;" />
 
 --- &twocol
 ### Now lets reorder the Area factor
@@ -304,7 +408,7 @@ cpue_total %>%
   geom_col()
 ```
 
-<img src="lecture10_plotting_files/unnamed-chunk-18-1.png" title="plot of chunk unnamed-chunk-18" alt="plot of chunk unnamed-chunk-18" width="360" style="display: block; margin: auto;" />
+<img src="lecture10_plotting_files/unnamed-chunk-21-1.png" title="plot of chunk unnamed-chunk-21" alt="plot of chunk unnamed-chunk-21" width="360" style="display: block; margin: auto;" />
 
 *** =right
 
@@ -316,7 +420,7 @@ cpue_total %>% mutate(Area=fct_relevel(
     fill = Area)) + geom_col()
 ```
 
-<img src="lecture10_plotting_files/unnamed-chunk-19-1.png" title="plot of chunk unnamed-chunk-19" alt="plot of chunk unnamed-chunk-19" width="360" style="display: block; margin: auto;" />
+<img src="lecture10_plotting_files/unnamed-chunk-22-1.png" title="plot of chunk unnamed-chunk-22" alt="plot of chunk unnamed-chunk-22" width="360" style="display: block; margin: auto;" />
 
 --- &twocol
 ### What would be if we plot the mean instead of total CPUE:
@@ -336,12 +440,9 @@ cpue_mean %>%
   geom_col()
 ```
 
-<div class="boxorange1" >
-  <h4>Note:</h4> <p><span style="font-size:15px">When using the pipe operator and the <strong>select function</strong> within another function (here <code>rowMeans()</code>) you need to use as first argument the <strong>dot as placeholder</strong> for the data!</span></p></div>
-
 
 *** =right
-<img src="lecture10_plotting_files/unnamed-chunk-21-1.png" title="plot of chunk unnamed-chunk-21" alt="plot of chunk unnamed-chunk-21" width="432" style="display: block; margin: auto auto auto 0;" />
+<img src="lecture10_plotting_files/unnamed-chunk-24-1.png" title="plot of chunk unnamed-chunk-24" alt="plot of chunk unnamed-chunk-24" width="432" style="display: block; margin: auto auto auto 0;" />
 **How representatives are the means?**
 
 
@@ -373,7 +474,7 @@ cpue_mean %>%
 ```
 
 *** =right
-<img src="lecture10_plotting_files/unnamed-chunk-23-1.png" title="plot of chunk unnamed-chunk-23" alt="plot of chunk unnamed-chunk-23" width="432" style="display: block; margin: auto;" />
+<img src="lecture10_plotting_files/unnamed-chunk-26-1.png" title="plot of chunk unnamed-chunk-26" alt="plot of chunk unnamed-chunk-26" width="432" style="display: block; margin: auto;" />
 
 ---
 ## Visualizing errors: other options
@@ -391,7 +492,7 @@ cpue_mean %>%
 --- &exercise
 # Exercise
 
-### Pick one species and the year 2015 and find out if there are spatial differences (between areas)
+### Pick another species and the year 2015 and find out if there are spatial differences (between areas)
 
 1. in **total** CPUE
 2. **mean** CPUE (with error bar)
@@ -425,14 +526,14 @@ forcats package: `fct_inorder()`, `fct_relevel()`, `fct_infreq()`, `fct_rev()`, 
 --- &vcenter
 ## Totally confused?
                 
-<img src="img/Comic_confused.png" title="plot of chunk unnamed-chunk-24" alt="plot of chunk unnamed-chunk-24" width="400px" style="display: block; margin: auto;" />
+<img src="img/Comic_confused.png" title="plot of chunk unnamed-chunk-27" alt="plot of chunk unnamed-chunk-27" width="400px" style="display: block; margin: auto;" />
 
 Practice on the exercise data and try out maybe all species or all years. Read [chapter 15] (http://r4ds.had.co.nz/factors.html) on factors in 'R for Data Science'.
 
 --- &vcenter
 ## Totally bored?
                 
-<img src="img/Comic_bored.png" title="plot of chunk unnamed-chunk-25" alt="plot of chunk unnamed-chunk-25" width="800px" style="display: block; margin: auto auto auto 0;" />
+<img src="img/Comic_bored.png" title="plot of chunk unnamed-chunk-28" alt="plot of chunk unnamed-chunk-28" width="800px" style="display: block; margin: auto auto auto 0;" />
 
 Stay tuned for the next case study where you can play around as much as you want!
 
@@ -440,7 +541,7 @@ Stay tuned for the next case study where you can play around as much as you want
 ## Totally content?
 Then go grab a coffee, lean back and enjoy the rest of the day...!
 
-<img src="img/Comic_hammock.png" title="plot of chunk unnamed-chunk-26" alt="plot of chunk unnamed-chunk-26" width="600px" style="display: block; margin: auto;" />
+<img src="img/Comic_hammock.png" title="plot of chunk unnamed-chunk-29" alt="plot of chunk unnamed-chunk-29" width="600px" style="display: block; margin: auto;" />
 
 
 --- &thankyou
@@ -572,7 +673,7 @@ See on the next slide the plots
 
 --- &vcenter
 ## Gadus morhua results
-<img src="lecture10_plotting_files/unnamed-chunk-36-1.png" title="plot of chunk unnamed-chunk-36" alt="plot of chunk unnamed-chunk-36" width="1008" />
+<img src="lecture10_plotting_files/unnamed-chunk-39-1.png" title="plot of chunk unnamed-chunk-39" alt="plot of chunk unnamed-chunk-39" width="1008" />
 <small>Press 'p' for a conclusion.</small>
 
 <kbd>p</kbd>
@@ -611,7 +712,7 @@ p_all_mean <- cpue_stats %>%
 p_all_mean
 ```
 
-<img src="lecture10_plotting_files/unnamed-chunk-38-1.png" title="plot of chunk unnamed-chunk-38" alt="plot of chunk unnamed-chunk-38" width="1008" style="display: block; margin: auto;" />
+<img src="lecture10_plotting_files/unnamed-chunk-41-1.png" title="plot of chunk unnamed-chunk-41" alt="plot of chunk unnamed-chunk-41" width="1008" style="display: block; margin: auto;" />
 <small>Press 'p' for a conclusion.</small>
 
 <kbd>p</kbd>
