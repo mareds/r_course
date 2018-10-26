@@ -158,8 +158,8 @@ Any values not in the level vector will be silently converted to NA:
 
 
 ```r
-y2 <- factor(x2, levels = month_levels)
-y2
+f2 <- factor(x2, levels = month_levels)
+f2
 ```
 
 ```no-highlight
@@ -172,11 +172,12 @@ To access the set of valid levels directly use `levels()`:
 
 
 ```r
-levels(f2)
+levels(f1)
 ```
 
 ```no-highlight
-## [1] "Dec" "Apr" "Jan" "Mar"
+##  [1] "Jan" "Feb" "Mar" "Apr" "May" "Jun" "Jul" "Aug" "Sep" "Oct" "Nov"
+## [12] "Dec"
 ```
 
 --- &twocol
@@ -345,7 +346,6 @@ print(cpue, n = 5)
 - Is the format long or wide? Do you want to change it?
 - **Do the columns have the appropriate data type?**
   - Are you satisfied with `Survey`, `Quarter`, `Area`, or `Species` being character or integer vectors?
-  - Why not convert them into **factors** ...?
 
 ---
 ## Now check whether the data is tidy
@@ -392,6 +392,9 @@ cpue_total %>%
   geom_col()
 ```
 
+<div class="boxorange1" >
+  <h4>Note:</h4> <p><span style="font-size:15px">Not every plot type is suitable for categorical data, for instance a scatterplot. Instead, use <strong>barplots</strong>, piecharts, or boxplots. In ggplot the layer function for a barplot would be <code>geom_bar()</code> and <code>geom_col()</code>. We use the <strong>latter</strong> here as we already know the height of each bar and don't need it calculated from the number of cases in each group.</span></p></div>
+  
 *** =right
 <img src="lecture10_plotting_files/unnamed-chunk-20-1.png" title="plot of chunk unnamed-chunk-20" alt="plot of chunk unnamed-chunk-20" width="432" style="display: block; margin: auto auto auto 0;" />
 

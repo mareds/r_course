@@ -59,140 +59,7 @@
     
 
     <!-- SLIDES -->
-    <slide class="segue" style="background:#FF8C00;">
-  <hgroup>
-    <h1>ICES DATRAS fish data</h1>
-  </hgroup>
-  <article>
-    <p><img src="img/Data_science_1b.png" style="height:150px;border:0;position: absolute; left: 900px; top: 50px" </img> </p>
-
-  </article>
-</slide>
-<slide class="" id="slide-2">
-  <hgroup>
-    <h2>We will query data from the DATRAS database</h2>
-  </hgroup>
-  <article class = 'flexbox vcenter'>
-    <div class="img-with-text" style="position: absolute; left: 225px; top: 100px">
-    <img src="img/DATRAS_1.png" alt="" width=650px height=500px />
- <p><span class="source-img" style = "float:right">Screenshot from the ICES webpage: 
-  <a href='http://www.ices.dk/marine-data/data-portals/Pages/DATRAS.aspx' title=''>http://www.ices.dk/marine-data/data-portals/Pages/DATRAS.aspx</a></span></p>
-</div>
-
-    <footer>
-      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
-        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
-      </div>
-      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
-        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
-        font-style: italic; top: 610px; ">Data analysis with R</a>
-      </div>
-    </footer>
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-<slide class="" id="slide-3">
-  <hgroup>
-    <h2>Query CPUE per age per area</h2>
-  </hgroup>
-  <article class = 'flexbox vcenter'>
-    <p><a href="https://datras.ices.dk/Data_products/Download/Download_Data_public.aspx">
-  <img src="img/cpue_age_area.png" alt="DATRAS query1" style="width:700px;height:500px;border:0;" >
-</a> </p>
-
-    <footer>
-      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
-        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
-      </div>
-      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
-        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
-        font-style: italic; top: 610px; ">Data analysis with R</a>
-      </div>
-    </footer>
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-<slide class="" id="slide-4" style="background:;">
-  <hgroup>
-    <h2>Load the data</h2>
-  </hgroup>
-  <article data-timings="">
-    <pre><code class="r">cpue &lt;- read_csv(&quot;data/CPUE per age per area_2017-11-20 06_48_16.csv&quot;)
-print(cpue, n = 5)  
-</code></pre>
-
-<pre><code class="no-highlight">## # A tibble: 801 x 17
-##   Survey  Year Quarter  Area AphiaID Species Age_0 Age_1 Age_2 Age_3 Age_4
-##   &lt;chr&gt;  &lt;int&gt;   &lt;int&gt; &lt;int&gt;   &lt;int&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-## 1 BITS    1991       1    24  126436 Gadus …     0 2.24   6.81  6.48  7.24
-## 2 BITS    1991       1    25  126436 Gadus …     0 3.47  24.6  39.9  58.8 
-## 3 BITS    1991       1    26  126436 Gadus …     0 8.79   8.52 38.1  29.6 
-## 4 BITS    1991       1    27  126436 Gadus …     0 0      0     0     0   
-## 5 BITS    1991       1    28  126436 Gadus …     0 0.173 25.8  42.5  34.5 
-## # ... with 796 more rows, and 6 more variables: Age_5 &lt;dbl&gt;, Age_6 &lt;dbl&gt;,
-## #   Age_7 &lt;dbl&gt;, Age_8 &lt;dbl&gt;, Age_9 &lt;dbl&gt;, Age_10 &lt;dbl&gt;
-</code></pre>
-
-    <footer>
-      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
-        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
-      </div>
-      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
-        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
-        font-style: italic; top: 610px; ">Data analysis with R</a>
-      </div>
-    </footer>
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-<slide class="" id="slide-5" style="background:;">
-  <hgroup>
-    <h2>So what are the <code>Areas</code>?</h2>
-  </hgroup>
-  <article data-timings="">
-    <h3>ICES subdivisions (SD) in the Baltic Sea</h3>
-
-<div class="img-with-text" style="position: absolute; left: 350px; top: 200px; z-index:100">
-    <img src="img/ICES_SD_BS.png" alt="" width=400px/>
- <p><span class="source-img" style = "float:right">
-    source: EAA and EFTTA position paper, Sept 30th, 2016 (<a href='http://www.eaa-europe.org/positions/western-baltic-cod-2016.html' title=''>http://www.eaa-europe.org</a>)</span></p>
-</div>
-
-    <footer>
-      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
-        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
-      </div>
-      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
-        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
-        font-style: italic; top: 610px; ">Data analysis with R</a>
-      </div>
-    </footer>
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-<slide class="" id="slide-6" style="background:;">
-  <hgroup>
-    <h3>Now check whether the data is tidy and filter the year 2015</h3>
-  </hgroup>
-  <article data-timings="">
-    <ul class = "build incremental">
-<li>Are you satisfied with <code>Survey</code>, <code>Quarter</code>, <code>Area</code>, or <code>Species</code> being character or integer vectors?</li>
-<li>Why not convert them into <strong>factors</strong> ...?</li>
-</ul>
-
-    <footer>
-      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
-        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
-      </div>
-      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
-        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
-        font-style: italic; top: 610px; ">Data analysis with R</a>
-      </div>
-    </footer>
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-<slide class="segue" style="background:#1874CD;">
+    <slide class="segue" style="background:#1874CD;">
   <hgroup>
     <h1>Factors</h1>
   </hgroup>
@@ -201,7 +68,7 @@ print(cpue, n = 5)
 
   </article>
 </slide>
-<slide class="" id="slide-8" style="background:;">
+<slide class="" id="slide-2" style="background:;">
   <hgroup>
     <h2>Recall:</h2>
   </hgroup>
@@ -231,7 +98,7 @@ print(cpue, n = 5)
   </article>
   <!-- Presenter Notes -->
 </slide>
-<slide class="" id="slide-9" style="background:;">
+<slide class="" id="slide-3" style="background:;">
   <hgroup>
     <h2>Recall:</h2>
   </hgroup>
@@ -266,12 +133,36 @@ print(cpue, n = 5)
   </article>
   <!-- Presenter Notes -->
 </slide>
-<slide class="" id="slide-10" style="background:;">
+<slide class="" id="slide-4" style="background:;">
   <hgroup>
     <h2>String vs. factor</h2>
   </hgroup>
   <article data-timings="">
-    <p>Imagine that you have a vector or variable that contains month:</p>
+    <p>Imagine that you have a vector or variable that contains months:</p>
+
+<pre><code class="r">x1 &lt;- c(&quot;Dec&quot;, &quot;Apr&quot;, &quot;Jan&quot;, &quot;Mar&quot;)
+</code></pre>
+
+<p>Using a string to record this variable has two problems:</p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>String vs. factor</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Imagine that you have a vector or variable that contains months:</p>
 
 <pre><code class="r">x1 &lt;- c(&quot;Dec&quot;, &quot;Apr&quot;, &quot;Jan&quot;, &quot;Mar&quot;)
 </code></pre>
@@ -279,17 +170,19 @@ print(cpue, n = 5)
 <p>Using a string to record this variable has two problems:</p>
 
 <ol>
-<li>There are only twelve possible months, and there’s nothing saving you from typos</li>
-<li>It doesn’t sort in a useful way</li>
+<li>It <strong>doesn’t sort</strong> in a useful way.</li>
+<li>There are only twelve possible months, and there’s nothing saving you from <strong>typos</strong>.</li>
 </ol>
 
-<pre><code class="r">x2 &lt;- c(&quot;Dec&quot;, &quot;Apr&quot;, &quot;Jam&quot;, &quot;Mar&quot;)
-sort(x1)
+<pre><code class="r">sort(x1)
 </code></pre>
 
 <pre><code class="no-highlight">## [1] &quot;Apr&quot; &quot;Dec&quot; &quot;Jan&quot; &quot;Mar&quot;
 </code></pre>
 
+<pre><code class="r">x2 &lt;- c(&quot;Dec&quot;, &quot;Apr&quot;, &quot;Jam&quot;, &quot;Mar&quot;)
+</code></pre>
+
     <footer>
       <div style="position: absolute; left: 60px; top: 645px; z-index:100">
         <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
@@ -302,84 +195,15 @@ sort(x1)
   </article>
   <!-- Presenter Notes -->
 </slide>
-<slide class="" id="slide-11" style="background:;">
+<slide class="" id="slide-6" style="background:;">
   <hgroup>
     <h2>Creating factors</h2>
   </hgroup>
   <article data-timings="">
-    <p>You can fix both of these problems with a factor. To create a factor you must start by creating a vector of the valid levels:</p>
+    <p>You can fix both of these problems with a factor. To create a factor you can convert any vector using the function <code>factor()</code></p>
 
-<pre><code class="r">library(forcats)
-month_levels &lt;- c(
-  &quot;Jan&quot;, &quot;Feb&quot;, &quot;Mar&quot;, &quot;Apr&quot;, &quot;May&quot;, &quot;Jun&quot;, 
-  &quot;Jul&quot;, &quot;Aug&quot;, &quot;Sep&quot;, &quot;Oct&quot;, &quot;Nov&quot;, &quot;Dec&quot;
-)
-</code></pre>
-
-    <footer>
-      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
-        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
-      </div>
-      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
-        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
-        font-style: italic; top: 610px; ">Data analysis with R</a>
-      </div>
-    </footer>
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-<slide class="" id="slide-12" style="background:;">
-  <hgroup>
-    <h2>Creating factors (cont)</h2>
-  </hgroup>
-  <article data-timings="">
-    <p>Now you can create a factor:</p>
-
-<pre><code class="r">y1 &lt;- factor(x1, levels = month_levels)
-y1
-</code></pre>
-
-<pre><code class="no-highlight">## [1] Dec Apr Jan Mar
-## Levels: Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec
-</code></pre>
-
-<pre><code class="r">sort(y1)
-</code></pre>
-
-<pre><code class="no-highlight">## [1] Jan Mar Apr Dec
-## Levels: Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec
-</code></pre>
-
-    <footer>
-      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
-        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
-      </div>
-      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
-        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
-        font-style: italic; top: 610px; ">Data analysis with R</a>
-      </div>
-    </footer>
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-<slide class="" id="slide-13" style="background:;">
-  <hgroup>
-    <h2>Creating factors (cont)</h2>
-  </hgroup>
-  <article data-timings="">
-    <p>Any values not in the set will be silently converted to NA:</p>
-
-<pre><code class="r">y2 &lt;- factor(x2, levels = month_levels)
-y2
-</code></pre>
-
-<pre><code class="no-highlight">## [1] Dec  Apr  &lt;NA&gt; Mar 
-## Levels: Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec
-</code></pre>
-
-<p>If you omit the levels, they’ll be taken from the data in alphabetical order:</p>
-
-<pre><code class="r">factor(x1)
+<pre><code class="r">f1 &lt;- factor(x1)
+f1
 </code></pre>
 
 <pre><code class="no-highlight">## [1] Dec Apr Jan Mar
@@ -398,12 +222,127 @@ y2
   </article>
   <!-- Presenter Notes -->
 </slide>
-<slide class="" id="slide-14" style="background:;">
+<slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Creating factors</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>You can fix both of these problems with a factor. To create a factor you can convert any vector using the function <code>factor()</code></p>
+
+<pre><code class="r">f1 &lt;- factor(x1)
+f1
+</code></pre>
+
+<pre><code class="no-highlight">## [1] Dec Apr Jan Mar
+## Levels: Apr Dec Jan Mar
+</code></pre>
+
+<p>But this does <strong>not yet</strong> fix the problems...</p>
+
+<pre><code class="r">sort(f1)
+</code></pre>
+
+<pre><code class="no-highlight">## [1] Apr Dec Jan Mar
+## Levels: Apr Dec Jan Mar
+</code></pre>
+
+<p><small>As you can see, the factor elements get sorted in the order of the levels - which is an alphabetical order.</small></p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Creating factors (cont)</h2>
+  </hgroup>
+  <article data-timings="">
+    <h3>Solution:</h3>
+
+<p>Create a vector of the valid levels and add it as <code>levels</code> argument:</p>
+
+<pre><code class="r">month_levels &lt;- c(
+  &quot;Jan&quot;, &quot;Feb&quot;, &quot;Mar&quot;, &quot;Apr&quot;, &quot;May&quot;, &quot;Jun&quot;, 
+  &quot;Jul&quot;, &quot;Aug&quot;, &quot;Sep&quot;, &quot;Oct&quot;, &quot;Nov&quot;, &quot;Dec&quot;
+)
+f1 &lt;- factor(x1, levels = month_levels)
+f1
+</code></pre>
+
+<pre><code class="no-highlight">## [1] Dec Apr Jan Mar
+## Levels: Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec
+</code></pre>
+
+<p>Note:</p>
+
+<ul>
+<li>Whatever order you choose here will be the output order.</li>
+<li>You can include levels here that are not necessarily in your vector.</li>
+</ul>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Creating factors (cont)</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Any values not in the level vector will be silently converted to NA:</p>
+
+<pre><code class="r">f2 &lt;- factor(x2, levels = month_levels)
+f2
+</code></pre>
+
+<pre><code class="no-highlight">## [1] Dec  Apr  &lt;NA&gt; Mar 
+## Levels: Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec
+</code></pre>
+
+<p><br>
+To access the set of valid levels directly use <code>levels()</code>:</p>
+
+<pre><code class="r">levels(f1)
+</code></pre>
+
+<pre><code class="no-highlight">##  [1] &quot;Jan&quot; &quot;Feb&quot; &quot;Mar&quot; &quot;Apr&quot; &quot;May&quot; &quot;Jun&quot; &quot;Jul&quot; &quot;Aug&quot; &quot;Sep&quot; &quot;Oct&quot; &quot;Nov&quot;
+## [12] &quot;Dec&quot;
+</code></pre>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-10" style="background:;">
   <hgroup>
     <h2>Factor levels</h2>
   </hgroup>
   <article data-timings="">
-    <p>Sometimes you’d prefer that the order of the levels match the order of the first appearance in the data. You can do that when creating the factor by setting levels to <code>unique(x)</code> or after the factor conversion with <code>fct_inorder()</code>:</p>
+    <p>Sometimes you’d prefer that the order of the levels match the order of the first appearance in the data. You can do that when creating the factor by setting levels to <code>unique(x)</code> or after the factor conversion with <code>fct_inorder()</code> (in forcats):</p>
 
 <div style='float:left;width:48%;'>
   <pre><code class="r">f1 &lt;- factor(x1, levels = unique(x1))
@@ -416,7 +355,8 @@ f1
 
 </div>
 <div style='float:right;width:48%;'>
-  <pre><code class="r">f2 &lt;- x1 %&gt;% factor() %&gt;% fct_inorder()
+  <pre><code class="r">library(forcats)
+f2 &lt;- x1 %&gt;% factor() %&gt;% fct_inorder()
 f2
 </code></pre>
 
@@ -437,32 +377,7 @@ f2
   </article>
   <!-- Presenter Notes -->
 </slide>
-<slide class="" id="slide-15" style="background:;">
-  <hgroup>
-    <h2>Factor levels (cont)</h2>
-  </hgroup>
-  <article data-timings="">
-    <p>To access the set of valid levels directly use <code>levels()</code>:</p>
-
-<pre><code class="r">levels(f2)
-</code></pre>
-
-<pre><code class="no-highlight">## [1] &quot;Dec&quot; &quot;Apr&quot; &quot;Jan&quot; &quot;Mar&quot;
-</code></pre>
-
-    <footer>
-      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
-        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
-      </div>
-      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
-        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
-        font-style: italic; top: 610px; ">Data analysis with R</a>
-      </div>
-    </footer>
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-<slide class="" id="slide-16" style="background:;">
+<slide class="" id="slide-11" style="background:;">
   <hgroup>
     <h2>You can do many other things with a factor using the <code>forcats</code> library</h2>
   </hgroup>
@@ -487,24 +402,51 @@ f2
   </article>
   <!-- Presenter Notes -->
 </slide>
-<slide class="" id="slide-17" style="background:;">
+<slide class="" id="slide-12" style="background:;">
   <hgroup>
-    <h2>A demonstration with the CPUE dataset and the areas</h2>
+    <h2>Factor labels</h2>
   </hgroup>
   <article data-timings="">
-    <pre><code class="r">cpue$Area &lt;- factor(cpue$Area) # (same as cpue &lt;- mutate(cpue, Area = factor(Area)))
-levels(cpue$Area)
+    <p>You can change the way how the factor levels are <strong>displayed</strong>. That can be useful if you want to <strong>reduce typing effort</strong>:</p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>Factor labels</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>You can change the way how the factor levels are <strong>displayed</strong>. That can be useful if you want to <strong>reduce typing effort</strong>:</p>
+
+<pre><code class="r">x &lt;- c(1,2,4,2,4,5,2,5,6,3,5,6,7,3,6,8,2,8)
+months &lt;- factor(x, # your vector containing the months
+  levels = 1:12, # allowed values (in that order)
+  labels = c(&quot;jan&quot;,&quot;feb&quot;,&quot;mar&quot;,&quot;apr&quot;,&quot;may&quot;,&quot;jun&quot;,&quot;jul&quot;,&quot;aug&quot;,&quot;sep&quot;,&quot;oct&quot;,&quot;nov&quot;,&quot;dec&quot;))
+months
 </code></pre>
 
-<pre><code class="no-highlight">## [1] &quot;21&quot; &quot;22&quot; &quot;23&quot; &quot;24&quot; &quot;25&quot; &quot;26&quot; &quot;27&quot; &quot;28&quot;
+<pre><code class="no-highlight">##  [1] jan feb apr feb apr may feb may jun mar may jun jul mar jun aug feb
+## [18] aug
+## Levels: jan feb mar apr may jun jul aug sep oct nov dec
 </code></pre>
 
-<p>To plot the total CPUE of Atlantic cod (<em>Gadus morhua</em>) per area in 2015:</p>
+<p>To compare without labels</p>
 
-<pre><code class="r">cpue_total &lt;- cpue %&gt;% 
-  filter(Species == &quot;Gadus morhua&quot;, Year == 2015, Quarter == 1) %&gt;%
-  select(Area, contains(&quot;Age&quot;)) %&gt;%
-    mutate(total_cpue = rowSums(select(., contains(&quot;Age&quot;)))) 
+<pre><code class="r">factor(x, levels = 1:12)
+</code></pre>
+
+<pre><code class="no-highlight">##  [1] 1 2 4 2 4 5 2 5 6 3 5 6 7 3 6 8 2 8
+## Levels: 1 2 3 4 5 6 7 8 9 10 11 12
 </code></pre>
 
     <footer>
@@ -519,24 +461,92 @@ levels(cpue$Area)
   </article>
   <!-- Presenter Notes -->
 </slide>
-<slide class="" id="slide-18" style="background:;">
+<slide class="segue" style="background:#EEC900;">
   <hgroup>
-    <h3>Area sorted automatically</h3>
+    <h1>Your turn...</h1>
   </hgroup>
-  <article data-timings="">
+  <article>
     
-<div style='float:left;width:48%;'>
-  <pre><code class="r">cpue_total %&gt;%
-  ggplot(aes(x = Area, y= total_cpue, 
-    fill = Area)) +
-  geom_col()
+  </article>
+</slide>
+<slide class="" id="slide-15">
+<hgroup>
+  <h1>Exercise</h1>
+</hgroup>
+<article data-timings="">
+  <div style="background-color:#F5F5F5; text-align:left; vertical-align: middle; padding:20px 47px;">
+    <p>Create the following dataset</p>
+
+<pre><code class="r">manta_rays &lt;- data.frame(
+  month = c(9, 3, 5, 1, 7, 12),
+  catch = c(843, 743, 1229, 500, 1197,607)
+  )
 </code></pre>
 
-</div>
-<div style='float:right;width:48%;'>
-  <p><img src="lecture10_plotting_files/unnamed-chunk-17-1.png" title="plot of chunk unnamed-chunk-17" alt="plot of chunk unnamed-chunk-17" width="432" style="display: block; margin: auto auto auto 0;" /></p>
+<p>Now modify <strong>manta_rays</strong> to get these 2 plots:</p>
 
+<p><img src="lecture10_plotting_files/unnamed-chunk-15-1.png" title="plot of chunk unnamed-chunk-15" alt="plot of chunk unnamed-chunk-15" width="720" style="display: block; margin: auto;" /></p>
+
+  </div>
+  <footer>
+    <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+      <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+    </div>
+    <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+      <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+      font-style: italic; top: 610px; ">Data analysis with R</a>
+    </div>
+  </footer>
+</article>
+<!-- Presenter Notes -->
+</slide>
+
+<style>
+#slide-15 {
+  background-color: #EEC900;
+}
+</style>
+<slide class="segue" style="background:#FF8C00;">
+  <hgroup>
+    <h1>A real data demonstration with ICES DATRAS fish data</h1>
+  </hgroup>
+  <article>
+    <p><img src="img/Data_science_1b.png" style="height:150px;border:0;position: absolute; left: 900px; top: 50px" </img> </p>
+
+  </article>
+</slide>
+<slide class="" id="slide-17">
+  <hgroup>
+    <h2>We will query data from the DATRAS database</h2>
+  </hgroup>
+  <article class = 'flexbox vcenter'>
+    <div class="img-with-text" style="position: absolute; left: 225px; top: 100px">
+    <img src="img/DATRAS_1.png" alt="" width=650px height=500px />
+ <p><span class="source-img" style = "float:right">Screenshot from the ICES webpage: 
+  <a href='http://www.ices.dk/marine-data/data-portals/Pages/DATRAS.aspx' title=''>http://www.ices.dk/marine-data/data-portals/Pages/DATRAS.aspx</a></span></p>
 </div>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-18">
+  <hgroup>
+    <h2>Query CPUE per age per area</h2>
+  </hgroup>
+  <article class = 'flexbox vcenter'>
+    <p><a href="https://datras.ices.dk/Data_products/Download/Download_Data_public.aspx">
+  <img src="img/cpue_age_area.png" alt="DATRAS query1" style="width:700px;height:500px;border:0;" >
+</a> </p>
+
     <footer>
       <div style="position: absolute; left: 60px; top: 645px; z-index:100">
         <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
@@ -551,30 +561,193 @@ levels(cpue$Area)
 </slide>
 <slide class="" id="slide-19" style="background:;">
   <hgroup>
-    <h3>Now lets reorder the Area factor</h3>
+    <h2>Load the data (using your file path)</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">cpue &lt;- read_csv(&quot;data/CPUE per age per area_2017-11-20 06_48_16.csv&quot;)
+print(cpue, n = 5)  
+</code></pre>
+
+<pre><code class="no-highlight">## # A tibble: 801 x 17
+##   Survey  Year Quarter  Area AphiaID Species Age_0 Age_1 Age_2 Age_3 Age_4
+##   &lt;chr&gt;  &lt;int&gt;   &lt;int&gt; &lt;int&gt;   &lt;int&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 BITS    1991       1    24  126436 Gadus …     0 2.24   6.81  6.48  7.24
+## 2 BITS    1991       1    25  126436 Gadus …     0 3.47  24.6  39.9  58.8 
+## 3 BITS    1991       1    26  126436 Gadus …     0 8.79   8.52 38.1  29.6 
+## 4 BITS    1991       1    27  126436 Gadus …     0 0      0     0     0   
+## 5 BITS    1991       1    28  126436 Gadus …     0 0.173 25.8  42.5  34.5 
+## # ... with 796 more rows, and 6 more variables: Age_5 &lt;dbl&gt;, Age_6 &lt;dbl&gt;,
+## #   Age_7 &lt;dbl&gt;, Age_8 &lt;dbl&gt;, Age_9 &lt;dbl&gt;, Age_10 &lt;dbl&gt;
+</code></pre>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-20" style="background:;">
+  <hgroup>
+    <h2>So what are the <code>Areas</code>?</h2>
+  </hgroup>
+  <article data-timings="">
+    <h3>ICES subdivisions (SD) in the Baltic Sea</h3>
+
+<div class="img-with-text" style="position: absolute; left: 350px; top: 200px; z-index:100">
+    <img src="img/ICES_SD_BS.png" alt="" width=400px/>
+ <p><span class="source-img" style = "float:right">
+    source: EAA and EFTTA position paper, Sept 30th, 2016 (<a href='http://www.eaa-europe.org/positions/western-baltic-cod-2016.html' title=''>http://www.eaa-europe.org</a>)</span></p>
+</div>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-21" style="background:;">
+  <hgroup>
+    <h2>Now check whether the data is tidy</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Any NAs?</li>
+<li>Is the format long or wide? Do you want to change it?</li>
+<li><strong>Do the columns have the appropriate data type?</strong></li>
+</ul>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-22" style="background:;">
+  <hgroup>
+    <h2>Now check whether the data is tidy</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Any NAs?</li>
+<li>Is the format long or wide? Do you want to change it?</li>
+<li><strong>Do the columns have the appropriate data type?</strong>
+
+<ul>
+<li>Are you satisfied with <code>Survey</code>, <code>Quarter</code>, <code>Area</code>, or <code>Species</code> being character or integer vectors?</li>
+</ul></li>
+</ul>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-23" style="background:;">
+  <hgroup>
+    <h2>Now check whether the data is tidy</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Any NAs?</li>
+<li>Is the format long or wide? Do you want to change it?</li>
+<li><strong>Do the columns have the appropriate data type?</strong>
+
+<ul>
+<li>Are you satisfied with <code>Survey</code>, <code>Quarter</code>, <code>Area</code>, or <code>Species</code> being character or integer vectors?</li>
+<li>Why not convert them into <strong>factors</strong> ...?</li>
+</ul></li>
+</ul>
+
+<pre><code class="r">cpue$Quarter &lt;- factor(cpue$Quarter)
+cpue$Area &lt;- factor(cpue$Area)
+cpue$Species &lt;- factor(cpue$Species)
+</code></pre>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-24" style="background:;">
+  <hgroup>
+    <h2>Data transformation</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Lets plot the <strong>total CPUE</strong> of <strong>Atlantic cod</strong> (<em>Gadus morhua</em>) in the <strong>first</strong> quarter of <strong>2015</strong> per area:</p>
+
+<pre><code class="r">cpue_total &lt;- cpue %&gt;% 
+  filter(Species == &quot;Gadus morhua&quot;, Year == 2015, Quarter == 1) %&gt;%
+  select(Area, contains(&quot;Age&quot;)) %&gt;%
+    mutate(total_cpue = rowSums(select(., contains(&quot;Age&quot;)))) 
+</code></pre>
+
+<div class="boxorange1" >
+  <h4>Note:</h4> <p><span style="font-size:15px">When using the pipe operator and the <strong>select function</strong> within another function (here <code>rowMeans()</code>) you need to use as first argument the <strong>dot as placeholder</strong> for the data!</span></p></div>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-25" style="background:;">
+  <hgroup>
+    <h3>Area sorted automatically</h3>
   </hgroup>
   <article data-timings="">
     
 <div style='float:left;width:48%;'>
-  <pre><code class="r"># Simply reverse order
-cpue_total %&gt;% 
-  ggplot(aes(x = fct_rev(Area), 
-    y = total_cpue, fill = Area)) +
+  <pre><code class="r">cpue_total %&gt;%
+  ggplot(aes(x = Area, y= total_cpue, 
+    fill = Area)) +
   geom_col()
 </code></pre>
 
-<p><img src="lecture10_plotting_files/unnamed-chunk-18-1.png" title="plot of chunk unnamed-chunk-18" alt="plot of chunk unnamed-chunk-18" width="360" style="display: block; margin: auto;" /></p>
+<div class="boxorange1" >
+  <h4>Note:</h4> <p><span style="font-size:15px">Not every plot type is suitable for categorical data, for instance a scatterplot. Instead, use <strong>barplots</strong>, piecharts, or boxplots. In ggplot the layer function for a barplot would be <code>geom_bar()</code> and <code>geom_col()</code>. We use the <strong>latter</strong> here as we already know the height of each bar and don't need it calculated from the number of cases in each group.</span></p></div>
+  
 
 </div>
 <div style='float:right;width:48%;'>
-  <pre><code class="r"># Reorder manually
-cpue_total %&gt;% mutate(Area=fct_relevel(
-  Area, &quot;22&quot;, after = 2)) %&gt;%
-  ggplot(aes(x=Area, y=total_cpue,
-    fill = Area)) + geom_col()
-</code></pre>
-
-<p><img src="lecture10_plotting_files/unnamed-chunk-19-1.png" title="plot of chunk unnamed-chunk-19" alt="plot of chunk unnamed-chunk-19" width="360" style="display: block; margin: auto;" /></p>
+  <p><img src="lecture10_plotting_files/unnamed-chunk-20-1.png" title="plot of chunk unnamed-chunk-20" alt="plot of chunk unnamed-chunk-20" width="432" style="display: block; margin: auto auto auto 0;" /></p>
 
 </div>
     <footer>
@@ -589,7 +762,47 @@ cpue_total %&gt;% mutate(Area=fct_relevel(
   </article>
   <!-- Presenter Notes -->
 </slide>
-<slide class="" id="slide-20" style="background:;">
+<slide class="" id="slide-26" style="background:;">
+  <hgroup>
+    <h3>Now lets reorder the Area factor</h3>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;'>
+  <pre><code class="r"># Simply reverse order
+cpue_total %&gt;% 
+  ggplot(aes(x = fct_rev(Area), 
+    y = total_cpue, fill = Area)) +
+  geom_col()
+</code></pre>
+
+<p><img src="lecture10_plotting_files/unnamed-chunk-21-1.png" title="plot of chunk unnamed-chunk-21" alt="plot of chunk unnamed-chunk-21" width="360" style="display: block; margin: auto;" /></p>
+
+</div>
+<div style='float:right;width:48%;'>
+  <pre><code class="r"># Reorder manually
+cpue_total %&gt;% mutate(Area=fct_relevel(
+  Area, &quot;22&quot;, after = 2)) %&gt;%
+  ggplot(aes(x=Area, y=total_cpue,
+    fill = Area)) + geom_col()
+</code></pre>
+
+<p><img src="lecture10_plotting_files/unnamed-chunk-22-1.png" title="plot of chunk unnamed-chunk-22" alt="plot of chunk unnamed-chunk-22" width="360" style="display: block; margin: auto;" /></p>
+
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-27" style="background:;">
   <hgroup>
     <h3>What would be if we plot the mean instead of total CPUE:</h3>
   </hgroup>
@@ -608,12 +821,9 @@ cpue_mean %&gt;%
   geom_col()
 </code></pre>
 
-<div class="boxorange1" >
-  <h4>Note:</h4> <p><span style="font-size:15px">When using the pipe operator and the <strong>select function</strong> within another function (here <code>rowMeans()</code>) you need to use as first argument the <strong>dot as placeholder</strong> for the data!</span></p></div>
-
 </div>
 <div style='float:right;width:48%;'>
-  <p><img src="lecture10_plotting_files/unnamed-chunk-21-1.png" title="plot of chunk unnamed-chunk-21" alt="plot of chunk unnamed-chunk-21" width="432" style="display: block; margin: auto auto auto 0;" />
+  <p><img src="lecture10_plotting_files/unnamed-chunk-24-1.png" title="plot of chunk unnamed-chunk-24" alt="plot of chunk unnamed-chunk-24" width="432" style="display: block; margin: auto auto auto 0;" />
 <strong>How representatives are the means?</strong></p>
 
 </div>
@@ -638,7 +848,7 @@ cpue_mean %&gt;%
 
   </article>
 </slide>
-<slide class="" id="slide-22" style="background:;">
+<slide class="" id="slide-29" style="background:;">
   <hgroup>
     <h2>Visualizing errors using e.g. <code>geom_errorbar()</code></h2>
   </hgroup>
@@ -662,7 +872,7 @@ cpue_mean %&gt;%
 
 </div>
 <div style='float:right;width:48%;'>
-  <p><img src="lecture10_plotting_files/unnamed-chunk-23-1.png" title="plot of chunk unnamed-chunk-23" alt="plot of chunk unnamed-chunk-23" width="432" style="display: block; margin: auto;" /></p>
+  <p><img src="lecture10_plotting_files/unnamed-chunk-26-1.png" title="plot of chunk unnamed-chunk-26" alt="plot of chunk unnamed-chunk-26" width="432" style="display: block; margin: auto;" /></p>
 
 </div>
     <footer>
@@ -677,7 +887,7 @@ cpue_mean %&gt;%
   </article>
   <!-- Presenter Notes -->
 </slide>
-<slide class="" id="slide-23" style="background:;">
+<slide class="" id="slide-30" style="background:;">
   <hgroup>
     <h2>Visualizing errors: other options</h2>
   </hgroup>
@@ -707,13 +917,13 @@ cpue_mean %&gt;%
     
   </article>
 </slide>
-<slide class="" id="slide-25">
+<slide class="" id="slide-32">
 <hgroup>
   <h1>Exercise</h1>
 </hgroup>
 <article data-timings="">
   <div style="background-color:#F5F5F5; text-align:left; vertical-align: middle; padding:20px 47px;">
-    <h3>Pick one species and the year 2015 and find out if there are spatial differences (between areas)</h3>
+    <h3>Pick another species and the year 2015 and find out if there are spatial differences (between areas)</h3>
 
 <ol>
 <li>in <strong>total</strong> CPUE</li>
@@ -740,7 +950,7 @@ cpue_mean %&gt;%
 </slide>
 
 <style>
-#slide-25 {
+#slide-32 {
   background-color: #EEC900;
 }
 </style>
@@ -769,12 +979,12 @@ cpue_mean %&gt;%
     
   </article>
 </slide>
-<slide class="" id="slide-28">
+<slide class="" id="slide-35">
   <hgroup>
     <h2>Totally confused?</h2>
   </hgroup>
   <article class = 'flexbox vcenter'>
-    <p><img src="img/Comic_confused.png" title="plot of chunk unnamed-chunk-24" alt="plot of chunk unnamed-chunk-24" width="400px" style="display: block; margin: auto;" /></p>
+    <p><img src="img/Comic_confused.png" title="plot of chunk unnamed-chunk-27" alt="plot of chunk unnamed-chunk-27" width="400px" style="display: block; margin: auto;" /></p>
 
 <p>Practice on the exercise data and try out maybe all species or all years. Read <a href="http://r4ds.had.co.nz/factors.html">chapter 15</a> on factors in &#39;R for Data Science&#39;.</p>
 
@@ -790,12 +1000,12 @@ cpue_mean %&gt;%
   </article>
   <!-- Presenter Notes -->
 </slide>
-<slide class="" id="slide-29">
+<slide class="" id="slide-36">
   <hgroup>
     <h2>Totally bored?</h2>
   </hgroup>
   <article class = 'flexbox vcenter'>
-    <p><img src="img/Comic_bored.png" title="plot of chunk unnamed-chunk-25" alt="plot of chunk unnamed-chunk-25" width="800px" style="display: block; margin: auto auto auto 0;" /></p>
+    <p><img src="img/Comic_bored.png" title="plot of chunk unnamed-chunk-28" alt="plot of chunk unnamed-chunk-28" width="800px" style="display: block; margin: auto auto auto 0;" /></p>
 
 <p>Stay tuned for the next case study where you can play around as much as you want!</p>
 
@@ -811,14 +1021,14 @@ cpue_mean %&gt;%
   </article>
   <!-- Presenter Notes -->
 </slide>
-<slide class="" id="slide-30" style="background:;">
+<slide class="" id="slide-37" style="background:;">
   <hgroup>
     <h2>Totally content?</h2>
   </hgroup>
   <article data-timings="">
     <p>Then go grab a coffee, lean back and enjoy the rest of the day...!</p>
 
-<p><img src="img/Comic_hammock.png" title="plot of chunk unnamed-chunk-26" alt="plot of chunk unnamed-chunk-26" width="600px" style="display: block; margin: auto;" /></p>
+<p><img src="img/Comic_hammock.png" title="plot of chunk unnamed-chunk-29" alt="plot of chunk unnamed-chunk-29" width="600px" style="display: block; margin: auto;" /></p>
 
     <footer>
       <div style="position: absolute; left: 60px; top: 645px; z-index:100">
@@ -832,7 +1042,7 @@ cpue_mean %&gt;%
   </article>
   <!-- Presenter Notes -->
 </slide>
-<slide class="thank-you-slide segue" id="slide-31">
+<slide class="thank-you-slide segue" id="slide-38">
   <footer>
     <div style="position: absolute; left: 50px; top: 50px; z-index:100">
         <img src = "assets/img/uham_logo.png" height="67" width="200">
@@ -875,7 +1085,7 @@ cpue_mean %&gt;%
     
   </article>
 </slide>
-<slide class="" id="slide-33" style="background:;">
+<slide class="" id="slide-40" style="background:;">
   <hgroup>
     <h2>Solution for all 3 species, all Quarters and 2015</h2>
   </hgroup>
@@ -897,7 +1107,7 @@ If you keep quarters or years, however, you should calculate total CPUE (summed 
   </article>
   <!-- Presenter Notes -->
 </slide>
-<slide class="" id="slide-34" style="background:;">
+<slide class="" id="slide-41" style="background:;">
   <hgroup>
     <h3>Solution for all 3 species, all Quarters and 2015 (cont)</h3>
   </hgroup>
@@ -934,7 +1144,7 @@ cpue_subl &lt;- cpue_sub %&gt;% gather(key = &quot;age&quot;, value = &quot;cpue
   </article>
   <!-- Presenter Notes -->
 </slide>
-<slide class="" id="slide-35" style="background:;">
+<slide class="" id="slide-42" style="background:;">
   <article data-timings="">
     <p>4.Convert <code>Age</code> into a factor</p>
 
@@ -970,7 +1180,7 @@ levels(cpue_subl$age)
   </article>
   <!-- Presenter Notes -->
 </slide>
-<slide class="" id="slide-36" style="background:;">
+<slide class="" id="slide-43" style="background:;">
   <article data-timings="">
     <p>5.Now calculate the summary statistics in one step</p>
 
@@ -995,7 +1205,7 @@ levels(cpue_subl$age)
   </article>
   <!-- Presenter Notes -->
 </slide>
-<slide class="" id="slide-37" style="background:;">
+<slide class="" id="slide-44" style="background:;">
   <hgroup>
     <h2>Create and save distribution plots per species</h2>
   </hgroup>
@@ -1029,7 +1239,7 @@ p_cod_mean &lt;- cpue_stats %&gt;% filter(Species == &quot;Gadus morhua&quot;) %
   </article>
   <!-- Presenter Notes -->
 </slide>
-<slide class="" id="slide-38" style="background:;">
+<slide class="" id="slide-45" style="background:;">
   <hgroup>
     <h2>Create and save distribution plots per species (cont)</h2>
   </hgroup>
@@ -1054,7 +1264,7 @@ p_cod_mean &lt;- cpue_stats %&gt;% filter(Species == &quot;Gadus morhua&quot;) %
   </article>
   <!-- Presenter Notes -->
 </slide>
-<slide class="" id="slide-39" style="background:;">
+<slide class="" id="slide-46" style="background:;">
   <hgroup>
     <h2>Show all 3 plots together</h2>
   </hgroup>
@@ -1079,12 +1289,12 @@ p_cod_mean &lt;- cpue_stats %&gt;% filter(Species == &quot;Gadus morhua&quot;) %
   </article>
   <!-- Presenter Notes -->
 </slide>
-<slide class="" id="slide-40">
+<slide class="" id="slide-47">
   <hgroup>
     <h2>Gadus morhua results</h2>
   </hgroup>
   <article class = 'flexbox vcenter'>
-    <p><img src="lecture10_plotting_files/unnamed-chunk-36-1.png" title="plot of chunk unnamed-chunk-36" alt="plot of chunk unnamed-chunk-36" width="1008" />
+    <p><img src="lecture10_plotting_files/unnamed-chunk-39-1.png" title="plot of chunk unnamed-chunk-39" alt="plot of chunk unnamed-chunk-39" width="1008" />
 <small>Press &#39;p&#39; for a conclusion.</small></p>
 
 <p><kbd>p</kbd></p>
@@ -1114,7 +1324,7 @@ p_cod_mean &lt;- cpue_stats %&gt;% filter(Species == &quot;Gadus morhua&quot;) %
     </section>
   </aside>
 </slide>
-<slide class="" id="slide-41" style="background:;">
+<slide class="" id="slide-48" style="background:;">
   <hgroup>
     <h2>Plot mean CPUE of all species together</h2>
   </hgroup>
@@ -1145,7 +1355,7 @@ p_cod_mean &lt;- cpue_stats %&gt;% filter(Species == &quot;Gadus morhua&quot;) %
   </article>
   <!-- Presenter Notes -->
 </slide>
-<slide class="" id="slide-42" style="background:;">
+<slide class="" id="slide-49" style="background:;">
   <hgroup>
     <h2>Plot mean CPUE of all species together</h2>
   </hgroup>
@@ -1153,7 +1363,7 @@ p_cod_mean &lt;- cpue_stats %&gt;% filter(Species == &quot;Gadus morhua&quot;) %
     <pre><code class="r">p_all_mean
 </code></pre>
 
-<p><img src="lecture10_plotting_files/unnamed-chunk-38-1.png" title="plot of chunk unnamed-chunk-38" alt="plot of chunk unnamed-chunk-38" width="1008" style="display: block; margin: auto;" />
+<p><img src="lecture10_plotting_files/unnamed-chunk-41-1.png" title="plot of chunk unnamed-chunk-41" alt="plot of chunk unnamed-chunk-41" width="1008" style="display: block; margin: auto;" />
 <small>Press &#39;p&#39; for a conclusion.</small></p>
 
 <p><kbd>p</kbd></p>
@@ -1184,254 +1394,296 @@ p_cod_mean &lt;- cpue_stats %&gt;% filter(Species == &quot;Gadus morhua&quot;) %
     <ul>
       <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=1 title='ICES DATRAS fish data'>
+        data-slide=1 title='Factors'>
          1
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=2 title='We will query data from the DATRAS database'>
+        data-slide=2 title='Recall:'>
          2
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=3 title='Query CPUE per age per area'>
+        data-slide=3 title='Recall:'>
          3
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=4 title='Load the data'>
+        data-slide=4 title='String vs. factor'>
          4
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=5 title='So what are the <code>Areas</code>?'>
+        data-slide=5 title='String vs. factor'>
          5
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=6 title='Now check whether the data is tidy and filter the year 2015'>
+        data-slide=6 title='Creating factors'>
          6
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=7 title='Factors'>
+        data-slide=7 title='Creating factors'>
          7
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=8 title='Recall:'>
+        data-slide=8 title='Creating factors (cont)'>
          8
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=9 title='Recall:'>
+        data-slide=9 title='Creating factors (cont)'>
          9
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=10 title='String vs. factor'>
+        data-slide=10 title='Factor levels'>
          10
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=11 title='Creating factors'>
+        data-slide=11 title='You can do many other things with a factor using the <code>forcats</code> library'>
          11
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=12 title='Creating factors (cont)'>
+        data-slide=12 title='Factor labels'>
          12
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=13 title='Creating factors (cont)'>
+        data-slide=13 title='Factor labels'>
          13
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=14 title='Factor levels'>
+        data-slide=14 title='Your turn...'>
          14
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=15 title='Factor levels (cont)'>
+        data-slide=15 title='Exercise'>
          15
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=16 title='You can do many other things with a factor using the <code>forcats</code> library'>
+        data-slide=16 title='A real data demonstration with ICES DATRAS fish data'>
          16
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=17 title='A demonstration with the CPUE dataset and the areas'>
+        data-slide=17 title='We will query data from the DATRAS database'>
          17
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=18 title='Area sorted automatically'>
+        data-slide=18 title='Query CPUE per age per area'>
          18
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=19 title='Now lets reorder the Area factor'>
+        data-slide=19 title='Load the data (using your file path)'>
          19
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=20 title='What would be if we plot the mean instead of total CPUE:'>
+        data-slide=20 title='So what are the <code>Areas</code>?'>
          20
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=21 title='Visualizing errors'>
+        data-slide=21 title='Now check whether the data is tidy'>
          21
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=22 title='Visualizing errors using e.g. <code>geom_errorbar()</code>'>
+        data-slide=22 title='Now check whether the data is tidy'>
          22
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=23 title='Visualizing errors: other options'>
+        data-slide=23 title='Now check whether the data is tidy'>
          23
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=24 title='Your turn...'>
+        data-slide=24 title='Data transformation'>
          24
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=25 title='Exercise'>
+        data-slide=25 title='Area sorted automatically'>
          25
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=26 title='Overview of functions you learned today'>
+        data-slide=26 title='Now lets reorder the Area factor'>
          26
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=27 title='How do you feel now.....?'>
+        data-slide=27 title='What would be if we plot the mean instead of total CPUE:'>
          27
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=28 title='Totally confused?'>
+        data-slide=28 title='Visualizing errors'>
          28
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=29 title='Totally bored?'>
+        data-slide=29 title='Visualizing errors using e.g. <code>geom_errorbar()</code>'>
          29
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=30 title='Totally content?'>
+        data-slide=30 title='Visualizing errors: other options'>
          30
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=31 title='NA'>
+        data-slide=31 title='Your turn...'>
          31
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=32 title='Solution'>
+        data-slide=32 title='Exercise'>
          32
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=33 title='Solution for all 3 species, all Quarters and 2015'>
+        data-slide=33 title='Overview of functions you learned today'>
          33
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=34 title='Solution for all 3 species, all Quarters and 2015 (cont)'>
+        data-slide=34 title='How do you feel now.....?'>
          34
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=35 title='NA'>
+        data-slide=35 title='Totally confused?'>
          35
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=36 title='NA'>
+        data-slide=36 title='Totally bored?'>
          36
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=37 title='Create and save distribution plots per species'>
+        data-slide=37 title='Totally content?'>
          37
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=38 title='Create and save distribution plots per species (cont)'>
+        data-slide=38 title='NA'>
          38
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=39 title='Show all 3 plots together'>
+        data-slide=39 title='Solution'>
          39
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=40 title='Gadus morhua results'>
+        data-slide=40 title='Solution for all 3 species, all Quarters and 2015'>
          40
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=41 title='Plot mean CPUE of all species together'>
+        data-slide=41 title='Solution for all 3 species, all Quarters and 2015 (cont)'>
          41
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=42 title='Plot mean CPUE of all species together'>
+        data-slide=42 title='NA'>
          42
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=43 title='NA'>
+         43
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=44 title='Create and save distribution plots per species'>
+         44
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=45 title='Create and save distribution plots per species (cont)'>
+         45
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=46 title='Show all 3 plots together'>
+         46
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=47 title='Gadus morhua results'>
+         47
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=48 title='Plot mean CPUE of all species together'>
+         48
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=49 title='Plot mean CPUE of all species together'>
+         49
       </a>
     </li>
   </ul>

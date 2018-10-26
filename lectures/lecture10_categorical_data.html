@@ -307,8 +307,8 @@ f1
   <article data-timings="">
     <p>Any values not in the level vector will be silently converted to NA:</p>
 
-<pre><code class="r">y2 &lt;- factor(x2, levels = month_levels)
-y2
+<pre><code class="r">f2 &lt;- factor(x2, levels = month_levels)
+f2
 </code></pre>
 
 <pre><code class="no-highlight">## [1] Dec  Apr  &lt;NA&gt; Mar 
@@ -318,10 +318,11 @@ y2
 <p><br>
 To access the set of valid levels directly use <code>levels()</code>:</p>
 
-<pre><code class="r">levels(f2)
+<pre><code class="r">levels(f1)
 </code></pre>
 
-<pre><code class="no-highlight">## [1] &quot;Dec&quot; &quot;Apr&quot; &quot;Jan&quot; &quot;Mar&quot;
+<pre><code class="no-highlight">##  [1] &quot;Jan&quot; &quot;Feb&quot; &quot;Mar&quot; &quot;Apr&quot; &quot;May&quot; &quot;Jun&quot; &quot;Jul&quot; &quot;Aug&quot; &quot;Sep&quot; &quot;Oct&quot; &quot;Nov&quot;
+## [12] &quot;Dec&quot;
 </code></pre>
 
     <footer>
@@ -651,7 +652,6 @@ print(cpue, n = 5)
 
 <ul>
 <li>Are you satisfied with <code>Survey</code>, <code>Quarter</code>, <code>Area</code>, or <code>Species</code> being character or integer vectors?</li>
-<li>Why not convert them into <strong>factors</strong> ...?</li>
 </ul></li>
 </ul>
 
@@ -740,6 +740,10 @@ cpue$Species &lt;- factor(cpue$Species)
     fill = Area)) +
   geom_col()
 </code></pre>
+
+<div class="boxorange1" >
+  <h4>Note:</h4> <p><span style="font-size:15px">Not every plot type is suitable for categorical data, for instance a scatterplot. Instead, use <strong>barplots</strong>, piecharts, or boxplots. In ggplot the layer function for a barplot would be <code>geom_bar()</code> and <code>geom_col()</code>. We use the <strong>latter</strong> here as we already know the height of each bar and don't need it calculated from the number of cases in each group.</span></p></div>
+  
 
 </div>
 <div style='float:right;width:48%;'>
