@@ -1449,11 +1449,13 @@ x &lt;- sample(1:1000, 20)
     <ul>
 <li>All objects can have arbitrary additional attributes, used to <strong>store metadata</strong> about the object. </li>
 <li>Attributes can be thought of as a <strong>named list</strong> (with unique names). </li>
-<li>Attributes can be <strong>accessed</strong> individually with <code>attr()</code> or all at once (as a list) with <code>attributes()</code>.</li>
+<li>Attributes can be <strong>set</strong> and <strong>accessed</strong> individually with <code>attr()</code> or all at once with <code>attributes()</code>.</li>
 </ul>
 
 <pre><code class="r">temp &lt;- c(17.4, 18.3, 20.8, 16.9, 28.1)
-# this metadata is typically written in the header in Excel or in an extra spreadsheet, but can be put as attributes into R:
+
+# this metadata is typically written in the header in Excel or in an extra 
+# spreadsheet, but can be put as attributes into R:
 attr(temp, &quot;unit&quot;) &lt;- &quot;°C&quot;
 attr(temp, &quot;samplinginfo&quot;) &lt;- &quot;surface temperature (0.5m depth), measured with CTD&quot;
 attributes(temp)
@@ -1484,7 +1486,7 @@ attributes(temp)
   </hgroup>
   <article data-timings="">
     <ul>
-<li>The  <strong>three most important</strong> attributes are (automatically given):
+<li>The  <strong>three most important</strong> attributes are:
 
 <ul>
 <li><strong>Names</strong>, a character vector giving each element a name.</li>
@@ -1511,7 +1513,7 @@ attributes(temp)
   </hgroup>
   <article data-timings="">
     <ul>
-<li>The  <strong>three most important</strong> attributes are (automatically given):
+<li>The  <strong>three most important</strong> attributes are:
 
 <ul>
 <li><strong>Names</strong>, a character vector giving each element a name.</li>
@@ -1524,7 +1526,7 @@ attributes(temp)
 
 <ul>
 <li><code>names(x)</code> </li>
-<li><code>dim(x)</code> </li>
+<li><code>length(x)</code> (for 1-dimensional structures: vectors, list) otherwise <code>dim(x)</code></li>
 <li><code>class(x)</code></li>
 </ul>
 
@@ -1541,6 +1543,69 @@ attributes(temp)
   <!-- Presenter Notes -->
 </slide>
 <slide class="" id="slide-47" style="background:;">
+  <hgroup>
+    <h2>Attributes (cont)</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>The attribute <strong>names</strong> and other attributes that you set manually will always appear when you look at the content of your vector:</p>
+
+<pre><code class="r"># add stationnames 
+names(temp) &lt;- c(&quot;st_03&quot;, &quot;st_11&quot;, &quot;st_17&quot;, &quot;st_21&quot;, &quot;st_25&quot;)
+temp
+</code></pre>
+
+<pre><code class="no-highlight">## st_03 st_11 st_17 st_21 st_25 
+##  17.4  18.3  20.8  16.9  28.1 
+## attr(,&quot;unit&quot;)
+## [1] &quot;°C&quot;
+## attr(,&quot;samplinginfo&quot;)
+## [1] &quot;surface temperature (0.5m depth), measured with CTD&quot;
+</code></pre>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-48" style="background:;">
+  <hgroup>
+    <h2>Attributes (cont)</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>These attributes are only visible when you call them explicitly:</p>
+
+<pre><code class="r">length(temp)
+</code></pre>
+
+<pre><code class="no-highlight">## [1] 5
+</code></pre>
+
+<pre><code class="r">class(temp)
+</code></pre>
+
+<pre><code class="no-highlight">## [1] &quot;numeric&quot;
+</code></pre>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-49" style="background:;">
   <hgroup>
     <h2>Factors</h2>
   </hgroup>
@@ -1571,29 +1636,29 @@ attributes(temp)
   </article>
   <!-- Presenter Notes -->
 </slide>
-<slide class="" id="slide-48" style="background:;">
+<slide class="" id="slide-50" style="background:;">
   <hgroup>
     <h2>Factors (cont)</h2>
   </hgroup>
   <article data-timings="">
-    <pre><code class="r">x &lt;- factor(c(&quot;a&quot;, &quot;b&quot;, &quot;b&quot;, &quot;a&quot;))
-x
+    <pre><code class="r">biomass &lt;- factor(c(&quot;low&quot;, &quot;medium&quot;, &quot;low&quot;, &quot;high&quot;, &quot;medium&quot;))
+biomass
 </code></pre>
 
-<pre><code class="no-highlight">## [1] a b b a
-## Levels: a b
+<pre><code class="no-highlight">## [1] low    medium low    high   medium
+## Levels: high low medium
 </code></pre>
 
-<pre><code class="r">class(x)
+<pre><code class="r">class(biomass)
 </code></pre>
 
 <pre><code class="no-highlight">## [1] &quot;factor&quot;
 </code></pre>
 
-<pre><code class="r">levels(x)
+<pre><code class="r">levels(biomass) # shown in alphabetic order if not specified
 </code></pre>
 
-<pre><code class="no-highlight">## [1] &quot;a&quot; &quot;b&quot;
+<pre><code class="no-highlight">## [1] &quot;high&quot;   &quot;low&quot;    &quot;medium&quot;
 </code></pre>
 
     <footer>
@@ -1617,7 +1682,7 @@ x
 
   </article>
 </slide>
-<slide class="" id="slide-50" style="background:;">
+<slide class="" id="slide-52" style="background:;">
   <hgroup>
     <h2>Basic calculation example</h2>
   </hgroup>
@@ -1644,7 +1709,7 @@ c
   </article>
   <!-- Presenter Notes -->
 </slide>
-<slide class="" id="slide-51" style="background:;">
+<slide class="" id="slide-53" style="background:;">
   <hgroup>
     <h2>Vectorized calculations</h2>
   </hgroup>
@@ -1663,7 +1728,7 @@ c
   </article>
   <!-- Presenter Notes -->
 </slide>
-<slide class="" id="slide-52" style="background:;">
+<slide class="" id="slide-54" style="background:;">
   <hgroup>
     <h2>Vectorized calculations</h2>
   </hgroup>
@@ -1692,7 +1757,7 @@ a * b
   </article>
   <!-- Presenter Notes -->
 </slide>
-<slide class="" id="slide-53" style="background:;">
+<slide class="" id="slide-55" style="background:;">
   <hgroup>
     <h2>Vectorized calculations</h2>
   </hgroup>
@@ -1737,7 +1802,7 @@ b &lt;- 10 # b gets recycled to the length of a
     
   </article>
 </slide>
-<slide class="" id="slide-55" style="background:#EEC900;">
+<slide class="" id="slide-57" style="background:#EEC900;">
   <hgroup>
     <h1>Quiz 10: Total Sums of Squares \(\sum_{i=1}^{n} \left(x_{i} - \bar{x}\right)^{2}\)</h1>
   </hgroup>
@@ -1814,12 +1879,12 @@ outermost parenthesis (just like a calculator). So your order should be:
     
   </article>
 </slide>
-<slide class="" id="slide-58">
+<slide class="" id="slide-60">
   <hgroup>
     <h2>Totally confused?</h2>
   </hgroup>
   <article class = 'flexbox vcenter'>
-    <p><img src="img/Comic_confused.png" title="plot of chunk unnamed-chunk-40" alt="plot of chunk unnamed-chunk-40" width="400px" style="display: block; margin: auto;" /></p>
+    <p><img src="img/Comic_confused.png" title="plot of chunk unnamed-chunk-42" alt="plot of chunk unnamed-chunk-42" width="400px" style="display: block; margin: auto;" /></p>
 
 <p>Try out the <a href="https://campus.datacamp.com/courses/free-introduction-to-r/chapter-1-intro-to-basics-1?ex=1">online tutorial at Data Camp</a></p>
 
@@ -1835,12 +1900,12 @@ outermost parenthesis (just like a calculator). So your order should be:
   </article>
   <!-- Presenter Notes -->
 </slide>
-<slide class="" id="slide-59">
+<slide class="" id="slide-61">
   <hgroup>
     <h2>Totally bored?</h2>
   </hgroup>
   <article class = 'flexbox vcenter'>
-    <p><img src="img/Comic_bored.png" title="plot of chunk unnamed-chunk-41" alt="plot of chunk unnamed-chunk-41" width="800px" style="display: block; margin: auto auto auto 0;" /></p>
+    <p><img src="img/Comic_bored.png" title="plot of chunk unnamed-chunk-43" alt="plot of chunk unnamed-chunk-43" width="800px" style="display: block; margin: auto auto auto 0;" /></p>
 
 <p>Don&#39;t worry! Soon you won&#39;t be bored anymore!!</p>
 
@@ -1856,14 +1921,14 @@ outermost parenthesis (just like a calculator). So your order should be:
   </article>
   <!-- Presenter Notes -->
 </slide>
-<slide class="" id="slide-60" style="background:;">
+<slide class="" id="slide-62" style="background:;">
   <hgroup>
     <h2>Totally content?</h2>
   </hgroup>
   <article data-timings="">
     <p>Then go grab a coffee, lean back and enjoy the rest of the day...!</p>
 
-<p><img src="img/Comic_hammock.png" title="plot of chunk unnamed-chunk-42" alt="plot of chunk unnamed-chunk-42" width="600px" style="display: block; margin: auto;" /></p>
+<p><img src="img/Comic_hammock.png" title="plot of chunk unnamed-chunk-44" alt="plot of chunk unnamed-chunk-44" width="600px" style="display: block; margin: auto;" /></p>
 
     <footer>
       <div style="position: absolute; left: 60px; top: 645px; z-index:100">
@@ -1877,7 +1942,7 @@ outermost parenthesis (just like a calculator). So your order should be:
   </article>
   <!-- Presenter Notes -->
 </slide>
-<slide class="thank-you-slide segue" id="slide-61">
+<slide class="thank-you-slide segue" id="slide-63">
   <footer>
     <div style="position: absolute; left: 50px; top: 50px; z-index:100">
         <img src = "assets/img/uham_logo.png" height="67" width="200">
@@ -2194,37 +2259,37 @@ outermost parenthesis (just like a calculator). So your order should be:
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=47 title='Factors'>
+        data-slide=47 title='Attributes (cont)'>
          47
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=48 title='Factors (cont)'>
+        data-slide=48 title='Attributes (cont)'>
          48
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=49 title='Vectorized operations in R'>
+        data-slide=49 title='Factors'>
          49
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=50 title='Basic calculation example'>
+        data-slide=50 title='Factors (cont)'>
          50
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=51 title='Vectorized calculations'>
+        data-slide=51 title='Vectorized operations in R'>
          51
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=52 title='Vectorized calculations'>
+        data-slide=52 title='Basic calculation example'>
          52
       </a>
     </li>
@@ -2236,50 +2301,62 @@ outermost parenthesis (just like a calculator). So your order should be:
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=54 title='Your turn...'>
+        data-slide=54 title='Vectorized calculations'>
          54
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=55 title='Quiz 10: Total Sums of Squares \(\sum_{i=1}^{n} \left(x_{i} - \bar{x}\right)^{2}\)'>
+        data-slide=55 title='Vectorized calculations'>
          55
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=56 title='Overview of functions you learned today'>
+        data-slide=56 title='Your turn...'>
          56
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=57 title='How do you feel now.....?'>
+        data-slide=57 title='Quiz 10: Total Sums of Squares \(\sum_{i=1}^{n} \left(x_{i} - \bar{x}\right)^{2}\)'>
          57
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=58 title='Totally confused?'>
+        data-slide=58 title='Overview of functions you learned today'>
          58
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=59 title='Totally bored?'>
+        data-slide=59 title='How do you feel now.....?'>
          59
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=60 title='Totally content?'>
+        data-slide=60 title='Totally confused?'>
          60
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=61 title='NA'>
+        data-slide=61 title='Totally bored?'>
          61
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=62 title='Totally content?'>
+         62
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=63 title='NA'>
+         63
       </a>
     </li>
   </ul>

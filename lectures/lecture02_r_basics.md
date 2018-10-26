@@ -735,12 +735,14 @@ Instead of returning an error message, R returns NAs for all those pulled elemen
 
 - All objects can have arbitrary additional attributes, used to **store metadata** about the object. 
 - Attributes can be thought of as a **named list** (with unique names). 
-- Attributes can be **accessed** individually with `attr()` or all at once (as a list) with `attributes()`.
+- Attributes can be **set** and **accessed** individually with `attr()` or all at once with `attributes()`.
 
 
 ```r
 temp <- c(17.4, 18.3, 20.8, 16.9, 28.1)
-# this metadata is typically written in the header in Excel or in an extra spreadsheet, but can be put as attributes into R:
+
+# this metadata is typically written in the header in Excel or in an extra 
+# spreadsheet, but can be put as attributes into R:
 attr(temp, "unit") <- "°C"
 attr(temp, "samplinginfo") <- "surface temperature (0.5m depth), measured with CTD"
 attributes(temp)
@@ -757,7 +759,7 @@ attributes(temp)
 ---
 ## Attributes (cont)
 
-- The  **three most important** attributes are (automatically given):
+- The  **three most important** attributes are:
   - **Names**, a character vector giving each element a name.
   - **Dimensions**, used to turn vectors into matrices and arrays.
   - **Class**, used to implement the S3 object system.
@@ -765,7 +767,7 @@ attributes(temp)
 ---
 ## Attributes (cont)
 
-- The  **three most important** attributes are (automatically given):
+- The  **three most important** attributes are:
   - **Names**, a character vector giving each element a name.
   - **Dimensions**, used to turn vectors into matrices and arrays.
   - **Class**, used to implement the S3 object system.
@@ -773,8 +775,49 @@ attributes(temp)
 Each of these attributes has a **specific accessor function** to get and set values:
 
 - `names(x)` 
-- `dim(x)` 
+- `length(x)` (for 1-dimensional structures: vectors, list) otherwise `dim(x)`
 - `class(x)`
+
+---
+## Attributes (cont)
+
+The attribute **names** and other attributes that you set manually will always appear when you look at the content of your vector:
+
+```r
+# add stationnames 
+names(temp) <- c("st_03", "st_11", "st_17", "st_21", "st_25")
+temp
+```
+
+```no-highlight
+## st_03 st_11 st_17 st_21 st_25 
+##  17.4  18.3  20.8  16.9  28.1 
+## attr(,"unit")
+## [1] "°C"
+## attr(,"samplinginfo")
+## [1] "surface temperature (0.5m depth), measured with CTD"
+```
+
+---
+## Attributes (cont)
+
+These attributes are only visible when you call them explicitly:
+
+```r
+length(temp)
+```
+
+```no-highlight
+## [1] 5
+```
+
+```r
+class(temp)
+```
+
+```no-highlight
+## [1] "numeric"
+```
 
 ---
 ## Factors
@@ -793,17 +836,17 @@ One important use of **attributes** is to **define factors**. Factors are
 
 
 ```r
-x <- factor(c("a", "b", "b", "a"))
-x
+biomass <- factor(c("low", "medium", "low", "high", "medium"))
+biomass
 ```
 
 ```no-highlight
-## [1] a b b a
-## Levels: a b
+## [1] low    medium low    high   medium
+## Levels: high low medium
 ```
 
 ```r
-class(x)
+class(biomass)
 ```
 
 ```no-highlight
@@ -811,11 +854,11 @@ class(x)
 ```
 
 ```r
-levels(x)
+levels(biomass) # shown in alphabetic order if not specified
 ```
 
 ```no-highlight
-## [1] "a" "b"
+## [1] "high"   "low"    "medium"
 ```
 
 
@@ -947,7 +990,7 @@ outermost parenthesis (just like a calculator). So your order should be:
 --- &vcenter
 ## Totally confused?
  
-<img src="img/Comic_confused.png" title="plot of chunk unnamed-chunk-40" alt="plot of chunk unnamed-chunk-40" width="400px" style="display: block; margin: auto;" />
+<img src="img/Comic_confused.png" title="plot of chunk unnamed-chunk-42" alt="plot of chunk unnamed-chunk-42" width="400px" style="display: block; margin: auto;" />
 
 Try out the [online tutorial at Data Camp](https://campus.datacamp.com/courses/free-introduction-to-r/chapter-1-intro-to-basics-1?ex=1)
 
@@ -956,7 +999,7 @@ Try out the [online tutorial at Data Camp](https://campus.datacamp.com/courses/f
 --- &vcenter
 ## Totally bored?
                 
-<img src="img/Comic_bored.png" title="plot of chunk unnamed-chunk-41" alt="plot of chunk unnamed-chunk-41" width="800px" style="display: block; margin: auto auto auto 0;" />
+<img src="img/Comic_bored.png" title="plot of chunk unnamed-chunk-43" alt="plot of chunk unnamed-chunk-43" width="800px" style="display: block; margin: auto auto auto 0;" />
 
 Don't worry! Soon you won't be bored anymore!!
 
@@ -964,7 +1007,7 @@ Don't worry! Soon you won't be bored anymore!!
 ## Totally content?
 Then go grab a coffee, lean back and enjoy the rest of the day...!
 
-<img src="img/Comic_hammock.png" title="plot of chunk unnamed-chunk-42" alt="plot of chunk unnamed-chunk-42" width="600px" style="display: block; margin: auto;" />
+<img src="img/Comic_hammock.png" title="plot of chunk unnamed-chunk-44" alt="plot of chunk unnamed-chunk-44" width="600px" style="display: block; margin: auto;" />
 
 
 --- &thankyou
