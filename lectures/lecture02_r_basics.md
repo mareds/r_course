@@ -464,28 +464,23 @@ As well as implicitly coercing the types of vectors to be compatible, R will als
 --- &radio bg:#EEC900
 # Quiz 6: Recycling rules
 
-What happens when you subset with a positive integer that’s bigger than the length of the vector?
+What happens when you do the following calculation?
 
-1. error message returned
-2. nothing happens
-3. the vector gets recycled (e.g. returns 2nd element if vector length is 10    and index value is a 12)
-4. _NA returned_
 
-*** .explanation
-The vector gets indeed extended to the length of the requested element but not by recycling but by filling the gap with NAs.
+```r
+a <- c(10, 5, 100)
+b <- 1:5
+(a*b)*3
+```
 
---- &radio bg:#EEC900
-# Quiz 7: Recycling rules
-
-What happens when you subset with a name that doesn’t exist?
-
-1. error message returned
-2. nothing happens
-3. the vector gets recycled (e.g. returns 2nd element if vector length is 10    and index value is a 12)
-4. _NA returned_
+1. the output will be a vector of length 3
+2. the output will be a vector of length 5, last element is 1500
+3. _the output will be a vector of length 3, last element is 75_
+4. the output will be a vector of length 3, last element is NA
 
 *** .explanation
-Instead of returning an error message, R returns NAs for all those pulled elements that do not exist (by the selected name). Beware of this behaviour and check your results at each step!
+The shorter vector a gets recycled to the length of the longer vector b: R fills the gap with the element from the shorter vector one by one, i.e. position 4 gets the first element again, position 5 the second. And <2> gets also repeated as many times as the length of the longest vector b.
+
 
 --- 
 ## 3. Naming vectors
@@ -673,7 +668,7 @@ x[]
 # Your turn...
 
 --- &multitext bg:#EEC900
-# Quiz 8: Subsetting
+# Quiz 7: Subsetting
 
 A vector **x** has been created by drawing 20 numbers randomly from 1 to 1000:
 
@@ -701,6 +696,33 @@ Try it out yourself and answer the following 3 questions:
 3. <span class='answer'>9672</span>
 
 
+--- &radio bg:#EEC900
+# Quiz 8: Subsetting 
+
+What happens when you subset with a positive integer that’s bigger than the length of the vector?
+
+1. error message returned
+2. nothing happens
+3. the vector gets recycled (e.g. returns 2nd element if vector length is 10    and index value is a 12)
+4. _NA returned_
+
+*** .explanation
+The vector gets indeed extended to the length of the requested element but not by recycling but by filling the gap with NAs.
+
+--- &radio bg:#EEC900
+# Quiz 9: Subsetting 
+
+What happens when you subset with a name that doesn’t exist?
+
+1. error message returned
+2. nothing happens
+3. the vector gets recycled (e.g. returns 2nd element if vector length is 10    and index value is a 12)
+4. _NA returned_
+
+*** .explanation
+Instead of returning an error message, R returns NAs for all those pulled elements that do not exist (by the selected name). Beware of this behaviour and check your results at each step!
+
+
 ---
 ## Attributes
 
@@ -717,28 +739,25 @@ Try it out yourself and answer the following 3 questions:
 
 
 ```r
-y <- 1:10
-attr(y, "my_attribute") <- "This is a vector"
-attr(y, "my_attribute")
+temp <- c(17.4, 18.3, 20.8, 16.9, 28.1)
+# this metadata is typically written in the header in Excel or in an extra spreadsheet, but can be put as attributes into R:
+attr(temp, "unit") <- "°C"
+attr(temp, "samplinginfo") <- "surface temperature (0.5m depth), measured with CTD"
+attributes(temp)
 ```
 
 ```no-highlight
-## [1] "This is a vector"
-```
-
-```r
-attributes(y)
-```
-
-```no-highlight
-## $my_attribute
-## [1] "This is a vector"
+## $unit
+## [1] "°C"
+## 
+## $samplinginfo
+## [1] "surface temperature (0.5m depth), measured with CTD"
 ```
 
 ---
 ## Attributes (cont)
 
-- The  **three most important** attributes are:
+- The  **three most important** attributes are (automatically given):
   - **Names**, a character vector giving each element a name.
   - **Dimensions**, used to turn vectors into matrices and arrays.
   - **Class**, used to implement the S3 object system.
@@ -746,7 +765,7 @@ attributes(y)
 ---
 ## Attributes (cont)
 
-- The  **three most important** attributes are:
+- The  **three most important** attributes are (automatically given):
   - **Names**, a character vector giving each element a name.
   - **Dimensions**, used to turn vectors into matrices and arrays.
   - **Class**, used to implement the S3 object system.
@@ -883,7 +902,7 @@ a * b # = a[1] * b[1], ...
 
 --- &multitext bg:#EEC900
 
-# Quiz 9: Total Sums of Squares $\sum_{i=1}^{n} \left(x_{i} - \bar{x}\right)^{2}$
+# Quiz 10: Total Sums of Squares $\sum_{i=1}^{n} \left(x_{i} - \bar{x}\right)^{2}$
 
 Calculate for the following vector
 
@@ -928,7 +947,7 @@ outermost parenthesis (just like a calculator). So your order should be:
 --- &vcenter
 ## Totally confused?
  
-<img src="img/Comic_confused.png" title="plot of chunk unnamed-chunk-39" alt="plot of chunk unnamed-chunk-39" width="400px" style="display: block; margin: auto;" />
+<img src="img/Comic_confused.png" title="plot of chunk unnamed-chunk-40" alt="plot of chunk unnamed-chunk-40" width="400px" style="display: block; margin: auto;" />
 
 Try out the [online tutorial at Data Camp](https://campus.datacamp.com/courses/free-introduction-to-r/chapter-1-intro-to-basics-1?ex=1)
 
@@ -937,7 +956,7 @@ Try out the [online tutorial at Data Camp](https://campus.datacamp.com/courses/f
 --- &vcenter
 ## Totally bored?
                 
-<img src="img/Comic_bored.png" title="plot of chunk unnamed-chunk-40" alt="plot of chunk unnamed-chunk-40" width="800px" style="display: block; margin: auto auto auto 0;" />
+<img src="img/Comic_bored.png" title="plot of chunk unnamed-chunk-41" alt="plot of chunk unnamed-chunk-41" width="800px" style="display: block; margin: auto auto auto 0;" />
 
 Don't worry! Soon you won't be bored anymore!!
 
@@ -945,7 +964,7 @@ Don't worry! Soon you won't be bored anymore!!
 ## Totally content?
 Then go grab a coffee, lean back and enjoy the rest of the day...!
 
-<img src="img/Comic_hammock.png" title="plot of chunk unnamed-chunk-41" alt="plot of chunk unnamed-chunk-41" width="600px" style="display: block; margin: auto;" />
+<img src="img/Comic_hammock.png" title="plot of chunk unnamed-chunk-42" alt="plot of chunk unnamed-chunk-42" width="600px" style="display: block; margin: auto;" />
 
 
 --- &thankyou

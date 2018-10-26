@@ -971,13 +971,18 @@ x[z] &lt;- NA  # place NAs on the positions in z
   <article data-timings="">
     
 <div class="quiz quiz-single well ">
-  <p>What happens when you subset with a positive integer that’s bigger than the length of the vector?</p>
+  <p>What happens when you do the following calculation?</p>
+
+<pre><code class="r">a &lt;- c(10, 5, 100)
+b &lt;- 1:5
+(a*b)*3
+</code></pre>
 
 <ol>
-<li>error message returned</li>
-<li>nothing happens</li>
-<li>the vector gets recycled (e.g. returns 2nd element if vector length is 10    and index value is a 12)</li>
-<li><em>NA returned</em></li>
+<li>the output will be a vector of length 3</li>
+<li>the output will be a vector of length 5, last element is 1500</li>
+<li><em>the output will be a vector of length 3, last element is 75</em></li>
+<li>the output will be a vector of length 3, last element is NA</li>
 </ol>
 
   <button class="quiz-submit btn btn-primary">Submit</button>
@@ -986,7 +991,7 @@ x[z] &lt;- NA  # place NAs on the positions in z
   <button class="quiz-clear btn btn-danger">Clear</button>
   
   <div class="quiz-explanation">
-  <p>The vector gets indeed extended to the length of the requested element but not by recycling but by filling the gap with NAs.</p>
+  <p>The shorter vector a gets recycled to the length of the longer vector b: R fills the gap with the element from the shorter vector one by one, i.e. position 4 gets the first element again, position 5 the second. And <2> gets also repeated as many times as the length of the longest vector b.</p>
 
 </div>
 </div>
@@ -1002,45 +1007,7 @@ x[z] &lt;- NA  # place NAs on the positions in z
   </article>
   <!-- Presenter Notes -->
 </slide>
-<slide class="" id="slide-30" style="background:#EEC900;">
-  <hgroup>
-    <h1>Quiz 7: Recycling rules</h1>
-  </hgroup>
-  <article data-timings="">
-    
-<div class="quiz quiz-single well ">
-  <p>What happens when you subset with a name that doesn’t exist?</p>
-
-<ol>
-<li>error message returned</li>
-<li>nothing happens</li>
-<li>the vector gets recycled (e.g. returns 2nd element if vector length is 10    and index value is a 12)</li>
-<li><em>NA returned</em></li>
-</ol>
-
-  <button class="quiz-submit btn btn-primary">Submit</button>
-  <button class="quiz-toggle-hint btn btn-info">Show Hint</button>
-  <button class="quiz-show-answer btn btn-success">Show Answer</button>
-  <button class="quiz-clear btn btn-danger">Clear</button>
-  
-  <div class="quiz-explanation">
-  <p>Instead of returning an error message, R returns NAs for all those pulled elements that do not exist (by the selected name). Beware of this behaviour and check your results at each step!</p>
-
-</div>
-</div>
-    <footer>
-      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
-        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
-      </div>
-      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
-        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
-        font-style: italic; top: 610px; ">Data analysis with R</a>
-      </div>
-    </footer>
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-<slide class="" id="slide-31" style="background:;">
+<slide class="" id="slide-30" style="background:;">
   <hgroup>
     <h2>3. Naming vectors</h2>
   </hgroup>
@@ -1077,7 +1044,7 @@ x
   </article>
   <!-- Presenter Notes -->
 </slide>
-<slide class="" id="slide-32" style="background:;">
+<slide class="" id="slide-31" style="background:;">
   <hgroup>
     <h2>4. Subsetting</h2>
   </hgroup>
@@ -1105,7 +1072,7 @@ x
   </article>
   <!-- Presenter Notes -->
 </slide>
-<slide class="" id="slide-33" style="background:;">
+<slide class="" id="slide-32" style="background:;">
   <article data-timings="">
     <p>1.Using a <strong>numeric</strong> vector containing only integers. </p>
 
@@ -1129,7 +1096,7 @@ x[c(5, 1, 3)]
   </article>
   <!-- Presenter Notes -->
 </slide>
-<slide class="" id="slide-34" style="background:;">
+<slide class="" id="slide-33" style="background:;">
   <article data-timings="">
     <p>1.Using a <strong>numeric</strong> vector containing only integers. </p>
 
@@ -1161,7 +1128,7 @@ x[c(1,1,1,1,2,2,2,2,3,3,3,4,4,5,5)]
   </article>
   <!-- Presenter Notes -->
 </slide>
-<slide class="" id="slide-35" style="background:;">
+<slide class="" id="slide-34" style="background:;">
   <article data-timings="">
     <p>1.Using a <strong>numeric</strong> vector containing only integers. </p>
 
@@ -1200,7 +1167,7 @@ x[c(-3,-5)]
   </article>
   <!-- Presenter Notes -->
 </slide>
-<slide class="" id="slide-36" style="background:;">
+<slide class="" id="slide-35" style="background:;">
   <article data-timings="">
     <p>1.Using a <strong>numeric</strong> vector containing only integers. </p>
 
@@ -1226,7 +1193,7 @@ x[0] # --&gt; returns an empty vector
   </article>
   <!-- Presenter Notes -->
 </slide>
-<slide class="" id="slide-37" style="background:;">
+<slide class="" id="slide-36" style="background:;">
   <article data-timings="">
     <p>2.Subsetting with a <strong>logical</strong> vector keeps all values corresponding to a <code>TRUE</code> value. This is most often useful in conjunction with the comparison functions.</p>
 
@@ -1259,7 +1226,7 @@ x[x %% 2 == 0]
   </article>
   <!-- Presenter Notes -->
 </slide>
-<slide class="" id="slide-38" style="background:;">
+<slide class="" id="slide-37" style="background:;">
   <article data-timings="">
     <p>3.If you have a <strong>named</strong> vector, you can subset it with a character vector:</p>
 
@@ -1291,7 +1258,7 @@ x[c(&quot;xyz&quot;, &quot;def&quot;, &quot;def&quot;)]
   </article>
   <!-- Presenter Notes -->
 </slide>
-<slide class="" id="slide-39" style="background:;">
+<slide class="" id="slide-38" style="background:;">
   <article data-timings="">
     <p>4.Using <strong>nothing</strong> returns the original vector. More important for other data structures</p>
 
@@ -1322,9 +1289,9 @@ x[c(&quot;xyz&quot;, &quot;def&quot;, &quot;def&quot;)]
     
   </article>
 </slide>
-<slide class="" id="slide-41" style="background:#EEC900;">
+<slide class="" id="slide-40" style="background:#EEC900;">
   <hgroup>
-    <h1>Quiz 8: Subsetting</h1>
+    <h1>Quiz 7: Subsetting</h1>
   </hgroup>
   <article data-timings="">
     
@@ -1375,17 +1342,70 @@ x &lt;- sample(1:1000, 20)
   </article>
   <!-- Presenter Notes -->
 </slide>
-<slide class="" id="slide-42" style="background:;">
+<slide class="" id="slide-41" style="background:#EEC900;">
   <hgroup>
-    <h2>Attributes</h2>
+    <h1>Quiz 8: Subsetting</h1>
   </hgroup>
   <article data-timings="">
-    <ul>
-<li>All objects can have arbitrary additional attributes, used to <strong>store metadata</strong> about the object. </li>
-<li>Attributes can be thought of as a <strong>named list</strong> (with unique names). </li>
-<li>Attributes can be <strong>accessed</strong> individually with <code>attr()</code> or all at once (as a list) with <code>attributes()</code>.</li>
-</ul>
+    
+<div class="quiz quiz-single well ">
+  <p>What happens when you subset with a positive integer that’s bigger than the length of the vector?</p>
 
+<ol>
+<li>error message returned</li>
+<li>nothing happens</li>
+<li>the vector gets recycled (e.g. returns 2nd element if vector length is 10    and index value is a 12)</li>
+<li><em>NA returned</em></li>
+</ol>
+
+  <button class="quiz-submit btn btn-primary">Submit</button>
+  <button class="quiz-toggle-hint btn btn-info">Show Hint</button>
+  <button class="quiz-show-answer btn btn-success">Show Answer</button>
+  <button class="quiz-clear btn btn-danger">Clear</button>
+  
+  <div class="quiz-explanation">
+  <p>The vector gets indeed extended to the length of the requested element but not by recycling but by filling the gap with NAs.</p>
+
+</div>
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-42" style="background:#EEC900;">
+  <hgroup>
+    <h1>Quiz 9: Subsetting</h1>
+  </hgroup>
+  <article data-timings="">
+    
+<div class="quiz quiz-single well ">
+  <p>What happens when you subset with a name that doesn’t exist?</p>
+
+<ol>
+<li>error message returned</li>
+<li>nothing happens</li>
+<li>the vector gets recycled (e.g. returns 2nd element if vector length is 10    and index value is a 12)</li>
+<li><em>NA returned</em></li>
+</ol>
+
+  <button class="quiz-submit btn btn-primary">Submit</button>
+  <button class="quiz-toggle-hint btn btn-info">Show Hint</button>
+  <button class="quiz-show-answer btn btn-success">Show Answer</button>
+  <button class="quiz-clear btn btn-danger">Clear</button>
+  
+  <div class="quiz-explanation">
+  <p>Instead of returning an error message, R returns NAs for all those pulled elements that do not exist (by the selected name). Beware of this behaviour and check your results at each step!</p>
+
+</div>
+</div>
     <footer>
       <div style="position: absolute; left: 60px; top: 645px; z-index:100">
         <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
@@ -1409,21 +1429,6 @@ x &lt;- sample(1:1000, 20)
 <li>Attributes can be <strong>accessed</strong> individually with <code>attr()</code> or all at once (as a list) with <code>attributes()</code>.</li>
 </ul>
 
-<pre><code class="r">y &lt;- 1:10
-attr(y, &quot;my_attribute&quot;) &lt;- &quot;This is a vector&quot;
-attr(y, &quot;my_attribute&quot;)
-</code></pre>
-
-<pre><code class="no-highlight">## [1] &quot;This is a vector&quot;
-</code></pre>
-
-<pre><code class="r">attributes(y)
-</code></pre>
-
-<pre><code class="no-highlight">## $my_attribute
-## [1] &quot;This is a vector&quot;
-</code></pre>
-
     <footer>
       <div style="position: absolute; left: 60px; top: 645px; z-index:100">
         <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
@@ -1438,11 +1443,48 @@ attr(y, &quot;my_attribute&quot;)
 </slide>
 <slide class="" id="slide-44" style="background:;">
   <hgroup>
+    <h2>Attributes</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>All objects can have arbitrary additional attributes, used to <strong>store metadata</strong> about the object. </li>
+<li>Attributes can be thought of as a <strong>named list</strong> (with unique names). </li>
+<li>Attributes can be <strong>accessed</strong> individually with <code>attr()</code> or all at once (as a list) with <code>attributes()</code>.</li>
+</ul>
+
+<pre><code class="r">temp &lt;- c(17.4, 18.3, 20.8, 16.9, 28.1)
+# this metadata is typically written in the header in Excel or in an extra spreadsheet, but can be put as attributes into R:
+attr(temp, &quot;unit&quot;) &lt;- &quot;°C&quot;
+attr(temp, &quot;samplinginfo&quot;) &lt;- &quot;surface temperature (0.5m depth), measured with CTD&quot;
+attributes(temp)
+</code></pre>
+
+<pre><code class="no-highlight">## $unit
+## [1] &quot;°C&quot;
+## 
+## $samplinginfo
+## [1] &quot;surface temperature (0.5m depth), measured with CTD&quot;
+</code></pre>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-45" style="background:;">
+  <hgroup>
     <h2>Attributes (cont)</h2>
   </hgroup>
   <article data-timings="">
     <ul>
-<li>The  <strong>three most important</strong> attributes are:
+<li>The  <strong>three most important</strong> attributes are (automatically given):
 
 <ul>
 <li><strong>Names</strong>, a character vector giving each element a name.</li>
@@ -1463,13 +1505,13 @@ attr(y, &quot;my_attribute&quot;)
   </article>
   <!-- Presenter Notes -->
 </slide>
-<slide class="" id="slide-45" style="background:;">
+<slide class="" id="slide-46" style="background:;">
   <hgroup>
     <h2>Attributes (cont)</h2>
   </hgroup>
   <article data-timings="">
     <ul>
-<li>The  <strong>three most important</strong> attributes are:
+<li>The  <strong>three most important</strong> attributes are (automatically given):
 
 <ul>
 <li><strong>Names</strong>, a character vector giving each element a name.</li>
@@ -1498,7 +1540,7 @@ attr(y, &quot;my_attribute&quot;)
   </article>
   <!-- Presenter Notes -->
 </slide>
-<slide class="" id="slide-46" style="background:;">
+<slide class="" id="slide-47" style="background:;">
   <hgroup>
     <h2>Factors</h2>
   </hgroup>
@@ -1529,7 +1571,7 @@ attr(y, &quot;my_attribute&quot;)
   </article>
   <!-- Presenter Notes -->
 </slide>
-<slide class="" id="slide-47" style="background:;">
+<slide class="" id="slide-48" style="background:;">
   <hgroup>
     <h2>Factors (cont)</h2>
   </hgroup>
@@ -1575,7 +1617,7 @@ x
 
   </article>
 </slide>
-<slide class="" id="slide-49" style="background:;">
+<slide class="" id="slide-50" style="background:;">
   <hgroup>
     <h2>Basic calculation example</h2>
   </hgroup>
@@ -1602,7 +1644,7 @@ c
   </article>
   <!-- Presenter Notes -->
 </slide>
-<slide class="" id="slide-50" style="background:;">
+<slide class="" id="slide-51" style="background:;">
   <hgroup>
     <h2>Vectorized calculations</h2>
   </hgroup>
@@ -1621,7 +1663,7 @@ c
   </article>
   <!-- Presenter Notes -->
 </slide>
-<slide class="" id="slide-51" style="background:;">
+<slide class="" id="slide-52" style="background:;">
   <hgroup>
     <h2>Vectorized calculations</h2>
   </hgroup>
@@ -1650,7 +1692,7 @@ a * b
   </article>
   <!-- Presenter Notes -->
 </slide>
-<slide class="" id="slide-52" style="background:;">
+<slide class="" id="slide-53" style="background:;">
   <hgroup>
     <h2>Vectorized calculations</h2>
   </hgroup>
@@ -1695,9 +1737,9 @@ b &lt;- 10 # b gets recycled to the length of a
     
   </article>
 </slide>
-<slide class="" id="slide-54" style="background:#EEC900;">
+<slide class="" id="slide-55" style="background:#EEC900;">
   <hgroup>
-    <h1>Quiz 9: Total Sums of Squares \(\sum_{i=1}^{n} \left(x_{i} - \bar{x}\right)^{2}\)</h1>
+    <h1>Quiz 10: Total Sums of Squares \(\sum_{i=1}^{n} \left(x_{i} - \bar{x}\right)^{2}\)</h1>
   </hgroup>
   <article data-timings="">
     
@@ -1772,12 +1814,12 @@ outermost parenthesis (just like a calculator). So your order should be:
     
   </article>
 </slide>
-<slide class="" id="slide-57">
+<slide class="" id="slide-58">
   <hgroup>
     <h2>Totally confused?</h2>
   </hgroup>
   <article class = 'flexbox vcenter'>
-    <p><img src="img/Comic_confused.png" title="plot of chunk unnamed-chunk-39" alt="plot of chunk unnamed-chunk-39" width="400px" style="display: block; margin: auto;" /></p>
+    <p><img src="img/Comic_confused.png" title="plot of chunk unnamed-chunk-40" alt="plot of chunk unnamed-chunk-40" width="400px" style="display: block; margin: auto;" /></p>
 
 <p>Try out the <a href="https://campus.datacamp.com/courses/free-introduction-to-r/chapter-1-intro-to-basics-1?ex=1">online tutorial at Data Camp</a></p>
 
@@ -1793,12 +1835,12 @@ outermost parenthesis (just like a calculator). So your order should be:
   </article>
   <!-- Presenter Notes -->
 </slide>
-<slide class="" id="slide-58">
+<slide class="" id="slide-59">
   <hgroup>
     <h2>Totally bored?</h2>
   </hgroup>
   <article class = 'flexbox vcenter'>
-    <p><img src="img/Comic_bored.png" title="plot of chunk unnamed-chunk-40" alt="plot of chunk unnamed-chunk-40" width="800px" style="display: block; margin: auto auto auto 0;" /></p>
+    <p><img src="img/Comic_bored.png" title="plot of chunk unnamed-chunk-41" alt="plot of chunk unnamed-chunk-41" width="800px" style="display: block; margin: auto auto auto 0;" /></p>
 
 <p>Don&#39;t worry! Soon you won&#39;t be bored anymore!!</p>
 
@@ -1814,14 +1856,14 @@ outermost parenthesis (just like a calculator). So your order should be:
   </article>
   <!-- Presenter Notes -->
 </slide>
-<slide class="" id="slide-59" style="background:;">
+<slide class="" id="slide-60" style="background:;">
   <hgroup>
     <h2>Totally content?</h2>
   </hgroup>
   <article data-timings="">
     <p>Then go grab a coffee, lean back and enjoy the rest of the day...!</p>
 
-<p><img src="img/Comic_hammock.png" title="plot of chunk unnamed-chunk-41" alt="plot of chunk unnamed-chunk-41" width="600px" style="display: block; margin: auto;" /></p>
+<p><img src="img/Comic_hammock.png" title="plot of chunk unnamed-chunk-42" alt="plot of chunk unnamed-chunk-42" width="600px" style="display: block; margin: auto;" /></p>
 
     <footer>
       <div style="position: absolute; left: 60px; top: 645px; z-index:100">
@@ -1835,7 +1877,7 @@ outermost parenthesis (just like a calculator). So your order should be:
   </article>
   <!-- Presenter Notes -->
 </slide>
-<slide class="thank-you-slide segue" id="slide-60">
+<slide class="thank-you-slide segue" id="slide-61">
   <footer>
     <div style="position: absolute; left: 50px; top: 50px; z-index:100">
         <img src = "assets/img/uham_logo.png" height="67" width="200">
@@ -2050,19 +2092,19 @@ outermost parenthesis (just like a calculator). So your order should be:
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=30 title='Quiz 7: Recycling rules'>
+        data-slide=30 title='3. Naming vectors'>
          30
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=31 title='3. Naming vectors'>
+        data-slide=31 title='4. Subsetting'>
          31
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=32 title='4. Subsetting'>
+        data-slide=32 title='NA'>
          32
       </a>
     </li>
@@ -2104,13 +2146,13 @@ outermost parenthesis (just like a calculator). So your order should be:
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=39 title='NA'>
+        data-slide=39 title='Your turn...'>
          39
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=40 title='Your turn...'>
+        data-slide=40 title='Quiz 7: Subsetting'>
          40
       </a>
     </li>
@@ -2122,7 +2164,7 @@ outermost parenthesis (just like a calculator). So your order should be:
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=42 title='Attributes'>
+        data-slide=42 title='Quiz 9: Subsetting'>
          42
       </a>
     </li>
@@ -2134,7 +2176,7 @@ outermost parenthesis (just like a calculator). So your order should be:
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=44 title='Attributes (cont)'>
+        data-slide=44 title='Attributes'>
          44
       </a>
     </li>
@@ -2146,31 +2188,31 @@ outermost parenthesis (just like a calculator). So your order should be:
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=46 title='Factors'>
+        data-slide=46 title='Attributes (cont)'>
          46
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=47 title='Factors (cont)'>
+        data-slide=47 title='Factors'>
          47
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=48 title='Vectorized operations in R'>
+        data-slide=48 title='Factors (cont)'>
          48
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=49 title='Basic calculation example'>
+        data-slide=49 title='Vectorized operations in R'>
          49
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=50 title='Vectorized calculations'>
+        data-slide=50 title='Basic calculation example'>
          50
       </a>
     </li>
@@ -2188,50 +2230,56 @@ outermost parenthesis (just like a calculator). So your order should be:
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=53 title='Your turn...'>
+        data-slide=53 title='Vectorized calculations'>
          53
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=54 title='Quiz 9: Total Sums of Squares \(\sum_{i=1}^{n} \left(x_{i} - \bar{x}\right)^{2}\)'>
+        data-slide=54 title='Your turn...'>
          54
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=55 title='Overview of functions you learned today'>
+        data-slide=55 title='Quiz 10: Total Sums of Squares \(\sum_{i=1}^{n} \left(x_{i} - \bar{x}\right)^{2}\)'>
          55
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=56 title='How do you feel now.....?'>
+        data-slide=56 title='Overview of functions you learned today'>
          56
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=57 title='Totally confused?'>
+        data-slide=57 title='How do you feel now.....?'>
          57
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=58 title='Totally bored?'>
+        data-slide=58 title='Totally confused?'>
          58
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=59 title='Totally content?'>
+        data-slide=59 title='Totally bored?'>
          59
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=60 title='NA'>
+        data-slide=60 title='Totally content?'>
          60
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=61 title='NA'>
+         61
       </a>
     </li>
   </ul>
