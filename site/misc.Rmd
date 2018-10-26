@@ -139,6 +139,11 @@ Again, the following suggested websites represent only a small subset of website
 
 - A good tutorial for purrr is available on this webpage: https://jennybc.github.io/purrr-tutorial/
 
+
+#### R Course in German
+
+A useful German tutorial on R in environmantal studies, including practical *swirl* courses, can be found here: [R-lab 2.0](https://rlab.blogs.uni-hamburg.de). This project is one of the so-called [Lehrlabor](https://www.universitaetskolleg.uni-hamburg.de/universitaetskolleg-2-0/lehrlabor.html) (teaching lab) projects funded by the University of Hamburg.
+
 <br>
 <br>
 <br>
