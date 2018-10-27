@@ -38,7 +38,7 @@ Much inspiration for this course was drawn from
 The development of the *swirl* course has been a joint effort in the [R-lab 2.0](https://rlab.blogs.uni-hamburg.de) project, which is one of the so-called [Lehrlabor](https://www.universitaetskolleg.uni-hamburg.de/universitaetskolleg-2-0/lehrlabor.html) (teaching lab) projects funded by the University of Hamburg.
 
 Design of the questions: Saskia A. Otto, Jan Conradt<br>
-Coding of course with swirlify: Jan Conradt<br>
+Coding of course with swirlify: Jan Conradt, Saskia A. Otto, <br>
 Course design and editing: [Niels Schwab](https://www.geo.uni-hamburg.de/en/geographie/mitarbeiterverzeichnis/schwab.html), Saskia A. Otto 
 
 <br>

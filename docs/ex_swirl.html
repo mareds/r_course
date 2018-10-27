@@ -482,7 +482,14 @@ div.tocify {
 </div>
 
 
-<p>All quiz questions in the lectures have been now converted into a <a href="http://swirlstats.com/swirlify/index.html">swirl</a> course so that students can answer the quiz questions directly from within R, without all the additional information shown in the slides. The course is similarly structured as the lectures, containing X lessons each representing quizzes of one lecture. The course can be downloaded here: <a href="data_site/swirl_course_data_analysis_with_r.swc">Download .swc file</a></p>
+<p>All quiz questions in the lectures have been now converted into a <a href="http://swirlstats.com/swirlify/index.html">swirl</a> course so that students can answer the quiz questions directly from within R, without all the additional information shown in the slides. The course is similarly structured as the lectures, containing 13 lessons each representing quizzes of one lecture. You will notice that the more advanced programming, visualization and modelling lectures are not included in the swirl course. The exercises in these lectures require more complex code snippets, which is less suited for the 1-line coding approach in <em>swirl</em>. Some of the lectures that are covered in the swirl course, however, also require several lines of code. Here, we broke down the required multi-code into different steps, each containing just one line of code. For better readibility make the console pretty wide so the text doesn’t get too squeezed.</p>
+<p>The course can be downloaded here: <a href="data_site/Data_analysis_with_R.swc">Download Data_analysis_with_R.swc file</a></p>
+<div id="section" class="section level8">
+<p></p>
+</div>
+<div id="section-1" class="section level6">
+<h6></h6>
+</div>
 <div id="what-is-swirl" class="section level1">
 <h1>What is <em>swirl</em>?</h1>
 <p><em>swirl</em> is an R package that teaches you R programming and data science interactively right in the R console. It is designed so that anyone can create interactive content and share it with others. Once the package is loaded it allows you to start any <em>swirl</em> course you have installed and you will be guided through the individual lessons and exercises step by step.</p>
@@ -512,8 +519,8 @@ devtools<span class="op">::</span><span class="kw">install_github</span>(<span c
 </div>
 <div id="installing-the-swirl-course-data-analysis-with-r" class="section level2">
 <h2>Installing the swirl course <em>‘Data analysis with R’</em></h2>
-<p>Downloaded the .swc file “swirl_course_data_analysis_with_r.swc” (from <a href="link">here</a>) and move it a folder of your choice. Install the course from within <em>swirl</em> (i.e., after you loaded and activated <em>swirl</em>) using <strong>not</strong> the <code>course_name</code> argument as in the previous example but the <code>swc_path</code> argument</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install_course</span>(<span class="dt">swc_path =</span> <span class="st">&quot;/your_file_path/swirl_course_data_analysis_with_r.swc&quot;</span>)</code></pre></div>
+<p>Downloaded the .swc file “Data_analysis_with_R.swc” (from <a href="data_site/Data_analysis_with_R.swc">here</a> and move it a folder of your choice. Install the course from within <em>swirl</em> (i.e., after you loaded and activated <em>swirl</em>) using <strong>not</strong> the <code>course_name</code> argument as in the previous example but the <code>swc_path</code> argument</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install_course</span>(<span class="dt">swc_path =</span> <span class="st">&quot;/your_file_path/Data_analysis_with_R.swc&quot;</span>)</code></pre></div>
 <p>You should see in the console now “| Course installed successfully!”</p>
 <p>To come back to your course overview from where you can select this course, type again</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">swirl</span>()</code></pre></div>

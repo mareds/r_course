@@ -14,8 +14,16 @@ knitr::opts_chunk$set(dev.args=list(bg="transparent"))
 knitr::opts_chunk$set(fig.retina = 2)
 ```
 
-All quiz questions in the lectures have been now converted into a [swirl](http://swirlstats.com/swirlify/index.html) course so that students can answer the quiz questions directly from within R, without all the additional information shown in the slides. The course is similarly structured as the lectures, containing X lessons each representing quizzes of one lecture. The course can be downloaded here:
-<a href="data_site/swirl_course_data_analysis_with_r.swc">Download .swc file</a>
+All quiz questions in the lectures have been now converted into a [swirl](http://swirlstats.com/swirlify/index.html) course so that students can answer the quiz questions directly from within R, without all the additional information shown in the slides. The course is similarly structured as the lectures, containing 13 lessons each representing quizzes of one lecture. You will notice that the more advanced programming, visualization and modelling lectures are not included in the swirl course. The exercises in these lectures require more complex code snippets, which is less suited for the 1-line coding approach in *swirl*. Some of the lectures that are covered in the swirl course, however, also require several lines of code. Here, we broke down the required multi-code into different steps, each containing just one line of code. For better readibility make the console pretty wide so the text doesn't get too squeezed. 
+
+The course can be downloaded here:
+<a href="data_site/Data_analysis_with_R.swc">Download Data_analysis_with_R.swc file</a>
+
+
+########
+
+
+######
 
 
 # What is *swirl*?
@@ -59,11 +67,11 @@ install_course(course_name ="R Programming")
 
 ## Installing the swirl course *'Data analysis with R'*
 
-Downloaded the .swc file "swirl_course_data_analysis_with_r.swc" (from [here](link)) and move it a folder of your choice.
+Downloaded the .swc file "Data_analysis_with_R.swc" (from [here](data_site/Data_analysis_with_R.swc) and move it a folder of your choice.
 Install the course from within *swirl* (i.e., after you loaded and activated *swirl*) using **not** the `course_name` argument as in the previous example but the `swc_path` argument
 
 ```{r, eval=FALSE}
-install_course(swc_path = "/your_file_path/swirl_course_data_analysis_with_r.swc")
+install_course(swc_path = "/your_file_path/Data_analysis_with_R.swc")
 ```
 You should see in the console now "| Course installed successfully!"
 
