@@ -83,9 +83,17 @@ You will be given various information and instructions on how *swirl* works befo
 
 Once you selected the course you get to the lesson overview from where you can choose the lesson you want to run.
 
-## Change settings
+## Change settings when installing course in RStudio Server
 
 With the introduction of version 2.4.0, *swirl* includes an interface for `options()` called `swirl_options()` which allows you to change where courses are installed on your computer, where *swirl* user data is stored on your computer, and whether or not *swirl* should log your progress during lessons.
+
+If you run into an error message in RStudio Server when installing the course (e.g. you are told that the program cannot open the connection and also not find one of the course files in the root folders) a solution can be to set the swirl course directory to the folder where the .swc file is located:
+```{r, eval=FALSE}
+swirl_options(swirl_courses_dir = "/the_path_to_your_folder_containing_the_file")
+# and now
+install_course(swc_path = "Data_analysis_with_R.swc") # so just the course name, no path
+```
+
 
 
 ## Operating manual

@@ -527,9 +527,13 @@ devtools<span class="op">::</span><span class="kw">install_github</span>(<span c
 <p>You will be given various information and instructions on how <em>swirl</em> works before you get to the actual course selection menu. Below you will find the summary of <em>swirl</em> functions you can use during the course.</p>
 <p>Once you selected the course you get to the lesson overview from where you can choose the lesson you want to run.</p>
 </div>
-<div id="change-settings" class="section level2">
-<h2>Change settings</h2>
+<div id="change-settings-when-installing-course-in-rstudio-server" class="section level2">
+<h2>Change settings when installing course in RStudio Server</h2>
 <p>With the introduction of version 2.4.0, <em>swirl</em> includes an interface for <code>options()</code> called <code>swirl_options()</code> which allows you to change where courses are installed on your computer, where <em>swirl</em> user data is stored on your computer, and whether or not <em>swirl</em> should log your progress during lessons.</p>
+<p>If you run into an error message in RStudio Server when installing the course (e.g. you are told that the program cannot open the connection and also not find one of the course files in the root folders) a solution can be to set the swirl course directory to the folder where the .swc file is located:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">swirl_options</span>(<span class="dt">swirl_courses_dir =</span> <span class="st">&quot;/the_path_to_your_folder_containing_the_file&quot;</span>)
+<span class="co"># and now</span>
+<span class="kw">install_course</span>(<span class="dt">swc_path =</span> <span class="st">&quot;Data_analysis_with_R.swc&quot;</span>) <span class="co"># so just the course name, no path</span></code></pre></div>
 </div>
 <div id="operating-manual" class="section level2">
 <h2>Operating manual</h2>
