@@ -530,7 +530,7 @@ Subset the following matrix...
 
 *** .explanation
 This is what you should have written:
-`matrix[1, ]`
+`mat[1, ]`
 
 --- &submitcompare1 bg:#EEC900
 # Quiz 9: Subsetting matrices
