@@ -47,7 +47,7 @@ x <- list(1:3, "a", c(TRUE, FALSE, TRUE), c(2.3, 5.9))
 str(x)
 ```
 
-```no-highlight
+```
 ## List of 4
 ##  $ : int [1:3] 1 2 3
 ##  $ : chr "a"
@@ -77,7 +77,7 @@ x <- list(list(list(list())))
 str(x)
 ```
 
-```no-highlight
+```
 ## List of 1
 ##  $ :List of 1
 ##   ..$ :List of 1
@@ -122,7 +122,7 @@ x <- list(1, 2, 3)
 str(x)
 ```
 
-```no-highlight
+```
 ## List of 3
 ##  $ : num 1
 ##  $ : num 2
@@ -140,7 +140,7 @@ x <- list(1, 2, 3)
 str(x)
 ```
 
-```no-highlight
+```
 ## List of 3
 ##  $ : num 1
 ##  $ : num 2
@@ -154,7 +154,7 @@ x_named <- list(a = 1, b = 2, c = 3)
 str(x_named)
 ```
 
-```no-highlight
+```
 ## List of 3
 ##  $ a: num 1
 ##  $ b: num 2
@@ -181,7 +181,7 @@ a <- list(a = 1:3, b = "a string", c = pi, list(-1, -5))
 str(a)
 ```
 
-```no-highlight
+```
 ## List of 4
 ##  $ a: int [1:3] 1 2 3
 ##  $ b: chr "a string"
@@ -202,7 +202,7 @@ str(a)
 str(a[1:2])
 ```
 
-```no-highlight
+```
 ## List of 2
 ##  $ a: int [1:3] 1 2 3
 ##  $ b: chr "a string"
@@ -212,7 +212,7 @@ str(a[1:2])
 str(a[4])
 ```
 
-```no-highlight
+```
 ## List of 1
 ##  $ :List of 2
 ##   ..$ : num -1
@@ -232,7 +232,7 @@ str(a[4])
 str(a[1:2])
 ```
 
-```no-highlight
+```
 ## List of 2
 ##  $ a: int [1:3] 1 2 3
 ##  $ b: chr "a string"
@@ -242,7 +242,7 @@ str(a[1:2])
 str(a[4])
 ```
 
-```no-highlight
+```
 ## List of 1
 ##  $ :List of 2
 ##   ..$ : num -1
@@ -255,7 +255,7 @@ str(a[4])
 a[4]
 ```
 
-```no-highlight
+```
 ## [[1]]
 ## [[1]][[1]]
 ## [1] -1
@@ -275,7 +275,7 @@ a[4]
 str(a[[1]])
 ```
 
-```no-highlight
+```
 ##  int [1:3] 1 2 3
 ```
 
@@ -283,7 +283,7 @@ str(a[[1]])
 str(a[[4]])
 ```
 
-```no-highlight
+```
 ## List of 2
 ##  $ : num -1
 ##  $ : num -5
@@ -295,7 +295,7 @@ str(a[[4]])
 a[[4]]
 ```
 
-```no-highlight
+```
 ## [[1]]
 ## [1] -1
 ## 
@@ -314,7 +314,7 @@ a[[4]]
 a$a
 ```
 
-```no-highlight
+```
 ## [1] 1 2 3
 ```
 
@@ -325,7 +325,7 @@ a$a
 a[["a"]]
 ```
 
-```no-highlight
+```
 ## [1] 1 2 3
 ```
 
@@ -540,7 +540,7 @@ a <- matrix(1:6, ncol = 3, nrow = 2)
 a
 ```
 
-```no-highlight
+```
 ##      [,1] [,2] [,3]
 ## [1,]    1    3    5
 ## [2,]    2    4    6
@@ -555,7 +555,7 @@ a <- cbind(v1, v2)
 a
 ```
 
-```no-highlight
+```
 ##      v1 v2
 ## [1,]  1  4
 ## [2,]  2  5
@@ -581,7 +581,7 @@ a
 length(a)
 ```
 
-```no-highlight
+```
 ## [1] 6
 ```
 
@@ -591,7 +591,7 @@ length(a)
 nrow(a)
 ```
 
-```no-highlight
+```
 ## [1] 3
 ```
 
@@ -599,7 +599,7 @@ nrow(a)
 ncol(a)
 ```
 
-```no-highlight
+```
 ## [1] 2
 ```
 
@@ -618,7 +618,7 @@ rownames(a) <- c("a","b","c")
 a
 ```
 
-```no-highlight
+```
 ##   A B
 ## a 1 4
 ## b 2 5
@@ -649,7 +649,7 @@ colnames(a) <- c("A", "B", "C")
 a
 ```
 
-```no-highlight
+```
 ##      A B C
 ## [1,] 1 4 7
 ## [2,] 2 5 8
@@ -680,7 +680,7 @@ colnames(a) <- c("A", "B", "C")
 a
 ```
 
-```no-highlight
+```
 ##      A B C
 ## [1,] 1 4 7
 ## [2,] 2 5 8
@@ -693,7 +693,7 @@ a
 a[1:2, 2]
 ```
 
-```no-highlight
+```
 ## [1] 4 5
 ```
 
@@ -701,7 +701,7 @@ a[1:2, 2]
 a[, c("A", "C") ] 
 ```
 
-```no-highlight
+```
 ##      A C
 ## [1,] 1 7
 ## [2,] 2 8
@@ -721,7 +721,7 @@ Subset the following matrix...
 (mat <- matrix(c(0,NA,4,18,35,97,7,9,20), nrow = 3))
 ```
 
-```no-highlight
+```
 ##      [,1] [,2] [,3]
 ## [1,]    0   18    7
 ## [2,]   NA   35    9
@@ -742,7 +742,7 @@ Subset the following matrix...
 (mat <- matrix(c(0,NA,4,18,35,97,7,9,20), nrow = 3))
 ```
 
-```no-highlight
+```
 ##      [,1] [,2] [,3]
 ## [1,]    0   18    7
 ## [2,]   NA   35    9
@@ -762,7 +762,7 @@ Subset the following matrix...
 (mat <- matrix(c(0,NA,4,18,35,97,7,9,20), nrow = 3))
 ```
 
-```no-highlight
+```
 ##      [,1] [,2] [,3]
 ## [1,]    0   18    7
 ## [2,]   NA   35    9
@@ -782,7 +782,7 @@ Subset the following matrix...
 (mat <- matrix(c(0,NA,4,18,35,97,7,9,20), nrow = 3))
 ```
 
-```no-highlight
+```
 ##      [,1] [,2] [,3]
 ## [1,]    0   18    7
 ## [2,]   NA   35    9
@@ -831,7 +831,7 @@ df <- data.frame(x = 1:3, y = c("a", "b", "c"))
 str(df)
 ```
 
-```no-highlight
+```
 ## 'data.frame':	3 obs. of  2 variables:
 ##  $ x: int  1 2 3
 ##  $ y: Factor w/ 3 levels "a","b","c": 1 2 3
@@ -848,7 +848,7 @@ df <- data.frame(x = 1:3, y = c("a", "b", "c"))
 str(df)
 ```
 
-```no-highlight
+```
 ## 'data.frame':	3 obs. of  2 variables:
 ##  $ x: int  1 2 3
 ##  $ y: Factor w/ 3 levels "a","b","c": 1 2 3
@@ -862,7 +862,7 @@ df <- data.frame(x = 1:3, y = c("a", "b", "c"), stringsAsFactors = FALSE)
 str(df)
 ```
 
-```no-highlight
+```
 ## 'data.frame':	3 obs. of  2 variables:
 ##  $ x: int  1 2 3
 ##  $ y: chr  "a" "b" "c"
@@ -878,7 +878,7 @@ Either like a **matrix** (useful if several columns and rows are selected)
 df[1:2, 1] # row 1-2, column 1
 ```
 
-```no-highlight
+```
 ## [1] 1 2
 ```
 
@@ -894,7 +894,7 @@ Either like a **matrix** (useful if several columns and rows are selected)
 df[1:2, 1] # row 1-2, column 1
 ```
 
-```no-highlight
+```
 ## [1] 1 2
 ```
 
@@ -905,7 +905,7 @@ Or like a **list**
 df$x  # shows all elements of column 'x'
 ```
 
-```no-highlight
+```
 ## [1] 1 2 3
 ```
 
@@ -913,7 +913,7 @@ df$x  # shows all elements of column 'x'
 df$y[2]  # 2nd element of column 'y'
 ```
 
-```no-highlight
+```
 ## [1] "b"
 ```
 
@@ -921,7 +921,7 @@ df$y[2]  # 2nd element of column 'y'
 df[[2]][2]  # same
 ```
 
-```no-highlight
+```
 ## [1] "b"
 ```
 
@@ -948,7 +948,7 @@ Explore the following dataset
 head(iris, 1)
 ```
 
-```no-highlight
+```
 ##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 ## 1          5.1         3.5          1.4         0.2  setosa
 ```
@@ -1040,7 +1040,7 @@ z <- cbind(x,y)  # matrix
 ls()
 ```
 
-```no-highlight
+```
 ## [1] "x" "y" "z"
 ```
 
@@ -1080,6 +1080,8 @@ Or remove all objects in one go:
 ## Overview of functions you learned today
 
 `str()`, `[`, `[[`, `$`, 
+
+`list`, `is.list()`, `as.list()`, `unlist()`,
 
 `matrix()`, `cbind()`, `nrow()`, `ncol()`, `dim`, `rownames()`, `colnames()`, `dimnames()`, 
 

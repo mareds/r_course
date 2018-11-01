@@ -798,6 +798,8 @@ knitr::include_graphics("img/Clear_workspace.png")
 
 `str()`, `[`, `[[`, `$`, 
 
+`list`, `is.list()`, `as.list()`, `unlist()`,
+
 `matrix()`, `cbind()`, `nrow()`, `ncol()`, `dim`, `rownames()`, `colnames()`, `dimnames()`, 
 
 `data.frame()`, `data.frame(stringsAsFactors = FALSE)`
