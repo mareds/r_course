@@ -284,7 +284,7 @@ R checks for each element in **a** whether its value is less than 60 and returns
 --- &radio bg:#EEC900
 # Quiz 2: Relational operators
 
-How many `TRUE`s would you get from the following operation (try to to find the answer without using R):
+How many `TRUE`s would you get from the following operation (try to find the answer without using R):
 ```{r, eval = FALSE}
 a <- c(6, 80, 107, 164, 208, 53, 216, 268, 65, 283)
 a <= 80
