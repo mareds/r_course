@@ -104,7 +104,7 @@ Pressing <kbd>esc</kbd> exits all of these modes.
 
 ### *swirl* course
 
-In addition, all quiz questions in the lectures have been now converted into a [swirl](http://swirlstats.com/swirlify/index.html) course so that students can answer the quiz questions directly from within R, without all the additional information shown in the slides. 
+As part of the [R-Lab 2.0](https://rlab.blogs.uni-hamburg.de) project at the University of Hamburg, all quiz questions in the lectures have been additionally converted into a [swirl](http://swirlstats.com/swirlify/index.html) course. Now, students can answer the quiz questions directly from within R, without all the additional information shown in the slides. 
 
 
 ### Case studies

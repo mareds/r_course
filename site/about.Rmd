@@ -35,10 +35,10 @@ Much inspiration for this course was drawn from
 
 #### swirl course
 
-The development of the *swirl* course has been a joint effort in the [R-lab 2.0](https://rlab.blogs.uni-hamburg.de) project, which is one of the so-called [Lehrlabor](https://www.universitaetskolleg.uni-hamburg.de/universitaetskolleg-2-0/lehrlabor.html) (teaching lab) projects funded by the University of Hamburg.
+The development of the *swirl* course has been a joint effort in the [R-Lab 2.0](https://rlab.blogs.uni-hamburg.de) project, which is one of the so-called [Lehrlabor](https://www.universitaetskolleg.uni-hamburg.de/universitaetskolleg-2-0/lehrlabor.html) (teaching lab) projects at the University of Hamburg, funded by BMBF (01PL17033).
 
-Design of the questions: Saskia A. Otto, Jan Conradt<br>
-Coding of course with swirlify: Jan Conradt, Saskia A. Otto, <br>
+Design of the questions: Saskia A. Otto, [Jan Conradt](https://github.com/JanCo93)<br>
+Coding of course with swirlify: Jan Conradt, Saskia A. Otto<br>
 Course design and editing: [Niels Schwab](https://www.geo.uni-hamburg.de/en/geographie/mitarbeiterverzeichnis/schwab.html), Saskia A. Otto 
 
 <br>
@@ -53,6 +53,8 @@ This work is licensed under a <a rel="license" href="http://creativecommons.org/
 <br>
 <br>
 All code (.Rmd) is available in the github repository. Feel free to browse, download, and even contribute by forking.
+
+<br>
 <br>
 <br>
 <br>
