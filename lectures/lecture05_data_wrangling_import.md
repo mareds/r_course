@@ -242,8 +242,8 @@ or by unchecking the box next to the package name in the 'Packages' pane.
 
 
 ```r
-vignettes("dpylr")
-browseVignettes("dpylr")
+vignette("dplyr")
+browseVignettes("dplyr")
 ```
 
 --- &slide_no_footer .segue bg:#EEC900
