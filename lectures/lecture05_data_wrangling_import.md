@@ -147,6 +147,15 @@ library(any_package) # library("any_package") would also work
 require(any_package) # require("any_package")
 ```
 
+```
+## Loading required package: any_package
+```
+
+```
+## Warning in library(package, lib.loc = lib.loc, character.only = TRUE,
+## logical.return = TRUE, : there is no package called 'any_package'
+```
+
 ---
 ## Package loading (cont)
 
@@ -170,11 +179,14 @@ You can see the search path and package list by running `search()`.
 search()
 ```
 
-```no-highlight
-##  [1] ".GlobalEnv"        "tools:rstudio"     "package:stats"    
-##  [4] "package:graphics"  "package:grDevices" "package:utils"    
-##  [7] "package:datasets"  "package:methods"   "Autoloads"        
-## [10] "package:base"
+```
+##  [1] ".GlobalEnv"        "package:forcats"   "package:stringr"  
+##  [4] "package:dplyr"     "package:purrr"     "package:readr"    
+##  [7] "package:tidyr"     "package:tibble"    "package:ggplot2"  
+## [10] "package:tidyverse" "tools:rstudio"     "package:stats"    
+## [13] "package:graphics"  "package:grDevices" "package:utils"    
+## [16] "package:datasets"  "package:methods"   "Autoloads"        
+## [19] "package:base"
 ```
 
 --- 
@@ -196,7 +208,7 @@ Lets look at the search path again:
 search()
 ```
 
-```no-highlight
+```
 ##  [1] ".GlobalEnv"        "package:forcats"   "package:stringr"  
 ##  [4] "package:dplyr"     "package:purrr"     "package:readr"    
 ##  [7] "package:tidyr"     "package:tibble"    "package:ggplot2"  
@@ -320,7 +332,7 @@ read_csv("a,b,c
 4,5,6")
 ```
 
-```no-highlight
+```
 ## # A tibble: 2 x 3
 ##       a     b     c
 ##   <int> <int> <int>
@@ -342,7 +354,7 @@ read_csv("The first line of metadata
   1,2,3", skip = 2)
 ```
 
-```no-highlight
+```
 ## # A tibble: 1 x 3
 ##       x     y     z
 ##   <int> <int> <int>
@@ -358,7 +370,7 @@ read_csv("# A comment to skip
   1,2,3", comment = "#")
 ```
 
-```no-highlight
+```
 ## # A tibble: 1 x 3
 ##       x     y     z
 ##   <int> <int> <int>
@@ -376,7 +388,7 @@ read_csv("1,2,3
   4,5,6", col_names = FALSE)
 ```
 
-```no-highlight
+```
 ## # A tibble: 2 x 3
 ##      X1    X2    X3
 ##   <int> <int> <int>
@@ -392,7 +404,7 @@ read_csv("1,2,3
   4,5,6", col_names = c("x", "y", "z"))
 ```
 
-```no-highlight
+```
 ## # A tibble: 2 x 3
 ##       x     y     z
 ##   <int> <int> <int>
@@ -426,7 +438,7 @@ read_csv("a,b,c
   1,2,.", na = ".")
 ```
 
-```no-highlight
+```
 ## # A tibble: 1 x 3
 ##       a     b c    
 ##   <int> <int> <chr>
@@ -440,7 +452,7 @@ read_csv("a,b,c
   1,-9999,2", na = "-9999")
 ```
 
-```no-highlight
+```
 ## # A tibble: 1 x 3
 ##       a b         c
 ##   <int> <chr> <int>
@@ -485,7 +497,7 @@ iris_tbl <- as_tibble(iris)
 class(iris)
 ```
 
-```no-highlight
+```
 ## [1] "data.frame"
 ```
 
@@ -493,7 +505,7 @@ class(iris)
 class(iris_tbl)
 ```
 
-```no-highlight
+```
 ## [1] "tbl_df"     "tbl"        "data.frame"
 ```
 As you see, **iris_tbl** inherits still the `data.frame` class, but has in addition also the `tbl_df` class.
@@ -507,7 +519,7 @@ As you see, **iris_tbl** inherits still the `data.frame` class, but has in addit
 tibble(x = 1:5, y = 1, z = x ^ 2 + y)
 ```
 
-```no-highlight
+```
 ## # A tibble: 5 x 3
 ##       x     y     z
 ##   <int> <dbl> <dbl>
@@ -538,7 +550,7 @@ Inputs of shorter length are automatically recycled!
 print(iris_tbl, n = 2, width = Inf)  # = Inf shows all columns
 ```
 
-```no-highlight
+```
 ## # A tibble: 150 x 5
 ##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 ##          <dbl>       <dbl>        <dbl>       <dbl> <fct>  
@@ -718,6 +730,23 @@ If you have other types of files to import try one of the following packages:
 hydro <- read_csv("data/1111473b.csv")
 ```
 
+```
+## Parsed with column specification:
+## cols(
+##   Cruise = col_character(),
+##   Station = col_character(),
+##   Type = col_character(),
+##   `yyyy-mm-ddThh:mm` = col_datetime(format = ""),
+##   `Latitude [degrees_north]` = col_double(),
+##   `Longitude [degrees_east]` = col_double(),
+##   `Bot. Depth [m]` = col_character(),
+##   `PRES [db]` = col_double(),
+##   `TEMP [deg C]` = col_double(),
+##   `PSAL [psu]` = col_double(),
+##   `DOXY [ml/l]` = col_double()
+## )
+```
+
 ---
 ## Lets check the data
 
@@ -726,7 +755,7 @@ hydro <- read_csv("data/1111473b.csv")
 print(hydro, n = 5)
 ```
 
-```no-highlight
+```
 ## # A tibble: 30,012 x 11
 ##   Cruise Station Type  `yyyy-mm-ddThh:mm`  `Latitude [degr…
 ##   <chr>  <chr>   <chr> <dttm>                         <dbl>
@@ -773,28 +802,32 @@ Subset the data to get only observations of Station "0613" and
 2. mean oxygen concentration (doxy)
 3. Calculate the mean temperature ('temp') for the surface layer (1-10 m depth = 'pres' 1-10), averaged across all stations and cruises for the entire year.
 
+*** .hint
+<small>Hints for question 3: You want ALL `press` values to be >=1 and <= 10 (not only integer values that are = 1,2,3, ect!) and you have NAs in the temperature variable, which the default setting of the `mean()` function cannot handle --> check the help to see whether you can change some arguments!</small>
+
 *** .explanation
-1. and 2.
-Either you subset first and then calculate the means or you do both in one step:
+Explanation<br>
+1. and 2: Either you subset first and then calculate the means:
 
 `hydro_sub1 <- hydro[hydro$station == "0613", ]` and `mean(hydro_sub1$psal)` and 
 `mean(hydro_sub1$doxy)`
 
-Alternatively:
+ or you do both in one step:
 `mean(hydro$psal[hydro$station == "0613"])` and
 `mean(hydro$doxy[hydro$station == "0613"])`
 
-3.You could subset in 2 ways:
+3.Subset first the range:
+`hydro_sub2 <- hydro[hydro$pres >= 1 & hydro$pres <= 10, ]` 
+DON'T use: `hydro_sub2 <- hydro[hydro$pres %in% 1:10, ]`
+as this would filter only integers, exluding pres values such as 4.5!
 
-`hydro_sub2 <- hydro[hydro$pres %in% 1:10, ]`
-or `hydro_sub2 <- hydro[hydro$pres >= 1 & hydro$pres <= 10, ]` 
-
-and then calculate the mean `mean(hydro_sub2$temp, na.rm=T)`
+Now handle the NAs, either directly in the `mean()` function using the `na.rm`argument:
+`mean(hydro_sub2$temp, na.rm=T)`
+or by excluding all NAs manually: `mean(hydro_sub2$temp[!is.na(hydro_sub2$temp)])`
 
 1. <span class='answer'>12.0872</span>
 2. <span class='answer'>0.322</span>
-3. <span class='answer'>10.0745985</span>
-
+3. <span class='answer'>10.1590412</span>
 
 
 --- &slide_no_footer .segue bg:#1874CD
@@ -918,7 +951,11 @@ df_tbl <- as_tibble(df)
 df_tbl$x
 ```
 
-```no-highlight
+```
+## Warning: Unknown or uninitialised column: 'x'.
+```
+
+```
 ## NULL
 ```
 
@@ -928,7 +965,7 @@ df_tbl$x
 df_tbl[, "xyz"]
 ```
 
-```no-highlight
+```
 ## # A tibble: 1 x 1
 ##   xyz  
 ##   <fct>
@@ -941,7 +978,7 @@ df_tbl[, "xyz"]
 df_tbl[, c("abc", "xyz")] 
 ```
 
-```no-highlight
+```
 ## # A tibble: 1 x 2
 ##     abc xyz  
 ##   <dbl> <fct>
