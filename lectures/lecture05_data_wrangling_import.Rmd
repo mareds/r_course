@@ -482,13 +482,13 @@ What function would you use to **read a file where fields are separated with "|"
 `read_delim()` has the extra argument `delim` where you can specify the character used to seperate fields.
 
 
---- &radio bg:#EEC900
+---  &checkbox  bg:#EEC900
 # Quiz 3: Import functions
 
 What function would you use if you **generated a CSV file on your own computer**? 
 
 1. read_delim()
-2. read_csv()
+2. _read_csv()_
 3. _read_csv2()_
 4. read_tsv()
 5. read_table()
@@ -498,7 +498,7 @@ What function would you use if you **generated a CSV file on your own computer**
 <small>Check which symbol your computer uses as decimal mark (you can see that in Excel).</small>
 
 *** .explanation
-Computers in Germany typically use a comma as decimal mark, hence, when you generate a CSV file in Excel a semicolon will automatically be used as delimitor. In that case you should use `read_csv2()`.
+Computers in Germany typically use a comma as decimal mark, hence, when you generate a CSV file in Excel a semicolon will automatically be used as delimitor. In that case you should use `read_csv2()` otherwise `read_csv()` is the appropriate function.
 
 --- &checkbox bg:#EEC900
 # Quiz 4: Import functions

@@ -81,7 +81,7 @@ Sys.time()
 ```
 
 ```no-highlight
-## [1] "2018-10-24 12:00:42 CEST"
+## [1] "2018-11-16 12:29:30 CET"
 ```
 
 You see, first comes the year-month-day, then the time (h:m:s), and then the time zone. 
@@ -92,7 +92,7 @@ unclass(Sys.time())
 ```
 
 ```no-highlight
-## [1] 1540375242
+## [1] 1542367771
 ```
 You get the number of seconds since 1 January 1970.
 
@@ -419,10 +419,9 @@ Once date and time variable have the correct datetime format (including the time
 
 `date_ex$sampling_end_UTC - date_ex$sampling_start_CET` and R will account for the time difference in case time zones differ.
 
-Alternatively, use the lubridate functions `%--%` and `as.duration()`
-
-`tow_period <- date_ex$sampling_end_UTC %--% date_ex$sampling_start_CET
-as.duration(tow_period)`
+Alternatively, use the lubridate functions `%--%` and `as.duration()` then `as.numeric(.., "minutes")` to convert to the unit minutes (see examples in `?as.duration`):
+`tow_period <- date_ex$sampling_end_UTC %--% date_ex$sampling_start_CET`
+`as.numeric(as.duration(tow_period), "minutes")[c(1,7,8)]`
 
 1. <span class='answer'>46</span>
 

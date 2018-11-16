@@ -365,13 +365,6 @@
 <pre><code class="r">require(any_package) # require(&quot;any_package&quot;)
 </code></pre>
 
-<pre><code>## Loading required package: any_package
-</code></pre>
-
-<pre><code>## Warning in library(package, lib.loc = lib.loc, character.only = TRUE,
-## logical.return = TRUE, : there is no package called &#39;any_package&#39;
-</code></pre>
-
     <footer>
       <div style="position: absolute; left: 60px; top: 645px; z-index:100">
         <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
@@ -423,13 +416,13 @@
 <pre><code class="r">search()
 </code></pre>
 
-<pre><code>##  [1] &quot;.GlobalEnv&quot;        &quot;package:forcats&quot;   &quot;package:stringr&quot;  
-##  [4] &quot;package:dplyr&quot;     &quot;package:purrr&quot;     &quot;package:readr&quot;    
-##  [7] &quot;package:tidyr&quot;     &quot;package:tibble&quot;    &quot;package:ggplot2&quot;  
-## [10] &quot;package:tidyverse&quot; &quot;tools:rstudio&quot;     &quot;package:stats&quot;    
-## [13] &quot;package:graphics&quot;  &quot;package:grDevices&quot; &quot;package:utils&quot;    
-## [16] &quot;package:datasets&quot;  &quot;package:methods&quot;   &quot;Autoloads&quot;        
-## [19] &quot;package:base&quot;
+<pre><code class="no-highlight">##  [1] &quot;.GlobalEnv&quot;        &quot;package:bindrcpp&quot;  &quot;package:lubridate&quot;
+##  [4] &quot;package:forcats&quot;   &quot;package:stringr&quot;   &quot;package:dplyr&quot;    
+##  [7] &quot;package:purrr&quot;     &quot;package:readr&quot;     &quot;package:tidyr&quot;    
+## [10] &quot;package:tibble&quot;    &quot;package:ggplot2&quot;   &quot;package:tidyverse&quot;
+## [13] &quot;tools:rstudio&quot;     &quot;package:stats&quot;     &quot;package:graphics&quot; 
+## [16] &quot;package:grDevices&quot; &quot;package:utils&quot;     &quot;package:datasets&quot; 
+## [19] &quot;package:methods&quot;   &quot;Autoloads&quot;         &quot;package:base&quot;
 </code></pre>
 
     <footer>
@@ -473,13 +466,13 @@ You also see a <strong>conflict of function names</strong> (<code>filter()</code
 <pre><code class="r">search()
 </code></pre>
 
-<pre><code>##  [1] &quot;.GlobalEnv&quot;        &quot;package:forcats&quot;   &quot;package:stringr&quot;  
-##  [4] &quot;package:dplyr&quot;     &quot;package:purrr&quot;     &quot;package:readr&quot;    
-##  [7] &quot;package:tidyr&quot;     &quot;package:tibble&quot;    &quot;package:ggplot2&quot;  
-## [10] &quot;package:tidyverse&quot; &quot;tools:rstudio&quot;     &quot;package:stats&quot;    
-## [13] &quot;package:graphics&quot;  &quot;package:grDevices&quot; &quot;package:utils&quot;    
-## [16] &quot;package:datasets&quot;  &quot;package:methods&quot;   &quot;Autoloads&quot;        
-## [19] &quot;package:base&quot;
+<pre><code class="no-highlight">##  [1] &quot;.GlobalEnv&quot;        &quot;package:bindrcpp&quot;  &quot;package:lubridate&quot;
+##  [4] &quot;package:forcats&quot;   &quot;package:stringr&quot;   &quot;package:dplyr&quot;    
+##  [7] &quot;package:purrr&quot;     &quot;package:readr&quot;     &quot;package:tidyr&quot;    
+## [10] &quot;package:tibble&quot;    &quot;package:ggplot2&quot;   &quot;package:tidyverse&quot;
+## [13] &quot;tools:rstudio&quot;     &quot;package:stats&quot;     &quot;package:graphics&quot; 
+## [16] &quot;package:grDevices&quot; &quot;package:utils&quot;     &quot;package:datasets&quot; 
+## [19] &quot;package:methods&quot;   &quot;Autoloads&quot;         &quot;package:base&quot;
 </code></pre>
 
 <p>You now see the 9 packages added to the search path (right after the global environment).</p>
@@ -763,7 +756,7 @@ browseVignettes(&quot;dplyr&quot;)
 4,5,6&quot;)
 </code></pre>
 
-<pre><code>## # A tibble: 2 x 3
+<pre><code class="no-highlight">## # A tibble: 2 x 3
 ##       a     b     c
 ##   &lt;int&gt; &lt;int&gt; &lt;int&gt;
 ## 1     1     2     3
@@ -797,7 +790,7 @@ browseVignettes(&quot;dplyr&quot;)
   1,2,3&quot;, skip = 2)
 </code></pre>
 
-<pre><code>## # A tibble: 1 x 3
+<pre><code class="no-highlight">## # A tibble: 1 x 3
 ##       x     y     z
 ##   &lt;int&gt; &lt;int&gt; &lt;int&gt;
 ## 1     1     2     3
@@ -812,7 +805,7 @@ browseVignettes(&quot;dplyr&quot;)
   1,2,3&quot;, comment = &quot;#&quot;)
 </code></pre>
 
-<pre><code>## # A tibble: 1 x 3
+<pre><code class="no-highlight">## # A tibble: 1 x 3
 ##       x     y     z
 ##   &lt;int&gt; &lt;int&gt; &lt;int&gt;
 ## 1     1     2     3
@@ -844,7 +837,7 @@ browseVignettes(&quot;dplyr&quot;)
   4,5,6&quot;, col_names = FALSE)
 </code></pre>
 
-<pre><code>## # A tibble: 2 x 3
+<pre><code class="no-highlight">## # A tibble: 2 x 3
 ##      X1    X2    X3
 ##   &lt;int&gt; &lt;int&gt; &lt;int&gt;
 ## 1     1     2     3
@@ -859,7 +852,7 @@ browseVignettes(&quot;dplyr&quot;)
   4,5,6&quot;, col_names = c(&quot;x&quot;, &quot;y&quot;, &quot;z&quot;))
 </code></pre>
 
-<pre><code>## # A tibble: 2 x 3
+<pre><code class="no-highlight">## # A tibble: 2 x 3
 ##       x     y     z
 ##   &lt;int&gt; &lt;int&gt; &lt;int&gt;
 ## 1     1     2     3
@@ -917,7 +910,7 @@ browseVignettes(&quot;dplyr&quot;)
   1,2,.&quot;, na = &quot;.&quot;)
 </code></pre>
 
-<pre><code>## # A tibble: 1 x 3
+<pre><code class="no-highlight">## # A tibble: 1 x 3
 ##       a     b c    
 ##   &lt;int&gt; &lt;int&gt; &lt;chr&gt;
 ## 1     1     2 &lt;NA&gt;
@@ -929,7 +922,7 @@ browseVignettes(&quot;dplyr&quot;)
   1,-9999,2&quot;, na = &quot;-9999&quot;)
 </code></pre>
 
-<pre><code>## # A tibble: 1 x 3
+<pre><code class="no-highlight">## # A tibble: 1 x 3
 ##       a b         c
 ##   &lt;int&gt; &lt;chr&gt; &lt;int&gt;
 ## 1     1 &lt;NA&gt;      2
@@ -1039,13 +1032,13 @@ browseVignettes(&quot;dplyr&quot;)
 class(iris)
 </code></pre>
 
-<pre><code>## [1] &quot;data.frame&quot;
+<pre><code class="no-highlight">## [1] &quot;data.frame&quot;
 </code></pre>
 
 <pre><code class="r">class(iris_tbl)
 </code></pre>
 
-<pre><code>## [1] &quot;tbl_df&quot;     &quot;tbl&quot;        &quot;data.frame&quot;
+<pre><code class="no-highlight">## [1] &quot;tbl_df&quot;     &quot;tbl&quot;        &quot;data.frame&quot;
 </code></pre>
 
 <p>As you see, <strong>iris_tbl</strong> inherits still the <code>data.frame</code> class, but has in addition also the <code>tbl_df</code> class.</p>
@@ -1074,7 +1067,7 @@ class(iris)
 <pre><code class="r">tibble(x = 1:5, y = 1, z = x ^ 2 + y)
 </code></pre>
 
-<pre><code>## # A tibble: 5 x 3
+<pre><code class="no-highlight">## # A tibble: 5 x 3
 ##       x     y     z
 ##   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;
 ## 1     1     1     2
@@ -1135,7 +1128,7 @@ class(iris)
 <pre><code class="r">print(iris_tbl, n = 2, width = Inf)  # = Inf shows all columns
 </code></pre>
 
-<pre><code>## # A tibble: 150 x 5
+<pre><code class="no-highlight">## # A tibble: 150 x 5
 ##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 ##          &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt; &lt;fct&gt;  
 ## 1          5.1         3.5          1.4         0.2 setosa 
@@ -1237,12 +1230,12 @@ class(iris)
   </hgroup>
   <article data-timings="">
     
-<div class="quiz quiz-single well ">
+<div class="quiz quiz-multiple well" data-individual>
   <p>What function would you use if you <strong>generated a CSV file on your own computer</strong>? </p>
 
 <ol>
 <li>read_delim()</li>
-<li>read_csv()</li>
+<li><em>read_csv()</em></li>
 <li><em>read_csv2()</em></li>
 <li>read_tsv()</li>
 <li>read_table()</li>
@@ -1259,7 +1252,7 @@ class(iris)
 
 </div>
 <div class="quiz-explanation">
-  <p>Computers in Germany typically use a comma as decimal mark, hence, when you generate a CSV file in Excel a semicolon will automatically be used as delimitor. In that case you should use <code>read_csv2()</code>.</p>
+  <p>Computers in Germany typically use a comma as decimal mark, hence, when you generate a CSV file in Excel a semicolon will automatically be used as delimitor. In that case you should use <code>read_csv2()</code> otherwise <code>read_csv()</code> is the appropriate function.</p>
 
 </div>
 </div>
@@ -1563,22 +1556,6 @@ df[, c(&quot;abc&quot;, &quot;xyz&quot;)]
 <pre><code class="r">hydro &lt;- read_csv(&quot;data/1111473b.csv&quot;)
 </code></pre>
 
-<pre><code>## Parsed with column specification:
-## cols(
-##   Cruise = col_character(),
-##   Station = col_character(),
-##   Type = col_character(),
-##   `yyyy-mm-ddThh:mm` = col_datetime(format = &quot;&quot;),
-##   `Latitude [degrees_north]` = col_double(),
-##   `Longitude [degrees_east]` = col_double(),
-##   `Bot. Depth [m]` = col_character(),
-##   `PRES [db]` = col_double(),
-##   `TEMP [deg C]` = col_double(),
-##   `PSAL [psu]` = col_double(),
-##   `DOXY [ml/l]` = col_double()
-## )
-</code></pre>
-
     <footer>
       <div style="position: absolute; left: 60px; top: 645px; z-index:100">
         <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
@@ -1599,7 +1576,7 @@ df[, c(&quot;abc&quot;, &quot;xyz&quot;)]
     <pre><code class="r">print(hydro, n = 5)
 </code></pre>
 
-<pre><code>## # A tibble: 30,012 x 11
+<pre><code class="no-highlight">## # A tibble: 30,012 x 11
 ##   Cruise Station Type  `yyyy-mm-ddThh:mm`  `Latitude [degr…
 ##   &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt; &lt;dttm&gt;                         &lt;dbl&gt;
 ## 1 ????   0247    B     2015-02-17 09:54:00               55
@@ -2025,17 +2002,14 @@ If you subset tibbles like a matrix ([row, col]) you will always get a tibble re
 df_tbl$x
 </code></pre>
 
-<pre><code>## Warning: Unknown or uninitialised column: &#39;x&#39;.
-</code></pre>
-
-<pre><code>## NULL
+<pre><code class="no-highlight">## NULL
 </code></pre>
 
 <div style='float:left;width:48%;'>
   <pre><code class="r">df_tbl[, &quot;xyz&quot;]
 </code></pre>
 
-<pre><code>## # A tibble: 1 x 1
+<pre><code class="no-highlight">## # A tibble: 1 x 1
 ##   xyz  
 ##   &lt;fct&gt;
 ## 1 a
@@ -2046,7 +2020,7 @@ df_tbl$x
   <pre><code class="r">df_tbl[, c(&quot;abc&quot;, &quot;xyz&quot;)] 
 </code></pre>
 
-<pre><code>## # A tibble: 1 x 2
+<pre><code class="no-highlight">## # A tibble: 1 x 2
 ##     abc xyz  
 ##   &lt;dbl&gt; &lt;fct&gt;
 ## 1     1 a

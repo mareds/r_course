@@ -416,10 +416,13 @@
 <pre><code class="r">search()
 </code></pre>
 
-<pre><code class="no-highlight">##  [1] &quot;.GlobalEnv&quot;        &quot;tools:rstudio&quot;     &quot;package:stats&quot;    
-##  [4] &quot;package:graphics&quot;  &quot;package:grDevices&quot; &quot;package:utils&quot;    
-##  [7] &quot;package:datasets&quot;  &quot;package:methods&quot;   &quot;Autoloads&quot;        
-## [10] &quot;package:base&quot;
+<pre><code class="no-highlight">##  [1] &quot;.GlobalEnv&quot;        &quot;package:bindrcpp&quot;  &quot;package:lubridate&quot;
+##  [4] &quot;package:forcats&quot;   &quot;package:stringr&quot;   &quot;package:dplyr&quot;    
+##  [7] &quot;package:purrr&quot;     &quot;package:readr&quot;     &quot;package:tidyr&quot;    
+## [10] &quot;package:tibble&quot;    &quot;package:ggplot2&quot;   &quot;package:tidyverse&quot;
+## [13] &quot;tools:rstudio&quot;     &quot;package:stats&quot;     &quot;package:graphics&quot; 
+## [16] &quot;package:grDevices&quot; &quot;package:utils&quot;     &quot;package:datasets&quot; 
+## [19] &quot;package:methods&quot;   &quot;Autoloads&quot;         &quot;package:base&quot;
 </code></pre>
 
     <footer>
@@ -463,13 +466,13 @@ You also see a <strong>conflict of function names</strong> (<code>filter()</code
 <pre><code class="r">search()
 </code></pre>
 
-<pre><code class="no-highlight">##  [1] &quot;.GlobalEnv&quot;        &quot;package:forcats&quot;   &quot;package:stringr&quot;  
-##  [4] &quot;package:dplyr&quot;     &quot;package:purrr&quot;     &quot;package:readr&quot;    
-##  [7] &quot;package:tidyr&quot;     &quot;package:tibble&quot;    &quot;package:ggplot2&quot;  
-## [10] &quot;package:tidyverse&quot; &quot;tools:rstudio&quot;     &quot;package:stats&quot;    
-## [13] &quot;package:graphics&quot;  &quot;package:grDevices&quot; &quot;package:utils&quot;    
-## [16] &quot;package:datasets&quot;  &quot;package:methods&quot;   &quot;Autoloads&quot;        
-## [19] &quot;package:base&quot;
+<pre><code class="no-highlight">##  [1] &quot;.GlobalEnv&quot;        &quot;package:bindrcpp&quot;  &quot;package:lubridate&quot;
+##  [4] &quot;package:forcats&quot;   &quot;package:stringr&quot;   &quot;package:dplyr&quot;    
+##  [7] &quot;package:purrr&quot;     &quot;package:readr&quot;     &quot;package:tidyr&quot;    
+## [10] &quot;package:tibble&quot;    &quot;package:ggplot2&quot;   &quot;package:tidyverse&quot;
+## [13] &quot;tools:rstudio&quot;     &quot;package:stats&quot;     &quot;package:graphics&quot; 
+## [16] &quot;package:grDevices&quot; &quot;package:utils&quot;     &quot;package:datasets&quot; 
+## [19] &quot;package:methods&quot;   &quot;Autoloads&quot;         &quot;package:base&quot;
 </code></pre>
 
 <p>You now see the 9 packages added to the search path (right after the global environment).</p>
@@ -568,8 +571,8 @@ You also see a <strong>conflict of function names</strong> (<code>filter()</code
 <li>Sometimes, a package provides several vignettes. To get an overview call the function <code>browseVignettes(&quot;packagename&quot;)</code>.</li>
 </ul>
 
-<pre><code class="r">vignettes(&quot;dpylr&quot;)
-browseVignettes(&quot;dpylr&quot;)
+<pre><code class="r">vignette(&quot;dplyr&quot;)
+browseVignettes(&quot;dplyr&quot;)
 </code></pre>
 
     <footer>
@@ -1227,12 +1230,12 @@ class(iris)
   </hgroup>
   <article data-timings="">
     
-<div class="quiz quiz-single well ">
+<div class="quiz quiz-multiple well" data-individual>
   <p>What function would you use if you <strong>generated a CSV file on your own computer</strong>? </p>
 
 <ol>
 <li>read_delim()</li>
-<li>read_csv()</li>
+<li><em>read_csv()</em></li>
 <li><em>read_csv2()</em></li>
 <li>read_tsv()</li>
 <li>read_table()</li>
@@ -1249,7 +1252,7 @@ class(iris)
 
 </div>
 <div class="quiz-explanation">
-  <p>Computers in Germany typically use a comma as decimal mark, hence, when you generate a CSV file in Excel a semicolon will automatically be used as delimitor. In that case you should use <code>read_csv2()</code>.</p>
+  <p>Computers in Germany typically use a comma as decimal mark, hence, when you generate a CSV file in Excel a semicolon will automatically be used as delimitor. In that case you should use <code>read_csv2()</code> otherwise <code>read_csv()</code> is the appropriate function.</p>
 
 </div>
 </div>
@@ -1681,30 +1684,34 @@ df[, c(&quot;abc&quot;, &quot;xyz&quot;)]
   <button class="quiz-show-answer btn btn-success">Show Answer</button>
   <button class="quiz-clear btn btn-danger">Clear</button>
   
-  <div class="quiz-explanation">
-  <ol>
-<li>and 2.
-Either you subset first and then calculate the means or you do both in one step:</li>
-</ol>
+  <div class="quiz-hint">
+  <p><small>Hints for question 3: You want ALL <code>press</code> values to be &gt;=1 and &lt;= 10 (not only integer values that are = 1,2,3, ect!) and you have NAs in the temperature variable, which the default setting of the <code>mean()</code> function cannot handle --&gt; check the help to see whether you can change some arguments!</small></p>
+
+</div>
+<div class="quiz-explanation">
+  <p>Explanation<br>
+1. and 2: Either you subset first and then calculate the means:</p>
 
 <p><code>hydro_sub1 &lt;- hydro[hydro$station == &quot;0613&quot;, ]</code> and <code>mean(hydro_sub1$psal)</code> and 
 <code>mean(hydro_sub1$doxy)</code></p>
 
-<p>Alternatively:
+<p>or you do both in one step:
 <code>mean(hydro$psal[hydro$station == &quot;0613&quot;])</code> and
 <code>mean(hydro$doxy[hydro$station == &quot;0613&quot;])</code></p>
 
-<p>3.You could subset in 2 ways:</p>
+<p>3.Subset first the range:
+<code>hydro_sub2 &lt;- hydro[hydro$pres &gt;= 1 &amp; hydro$pres &lt;= 10, ]</code> 
+DON&#39;T use: <code>hydro_sub2 &lt;- hydro[hydro$pres %in% 1:10, ]</code>
+as this would filter only integers, exluding pres values such as 4.5!</p>
 
-<p><code>hydro_sub2 &lt;- hydro[hydro$pres %in% 1:10, ]</code>
-or <code>hydro_sub2 &lt;- hydro[hydro$pres &gt;= 1 &amp; hydro$pres &lt;= 10, ]</code> </p>
-
-<p>and then calculate the mean <code>mean(hydro_sub2$temp, na.rm=T)</code></p>
+<p>Now handle the NAs, either directly in the <code>mean()</code> function using the <code>na.rm</code>argument:
+<code>mean(hydro_sub2$temp, na.rm=T)</code>
+or by excluding all NAs manually: <code>mean(hydro_sub2$temp[!is.na(hydro_sub2$temp)])</code></p>
 
 <ol>
 <li><span class='answer'>12.0872</span></li>
 <li><span class='answer'>0.322</span></li>
-<li><span class='answer'>10.0745985</span></li>
+<li><span class='answer'>10.1590412</span></li>
 </ol>
 
 </div>
