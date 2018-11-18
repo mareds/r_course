@@ -10,7 +10,7 @@ output:
 **Saskia A. Otto**<br>
 Postdoctoral researcher at the Institute of Marine Ecosystem and Fishery Science (IMF), University of Hamburg, Germany<br>
 [Institute weblink](https://www.biologie.uni-hamburg.de/en/forschung/oekologie-biologische-ressourcen/maroeksysdyn/mitarbeiter/otto-saskia.html)<br>
-Blog: [www.marinedatasciene.co](https://www.marinedatascience.co)<br>
+Blog: [www.marinedatascience.co](https://www.marinedatascience.co)<br>
 <i class="fa fa-github fa-lg"></i>: [saskiaotto](https://github.com/saskiaotto)<br>
 <i class="fab fa-2x fa-researchgate"></i> [ResearchGate link](https://www.researchgate.net/profile/Saskia_Otto)
 
