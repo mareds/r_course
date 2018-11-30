@@ -964,7 +964,7 @@ p <- ...(... = mtcars, ...(wt, mpg, label = rownames(mtcars)))
 geom_text(...(colour = factor(cyl)), hjust = 0, nudge_... = 0.05)
 ```
 
-1. Find the car model with the lowest mpg (=Miles per(US) gallon) value in its 4 cyl(inder) class that also has the lowest number of (forward) gears. Which position in the alphabet has the first letter of this model?
+1. Find the car model in the 'mtcars' dataset with the lowest mpg (=Miles per(US) gallon) value in its 4 cyl(inder) class that also has the lowest number of (forward) gears. Which position in the alphabet has the first letter of this model?
 
 *** .hint
 <small>You have to fill in 4 times a function name, 2 times a (partial) argument, 1 symbol (which is in fact also a function), and 1 object name. </small>
