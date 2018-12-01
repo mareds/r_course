@@ -104,7 +104,6 @@ Again, the following suggested websites represent only a small subset of website
 
 - [RStudio Cheatsheets](https://www.rstudio.com/resources/cheatsheets/) → well made overviews of packages and R operations summarised on 1 or 2 pages.
 - [R-bloggers](https://www.r-bloggers.com/) → a blog with news on latest advances, package presentations and online tutorials. 
-- [Try R](tryr.codeschool.com/levels/1/challenges/1) → an interactive online tutorial from Coda School
 - [DataCamp](https://www.datacamp.com/) → this website provides various online tutorials, which are partly free of charge.
 - To read up on R operators check this very nice tutorial provided on the tutorialcart website:[ https://www.tutorialkart.com/r-tutorial/r-operators/](https://www.tutorialkart.com/r-tutorial/r-operators/).
 - For fisheries-related infos on R, e.g. overviews on fishy packages and courses see the [fishR](http://derekogle.com/fishR/) website 
