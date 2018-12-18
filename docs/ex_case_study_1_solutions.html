@@ -23,6 +23,7 @@
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
 <script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
 <script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
@@ -1316,14 +1317,14 @@ Jun
 <pre><code>## # A tibble: 8 x 7
 ##   cruise na_all n_measure na_prop na_prop_temp na_prop_sal na_prop_doxy
 ##   &lt;chr&gt;   &lt;int&gt;     &lt;int&gt;   &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;
-## 1 ESSA     1701       773   0.734       0.943        0.943        0.314
-## 2 672B       72        36   0.667       0.500        1.00         0.500
-## 3 67LL      456       278   0.547       0.331        0.978        0.331
-## 4 7799      202       166   0.406       0.295        0.307        0.614
-## 5 77FY      529       493   0.358       0.0790       0            0.994
-## 6 ESQT      207       194   0.356       0.304        0.304        0.459
-## 7 77LA      179       171   0.349       0.0530       0            0.994
-## 8 3490     1388      1362   0.340       0.142        0.518        0.358</code></pre>
+## 1 ESSA     1701       773   0.734        0.943       0.943        0.314
+## 2 672B       72        36   0.667        0.5         1            0.5  
+## 3 67LL      456       278   0.547        0.331       0.978        0.331
+## 4 7799      202       166   0.406        0.295       0.307        0.614
+## 5 77FY      529       493   0.358        0.079       0            0.994
+## 6 ESQT      207       194   0.356        0.304       0.304        0.459
+## 7 77LA      179       171   0.349        0.053       0            0.994
+## 8 3490     1388      1362   0.34         0.142       0.518        0.358</code></pre>
 <p>You can see that cruise <strong>ESSA</strong> has the highest number of missing values relative to its overall measurements. Most NAs occurr for temperature and salinity indicated by the high proportion of nearly 1 (meaning, there are hardly any values for both parameters). The cruise <strong>762B</strong> with the second highest NA proportion measured no salinity at all (prop of 1!) and either temperature or oxygen but never both (both have a prop. of 0.5 so there cannot be any overlap). The cruises <strong>77FY</strong> and <strong>77LA</strong> have hardly measured oxygen conditions while the other cruises seem to have droped irregularly measurements of one of the 3 parameters. For now, there is not much we could or should do except for understanding the sampling design of the research vessels and considering later to drop some cruise data.</p>
 <p><strong>Per month</strong></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">hydro <span class="op">%&gt;%</span><span class="st"> </span>
@@ -1339,18 +1340,18 @@ Jun
 <pre><code>## # A tibble: 12 x 7
 ##    fmonth na_all n_measure na_prop na_prop_temp na_prop_sal na_prop_doxy
 ##    &lt;fct&gt;   &lt;int&gt;     &lt;int&gt;   &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;
-##  1 Jan       707      1595  0.148        0.0460      0.0530        0.344
-##  2 Feb       927      3103  0.100        0.0150      0.0260        0.257
-##  3 Mar      1077      3379  0.106        0.0340      0.0320        0.253
-##  4 April     752       795  0.315        0.223       0.252         0.472
-##  5 May       876      2578  0.113        0.0910      0.121         0.128
-##  6 Jun      1071      2588  0.138        0.0600      0.103         0.251
-##  7 Jul       968      3115  0.104        0.0770      0.115         0.119
-##  8 Aug      1353      2805  0.161        0.111       0.147         0.225
-##  9 Sep       974      3786  0.0860       0.0320      0.0610        0.163
-## 10 Oct      1533      2162  0.236        0.0850      0.108         0.516
-## 11 Nov       893      3411  0.0870       0.0130      0.0240        0.224
-## 12 Dec       269       695  0.129        0.0140      0.0140        0.358</code></pre>
+##  1 Jan       707      1595   0.148        0.046       0.053        0.344
+##  2 Feb       927      3103   0.1          0.015       0.026        0.257
+##  3 Mar      1077      3379   0.106        0.034       0.032        0.253
+##  4 April     752       795   0.315        0.223       0.252        0.472
+##  5 May       876      2578   0.113        0.091       0.121        0.128
+##  6 Jun      1071      2588   0.138        0.06        0.103        0.251
+##  7 Jul       968      3115   0.104        0.077       0.115        0.119
+##  8 Aug      1353      2805   0.161        0.111       0.147        0.225
+##  9 Sep       974      3786   0.086        0.032       0.061        0.163
+## 10 Oct      1533      2162   0.236        0.085       0.108        0.516
+## 11 Nov       893      3411   0.087        0.013       0.024        0.224
+## 12 Dec       269       695   0.129        0.014       0.014        0.358</code></pre>
 <p>The proportion of overall missing values is quite evenly distributed over the year, which applies also to temperature and salinity alone. <strong>April</strong> sticks out, however, with about one third of measurements missing. The oxygen conditions have been additionally less frequently sampled in October. This information is relevant if you want to assess the seasonal developments or compare individual spring months with each other. Be aware that differences you might find could be driven by the lack of information at specific times. Lets see if the high number of NAs in April are randomly distributed or clustered in specific weeks:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">hydro <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">filter</span>(fmonth <span class="op">==</span><span class="st"> &quot;April&quot;</span>) <span class="op">%&gt;%</span>
@@ -1367,23 +1368,23 @@ Jun
 <pre><code>## # A tibble: 17 x 7
 ##      day na_all n_measure na_prop na_prop_temp na_prop_sal na_prop_doxy
 ##    &lt;int&gt;  &lt;int&gt;     &lt;int&gt;   &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;
-##  1    15    115        52  0.737        0.885       0.962         0.365
-##  2    16     55        33  0.556        0.606       0.606         0.455
-##  3    23     17        13  0.436        0.385       0.385         0.538
-##  4    24     21        19  0.368        0.368       0.368         0.368
-##  5    14     49        45  0.363        0.200       0.200         0.689
-##  6    22    118       117  0.336        0.350       0.402         0.256
-##  7     8     21        22  0.318        0.136       0.136         0.682
-##  8    20     47        51  0.307        0           0             0.922
-##  9     7     31        34  0.304        0.0880      0.0880        0.735
-## 10    13     25        29  0.287        0.0340      0.0340        0.793
-## 11    28     31        41  0.252        0.146       0.244         0.366
-## 12    21    119       161  0.246        0.155       0.211         0.373
-## 13    27     52        75  0.231        0.133       0.133         0.427
-## 14    25     29        43  0.225        0           0             0.674
-## 15     1      3         7  0.143        0.143       0.143         0.143
-## 16    26     17        45  0.126        0           0             0.378
-## 17     9      2         8  0.0830       0           0             0.250</code></pre>
+##  1    15    115        52   0.737        0.885       0.962        0.365
+##  2    16     55        33   0.556        0.606       0.606        0.455
+##  3    23     17        13   0.436        0.385       0.385        0.538
+##  4    24     21        19   0.368        0.368       0.368        0.368
+##  5    14     49        45   0.363        0.2         0.2          0.689
+##  6    22    118       117   0.336        0.35        0.402        0.256
+##  7     8     21        22   0.318        0.136       0.136        0.682
+##  8    20     47        51   0.307        0           0            0.922
+##  9     7     31        34   0.304        0.088       0.088        0.735
+## 10    13     25        29   0.287        0.034       0.034        0.793
+## 11    28     31        41   0.252        0.146       0.244        0.366
+## 12    21    119       161   0.246        0.155       0.211        0.373
+## 13    27     52        75   0.231        0.133       0.133        0.427
+## 14    25     29        43   0.225        0           0            0.674
+## 15     1      3         7   0.143        0.143       0.143        0.143
+## 16    26     17        45   0.126        0           0            0.378
+## 17     9      2         8   0.083        0           0            0.25</code></pre>
 <p>It seems that every other week, and particularly around the 15/16th, some measurements were dropped, but this is not specific to one parameter only.</p>
 <p><strong>So what to do with the NAs</strong>??</p>
 <ul>
@@ -1453,15 +1454,15 @@ Jun
 ##     pres     n
 ##    &lt;dbl&gt; &lt;int&gt;
 ##  1 0      1524
-##  2 0.200     4
-##  3 0.400     1
-##  4 0.500   282
+##  2 0.2       4
+##  3 0.4       1
+##  4 0.5     282
 ##  5 0.570     1
-##  6 0.600     4
-##  7 0.700     3
-##  8 0.800     8
-##  9 0.900    25
-## 10 1.00   1552
+##  6 0.6       4
+##  7 0.7       3
+##  8 0.8       8
+##  9 0.9      25
+## 10 1      1552
 ## # ... with 1,183 more rows</code></pre>
 <p>You can see that the number of unique values is very high (1,193) and that measurements were taken at various different depths, differing sometimes only by decimetres or centimetres, but integer numbers are most frequent. If we calculate a frequency table, those samples at intermediate depths will fall out. Alternatively, we could round the depths to the next highest integer (so that 0.4m is considered 1m) using the function <code>ceiling()</code>:</p>
 </div>
@@ -1476,16 +1477,16 @@ Jun
 <pre><code>## # A tibble: 10 x 2
 ##     pres     n
 ##    &lt;dbl&gt; &lt;int&gt;
-##  1  0     1524
-##  2  1.00  1880
-##  3  5.00  2370
-##  4 10.0   2232
-##  5 15.0   1736
-##  6 20.0   1797
-##  7 25.0   1083
-##  8 30.0   1565
-##  9 40.0   1609
-## 10 50.0   1246</code></pre>
+##  1     0  1524
+##  2     1  1880
+##  3     5  2370
+##  4    10  2232
+##  5    15  1736
+##  6    20  1797
+##  7    25  1083
+##  8    30  1565
+##  9    40  1609
+## 10    50  1246</code></pre>
 <p>You see here the most common sampling profile with measurements taken at the surface (at 0m or 1m), then at 5m-steps, and after 30m in 10m-steps (partly already after 20m as the 25m depth is comparably less often sampled). This indicates that aggregating over a depth range of 11-19m will include only 1 measurement, which is 15m. If you consider a depth range of 10-19m you will have mainly values for 10 and 15m so the actual range you will look at is not 10-19m but <strong>10-15m</strong>! To get a 10m range, it is better to consider 10-20m, so you aggregate over 3 measurements per sampling that fully cover your range of interest (with 10m, 15m and 20m).</p>
 </div>
 </div>
@@ -1504,18 +1505,18 @@ Jun
 ## # Groups:   month [12]
 ##    month     n
 ##    &lt;dbl&gt; &lt;int&gt;
-##  1  1.00   117
-##  2  2.00   215
-##  3  3.00   246
-##  4  4.00    99
-##  5  5.00   226
-##  6  6.00   226
-##  7  7.00   287
-##  8  8.00   242
-##  9  9.00   299
-## 10 10.0    213
-## 11 11.0    285
-## 12 12.0     62</code></pre>
+##  1     1   117
+##  2     2   215
+##  3     3   246
+##  4     4    99
+##  5     5   226
+##  6     6   226
+##  7     7   287
+##  8     8   242
+##  9     9   299
+## 10    10   213
+## 11    11   285
+## 12    12    62</code></pre>
 <p>You see that January, April, and December are less frequently sampled than the other months. Such unbalanced sampling design has implications for the group variances and related statistical models such as ANOVA (Analysis of Variance).</p>
 </div>
 <div id="sampling-frequency-per-stations-how-many-stations-are-sampled-more-than-once-per-month" class="section level4">
@@ -1546,17 +1547,17 @@ freq_stat <span class="op">%&gt;%</span><span class="st">  </span><span class="k
 ## # Groups:   month [11]
 ##    month    nn
 ##    &lt;dbl&gt; &lt;int&gt;
-##  1  1.00    14
-##  2  2.00    35
-##  3  3.00    37
-##  4  4.00    22
-##  5  5.00    26
-##  6  6.00    38
-##  7  7.00    33
-##  8  8.00    37
-##  9  9.00    38
-## 10 10.0      4
-## 11 11.0     13</code></pre>
+##  1     1    14
+##  2     2    35
+##  3     3    37
+##  4     4    22
+##  5     5    26
+##  6     6    38
+##  7     7    33
+##  8     8    37
+##  9     9    38
+## 10    10     4
+## 11    11    13</code></pre>
 <p>Most stations were sampled twice per month, particularly in the late winter and late summer months.</p>
 <ul>
 <li>To account for the unbalanced sampling scheme also in terms of sampling replications per station/month it would be advisable to first calculate a station mean (aggregating over the different samplings) before you calculate a monthly mean.</li>
@@ -1579,14 +1580,14 @@ freq_stat <span class="op">%&gt;%</span><span class="st">  </span><span class="k
 ## # Groups:   fmonth [6]
 ##   julian_day fmonth   day timegap
 ##        &lt;dbl&gt; &lt;fct&gt;  &lt;int&gt;   &lt;dbl&gt;
-## 1       19.0 Jan       19    4.00
-## 2       97.0 April      7    6.00
-## 3      103   April     13    4.00
-## 4      110   April     20    4.00
-## 5      124   May        4    6.00
-## 6      180   Jun       29    4.00
-## 7      306   Nov        2    4.00
-## 8      341   Dec        7    4.00</code></pre>
+## 1         19 Jan       19       4
+## 2         97 April      7       6
+## 3        103 April     13       4
+## 4        110 April     20       4
+## 5        124 May        4       6
+## 6        180 Jun       29       4
+## 7        306 Nov        2       4
+## 8        341 Dec        7       4</code></pre>
 <p>None of the gaps are longer than a week in January, April, or December (or any other month). But you see that April has three 4-6 days break suggesting again that this month was not very representatively sampled in 2015 (the 6-day break overlaps with the Eastern holidays). Any difference found for April is likely to be an artefact of the irregular sampling frequency.</p>
 </div>
 </div>
@@ -1653,8 +1654,8 @@ surf_lay &lt;-<span class="st"> </span>hydro <span class="op">%&gt;%</span>
 ##   cruise station date_time           fmonth   temp   sal  doxy     n
 ##   &lt;chr&gt;  &lt;chr&gt;   &lt;dttm&gt;              &lt;fct&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt;
 ## 1 ????   0247    2015-02-17 09:54:00 Feb      3.56  9.04  6.36     6
-## 2 ????   0793    2015-06-12 08:15:00 Jun     12.2   7.63  5.40     7
-## 3 ????   1133    2015-08-03 08:06:00 Aug    NaN     7.58  4.80     7
+## 2 ????   0793    2015-06-12 08:15:00 Jun     12.2   7.63  5.4      7
+## 3 ????   1133    2015-08-03 08:06:00 Aug    NaN     7.58  4.8      7
 ## 4 ????   1321    2015-08-20 10:37:00 Aug     17.6   8.31  4.51     6
 ## 5 ????   1383    2015-08-31 08:21:00 Aug     17.8   7.61  5.21     5
 ## # ... with 2,843 more rows</code></pre>
@@ -1663,13 +1664,13 @@ surf_lay &lt;-<span class="st"> </span>hydro <span class="op">%&gt;%</span>
 <pre><code>## # A tibble: 7 x 14
 ##   cruise station type  date_time             lat  long depth  pres  temp
 ##   &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt; &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;
-## 1 ????   1133    B     2015-08-03 08:06:00  55.2  16.0    89  0       NA
-## 2 ????   1133    B     2015-08-03 08:06:00  55.2  16.0    89  1.00    NA
-## 3 ????   1133    B     2015-08-03 08:06:00  55.2  16.0    89  5.00    NA
-## 4 ????   1133    B     2015-08-03 08:06:00  55.2  16.0    89  5.20    NA
-## 5 ????   1133    B     2015-08-03 08:06:00  55.2  16.0    89 10.0     NA
-## 6 ????   1133    B     2015-08-03 08:06:00  55.2  16.0    89 15.0     NA
-## 7 ????   1133    B     2015-08-03 08:06:00  55.2  16.0    89 20.0     NA
+## 1 ????   1133    B     2015-08-03 08:06:00  55.2  16.0    89   0      NA
+## 2 ????   1133    B     2015-08-03 08:06:00  55.2  16.0    89   1      NA
+## 3 ????   1133    B     2015-08-03 08:06:00  55.2  16.0    89   5      NA
+## 4 ????   1133    B     2015-08-03 08:06:00  55.2  16.0    89   5.2    NA
+## 5 ????   1133    B     2015-08-03 08:06:00  55.2  16.0    89  10      NA
+## 6 ????   1133    B     2015-08-03 08:06:00  55.2  16.0    89  15      NA
+## 7 ????   1133    B     2015-08-03 08:06:00  55.2  16.0    89  20      NA
 ## # ... with 5 more variables: sal &lt;dbl&gt;, doxy &lt;dbl&gt;, month &lt;dbl&gt;,
 ## #   day &lt;int&gt;, fmonth &lt;fct&gt;</code></pre>
 <p>You don’t have to do anything about it, as we will aggregate over the samplings anyway omitting again NAs and NaNs.</p>
@@ -1687,11 +1688,11 @@ surf_stat &lt;-<span class="st"> </span>surf_lay <span class="op">%&gt;%</span>
 ## # Groups:   station [?]
 ##   station fmonth  temp   sal   doxy     n
 ##   &lt;chr&gt;   &lt;fct&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;int&gt;
-## 1 0001    Jan     2.91 6.28    8.61     3
-## 2 0001    Mar     3.16 6.04    8.85     4
-## 3 0001    April   3.94 6.55  NaN        1
-## 4 0001    May     4.48 4.05    9.72     1
-## 5 0001    Jul    22.5  0.550   4.34     1
+## 1 0001    Jan     2.91  6.28   8.61     3
+## 2 0001    Mar     3.16  6.04   8.85     4
+## 3 0001    April   3.94  6.55 NaN        1
+## 4 0001    May     4.48  4.05   9.72     1
+## 5 0001    Jul    22.5   0.55   4.34     1
 ## # ... with 2,498 more rows</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># 3rd, we average over all stations per month. Since this is what we want to plot later, </span>
 <span class="co"># we need to calculate also the standard error (as param for station variation). </span>
@@ -1823,14 +1824,14 @@ bot_lay &lt;-<span class="st"> </span>hydro <span class="op">%&gt;%</span>
 <span class="kw">print</span>(bot_lay, <span class="dt">n =</span> <span class="dv">5</span>)</code></pre></div>
 <pre><code>## # A tibble: 1,537 x 9
 ## # Groups:   cruise, station, date_time [?]
-##   cruise station date_time           fmonth   temp   sal  doxy     n
-##   &lt;chr&gt;  &lt;chr&gt;   &lt;dttm&gt;              &lt;fct&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt;
-## 1 ????   0247    2015-02-17 09:54:00 Feb      4.36  13.2 5.60      3
-## 2 ????   0793    2015-06-12 08:15:00 Jun      6.99  19.0 1.45      5
-## 3 ????   1133    2015-08-03 08:06:00 Aug    NaN     19.3 0.880     3
-## 4 ????   1321    2015-08-20 10:37:00 Aug     10.2   10.6 2.96      4
-## 5 ????   1383    2015-08-31 08:21:00 Aug      6.98  19.0 1.25      5
-## # ... with 1,532 more rows, and 1 more variable: n_all3 &lt;int&gt;</code></pre>
+##   cruise station date_time           fmonth   temp   sal  doxy     n n_all3
+##   &lt;chr&gt;  &lt;chr&gt;   &lt;dttm&gt;              &lt;fct&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt;  &lt;int&gt;
+## 1 ????   0247    2015-02-17 09:54:00 Feb      4.36  13.2  5.60     3      3
+## 2 ????   0793    2015-06-12 08:15:00 Jun      6.99  19.0  1.45     5      4
+## 3 ????   1133    2015-08-03 08:06:00 Aug    NaN     19.3  0.88     3      0
+## 4 ????   1321    2015-08-20 10:37:00 Aug     10.2   10.6  2.96     4      4
+## 5 ????   1383    2015-08-31 08:21:00 Aug      6.98  19.0  1.25     5      4
+## # ... with 1,532 more rows</code></pre>
 <p>Now we proceed as we did for the surface conditions…</p>
 <p><img src="case_study01_solution_plotting_files/unnamed-chunk-30-1.png" width="1440" style="display: block; margin: auto;" /></p>
 <p>The oxygen condition do not vary so much from the surface condition (slight increase in spring followed by a drop in summer and an increase again towards autumn). But differences in salinity condition are much stronger between months at the bottom, although it does not follow a seasonal trend. The differences here are most probably driven by the irregular sampling design. If you recall, in September and November, sampling took mainly place in the South around the Bornholm basin. The Southern and Western Baltic Sea towards the entrance is more saline, particularly at the bottom. A higher sample size in this region does therefore impact the calculation of an overall salinity mean.</p>
@@ -2200,7 +2201,7 @@ hydro_area <span class="op">%&gt;%</span><span class="st"> </span><span class="k
 
 theme_opt &lt;-<span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">panel.grid =</span> <span class="kw">element_blank</span>())
 
-rak_t &lt;-<span class="st"> </span>rak <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(doxy)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ungroup</span>()
+rak_t &lt;-<span class="st"> </span>rak <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(temp)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ungroup</span>()
 p_t &lt;-<span class="st"> </span><span class="kw">ggplot</span>(rak_t, <span class="kw">aes</span>(<span class="dt">x =</span> long)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">y =</span> pres, <span class="dt">colour =</span> temp)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">scale_colour_gradient2</span>(<span class="dt">midpoint =</span> <span class="fl">6.5</span>,
@@ -2209,7 +2210,7 @@ p_t &lt;-<span class="st"> </span><span class="kw">ggplot</span>(rak_t, <span cl
 <span class="st">  </span><span class="kw">scale_y_reverse</span>(<span class="dt">limits =</span><span class="kw">c</span>(<span class="dv">100</span>,<span class="dv">0</span>)) <span class="op">+</span>
 <span class="st">  </span>theme_opt
 
-rak_s &lt;-<span class="st"> </span>rak <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(doxy)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ungroup</span>()
+rak_s &lt;-<span class="st"> </span>rak <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(sal)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ungroup</span>()
 p_s &lt;-<span class="st"> </span><span class="kw">ggplot</span>(rak_s, <span class="kw">aes</span>(<span class="dt">x =</span> long)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">y =</span> pres, <span class="dt">colour =</span> sal)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">scale_colour_gradient2</span>(<span class="dt">midpoint =</span> <span class="dv">15</span>,

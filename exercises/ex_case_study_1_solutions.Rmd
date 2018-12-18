@@ -1267,7 +1267,7 @@ rak <- hydro %>%
 
 theme_opt <-  theme_bw() + theme(panel.grid = element_blank())
 
-rak_t <- rak %>% filter(!is.na(doxy)) %>% ungroup()
+rak_t <- rak %>% filter(!is.na(temp)) %>% ungroup()
 p_t <- ggplot(rak_t, aes(x = long)) +
   geom_point(aes(y = pres, colour = temp)) +
   scale_colour_gradient2(midpoint = 6.5,
@@ -1276,7 +1276,7 @@ p_t <- ggplot(rak_t, aes(x = long)) +
   scale_y_reverse(limits =c(100,0)) +
   theme_opt
 
-rak_s <- rak %>% filter(!is.na(doxy)) %>% ungroup()
+rak_s <- rak %>% filter(!is.na(sal)) %>% ungroup()
 p_s <- ggplot(rak_s, aes(x = long)) +
   geom_point(aes(y = pres, colour = sal)) +
   scale_colour_gradient2(midpoint = 15,
