@@ -1,3 +1,0 @@
-opencpu:
-  css: css/aceeditor.css
-  js: [js/ace/js/ace.js, js/opencpu-0.5.js, js/interactive.js]
