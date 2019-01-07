@@ -8,8 +8,11 @@
   <meta name="generator" content="slidify" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <!-- the following meta tag added by me (SAO) -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  
   <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
-  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css"
     media="only screen and (max-device-width: 480px)" >
   <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
   <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/sao_theme.css" />
@@ -134,7 +137,7 @@
 str(x)
 </code></pre>
 
-<pre><code>## List of 4
+<pre><code class="no-highlight">## List of 4
 ##  $ : int [1:3] 1 2 3
 ##  $ : chr &quot;a&quot;
 ##  $ : logi [1:3] TRUE FALSE TRUE
@@ -206,7 +209,7 @@ str(x)
 str(x)
 </code></pre>
 
-<pre><code>## List of 1
+<pre><code class="no-highlight">## List of 1
 ##  $ :List of 1
 ##   ..$ :List of 1
 ##   .. ..$ : list()
@@ -290,7 +293,7 @@ x3 &lt;- list(1, list(2, list(3)))
 str(x)
 </code></pre>
 
-<pre><code>## List of 3
+<pre><code class="no-highlight">## List of 3
 ##  $ : num 1
 ##  $ : num 2
 ##  $ : num 3
@@ -324,7 +327,7 @@ str(x)
 str(x)
 </code></pre>
 
-<pre><code>## List of 3
+<pre><code class="no-highlight">## List of 3
 ##  $ : num 1
 ##  $ : num 2
 ##  $ : num 3
@@ -336,7 +339,7 @@ str(x)
 str(x_named)
 </code></pre>
 
-<pre><code>## List of 3
+<pre><code class="no-highlight">## List of 3
 ##  $ a: num 1
 ##  $ b: num 2
 ##  $ c: num 3
@@ -391,7 +394,7 @@ str(x_named)
 str(a)
 </code></pre>
 
-<pre><code>## List of 4
+<pre><code class="no-highlight">## List of 4
 ##  $ a: int [1:3] 1 2 3
 ##  $ b: chr &quot;a string&quot;
 ##  $ c: num 3.14
@@ -423,7 +426,7 @@ str(a)
   <pre><code class="r">str(a[1:2])
 </code></pre>
 
-<pre><code>## List of 2
+<pre><code class="no-highlight">## List of 2
 ##  $ a: int [1:3] 1 2 3
 ##  $ b: chr &quot;a string&quot;
 </code></pre>
@@ -431,7 +434,7 @@ str(a)
 <pre><code class="r">str(a[4])
 </code></pre>
 
-<pre><code>## List of 1
+<pre><code class="no-highlight">## List of 1
 ##  $ :List of 2
 ##   ..$ : num -1
 ##   ..$ : num -5
@@ -464,7 +467,7 @@ str(a)
   <pre><code class="r">str(a[1:2])
 </code></pre>
 
-<pre><code>## List of 2
+<pre><code class="no-highlight">## List of 2
 ##  $ a: int [1:3] 1 2 3
 ##  $ b: chr &quot;a string&quot;
 </code></pre>
@@ -472,7 +475,7 @@ str(a)
 <pre><code class="r">str(a[4])
 </code></pre>
 
-<pre><code>## List of 1
+<pre><code class="no-highlight">## List of 1
 ##  $ :List of 2
 ##   ..$ : num -1
 ##   ..$ : num -5
@@ -483,7 +486,7 @@ str(a)
   <pre><code class="r">a[4]
 </code></pre>
 
-<pre><code>## [[1]]
+<pre><code class="no-highlight">## [[1]]
 ## [[1]][[1]]
 ## [1] -1
 ## 
@@ -515,13 +518,13 @@ str(a)
   <pre><code class="r">str(a[[1]])
 </code></pre>
 
-<pre><code>##  int [1:3] 1 2 3
+<pre><code class="no-highlight">##  int [1:3] 1 2 3
 </code></pre>
 
 <pre><code class="r">str(a[[4]])
 </code></pre>
 
-<pre><code>## List of 2
+<pre><code class="no-highlight">## List of 2
 ##  $ : num -1
 ##  $ : num -5
 </code></pre>
@@ -531,7 +534,7 @@ str(a)
   <pre><code class="r">a[[4]]
 </code></pre>
 
-<pre><code>## [[1]]
+<pre><code class="no-highlight">## [[1]]
 ## [1] -1
 ## 
 ## [[2]]
@@ -562,7 +565,7 @@ str(a)
   <pre><code class="r">a$a
 </code></pre>
 
-<pre><code>## [1] 1 2 3
+<pre><code class="no-highlight">## [1] 1 2 3
 </code></pre>
 
 </div>
@@ -571,7 +574,7 @@ str(a)
 a[[&quot;a&quot;]]
 </code></pre>
 
-<pre><code>## [1] 1 2 3
+<pre><code class="no-highlight">## [1] 1 2 3
 </code></pre>
 
 </div>
@@ -1048,7 +1051,7 @@ or using the <code>$</code> sign:<br>
 a
 </code></pre>
 
-<pre><code>##      [,1] [,2] [,3]
+<pre><code class="no-highlight">##      [,1] [,2] [,3]
 ## [1,]    1    3    5
 ## [2,]    2    4    6
 </code></pre>
@@ -1061,7 +1064,7 @@ a &lt;- cbind(v1, v2)
 a
 </code></pre>
 
-<pre><code>##      v1 v2
+<pre><code class="no-highlight">##      v1 v2
 ## [1,]  1  4
 ## [2,]  2  5
 ## [3,]  3  6
@@ -1115,7 +1118,7 @@ a
   <pre><code class="r">length(a)
 </code></pre>
 
-<pre><code>## [1] 6
+<pre><code class="no-highlight">## [1] 6
 </code></pre>
 
 </div>
@@ -1123,13 +1126,13 @@ a
   <pre><code class="r">nrow(a)
 </code></pre>
 
-<pre><code>## [1] 3
+<pre><code class="no-highlight">## [1] 3
 </code></pre>
 
 <pre><code class="r">ncol(a)
 </code></pre>
 
-<pre><code>## [1] 2
+<pre><code class="no-highlight">## [1] 2
 </code></pre>
 
 </div>
@@ -1162,7 +1165,7 @@ rownames(a) &lt;- c(&quot;a&quot;,&quot;b&quot;,&quot;c&quot;)
 a
 </code></pre>
 
-<pre><code>##   A B
+<pre><code class="no-highlight">##   A B
 ## a 1 4
 ## b 2 5
 ## c 3 6
@@ -1222,7 +1225,7 @@ colnames(a) &lt;- c(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;)
 a
 </code></pre>
 
-<pre><code>##      A B C
+<pre><code class="no-highlight">##      A B C
 ## [1,] 1 4 7
 ## [2,] 2 5 8
 ## [3,] 3 6 9
@@ -1267,7 +1270,7 @@ colnames(a) &lt;- c(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;)
 a
 </code></pre>
 
-<pre><code>##      A B C
+<pre><code class="no-highlight">##      A B C
 ## [1,] 1 4 7
 ## [2,] 2 5 8
 ## [3,] 3 6 9
@@ -1278,13 +1281,13 @@ a
   <pre><code class="r">a[1:2, 2]
 </code></pre>
 
-<pre><code>## [1] 4 5
+<pre><code class="no-highlight">## [1] 4 5
 </code></pre>
 
 <pre><code class="r">a[, c(&quot;A&quot;, &quot;C&quot;) ] 
 </code></pre>
 
-<pre><code>##      A C
+<pre><code class="no-highlight">##      A C
 ## [1,] 1 7
 ## [2,] 2 8
 ## [3,] 3 9
@@ -1322,7 +1325,7 @@ a
 <pre><code class="r">(mat &lt;- matrix(c(0,NA,4,18,35,97,7,9,20), nrow = 3))
 </code></pre>
 
-<pre><code>##      [,1] [,2] [,3]
+<pre><code class="no-highlight">##      [,1] [,2] [,3]
 ## [1,]    0   18    7
 ## [2,]   NA   35    9
 ## [3,]    4   97   20
@@ -1367,7 +1370,7 @@ a
 <pre><code class="r">(mat &lt;- matrix(c(0,NA,4,18,35,97,7,9,20), nrow = 3))
 </code></pre>
 
-<pre><code>##      [,1] [,2] [,3]
+<pre><code class="no-highlight">##      [,1] [,2] [,3]
 ## [1,]    0   18    7
 ## [2,]   NA   35    9
 ## [3,]    4   97   20
@@ -1412,7 +1415,7 @@ a
 <pre><code class="r">(mat &lt;- matrix(c(0,NA,4,18,35,97,7,9,20), nrow = 3))
 </code></pre>
 
-<pre><code>##      [,1] [,2] [,3]
+<pre><code class="no-highlight">##      [,1] [,2] [,3]
 ## [1,]    0   18    7
 ## [2,]   NA   35    9
 ## [3,]    4   97   20
@@ -1457,7 +1460,7 @@ a
 <pre><code class="r">(mat &lt;- matrix(c(0,NA,4,18,35,97,7,9,20), nrow = 3))
 </code></pre>
 
-<pre><code>##      [,1] [,2] [,3]
+<pre><code class="no-highlight">##      [,1] [,2] [,3]
 ## [1,]    0   18    7
 ## [2,]   NA   35    9
 ## [3,]    4   97   20
@@ -1574,7 +1577,7 @@ a
 str(df)
 </code></pre>
 
-<pre><code>## &#39;data.frame&#39;:    3 obs. of  2 variables:
+<pre><code class="no-highlight">## &#39;data.frame&#39;:    3 obs. of  2 variables:
 ##  $ x: int  1 2 3
 ##  $ y: Factor w/ 3 levels &quot;a&quot;,&quot;b&quot;,&quot;c&quot;: 1 2 3
 </code></pre>
@@ -1602,7 +1605,7 @@ str(df)
 str(df)
 </code></pre>
 
-<pre><code>## &#39;data.frame&#39;:    3 obs. of  2 variables:
+<pre><code class="no-highlight">## &#39;data.frame&#39;:    3 obs. of  2 variables:
 ##  $ x: int  1 2 3
 ##  $ y: Factor w/ 3 levels &quot;a&quot;,&quot;b&quot;,&quot;c&quot;: 1 2 3
 </code></pre>
@@ -1615,7 +1618,7 @@ str(df)
 str(df)
 </code></pre>
 
-<pre><code>## &#39;data.frame&#39;:    3 obs. of  2 variables:
+<pre><code class="no-highlight">## &#39;data.frame&#39;:    3 obs. of  2 variables:
 ##  $ x: int  1 2 3
 ##  $ y: chr  &quot;a&quot; &quot;b&quot; &quot;c&quot;
 </code></pre>
@@ -1644,7 +1647,7 @@ str(df)
 <pre><code class="r">df[1:2, 1] # row 1-2, column 1
 </code></pre>
 
-<pre><code>## [1] 1 2
+<pre><code class="no-highlight">## [1] 1 2
 </code></pre>
 
 </div>
@@ -1675,7 +1678,7 @@ str(df)
 <pre><code class="r">df[1:2, 1] # row 1-2, column 1
 </code></pre>
 
-<pre><code>## [1] 1 2
+<pre><code class="no-highlight">## [1] 1 2
 </code></pre>
 
 </div>
@@ -1685,19 +1688,19 @@ str(df)
 <pre><code class="r">df$x  # shows all elements of column &#39;x&#39;
 </code></pre>
 
-<pre><code>## [1] 1 2 3
+<pre><code class="no-highlight">## [1] 1 2 3
 </code></pre>
 
 <pre><code class="r">df$y[2]  # 2nd element of column &#39;y&#39;
 </code></pre>
 
-<pre><code>## [1] &quot;b&quot;
+<pre><code class="no-highlight">## [1] &quot;b&quot;
 </code></pre>
 
 <pre><code class="r">df[[2]][2]  # same
 </code></pre>
 
-<pre><code>## [1] &quot;b&quot;
+<pre><code class="no-highlight">## [1] &quot;b&quot;
 </code></pre>
 
 </div>
@@ -1766,7 +1769,7 @@ str(df)
 <pre><code class="r">head(iris, 1)
 </code></pre>
 
-<pre><code>##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+<pre><code class="no-highlight">##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 ## 1          5.1         3.5          1.4         0.2  setosa
 </code></pre>
 
@@ -1966,7 +1969,7 @@ z &lt;- cbind(x,y)  # matrix
 ls()
 </code></pre>
 
-<pre><code>## [1] &quot;x&quot; &quot;y&quot; &quot;z&quot;
+<pre><code class="no-highlight">## [1] &quot;x&quot; &quot;y&quot; &quot;z&quot;
 </code></pre>
 
     <footer>

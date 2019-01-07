@@ -444,3 +444,19 @@ slides > slide:not(.nobackground):after {
 	border-radius: 5px;
   box-shadow: 10px 10px 8px 1px rgba(0, 0, 0, 0.2), 1px 3px 3px 2px rgba(0, 0, 0, 0.5);
 }
+
+
+
+/* == Make presentation responsive */
+
+html, body {
+  width: 10%;
+  background-color:  #000;
+}
+
+/* 320   Pixel   (iPhone Hochformat) --> design von 480px sollte gleich sein
+480   Pixel   (iPhone Querformat)
+768   Pixel   (iPad Hochformat)
+1024  Pixel   (iPad Querformat)
+1200  Pixel   (Laptop) --> bereits darauf optimiert
+>1200 Pixel   (grosse Endgeräe)  --> bereits darauf optimiert */

@@ -306,9 +306,80 @@ blockquote footer {
   color: var(--light-grey);
 }
 
+  /* style="padding-top:.25%; text-align:center; color:#626262;" */
+#footer_git_saskiaotto {
+  padding-top:.3rem;
+  text-align:center;
+  color:#626262;
+}
+
+#footer_git_mareds{
+  padding-top: .3rem;
+  text-align: center;
+  color: #626262;
+}
+
+/* style="font-size:15px;color:#626262;border-left: 2px solid #999999;padding-left:5px; padding-top:.25%; font-style:italic;" */
+#quote > p {
+  font-size: 15px;
+  color: #626262;
+  border-left: 2px solid #999999;
+  padding-left: 5px;
+  padding-top: .3rem;
+  font-style: italic;
+}
+
+/* style="font-size:11px;color:#909090" */
+#quote > p > span {
+  font-size: 11px;
+  color: #909090;
+}
+
+/* style="padding-top:.25%; text-align:right; color:#626262;" */
+#copyright {
+  margin-top: .4rem;
+}
+
+#copyright > a {
+  /* padding-top: .5rem; */
+  text-align: right;
+  color:#626262;
+}
+
+
+/* make footer responsive */
+/*  didn't work to get a smaller breakpoint where the github
+elements where not visible (e.g. 600px) -> I had to do all at
+once for whatever reason
+*/
+
+@media (max-width: 1057px) {
+
+  #footer_git_saskiaotto {
+    display: none
+  }
+
+  #footer_git_mareds {
+    display: none
+  }
+
+  #quote {
+    display: none
+  }
+
+  #copyright {
+    position: absolute;
+    right: 2rem;
+    top: .5rem;
+  }
+
+}
 
 
 
+
+
+/* change responsive behaviour of navbar  */
 /*
  * tango
  * adopted from style sheet of rmbv
@@ -342,10 +413,10 @@ fieldset[disabled] .btn-primary.focus{background-color:#158F99;border-color:#158
 /* (adopted from: https://www.bootply.com/105174) */
 
 
-/* das klappt, sieht aber zwischen 768px und 992px anders aus als < 768px */
-/*  hier ist alles unter 991px definiert (also mobile), in spacelab.min.css alles für desktop*/
-/*  klappt doch nicht weil in minimal Version sind die dropdown menues nicht scrollbar*/
-/* @media (max-width: 991px) {
+/* Hier is wichtig dass der Bereich gennant wird und nicht nur max-width
+ weil es sonst mit den media queries spacelab.min.css Probleme gibt*/
+
+@media (min-width: 768px) and (max-width: 922px) {
     .navbar-header {
         float: none;
     }
@@ -374,7 +445,9 @@ fieldset[disabled] .btn-primary.focus{background-color:#158F99;border-color:#158
         padding-top: 10px;
         padding-bottom: 10px;
     }
-} */
+}
+
+
 
 
 /* Folgendes klappt nicht weil spacelab.min.css einen niedrigeren WERT hat und das dann als erstes passier; ich muesste meine eigene id zu navbar (inverse) machen, dann koennte ich es evtl. ueberschreiben */

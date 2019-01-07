@@ -8,8 +8,11 @@
   <meta name="generator" content="slidify" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <!-- the following meta tag added by me (SAO) -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  
   <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
-  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css"
     media="only screen and (max-device-width: 480px)" >
   <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
   <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/sao_theme.css" />
@@ -305,7 +308,7 @@
   </hgroup>
   <article class = 'flexbox vcenter'>
     <div class="img-with-text" style="position: absolute; left: 950px; top: 25px; z-index:100">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/2/25/BTaylor.jpg" alt="B Taylor" width=75px height=100px>
+    <img src="img/wikipedia_b_taylor.jpg" alt="B Taylor" width=75px height=100px>
  <p><span class="source-img" style = "float:right">
     <a href='https://en.wikipedia.org/wiki/Brook_Taylor' title=''>Brook Taylor</a></span></p>
 </div>
@@ -1613,7 +1616,7 @@ chin_ancova2 &lt;- lm(w_log ~ loc * tl_log, ChinookArg)
 <li>using a criterion that summarize the discrepancy between observed values and the values expected under the model, e.g.
 
 <ul>
-<li>explained variance (<strong>\(R_{2}\)</strong>)</li>
+<li>explained variance (<strong>\(R^{2}\)</strong>)</li>
 <li>Akaike&#39;s Information Criterion (<strong>AIC</strong>) and modifications</li>
 <li>Bayesian Information Criterion (<strong>BIC</strong>)</li>
 </ul></li>
@@ -1670,6 +1673,42 @@ chin_ancova2 &lt;- lm(w_log ~ loc * tl_log, ChinookArg)
     <h2>Akaike&#39;s Information Criterion</h2>
   </hgroup>
   <article data-timings="">
+    <p><img src="img/AIC_equation.png" title="plot of chunk unnamed-chunk-49" alt="plot of chunk unnamed-chunk-49" width="600px" style="display: block; margin: auto;" /></p>
+
+<ul>
+<li>The AIC is a <strong>relative measure</strong>, not an absolute as \(R^2\): the values can only be compared between models <strong>fitted to the same observations</strong> and <strong>same Y variables</strong>. You can&#39;t compare models fitted to different data subsets or if Y is partly transformed!</li>
+<li>The lower the AIC the better.</li>
+<li>Rule of thumb: if difference between 2 models in AIC is <strong>&lt; 2</strong> than choose the more simple model.</li>
+<li>R function: <code>AIC()</code></li>
+</ul>
+
+<div class="alert alert-success" style="position: absolute; left: 300px; top: 525px">
+  <h4>But note:</h4> <small>the AIC can only be compared between models that are fitted on the same Y observations! Hence, models with transformed and untransformed Y <strong>cannot</strong> be directly compared using the AIC!</small>
+</div>
+
+<div style='float:left;width:48%;'>
+  
+</div>
+<div style='float:right;width:48%;'>
+  
+</div>
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-68" style="background:;">
+  <hgroup>
+    <h2>Akaike&#39;s Information Criterion</h2>
+  </hgroup>
+  <article data-timings="">
     <h3>Chinook example:</h3>
 
 <pre><code class="r">m1 &lt;- lm(w_log ~ loc, ChinookArg)
@@ -1700,7 +1739,7 @@ AIC(m1, m2, m3, m4)
   </article>
   <!-- Presenter Notes -->
 </slide>
-<slide class="" id="slide-68" style="background:;">
+<slide class="" id="slide-69" style="background:;">
   <hgroup>
     <h2>Principle of parsimony (Occam‘s Razor):</h2>
   </hgroup>
@@ -1713,7 +1752,7 @@ AIC(m1, m2, m3, m4)
 </ul>
 
 <p><br>
-<img src="img/Cartoon_occams_razor.png" title="plot of chunk unnamed-chunk-50" alt="plot of chunk unnamed-chunk-50" width="550px" style="display: block; margin: auto;" /></p>
+<img src="img/Cartoon_occams_razor.png" title="plot of chunk unnamed-chunk-51" alt="plot of chunk unnamed-chunk-51" width="550px" style="display: block; margin: auto;" /></p>
 
 <p><kbd>p</kbd></p>
 
@@ -1749,7 +1788,7 @@ AIC(m1, m2, m3, m4)
 
   </article>
 </slide>
-<slide class="" id="slide-71" style="background:;">
+<slide class="" id="slide-72" style="background:;">
   <hgroup>
     <h3>Always keep in mind:</h3>
   </hgroup>
@@ -1781,13 +1820,13 @@ AIC(m1, m2, m3, m4)
     
   </article>
 </slide>
-<slide class="" id="slide-73">
+<slide class="" id="slide-74">
 <hgroup>
   <h1>Exercise: Find the &#39;true&#39; model or the underlying function</h1>
 </hgroup>
 <article data-timings="">
   <div style="background-color:#F5F5F5; text-align:left; vertical-align: middle; padding:20px 47px;">
-    <p><img src="lecture14_plotting_files/unnamed-chunk-51-1.png" title="plot of chunk unnamed-chunk-51" alt="plot of chunk unnamed-chunk-51" width="936" style="display: block; margin: auto;" /></p>
+    <p><img src="lecture14_plotting_files/unnamed-chunk-52-1.png" title="plot of chunk unnamed-chunk-52" alt="plot of chunk unnamed-chunk-52" width="936" style="display: block; margin: auto;" /></p>
 
   </div>
   <footer>
@@ -1804,11 +1843,11 @@ AIC(m1, m2, m3, m4)
 </slide>
 
 <style>
-#slide-73 {
+#slide-74 {
   background-color: #EEC900;
 }
 </style>
-<slide class="" id="slide-74">
+<slide class="" id="slide-75">
 <hgroup>
   <h1>Exercise: Find the &#39;true&#39; model or the underlying function</h1>
 </hgroup>
@@ -1844,11 +1883,11 @@ ls()
 </slide>
 
 <style>
-#slide-74 {
+#slide-75 {
   background-color: #EEC900;
 }
 </style>
-<slide class="" id="slide-75" style="background:;">
+<slide class="" id="slide-76" style="background:;">
   <hgroup>
     <h2>Overview of functions for modelling and interpretation</h2>
   </hgroup>
@@ -1917,12 +1956,12 @@ ls()
     
   </article>
 </slide>
-<slide class="" id="slide-77" style="background:;">
+<slide class="" id="slide-78" style="background:;">
   <hgroup>
     <h2>Totally confused?</h2>
   </hgroup>
   <article data-timings="">
-    <p><img src="img/Comic_confused.png" title="plot of chunk unnamed-chunk-53" alt="plot of chunk unnamed-chunk-53" width="250px" style="display: block; margin: auto;" /></p>
+    <p><img src="img/Comic_confused.png" title="plot of chunk unnamed-chunk-54" alt="plot of chunk unnamed-chunk-54" width="250px" style="display: block; margin: auto;" /></p>
 
 <p>Practice on the Chinook salmon dataset and read </p>
 
@@ -1943,12 +1982,12 @@ ls()
   </article>
   <!-- Presenter Notes -->
 </slide>
-<slide class="" id="slide-78">
+<slide class="" id="slide-79">
   <hgroup>
     <h2>Totally bored?</h2>
   </hgroup>
   <article class = 'flexbox vcenter'>
-    <p><img src="img/Comic_bored.png" title="plot of chunk unnamed-chunk-54" alt="plot of chunk unnamed-chunk-54" width="800px" style="display: block; margin: auto auto auto 0;" /></p>
+    <p><img src="img/Comic_bored.png" title="plot of chunk unnamed-chunk-55" alt="plot of chunk unnamed-chunk-55" width="800px" style="display: block; margin: auto auto auto 0;" /></p>
 
 <p>Stay tuned for the next case study where you can play around as much as you want to!</p>
 
@@ -1964,14 +2003,14 @@ ls()
   </article>
   <!-- Presenter Notes -->
 </slide>
-<slide class="" id="slide-79" style="background:;">
+<slide class="" id="slide-80" style="background:;">
   <hgroup>
     <h2>Totally content?</h2>
   </hgroup>
   <article data-timings="">
     <p>Then go grab a coffee, lean back and enjoy the rest of the day...!</p>
 
-<p><img src="img/Comic_hammock.png" title="plot of chunk unnamed-chunk-55" alt="plot of chunk unnamed-chunk-55" width="600px" style="display: block; margin: auto;" /></p>
+<p><img src="img/Comic_hammock.png" title="plot of chunk unnamed-chunk-56" alt="plot of chunk unnamed-chunk-56" width="600px" style="display: block; margin: auto;" /></p>
 
     <footer>
       <div style="position: absolute; left: 60px; top: 645px; z-index:100">
@@ -1985,7 +2024,7 @@ ls()
   </article>
   <!-- Presenter Notes -->
 </slide>
-<slide class="thank-you-slide segue" id="slide-80">
+<slide class="thank-you-slide segue" id="slide-81">
   <footer>
     <div style="position: absolute; left: 50px; top: 50px; z-index:100">
         <img src = "assets/img/uham_logo.png" height="67" width="200">
@@ -2028,7 +2067,7 @@ ls()
     
   </article>
 </slide>
-<slide class="" id="slide-82" style="background:;">
+<slide class="" id="slide-83" style="background:;">
   <hgroup>
     <h2>Example to find the best model: <code>df1</code></h2>
   </hgroup>
@@ -2068,8 +2107,8 @@ m5 &lt;- lm(y_log ~ x_log, data = dat)
 ## m5  3 139.7156
 </code></pre>
 
-<div class="alert alert-success" style="position: absolute; left: 25px; top: 605px">
-  <h4>Note:</h4> <small>The AIC can only be compared between models that are fitted on the same datasets! Hence, models with log-transformed Y values and those without CANNOT be compared using the AIC.</small>
+<div class="alert alert-success" style="position: absolute; left: 25px; top: 550px">
+  <h4>Remember:</h4> <small> the AIC can only be compared between models that are fitted on the same Y observations! Hence, models with log-transformed Y values and those without CANNOT be compared using the AIC.</small>
 </div>
 
 </div>
@@ -2085,7 +2124,7 @@ m5 &lt;- lm(y_log ~ x_log, data = dat)
   </article>
   <!-- Presenter Notes -->
 </slide>
-<slide class="" id="slide-83" style="background:;">
+<slide class="" id="slide-84" style="background:;">
   <hgroup>
     <h2>Example to find the best model: <code>df1</code></h2>
   </hgroup>
@@ -2112,7 +2151,7 @@ dat_long %&gt;% ggplot(aes(x,pred)) +
 
 </div>
 <div style='float:right;width:48%;'>
-  <p><img src="lecture14_plotting_files/unnamed-chunk-59-1.png" title="plot of chunk unnamed-chunk-59" alt="plot of chunk unnamed-chunk-59" width="504" /></p>
+  <p><img src="lecture14_plotting_files/unnamed-chunk-60-1.png" title="plot of chunk unnamed-chunk-60" alt="plot of chunk unnamed-chunk-60" width="504" /></p>
 
 </div>
     <footer>
@@ -2127,7 +2166,7 @@ dat_long %&gt;% ggplot(aes(x,pred)) +
   </article>
   <!-- Presenter Notes -->
 </slide>
-<slide class="" id="slide-84" style="background:;">
+<slide class="" id="slide-85" style="background:;">
   <hgroup>
     <h2>Example to find the best model: <code>df1</code></h2>
   </hgroup>
@@ -2156,7 +2195,7 @@ list(r1,r2,r3,r4,r5), ncol = 3)
 
 </div>
 <div style='float:right;width:48%;'>
-  <p><img src="lecture14_plotting_files/unnamed-chunk-61-1.png" title="plot of chunk unnamed-chunk-61" alt="plot of chunk unnamed-chunk-61" width="504" /></p>
+  <p><img src="lecture14_plotting_files/unnamed-chunk-62-1.png" title="plot of chunk unnamed-chunk-62" alt="plot of chunk unnamed-chunk-62" width="504" /></p>
 
 </div>
     <footer>
@@ -2171,7 +2210,7 @@ list(r1,r2,r3,r4,r5), ncol = 3)
   </article>
   <!-- Presenter Notes -->
 </slide>
-<slide class="" id="slide-85" style="background:;">
+<slide class="" id="slide-86" style="background:;">
   <hgroup>
     <h2>Example to find the best model: <code>df1</code></h2>
   </hgroup>
@@ -2192,7 +2231,7 @@ list(r1,r2,r3,r4,r5), ncol = 3)
   </article>
   <!-- Presenter Notes -->
 </slide>
-<slide class="" id="slide-86" style="background:;">
+<slide class="" id="slide-87" style="background:;">
   <hgroup>
     <h2>Example to find the best model: <code>df1_nonoise</code></h2>
   </hgroup>
@@ -2243,35 +2282,14 @@ m5 &lt;- lm(y_log ~ x_log, data = dat)
   </article>
   <!-- Presenter Notes -->
 </slide>
-<slide class="" id="slide-87" style="background:;">
+<slide class="" id="slide-88" style="background:;">
   <hgroup>
     <h2>Example to find the best model: <code>df1_nonoise</code></h2>
   </hgroup>
   <article data-timings="">
     <p>2.Prediction plots without noise</p>
 
-<p><img src="lecture14_plotting_files/unnamed-chunk-64-1.png" title="plot of chunk unnamed-chunk-64" alt="plot of chunk unnamed-chunk-64" width="720" style="display: block; margin: auto;" /></p>
-
-    <footer>
-      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
-        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
-      </div>
-      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
-        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
-        font-style: italic; top: 610px; ">Data analysis with R</a>
-      </div>
-    </footer>
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-<slide class="" id="slide-88" style="background:;">
-  <hgroup>
-    <h2>Example to find the best model: <code>df1_nonoise</code></h2>
-  </hgroup>
-  <article data-timings="">
-    <p>3.Residual plots without noise</p>
-
-<p><img src="lecture14_plotting_files/unnamed-chunk-65-1.png" title="plot of chunk unnamed-chunk-65" alt="plot of chunk unnamed-chunk-65" width="864" style="display: block; margin: auto;" /></p>
+<p><img src="lecture14_plotting_files/unnamed-chunk-65-1.png" title="plot of chunk unnamed-chunk-65" alt="plot of chunk unnamed-chunk-65" width="720" style="display: block; margin: auto;" /></p>
 
     <footer>
       <div style="position: absolute; left: 60px; top: 645px; z-index:100">
@@ -2286,6 +2304,27 @@ m5 &lt;- lm(y_log ~ x_log, data = dat)
   <!-- Presenter Notes -->
 </slide>
 <slide class="" id="slide-89" style="background:;">
+  <hgroup>
+    <h2>Example to find the best model: <code>df1_nonoise</code></h2>
+  </hgroup>
+  <article data-timings="">
+    <p>3.Residual plots without noise</p>
+
+<p><img src="lecture14_plotting_files/unnamed-chunk-66-1.png" title="plot of chunk unnamed-chunk-66" alt="plot of chunk unnamed-chunk-66" width="864" style="display: block; margin: auto;" /></p>
+
+    <footer>
+      <div style="position: absolute; left: 60px; top: 645px; z-index:100">
+        <a class="home" href="https://mareds.github.io/r_course/"><img src="assets/img/mds_logo_128px.png" alt="Home button" style="width:35px;height:35px;border:0;"></a>
+      </div>
+      <div style="position: absolute; left: 100px; top: 650px; z-index:100">
+        <a href='https://mareds.github.io/r_course/' style="font-size: 15px;
+        font-style: italic; top: 610px; ">Data analysis with R</a>
+      </div>
+    </footer>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-90" style="background:;">
   <hgroup>
     <h2>Example to find the best model: <code>df1_nonoise</code></h2>
   </hgroup>
@@ -2328,7 +2367,7 @@ coefficients(m5_comp)
   </article>
   <!-- Presenter Notes -->
 </slide>
-<slide class="" id="slide-90" style="background:;">
+<slide class="" id="slide-91" style="background:;">
   <hgroup>
     <h2>Solution of all 5 models</h2>
   </hgroup>
@@ -2763,37 +2802,37 @@ coefficients(m5_comp)
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=68 title='Principle of parsimony (Occam‘s Razor):'>
+        data-slide=68 title='Akaike&#39;s Information Criterion'>
          68
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=69 title='Beware'>
+        data-slide=69 title='Principle of parsimony (Occam‘s Razor):'>
          69
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=70 title='NA'>
+        data-slide=70 title='Beware'>
          70
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=71 title='Always keep in mind:'>
+        data-slide=71 title='NA'>
          71
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=72 title='Your turn...'>
+        data-slide=72 title='Always keep in mind:'>
          72
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=73 title='Exercise: Find the &#39;true&#39; model or the underlying function'>
+        data-slide=73 title='Your turn...'>
          73
       </a>
     </li>
@@ -2805,49 +2844,49 @@ coefficients(m5_comp)
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=75 title='Overview of functions for modelling and interpretation'>
+        data-slide=75 title='Exercise: Find the &#39;true&#39; model or the underlying function'>
          75
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=76 title='How do you feel now.....?'>
+        data-slide=76 title='Overview of functions for modelling and interpretation'>
          76
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=77 title='Totally confused?'>
+        data-slide=77 title='How do you feel now.....?'>
          77
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=78 title='Totally bored?'>
+        data-slide=78 title='Totally confused?'>
          78
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=79 title='Totally content?'>
+        data-slide=79 title='Totally bored?'>
          79
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=80 title='NA'>
+        data-slide=80 title='Totally content?'>
          80
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=81 title='Solution'>
+        data-slide=81 title='NA'>
          81
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=82 title='Example to find the best model: <code>df1</code>'>
+        data-slide=82 title='Solution'>
          82
       </a>
     </li>
@@ -2871,7 +2910,7 @@ coefficients(m5_comp)
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=86 title='Example to find the best model: <code>df1_nonoise</code>'>
+        data-slide=86 title='Example to find the best model: <code>df1</code>'>
          86
       </a>
     </li>
@@ -2895,8 +2934,14 @@ coefficients(m5_comp)
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=90 title='Solution of all 5 models'>
+        data-slide=90 title='Example to find the best model: <code>df1_nonoise</code>'>
          90
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=91 title='Solution of all 5 models'>
+         91
       </a>
     </li>
   </ul>
