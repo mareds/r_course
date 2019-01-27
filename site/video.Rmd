@@ -11,6 +11,6 @@ knitr::opts_chunk$set(tidy=FALSE, warning=FALSE, message=FALSE, cache=FALSE, dev
 <br>
 <br>
 
-```{r, echo = FALSE, out.width='35%', fig.align = 'left'}
+```{r, echo = FALSE, out.width='35%', fig.align = 'right'}
 knitr::include_graphics("img_site/Work_in_progress.png")
 ```
