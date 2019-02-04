@@ -181,7 +181,14 @@ df &lt;- data.frame(
   <pre><code class="r">map(df, mean)
 </code></pre>
 
-<pre><code>## Error in paste(&quot;(^&quot;, regions, &quot;)&quot;, sep = &quot;&quot;, collapse = &quot;|&quot;): cannot coerce type &#39;closure&#39; to vector of type &#39;character&#39;
+<pre><code class="no-highlight">## $x
+## [1] 0.1905239
+## 
+## $y
+## [1] -0.006471519
+## 
+## $z
+## [1] 0.1387968
 </code></pre>
 
 <pre><code class="r"># You can also use the pipe operator
@@ -211,7 +218,17 @@ df %&gt;% map(median)
 <pre><code class="r">map(df, quantile, probs = c(0,0.5,1.0) )
 </code></pre>
 
-<pre><code>## Error in paste(&quot;(^&quot;, regions, &quot;)&quot;, sep = &quot;&quot;, collapse = &quot;|&quot;): cannot coerce type &#39;closure&#39; to vector of type &#39;character&#39;
+<pre><code class="no-highlight">## $x
+##         0%        50%       100% 
+## -2.2146999  0.3596755  1.5952808 
+## 
+## $y
+##          0%         50%        100% 
+## -1.98935170 -0.05496689  1.35867955 
+## 
+## $z
+##         0%        50%       100% 
+## -1.1293631  0.1143867  1.9803999
 </code></pre>
 
     <footer>
@@ -699,23 +716,18 @@ map(.x = df, ~ mean(.x, na.rm = TRUE))
 
 <pre><code class="r"># 1. Extract the scientific species name
 char_species &lt;- map(groundsharks, &quot;sciname&quot;)
-</code></pre>
-
-<pre><code>## Error in map.poly(database, regions, exact, xlim, ylim, boundary, interior, : no recognized region names
-</code></pre>
-
-<pre><code class="r"># 2. Get the length of the name (= number of characters)
+# 2. Get the length of the name (= number of characters)
 map_int(char_species, str_length) %&gt;% head()
 </code></pre>
 
-<pre><code>## Error in map_int(char_species, str_length): object &#39;char_species&#39; not found
+<pre><code class="no-highlight">## [1] 22 27 20 29 26 24
 </code></pre>
 
 <pre><code class="r"># Piping both map functions
 map(groundsharks, &quot;sciname&quot;) %&gt;% map_int(str_length) %&gt;% head()
 </code></pre>
 
-<pre><code>## Error in map.poly(database, regions, exact, xlim, ylim, boundary, interior, : no recognized region names
+<pre><code class="no-highlight">## [1] 22 27 20 29 26 24
 </code></pre>
 
 <pre><code class="r"># Now in one go
@@ -1135,26 +1147,16 @@ invoke_map_dbl(.f = list(mean, median,
     <pre><code class="r"># 1. Import
 files &lt;- str_c(&quot;data/functions/dummyfile_&quot;, 1:100, &quot;.csv&quot;)
 data_list &lt;- map(files, read_csv)
-</code></pre>
-
-<pre><code>## Error: &#39;data&#39; is not an exported object from &#39;namespace:maps&#39;
-</code></pre>
-
-<pre><code class="r"># Lets add a column with the name of the file
+# Lets add a column with the name of the file
 data_list &lt;- map2(.x = data_list, .y = as.character(1:100), ~ mutate(.x, dataset = .y))
-</code></pre>
 
-<pre><code>## Error in map2(.x = data_list, .y = as.character(1:100), ~mutate(.x, dataset = .y)): object &#39;data_list&#39; not found
-</code></pre>
-
-<pre><code class="r"># 2. Apply linear models, extract slope and plot the histogram
+# 2. Apply linear models, extract slope and plot the histogram
 map(data_list, ~ lm(y ~ x, data = .x)) %&gt;%
   map_dbl(~ coef(.x)[2]) %&gt;%
   hist(main = &quot;Distributions of slopes&quot;)
 </code></pre>
 
-<pre><code>## Error in maptype(database): object &#39;data_list&#39; not found
-</code></pre>
+<p><img src="lecture18_plotting_files/unnamed-chunk-30-1.png" title="plot of chunk unnamed-chunk-30" alt="plot of chunk unnamed-chunk-30" width="432" style="display: block; margin: auto;" /></p>
 
     <footer>
       <div style="position: absolute; left: 60px; top: 645px; z-index:100">
@@ -1217,10 +1219,12 @@ map(data_list, ~ lm(y ~ x, data = .x)) %&gt;%
 <li><strong>Tibbles</strong> are particularly good in handling and visualizing list-columns:</li>
 </ul>
 
-<pre><code>## Error in eval(lhs, parent, parent): object &#39;data_list&#39; not found
-</code></pre>
-
-<pre><code>## Error in eval(lhs, parent, parent): object &#39;nested_df&#39; not found
+<pre><code class="no-highlight">## # A tibble: 100 x 2
+##   dataset data              
+##   &lt;chr&gt;   &lt;list&gt;            
+## 1 1       &lt;tibble [100 × 2]&gt;
+## 2 2       &lt;tibble [100 × 2]&gt;
+## # … with 98 more rows
 </code></pre>
 
     <footer>
@@ -1258,12 +1262,6 @@ df_nested &lt;- df %&gt;%
     <img src="img/Nested_data.png" alt="" width=450px>
 </div>
 
-<pre><code>## Error in eval(lhs, parent, parent): object &#39;data_list&#39; not found
-</code></pre>
-
-<pre><code>## Error in UseMethod(&quot;group_by_&quot;): no applicable method for &#39;group_by_&#39; applied to an object of class &quot;function&quot;
-</code></pre>
-
 </div>
 <div style='float:right;width:48%;'>
   
@@ -1295,7 +1293,12 @@ df_nested &lt;- df %&gt;%
   print(n = 2)
 </code></pre>
 
-<pre><code>## Error in eval(lhs, parent, parent): object &#39;df_nested&#39; not found
+<pre><code class="no-highlight">## # A tibble: 100 x 3
+##   dataset data               model   
+##   &lt;chr&gt;   &lt;list&gt;             &lt;list&gt;  
+## 1 1       &lt;tibble [100 × 2]&gt; &lt;S3: lm&gt;
+## 2 2       &lt;tibble [100 × 2]&gt; &lt;S3: lm&gt;
+## # … with 98 more rows
 </code></pre>
 
     <footer>
@@ -1326,7 +1329,12 @@ df_nested &lt;- df %&gt;%
   print(n = 2)
 </code></pre>
 
-<pre><code>## Error in eval(lhs, parent, parent): object &#39;model_nested&#39; not found
+<pre><code class="no-highlight">## # A tibble: 100 x 6
+##   dataset data               model    alpha  beta  r_sq
+##   &lt;chr&gt;   &lt;list&gt;             &lt;list&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 1       &lt;tibble [100 × 2]&gt; &lt;S3: lm&gt;  3.12 0.794 0.668
+## 2 2       &lt;tibble [100 × 2]&gt; &lt;S3: lm&gt;  2.64 0.800 0.701
+## # … with 98 more rows
 </code></pre>
 
     <footer>
@@ -1351,7 +1359,12 @@ df_nested &lt;- df %&gt;%
   print(n = 2)
 </code></pre>
 
-<pre><code>## Error in eval(lhs, parent, parent): object &#39;stats_nested&#39; not found
+<pre><code class="no-highlight">## # A tibble: 100 x 7
+##   dataset data               model    alpha  beta  r_sq pred       
+##   &lt;chr&gt;   &lt;list&gt;             &lt;list&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;list&gt;     
+## 1 1       &lt;tibble [100 × 2]&gt; &lt;S3: lm&gt;  3.12 0.794 0.668 &lt;dbl [100]&gt;
+## 2 2       &lt;tibble [100 × 2]&gt; &lt;S3: lm&gt;  2.64 0.800 0.701 &lt;dbl [100]&gt;
+## # … with 98 more rows
 </code></pre>
 
     <footer>
@@ -1384,7 +1397,12 @@ df_nested &lt;- df %&gt;%
   print(n = 2)
 </code></pre>
 
-<pre><code>## Error in eval(lhs, parent, parent): object &#39;predict_nested&#39; not found
+<pre><code class="no-highlight">## # A tibble: 10,000 x 5
+##   dataset alpha  beta  r_sq  pred
+##   &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 1        3.12 0.794 0.668  14.3
+## 2 1        3.12 0.794 0.668  10.8
+## # … with 9,998 more rows
 </code></pre>
 
 </div>
@@ -1421,7 +1439,12 @@ df_nested &lt;- df %&gt;%
   print(n = 2)
 </code></pre>
 
-<pre><code>## Error in eval(lhs, parent, parent): object &#39;predict_nested&#39; not found
+<pre><code class="no-highlight">## # A tibble: 10,000 x 7
+##   dataset alpha  beta  r_sq  pred     x     y
+##   &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 1        3.12 0.794 0.668  14.3 14.0  12.4 
+## 2 1        3.12 0.794 0.668  10.8  9.68  5.09
+## # … with 9,998 more rows
 </code></pre>
 
 <div class="alert alert-orange" style="position: absolute; left: 60px; top: 450px">
@@ -1455,8 +1478,7 @@ df_nested &lt;- df %&gt;%
     geom_smooth(se = FALSE)
 </code></pre>
 
-<pre><code>## Error in eval(lhs, parent, parent): object &#39;predict_unnested&#39; not found
-</code></pre>
+<p><img src="lecture18_plotting_files/unnamed-chunk-39-1.png" title="plot of chunk unnamed-chunk-39" alt="plot of chunk unnamed-chunk-39" width="432" style="display: block; margin: auto;" /></p>
 
     <footer>
       <div style="position: absolute; left: 60px; top: 645px; z-index:100">
