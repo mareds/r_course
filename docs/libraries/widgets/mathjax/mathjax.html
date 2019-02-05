@@ -7,7 +7,15 @@
     }
   });
 </script>
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- following line slidify default but is outdated -->
+<!-- <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+
+<!-- accoding to https://www.mathjax.org/#gettingstarted  this is the line of code to
+  change the version number in the src attribute any time the version of MathJax changes
+  (Although this refers to a specific version, the latest.js file will load the most current version regardless of the one you specified.)
+-->
+  <script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
 <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script> -->
 {{^ standalone }}

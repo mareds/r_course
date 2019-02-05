@@ -23,20 +23,20 @@
 <link rel=stylesheet href="./assets/css/ribbons.css"></link>
 <link rel=stylesheet href="./assets/css/style.css"></link>
 
-  
+
   <!-- Grab CDN jQuery, fall back to local if offline -->
-  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
-  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
-  <script data-main="libraries/frameworks/io2012/js/slides" 
+  <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script>
+  <script data-main="libraries/frameworks/io2012/js/slides"
     src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
   </script>
-  
+
   
 
 </head>
 <body style="opacity: 0">
   <slides class="layout-widescreen">
-    
+
     <!-- LOGO SLIDE -->
       <slide class="nobackground">
     <article class="flexbox vcenter">
@@ -59,7 +59,7 @@
   </hgroup>
   <article></article>
 </slide>
-    
+
 
     <!-- SLIDES -->
     <slide class="segue" style="background:#1874CD;">
@@ -1205,15 +1205,15 @@ microbenchmark::microbenchmark(unit = &quot;ms&quot;, times = 5,
 
 <pre><code class="no-highlight">## Unit: milliseconds
 ##             expr       min        lq       mean    median        uq
-##    grow_obj(500)  0.586615  0.608791  3.0526676  0.609676  0.689777
-##   grow_obj(5000) 44.475832 44.709055 48.1243528 45.499476 49.832631
-##   index_obj(500)  0.102328  0.104980  0.1131556  0.115462  0.120032
-##  index_obj(5000)  0.917371  0.920757  1.6256414  0.925550  1.527467
-##        max neval cld
-##  12.768479     5  a 
-##  56.104770     5   b
-##   0.122976     5  a 
-##   3.837062     5  a
+##    grow_obj(500)  1.032632  1.042913  1.2216912  1.078211  1.429168
+##   grow_obj(5000) 58.062709 58.829260 69.5195706 59.844666 62.812168
+##   index_obj(500)  0.110443  0.118197  0.1541738  0.161138  0.185150
+##  index_obj(5000)  1.523043  1.608496  2.7793866  1.657436  2.270148
+##         max neval cld
+##    1.525532     5  a 
+##  108.049050     5   b
+##    0.195941     5  a 
+##    6.837810     5  a
 </code></pre>
 
 <p>Look at the <code>mean</code> column: As you can see, indexing is much faster than growing objects, particularly when iterating many times!</p>
@@ -2051,8 +2051,8 @@ gridExtra::grid.arrange(p_a, p_b,
     </li>
   </ul>
   </div>  <!--[if IE]>
-    <script 
-      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    <script
+      src="https://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">
     </script>
     <script>CFInstall.check({mode: 'overlay'});</script>
   <![endif]-->
@@ -2076,7 +2076,15 @@ gridExtra::grid.arrange(p_a, p_b,
       }
     });
   </script>
-  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- following line slidify default but is outdated -->
+  <!-- <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+  
+  <!-- accoding to https://www.mathjax.org/#gettingstarted  this is the line of code to
+    change the version number in the src attribute any time the version of MathJax changes
+    (Although this refers to a specific version, the latest.js file will load the most current version regardless of the one you specified.)
+  -->
+    <script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+  
   <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
   </script> -->
   <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')

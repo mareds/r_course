@@ -23,20 +23,20 @@
 <link rel=stylesheet href="./assets/css/ribbons.css"></link>
 <link rel=stylesheet href="./assets/css/style.css"></link>
 
-  
+
   <!-- Grab CDN jQuery, fall back to local if offline -->
-  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
-  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
-  <script data-main="libraries/frameworks/io2012/js/slides" 
+  <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script>
+  <script data-main="libraries/frameworks/io2012/js/slides"
     src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
   </script>
-  
+
   
 
 </head>
 <body style="opacity: 0">
   <slides class="layout-widescreen">
-    
+
     <!-- LOGO SLIDE -->
       <slide class="nobackground">
     <article class="flexbox vcenter">
@@ -59,7 +59,7 @@
   </hgroup>
   <article></article>
 </slide>
-    
+
 
     <!-- SLIDES -->
     <slide class="segue" style="background:#1874CD;">
@@ -1691,8 +1691,8 @@ p_cod_mean &lt;- cpue_stats %&gt;% filter(Species == &quot;Gadus morhua&quot;) %
     </li>
   </ul>
   </div>  <!--[if IE]>
-    <script 
-      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    <script
+      src="https://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">
     </script>
     <script>CFInstall.check({mode: 'overlay'});</script>
   <![endif]-->
@@ -1716,7 +1716,15 @@ p_cod_mean &lt;- cpue_stats %&gt;% filter(Species == &quot;Gadus morhua&quot;) %
       }
     });
   </script>
-  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- following line slidify default but is outdated -->
+  <!-- <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+  
+  <!-- accoding to https://www.mathjax.org/#gettingstarted  this is the line of code to
+    change the version number in the src attribute any time the version of MathJax changes
+    (Although this refers to a specific version, the latest.js file will load the most current version regardless of the one you specified.)
+  -->
+    <script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+  
   <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
   </script> -->
   <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
