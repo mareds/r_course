@@ -909,6 +909,7 @@ gridExtra::grid.arrange(p_o, p_s, p_t, nrow = 1)
 ```
 
 In summary,
+
 - oxygen conditions show not a pronounced gradient pattern along the SW-NE axis as temperature and salinity. 
 - salinity changes at the surface more gradually while at the bottom differences in salinity condition are much greater (> 10 psu) and more stepwise, reflecting the topography with its series of basins separated by shallow areas and sills. 
 - temperature is similarly higher in the South-West but varies also substantially at smaller scales. Here, the strong intra-annual variation confounds the overall pattern and splitting the data into monthly subsets is strongly recommended (as we do in the next section).
