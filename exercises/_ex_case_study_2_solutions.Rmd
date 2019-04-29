@@ -10,7 +10,7 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(tidy=FALSE, warning=FALSE, message=FALSE, cache=TRUE, dev.args=list(bg="transparent"), fig.retina = 2, fig.path = "case_study02_solution_plotting_files/")
+knitr::opts_chunk$set(tidy=FALSE, warning=FALSE, message=FALSE, cache=FALSE, dev.args=list(bg="transparent"), fig.retina = 2, fig.path = "case_study02_solution_plotting_files/")
 ```
 
 ***
