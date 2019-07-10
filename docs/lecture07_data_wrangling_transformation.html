@@ -229,7 +229,7 @@
 <pre><code class="r">Sys.time()
 </code></pre>
 
-<pre><code class="no-highlight">## [1] &quot;2019-01-28 16:19:11 CET&quot;
+<pre><code class="no-highlight">## [1] &quot;2019-07-09 14:52:17 CEST&quot;
 </code></pre>
 
 <p>You see, first comes the year-month-day, then the time (h:m:s), and then the time zone. 
@@ -238,7 +238,7 @@ If you type</p>
 <pre><code class="r">unclass(Sys.time())
 </code></pre>
 
-<pre><code class="no-highlight">## [1] 1548688752
+<pre><code class="no-highlight">## [1] 1562676737
 </code></pre>
 
 <p>You get the number of seconds since 1 January 1970.</p>
@@ -690,13 +690,13 @@ print(date_ex, n = 5)
 
 <pre><code class="no-highlight">## # A tibble: 10 x 8
 ##   date1 date2 date3 sampling_start_CET  sampling_end_UTC     year month
-##   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;dttm&gt;              &lt;dttm&gt;              &lt;int&gt; &lt;int&gt;
+##   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;dttm&gt;              &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt;
 ## 1 11-0… 8.11… 8 No… 2017-11-08 09:54:00 2017-11-08 10:40:00  2017    11
 ## 2 11-0… 9.11… 9 No… 2017-11-09 08:15:00 2017-11-09 09:07:00  2017    11
 ## 3 11-1… 10.1… 10 N… 2017-11-10 08:06:00 2017-11-10 09:09:00  2017    11
 ## 4 11-1… 11.1… 11 N… 2017-11-11 10:37:00 2017-11-11 11:59:00  2017    11
 ## 5 11-1… 12.1… 12 N… 2017-11-12 08:21:00 2017-11-12 09:02:00  2017    11
-## # ... with 5 more rows, and 1 more variable: day &lt;int&gt;
+## # … with 5 more rows, and 1 more variable: day &lt;dbl&gt;
 </code></pre>
 
   </div>
@@ -1413,7 +1413,7 @@ names(hydro) &lt;- c(&quot;cruise&quot;, &quot;station&quot;, &quot;type&quot;,
 ## 5     1    19            3             9
 ## 6     1    20            3             7
 ## 7     1    21            3             5
-## # ... with 216 more rows
+## # … with 216 more rows
 </code></pre>
 
     <footer>
@@ -2178,7 +2178,7 @@ summarise(h_filt, cruise_nr = n_distinct(cruise),
 ## 1     5  2319
 ## 2    10  2215
 ## 3    20  1792
-## # ... with 1,190 more rows
+## # … with 1,190 more rows
 </code></pre>
 
 </div>
@@ -2221,7 +2221,7 @@ transmute(pres2 = ceiling(pres)) %&gt;%
 ## 1     5  2370
 ## 2    10  2232
 ## 3     1  1880
-## # ... with 213 more rows
+## # … with 213 more rows
 </code></pre>
 
 </div>
@@ -2335,7 +2335,7 @@ transmute(pres2 = ceiling(pres)) %&gt;%
 ##  8 ESLV     145   145   151    441
 ##  9 77K9       4     3   285    292
 ## 10 ESQT      59    59    89    207
-## # ... with 26 more rows
+## # … with 26 more rows
 </code></pre>
 
 </div>
