@@ -38,7 +38,8 @@
   <slides class="layout-widescreen">
 
     <!-- LOGO SLIDE -->
-      <slide class="nobackground">
+    
+  <slide class="nobackground">
     <article class="flexbox vcenter">
       <span>
         <img width='500px' src="assets/img/BigLogo_MDS.png">
@@ -46,35 +47,43 @@
     </article>
   </slide>
     <slide class="title-slide segue nobackground">
+  
   <!-- <aside class="gdbar">
     <img src="assets/img/uham_logo.png">
   </aside>-->
   <div style="position: absolute; left: 50px; top: 50px; z-index:100">
       <img src = "assets/img/uham_logo.png" height="67" width="200">
   </div>
+  
   <hgroup class="auto-fadein">
     <h1>Data Analysis with R</h1>
     <h2>2 - Basics in R</h2>
     <p>Saskia A. Otto<br/>Postdoctoral Researcher</p>
   </hgroup>
+  
   <article></article>
+  
 </slide>
 
 
     <!-- SLIDES -->
     <slide class="segue" style="background:#1874CD;">
+  
   <hgroup>
     <h1>Basic data types in R</h1>
   </hgroup>
+  
   <article>
     <p><img src="img/Data_science_1a.png" style="height:150px;border:0;position: absolute; left: 900px; top: 50px" </img> </p>
 
   </article>
 </slide>
 <slide class="" id="slide-2" style="background:;">
+  
   <hgroup>
     <h2>Some of the most basic types are:</h2>
   </hgroup>
+  
   <article data-timings="">
     <ul>
 <li>Decimals values like <code>4.5</code> are called <strong>doubles</strong>.</li>
@@ -94,11 +103,14 @@
     </footer>
   </article>
   <!-- Presenter Notes -->
+  
 </slide>
 <slide class="" id="slide-3" style="background:;">
+  
   <hgroup>
     <h2>Some of the most basic types are:</h2>
   </hgroup>
+  
   <article data-timings="">
     <ul>
 <li>Decimals values like <code>4.5</code> are called <strong>doubles</strong>.</li>
@@ -128,11 +140,14 @@ my_character &lt;- &quot;some text&quot;
     </footer>
   </article>
   <!-- Presenter Notes -->
+  
 </slide>
 <slide class="" id="slide-4" style="background:;">
+  
   <hgroup>
     <h2>Whats the data type</h2>
   </hgroup>
+  
   <article data-timings="">
     <p>To determine the (R internal) type or storage mode of any object or variable use the function <code>typeof()</code></p>
 
@@ -165,11 +180,14 @@ my_character &lt;- &quot;some text&quot;
     </footer>
   </article>
   <!-- Presenter Notes -->
+  
 </slide>
 <slide class="" id="slide-5" style="background:;">
+  
   <hgroup>
     <h2>Test types</h2>
   </hgroup>
+  
   <article data-timings="">
     <p>You can check if an object is of a specific type with an <strong>&#39;is.&#39; function</strong>:</p>
 
@@ -198,11 +216,14 @@ is.double(dbl_var)
     </footer>
   </article>
   <!-- Presenter Notes -->
+  
 </slide>
 <slide class="" id="slide-6" style="background:;">
+  
   <hgroup>
     <h2>Test types (cont)</h2>
   </hgroup>
+  
   <article data-timings="">
     <p>Overview of &#39;is.&#39; functions </p>
 
@@ -269,11 +290,14 @@ is.double(dbl_var)
     </footer>
   </article>
   <!-- Presenter Notes -->
+  
 </slide>
 <slide class="" id="slide-7" style="background:;">
+  
   <hgroup>
     <h2>Missing values</h2>
   </hgroup>
+  
   <article data-timings="">
     <ul>
 <li>Missing values are specified with <code>NA</code></li>
@@ -308,11 +332,14 @@ is.na(x)
     </footer>
   </article>
   <!-- Presenter Notes -->
+  
 </slide>
 <slide class="" id="slide-8" style="background:;">
+  
   <hgroup>
     <h2>Data structures</h2>
   </hgroup>
+  
   <article data-timings="">
     <p>R’s base data structures can be organised by their <strong>dimensionality</strong> (1d, 2d, or nd) and whether they’re <strong>homogeneous</strong> (all contents must be of the same type) or <strong>heterogeneous</strong> (the contents can be of different types). This gives rise to the <strong>five</strong> data types most often used in data analysis:</p>
 
@@ -351,20 +378,25 @@ is.na(x)
     </footer>
   </article>
   <!-- Presenter Notes -->
+  
 </slide>
 <slide class="segue" style="background:#1874CD;">
+  
   <hgroup>
     <h1>The most basic structure: atomic vectors</h1>
   </hgroup>
+  
   <article>
     <p><img src="img/Data_science_1a.png" style="height:150px;border:0;position: absolute; left: 900px; top: 50px" </img> </p>
 
   </article>
 </slide>
 <slide class="" id="slide-10" style="background:;">
+  
   <hgroup>
     <h2>Atomic vectors</h2>
   </hgroup>
+  
   <article data-timings="">
     <ul>
 <li>are usually created with <code>c()</code>, short for <strong>combine</strong>:</li>
@@ -387,11 +419,14 @@ chr_var &lt;- c(&quot;these are&quot;, &quot;some strings&quot;)
     </footer>
   </article>
   <!-- Presenter Notes -->
+  
 </slide>
 <slide class="" id="slide-11" style="background:;">
+  
   <hgroup>
     <h2>Atomic vectors</h2>
   </hgroup>
+  
   <article data-timings="">
     <ul>
 <li>are usually created with <code>c()</code>, short for <strong>combine</strong>:</li>
@@ -438,11 +473,14 @@ chr_var &lt;- c(&quot;these are&quot;, &quot;some strings&quot;)
     </footer>
   </article>
   <!-- Presenter Notes -->
+  
 </slide>
 <slide class="" id="slide-12" style="background:;">
+  
   <hgroup>
     <h2>Atomic vectors</h2>
   </hgroup>
+  
   <article data-timings="">
     <ul>
 <li>are <strong>always flat</strong>, even if you nest <code>c()</code>’s:</li>
@@ -472,6 +510,7 @@ c(1, 2, 3, 4)
     </footer>
   </article>
   <!-- Presenter Notes -->
+  
 </slide>
 <slide class="" id="slide-13">
   <hgroup>
@@ -491,11 +530,14 @@ c(1, 2, 3, 4)
     </footer>
   </article>
   <!-- Presenter Notes -->
+  
 </slide>
 <slide class="" id="slide-14" style="background:;">
+  
   <hgroup>
     <h2>Vector properties</h2>
   </hgroup>
+  
   <article data-timings="">
     <ol>
 <li>Its <strong>type</strong>, which you can determine with <code>typeof()</code>.</li>
@@ -514,11 +556,14 @@ c(1, 2, 3, 4)
     </footer>
   </article>
   <!-- Presenter Notes -->
+  
 </slide>
 <slide class="" id="slide-15" style="background:;">
+  
   <hgroup>
     <h2>Vector properties</h2>
   </hgroup>
+  
   <article data-timings="">
     <ol>
 <li>Its <strong>type</strong>, which you can determine with <code>typeof()</code>.</li>
@@ -550,11 +595,14 @@ length(x)
     </footer>
   </article>
   <!-- Presenter Notes -->
+  
 </slide>
 <slide class="" id="slide-16" style="background:;">
+  
   <hgroup>
     <h2>Important tools for working with vectors</h2>
   </hgroup>
+  
   <article data-timings="">
     <ol>
 <li><p>How to <strong>convert</strong> from one type to another, and when that happens automatically?</p></li>
@@ -574,11 +622,14 @@ length(x)
     </footer>
   </article>
   <!-- Presenter Notes -->
+  
 </slide>
 <slide class="" id="slide-17" style="background:;">
+  
   <hgroup>
     <h2>1. Coercion</h2>
   </hgroup>
+  
   <article data-timings="">
     <ul>
 <li>All elements of an atomic vector must be the <strong>same type</strong></li>
@@ -601,11 +652,14 @@ length(x)
     </footer>
   </article>
   <!-- Presenter Notes -->
+  
 </slide>
 <slide class="" id="slide-18" style="background:;">
+  
   <hgroup>
     <h2>1. Coercion</h2>
   </hgroup>
+  
   <article data-timings="">
     <ul>
 <li>All elements of an atomic vector must be the <strong>same type</strong></li>
@@ -637,11 +691,14 @@ For example, combining a character and an integer yields a character:</p>
     </footer>
   </article>
   <!-- Presenter Notes -->
+  
 </slide>
 <slide class="" id="slide-19" style="background:;">
+  
   <hgroup>
     <h2>1. Coercion (cont)</h2>
   </hgroup>
+  
   <article data-timings="">
     <p>When a logical vector is coerced to an integer or double, <code>TRUE</code> becomes 1 and <code>FALSE</code> becomes 0. This is very useful in conjunction with <code>sum()</code> and <code>mean()</code></p>
 
@@ -670,19 +727,24 @@ sum(x)
     </footer>
   </article>
   <!-- Presenter Notes -->
+  
 </slide>
 <slide class="segue" style="background:#EEC900;">
+  
   <hgroup>
     <h1>Your turn...</h1>
   </hgroup>
+  
   <article>
     
   </article>
 </slide>
 <slide class="" id="slide-21" style="background:#EEC900;">
+  
   <hgroup>
     <h1>Quiz 1: Coercion rules</h1>
   </hgroup>
+  
   <article data-timings="">
     
 <div class="quiz quiz-single well ">
@@ -704,7 +766,8 @@ sum(x)
   <button class="quiz-show-answer btn btn-success">Show Answer</button>
   <button class="quiz-clear btn btn-danger">Clear</button>
   
-  <div class="quiz-explanation">
+  
+<div class="quiz-explanation">
   <p>The infite set of numbers cannot be reduced to simply 2 states whereas TRUE or FALSE can easily be coerced into the two numbers 0 and 1. As the value 1 in this vector is not specified explicitly as integer the vector coerces both to type double.</p>
 
 </div>
@@ -720,11 +783,14 @@ sum(x)
     </footer>
   </article>
   <!-- Presenter Notes -->
+  
 </slide>
 <slide class="" id="slide-22" style="background:#EEC900;">
+  
   <hgroup>
     <h1>Quiz 2: Coercion rules</h1>
   </hgroup>
+  
   <article data-timings="">
     
 <div class="quiz quiz-single well ">
@@ -746,7 +812,8 @@ sum(x)
   <button class="quiz-show-answer btn btn-success">Show Answer</button>
   <button class="quiz-clear btn btn-danger">Clear</button>
   
-  <div class="quiz-explanation">
+  
+<div class="quiz-explanation">
   <p>A string (in this case &quot;a&quot;) has no corresponding number it can be coerced to. But instead, a number such as the 1 can be coerced to a string.</p>
 
 </div>
@@ -762,11 +829,14 @@ sum(x)
     </footer>
   </article>
   <!-- Presenter Notes -->
+  
 </slide>
 <slide class="" id="slide-23" style="background:#EEC900;">
+  
   <hgroup>
     <h1>Quiz 3: Coercion rules</h1>
   </hgroup>
+  
   <article data-timings="">
     
 <div class="quiz quiz-single well ">
@@ -788,7 +858,8 @@ sum(x)
   <button class="quiz-show-answer btn btn-success">Show Answer</button>
   <button class="quiz-clear btn btn-danger">Clear</button>
   
-  <div class="quiz-explanation">
+  
+<div class="quiz-explanation">
   <p>Now the number 1 is explicitly defined as integer, hence the TRUE is coerced to the integer 1.</p>
 
 </div>
@@ -804,11 +875,14 @@ sum(x)
     </footer>
   </article>
   <!-- Presenter Notes -->
+  
 </slide>
 <slide class="" id="slide-24" style="background:#EEC900;">
+  
   <hgroup>
     <h1>Quiz 4: Coercion rules</h1>
   </hgroup>
+  
   <article data-timings="">
     
 <div class="quiz-text quiz-multitext well">
@@ -823,10 +897,12 @@ sum(x)
   <button class="quiz-show-answer btn btn-success">Show Answer</button>
   <button class="quiz-clear btn btn-danger">Clear</button>
   
-  <div class="quiz-hint">
+  
+<div class="quiz-hint">
   <p><small>Remember, all TRUEs are coerced to 1 and all FALSEs to 0.</small></p>
 
 </div>
+
 <div class="quiz-explanation">
   <p>Simply use the <code>sum</code> function: <code>sum(x)</code></p>
 
@@ -847,11 +923,14 @@ sum(x)
     </footer>
   </article>
   <!-- Presenter Notes -->
+  
 </slide>
 <slide class="" id="slide-25" style="background:#EEC900;">
+  
   <hgroup>
     <h1>Quiz 5 - Challenge: Coercion rules</h1>
   </hgroup>
+  
   <article data-timings="">
     
 <div class="quiz-text quiz-multitext well">
@@ -873,15 +952,17 @@ x[z] &lt;- NA  # place NAs on the positions in z
   <button class="quiz-show-answer btn btn-success">Show Answer</button>
   <button class="quiz-clear btn btn-danger">Clear</button>
   
-  <div class="quiz-hint">
+  
+<div class="quiz-hint">
   <p><small>Recall, the <code>is.na()</code> function tests for NAs and returns a logical vector, which can be coerced to numbers for further calculations.</small></p>
 
 </div>
+
 <div class="quiz-explanation">
   <p>You calculate the sum of all true NAs by typing: <code>sum(is.na(x))</code></p>
 
 <ol>
-<li><span class='answer'>2876</span></li>
+<li><span class='answer'>2463</span></li>
 </ol>
 
 </div>
@@ -897,11 +978,14 @@ x[z] &lt;- NA  # place NAs on the positions in z
     </footer>
   </article>
   <!-- Presenter Notes -->
+  
 </slide>
 <slide class="" id="slide-26" style="background:;">
+  
   <hgroup>
     <h2>2. Recycling rules</h2>
   </hgroup>
+  
   <article data-timings="">
     <p>As well as implicitly coercing the types of vectors to be compatible, R will also implicitly coerce the length of vectors. This is called vector recycling, because the <strong>shorter vector is repeated</strong>, or recycled, to the <strong>same length as the longer vector</strong>.</p>
 
@@ -926,11 +1010,14 @@ x[z] &lt;- NA  # place NAs on the positions in z
     </footer>
   </article>
   <!-- Presenter Notes -->
+  
 </slide>
 <slide class="" id="slide-27" style="background:;">
+  
   <hgroup>
     <h2>2. Recycling rules</h2>
   </hgroup>
+  
   <article data-timings="">
     <p>As well as implicitly coercing the types of vectors to be compatible, R will also implicitly coerce the length of vectors. This is called vector recycling, because the <strong>shorter vector is repeated</strong>, or recycled, to the <strong>same length as the longer vector</strong>.</p>
 
@@ -958,19 +1045,24 @@ x[z] &lt;- NA  # place NAs on the positions in z
     </footer>
   </article>
   <!-- Presenter Notes -->
+  
 </slide>
 <slide class="segue" style="background:#EEC900;">
+  
   <hgroup>
     <h1>Your turn...</h1>
   </hgroup>
+  
   <article>
     
   </article>
 </slide>
 <slide class="" id="slide-29" style="background:#EEC900;">
+  
   <hgroup>
     <h1>Quiz 6: Recycling rules</h1>
   </hgroup>
+  
   <article data-timings="">
     
 <div class="quiz quiz-single well ">
@@ -982,9 +1074,9 @@ b &lt;- 1:5
 </code></pre>
 
 <ol>
-<li>the output will be a vector of length 3</li>
+<li>the output will be a vector of length 3, last element is 900</li>
 <li>the output will be a vector of length 5, last element is 1500</li>
-<li><em>the output will be a vector of length 3, last element is 75</em></li>
+<li><em>the output will be a vector of length 5, last element is 75</em></li>
 <li>the output will be a vector of length 3, last element is NA</li>
 </ol>
 
@@ -993,8 +1085,9 @@ b &lt;- 1:5
   <button class="quiz-show-answer btn btn-success">Show Answer</button>
   <button class="quiz-clear btn btn-danger">Clear</button>
   
-  <div class="quiz-explanation">
-  <p>The shorter vector a gets recycled to the length of the longer vector b: R fills the gap with the element from the shorter vector one by one, i.e. position 4 gets the first element again, position 5 the second. And <2> gets also repeated as many times as the length of the longest vector b.</p>
+  
+<div class="quiz-explanation">
+  <p>The shorter vector a gets recycled to the length of the longer vector b: R fills the gap with the element from the shorter vector one by one, i.e. position 4 gets the first element again, position 5 the second. And <3> gets also repeated as many times as the length of the longest vector b.</p>
 
 </div>
 </div>
@@ -1009,11 +1102,14 @@ b &lt;- 1:5
     </footer>
   </article>
   <!-- Presenter Notes -->
+  
 </slide>
 <slide class="" id="slide-30" style="background:;">
+  
   <hgroup>
     <h2>3. Naming vectors</h2>
   </hgroup>
+  
   <article data-timings="">
     <p>All types of vectors can be named. You can name them <strong>during creation</strong> with <code>c()</code>:</p>
 
@@ -1046,11 +1142,14 @@ x
     </footer>
   </article>
   <!-- Presenter Notes -->
+  
 </slide>
 <slide class="" id="slide-31" style="background:;">
+  
   <hgroup>
     <h2>4. Subsetting</h2>
   </hgroup>
+  
   <article data-timings="">
     <p><code>[</code> is the subsetting function, and is called like <code>x[a]</code>.</p>
 
@@ -1074,8 +1173,10 @@ x
     </footer>
   </article>
   <!-- Presenter Notes -->
+  
 </slide>
 <slide class="" id="slide-32" style="background:;">
+  
   <article data-timings="">
     <p>1.Using a <strong>numeric</strong> vector containing only integers. </p>
 
@@ -1098,8 +1199,10 @@ x[c(5, 1, 3)]
     </footer>
   </article>
   <!-- Presenter Notes -->
+  
 </slide>
 <slide class="" id="slide-33" style="background:;">
+  
   <article data-timings="">
     <p>1.Using a <strong>numeric</strong> vector containing only integers. </p>
 
@@ -1115,8 +1218,9 @@ x[c(5, 1, 3)]
 x[c(1,1,1,1,2,2,2,2,3,3,3,4,4,5,5)]
 </code></pre>
 
-<pre><code class="no-highlight">##  [1] &quot;one&quot;   &quot;one&quot;   &quot;one&quot;   &quot;one&quot;   &quot;two&quot;   &quot;two&quot;   &quot;two&quot;   &quot;two&quot;  
-##  [9] &quot;three&quot; &quot;three&quot; &quot;three&quot; &quot;four&quot;  &quot;four&quot;  &quot;five&quot;  &quot;five&quot;
+<pre><code class="no-highlight">##  [1] &quot;one&quot;   &quot;one&quot;   &quot;one&quot;   &quot;one&quot;   &quot;two&quot;   &quot;two&quot;  
+##  [7] &quot;two&quot;   &quot;two&quot;   &quot;three&quot; &quot;three&quot; &quot;three&quot; &quot;four&quot; 
+## [13] &quot;four&quot;  &quot;five&quot;  &quot;five&quot;
 </code></pre>
 
     <footer>
@@ -1130,8 +1234,10 @@ x[c(1,1,1,1,2,2,2,2,3,3,3,4,4,5,5)]
     </footer>
   </article>
   <!-- Presenter Notes -->
+  
 </slide>
 <slide class="" id="slide-34" style="background:;">
+  
   <article data-timings="">
     <p>1.Using a <strong>numeric</strong> vector containing only integers. </p>
 
@@ -1147,8 +1253,9 @@ x[c(5, 1, 3)]
 x[c(1,1,1,1,2,2,2,2,3,3,3,4,4,5,5)]
 </code></pre>
 
-<pre><code class="no-highlight">##  [1] &quot;one&quot;   &quot;one&quot;   &quot;one&quot;   &quot;one&quot;   &quot;two&quot;   &quot;two&quot;   &quot;two&quot;   &quot;two&quot;  
-##  [9] &quot;three&quot; &quot;three&quot; &quot;three&quot; &quot;four&quot;  &quot;four&quot;  &quot;five&quot;  &quot;five&quot;
+<pre><code class="no-highlight">##  [1] &quot;one&quot;   &quot;one&quot;   &quot;one&quot;   &quot;one&quot;   &quot;two&quot;   &quot;two&quot;  
+##  [7] &quot;two&quot;   &quot;two&quot;   &quot;three&quot; &quot;three&quot; &quot;three&quot; &quot;four&quot; 
+## [13] &quot;four&quot;  &quot;five&quot;  &quot;five&quot;
 </code></pre>
 
 <pre><code class="r"># negative integers remove elements:
@@ -1169,8 +1276,10 @@ x[c(-3,-5)]
     </footer>
   </article>
   <!-- Presenter Notes -->
+  
 </slide>
 <slide class="" id="slide-35" style="background:;">
+  
   <article data-timings="">
     <p>1.Using a <strong>numeric</strong> vector containing only integers. </p>
 
@@ -1195,8 +1304,10 @@ x[0] # --&gt; returns an empty vector
     </footer>
   </article>
   <!-- Presenter Notes -->
+  
 </slide>
 <slide class="" id="slide-36" style="background:;">
+  
   <article data-timings="">
     <p>2.Subsetting with a <strong>logical</strong> vector keeps all values corresponding to a <code>TRUE</code> value. This is most often useful in conjunction with the comparison functions.</p>
 
@@ -1228,8 +1339,10 @@ x[x %% 2 == 0]
     </footer>
   </article>
   <!-- Presenter Notes -->
+  
 </slide>
 <slide class="" id="slide-37" style="background:;">
+  
   <article data-timings="">
     <p>3.If you have a <strong>named</strong> vector, you can subset it with a character vector:</p>
 
@@ -1260,8 +1373,10 @@ x[c(&quot;xyz&quot;, &quot;def&quot;, &quot;def&quot;)]
     </footer>
   </article>
   <!-- Presenter Notes -->
+  
 </slide>
 <slide class="" id="slide-38" style="background:;">
+  
   <article data-timings="">
     <p>4.Using <strong>nothing</strong> returns the original vector. More important for other data structures</p>
 
@@ -1283,19 +1398,24 @@ x[c(&quot;xyz&quot;, &quot;def&quot;, &quot;def&quot;)]
     </footer>
   </article>
   <!-- Presenter Notes -->
+  
 </slide>
 <slide class="segue" style="background:#EEC900;">
+  
   <hgroup>
     <h1>Your turn...</h1>
   </hgroup>
+  
   <article>
     
   </article>
 </slide>
 <slide class="" id="slide-40" style="background:#EEC900;">
+  
   <hgroup>
     <h1>Quiz 7: Subsetting</h1>
   </hgroup>
+  
   <article data-timings="">
     
 <div class="quiz-text quiz-multitext well">
@@ -1318,7 +1438,8 @@ x &lt;- sample(1:1000, 20)
   <button class="quiz-show-answer btn btn-success">Show Answer</button>
   <button class="quiz-clear btn btn-danger">Clear</button>
   
-  <div class="quiz-explanation">
+  
+<div class="quiz-explanation">
   <p>1.To get the 5th element: <code>x[5]</code><br>
 2.To sum up over the first 4 elements:<br>
 <code>sum(x[1:4])</code>or <code>sum(x[c(1,2,3,4)])</code><br>
@@ -1326,9 +1447,9 @@ x &lt;- sample(1:1000, 20)
 <code>sum(x[c(-3, -15)])</code></p>
 
 <ol>
-<li><span class='answer'>201</span></li>
-<li><span class='answer'>2116</span></li>
-<li><span class='answer'>9672</span></li>
+<li><span class='answer'>509</span></li>
+<li><span class='answer'>2574</span></li>
+<li><span class='answer'>10245</span></li>
 </ol>
 
 </div>
@@ -1344,11 +1465,14 @@ x &lt;- sample(1:1000, 20)
     </footer>
   </article>
   <!-- Presenter Notes -->
+  
 </slide>
 <slide class="" id="slide-41" style="background:#EEC900;">
+  
   <hgroup>
     <h1>Quiz 8: Subsetting</h1>
   </hgroup>
+  
   <article data-timings="">
     
 <div class="quiz quiz-single well ">
@@ -1366,7 +1490,8 @@ x &lt;- sample(1:1000, 20)
   <button class="quiz-show-answer btn btn-success">Show Answer</button>
   <button class="quiz-clear btn btn-danger">Clear</button>
   
-  <div class="quiz-explanation">
+  
+<div class="quiz-explanation">
   <p>The vector gets indeed extended to the length of the requested element but not by recycling but by filling the gap with NAs.</p>
 
 </div>
@@ -1382,11 +1507,14 @@ x &lt;- sample(1:1000, 20)
     </footer>
   </article>
   <!-- Presenter Notes -->
+  
 </slide>
 <slide class="" id="slide-42" style="background:#EEC900;">
+  
   <hgroup>
     <h1>Quiz 9: Subsetting</h1>
   </hgroup>
+  
   <article data-timings="">
     
 <div class="quiz quiz-single well ">
@@ -1404,7 +1532,8 @@ x &lt;- sample(1:1000, 20)
   <button class="quiz-show-answer btn btn-success">Show Answer</button>
   <button class="quiz-clear btn btn-danger">Clear</button>
   
-  <div class="quiz-explanation">
+  
+<div class="quiz-explanation">
   <p>Instead of returning an error message, R returns NAs for all those pulled elements that do not exist (by the selected name). Beware of this behaviour and check your results at each step!</p>
 
 </div>
@@ -1420,11 +1549,14 @@ x &lt;- sample(1:1000, 20)
     </footer>
   </article>
   <!-- Presenter Notes -->
+  
 </slide>
 <slide class="" id="slide-43" style="background:;">
+  
   <hgroup>
     <h2>Attributes</h2>
   </hgroup>
+  
   <article data-timings="">
     <ul>
 <li>All objects can have arbitrary additional attributes, used to <strong>store metadata</strong> about the object. </li>
@@ -1443,11 +1575,14 @@ x &lt;- sample(1:1000, 20)
     </footer>
   </article>
   <!-- Presenter Notes -->
+  
 </slide>
 <slide class="" id="slide-44" style="background:;">
+  
   <hgroup>
     <h2>Attributes</h2>
   </hgroup>
+  
   <article data-timings="">
     <ul>
 <li>All objects can have arbitrary additional attributes, used to <strong>store metadata</strong> about the object. </li>
@@ -1482,11 +1617,14 @@ attributes(temp)
     </footer>
   </article>
   <!-- Presenter Notes -->
+  
 </slide>
 <slide class="" id="slide-45" style="background:;">
+  
   <hgroup>
     <h2>Attributes (cont)</h2>
   </hgroup>
+  
   <article data-timings="">
     <ul>
 <li>The  <strong>three most important</strong> attributes are:
@@ -1509,11 +1647,14 @@ attributes(temp)
     </footer>
   </article>
   <!-- Presenter Notes -->
+  
 </slide>
 <slide class="" id="slide-46" style="background:;">
+  
   <hgroup>
     <h2>Attributes (cont)</h2>
   </hgroup>
+  
   <article data-timings="">
     <ul>
 <li>The  <strong>three most important</strong> attributes are:
@@ -1544,11 +1685,14 @@ attributes(temp)
     </footer>
   </article>
   <!-- Presenter Notes -->
+  
 </slide>
 <slide class="" id="slide-47" style="background:;">
+  
   <hgroup>
     <h2>Attributes (cont)</h2>
   </hgroup>
+  
   <article data-timings="">
     <p>The attribute <strong>names</strong> and other attributes that you set manually will always appear when you look at the content of your vector:</p>
 
@@ -1576,11 +1720,14 @@ temp
     </footer>
   </article>
   <!-- Presenter Notes -->
+  
 </slide>
 <slide class="" id="slide-48" style="background:;">
+  
   <hgroup>
     <h2>Attributes (cont)</h2>
   </hgroup>
+  
   <article data-timings="">
     <p>These attributes are only visible when you call them explicitly:</p>
 
@@ -1607,11 +1754,14 @@ temp
     </footer>
   </article>
   <!-- Presenter Notes -->
+  
 </slide>
 <slide class="" id="slide-49" style="background:;">
+  
   <hgroup>
     <h2>Factors</h2>
   </hgroup>
+  
   <article data-timings="">
     <p>One important use of <strong>attributes</strong> is to <strong>define factors</strong>. Factors are</p>
 
@@ -1638,11 +1788,14 @@ temp
     </footer>
   </article>
   <!-- Presenter Notes -->
+  
 </slide>
 <slide class="" id="slide-50" style="background:;">
+  
   <hgroup>
     <h2>Factors (cont)</h2>
   </hgroup>
+  
   <article data-timings="">
     <pre><code class="r">biomass &lt;- factor(c(&quot;low&quot;, &quot;medium&quot;, &quot;low&quot;, &quot;high&quot;, &quot;medium&quot;))
 biomass
@@ -1675,20 +1828,25 @@ biomass
     </footer>
   </article>
   <!-- Presenter Notes -->
+  
 </slide>
 <slide class="segue" style="background:#1874CD;">
+  
   <hgroup>
     <h1>Vectorized operations in R</h1>
   </hgroup>
+  
   <article>
     <p><img src="img/Data_science_1a.png" style="height:150px;border:0;position: absolute; left: 900px; top: 50px" </img> </p>
 
   </article>
 </slide>
 <slide class="" id="slide-52" style="background:;">
+  
   <hgroup>
     <h2>Basic calculation example</h2>
   </hgroup>
+  
   <article data-timings="">
     <pre><code class="r">a &lt;- c(1,2,3,4)
 c &lt;- (a + sqrt(a))/(exp(2)+1)
@@ -1711,11 +1869,14 @@ c
     </footer>
   </article>
   <!-- Presenter Notes -->
+  
 </slide>
 <slide class="" id="slide-53" style="background:;">
+  
   <hgroup>
     <h2>Vectorized calculations</h2>
   </hgroup>
+  
   <article data-timings="">
     <p>R calculations are vectorized, that means certain calculations are done <strong>with each element of a vector</strong>.</p>
 
@@ -1730,11 +1891,14 @@ c
     </footer>
   </article>
   <!-- Presenter Notes -->
+  
 </slide>
 <slide class="" id="slide-54" style="background:;">
+  
   <hgroup>
     <h2>Vectorized calculations</h2>
   </hgroup>
+  
   <article data-timings="">
     <p>R calculations are vectorized, that means certain calculations are done <strong>with each element of a vector</strong>.</p>
 
@@ -1759,11 +1923,14 @@ a * b
     </footer>
   </article>
   <!-- Presenter Notes -->
+  
 </slide>
 <slide class="" id="slide-55" style="background:;">
+  
   <hgroup>
     <h2>Vectorized calculations</h2>
   </hgroup>
+  
   <article data-timings="">
     <p>R calculations are vectorized, that means certain calculations are done <strong>with each element of a vector</strong>.</p>
 
@@ -1796,19 +1963,24 @@ b &lt;- 10 # b gets recycled to the length of a
     </footer>
   </article>
   <!-- Presenter Notes -->
+  
 </slide>
 <slide class="segue" style="background:#EEC900;">
+  
   <hgroup>
     <h1>Your turn...</h1>
   </hgroup>
+  
   <article>
     
   </article>
 </slide>
 <slide class="" id="slide-57" style="background:#EEC900;">
+  
   <hgroup>
     <h1>Quiz 10: Total Sums of Squares \(\sum_{i=1}^{n} \left(x_{i} - \bar{x}\right)^{2}\)</h1>
   </hgroup>
+  
   <article data-timings="">
     
 <div class="quiz-text quiz-multitext well">
@@ -1829,7 +2001,8 @@ x &lt;- sample(1:20, 20, replace = TRUE)
   <button class="quiz-show-answer btn btn-success">Show Answer</button>
   <button class="quiz-clear btn btn-danger">Clear</button>
   
-  <div class="quiz-hint">
+  
+<div class="quiz-hint">
   <p><small>The follow functions are useful: <code>sum()</code>, <code>mean()</code>.
 Remember, the calculation needs to be from the innermost to the
 outermost parenthesis (just like a calculator). So your order should be:
@@ -1838,11 +2011,12 @@ outermost parenthesis (just like a calculator). So your order should be:
 3. sum all up. </small></p>
 
 </div>
+
 <div class="quiz-explanation">
   <p><code>sum( (x-mean(x))^2 )</code></p>
 
 <ol>
-<li><span class='answer'>594.8</span></li>
+<li><span class='answer'>556</span></li>
 </ol>
 
 </div>
@@ -1858,11 +2032,14 @@ outermost parenthesis (just like a calculator). So your order should be:
     </footer>
   </article>
   <!-- Presenter Notes -->
+  
 </slide>
 <slide class="segue" style="background:#E5E5E5;">
+  
   <hgroup>
     <h2>Overview of functions you learned today</h2>
   </hgroup>
+  
   <article>
     <p><code>c()</code>, <code>typeof()</code>, <code>length()</code>, <code>is.logical()</code>, <code>as.logical()</code>, <code>is.integer()</code>, <code>as.integer()</code>, <code>is.double()</code>, <code>as.double()</code>, <code>is.numeric()</code>, <code>as.numeric()</code>, <code>is.character()</code>, <code>as.character()</code>, <code>str()</code>, </p>
 
@@ -1875,9 +2052,11 @@ outermost parenthesis (just like a calculator). So your order should be:
   </article>
 </slide>
 <slide class="segue" style="background:#CD2626;">
+  
   <hgroup>
     <h1>How do you feel now.....?</h1>
   </hgroup>
+  
   <article>
     
   </article>
@@ -1902,6 +2081,7 @@ outermost parenthesis (just like a calculator). So your order should be:
     </footer>
   </article>
   <!-- Presenter Notes -->
+  
 </slide>
 <slide class="" id="slide-61">
   <hgroup>
@@ -1923,11 +2103,14 @@ outermost parenthesis (just like a calculator). So your order should be:
     </footer>
   </article>
   <!-- Presenter Notes -->
+  
 </slide>
 <slide class="" id="slide-62" style="background:;">
+  
   <hgroup>
     <h2>Totally content?</h2>
   </hgroup>
+  
   <article data-timings="">
     <p>Then go grab a coffee, lean back and enjoy the rest of the day...!</p>
 
@@ -1944,6 +2127,7 @@ outermost parenthesis (just like a calculator). So your order should be:
     </footer>
   </article>
   <!-- Presenter Notes -->
+  
 </slide>
 <slide class="thank-you-slide segue" id="slide-63">
   <footer>
@@ -1984,385 +2168,449 @@ outermost parenthesis (just like a calculator). So your order should be:
   </slides>
   <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
     <ul>
-      <li>
+      
+    <li>
       <a href="#" target="_self" rel='tooltip' 
         data-slide=1 title='Basic data types in R'>
          1
       </a>
     </li>
+    
     <li>
       <a href="#" target="_self" rel='tooltip' 
         data-slide=2 title='Some of the most basic types are:'>
          2
       </a>
     </li>
+    
     <li>
       <a href="#" target="_self" rel='tooltip' 
         data-slide=3 title='Some of the most basic types are:'>
          3
       </a>
     </li>
+    
     <li>
       <a href="#" target="_self" rel='tooltip' 
         data-slide=4 title='Whats the data type'>
          4
       </a>
     </li>
+    
     <li>
       <a href="#" target="_self" rel='tooltip' 
         data-slide=5 title='Test types'>
          5
       </a>
     </li>
+    
     <li>
       <a href="#" target="_self" rel='tooltip' 
         data-slide=6 title='Test types (cont)'>
          6
       </a>
     </li>
+    
     <li>
       <a href="#" target="_self" rel='tooltip' 
         data-slide=7 title='Missing values'>
          7
       </a>
     </li>
+    
     <li>
       <a href="#" target="_self" rel='tooltip' 
         data-slide=8 title='Data structures'>
          8
       </a>
     </li>
+    
     <li>
       <a href="#" target="_self" rel='tooltip' 
         data-slide=9 title='The most basic structure: atomic vectors'>
          9
       </a>
     </li>
+    
     <li>
       <a href="#" target="_self" rel='tooltip' 
         data-slide=10 title='Atomic vectors'>
          10
       </a>
     </li>
+    
     <li>
       <a href="#" target="_self" rel='tooltip' 
         data-slide=11 title='Atomic vectors'>
          11
       </a>
     </li>
+    
     <li>
       <a href="#" target="_self" rel='tooltip' 
         data-slide=12 title='Atomic vectors'>
          12
       </a>
     </li>
+    
     <li>
       <a href="#" target="_self" rel='tooltip' 
         data-slide=13 title='Hierarchy of data types in atomic vectors'>
          13
       </a>
     </li>
+    
     <li>
       <a href="#" target="_self" rel='tooltip' 
         data-slide=14 title='Vector properties'>
          14
       </a>
     </li>
+    
     <li>
       <a href="#" target="_self" rel='tooltip' 
         data-slide=15 title='Vector properties'>
          15
       </a>
     </li>
+    
     <li>
       <a href="#" target="_self" rel='tooltip' 
         data-slide=16 title='Important tools for working with vectors'>
          16
       </a>
     </li>
+    
     <li>
       <a href="#" target="_self" rel='tooltip' 
         data-slide=17 title='1. Coercion'>
          17
       </a>
     </li>
+    
     <li>
       <a href="#" target="_self" rel='tooltip' 
         data-slide=18 title='1. Coercion'>
          18
       </a>
     </li>
+    
     <li>
       <a href="#" target="_self" rel='tooltip' 
         data-slide=19 title='1. Coercion (cont)'>
          19
       </a>
     </li>
+    
     <li>
       <a href="#" target="_self" rel='tooltip' 
         data-slide=20 title='Your turn...'>
          20
       </a>
     </li>
+    
     <li>
       <a href="#" target="_self" rel='tooltip' 
         data-slide=21 title='Quiz 1: Coercion rules'>
          21
       </a>
     </li>
+    
     <li>
       <a href="#" target="_self" rel='tooltip' 
         data-slide=22 title='Quiz 2: Coercion rules'>
          22
       </a>
     </li>
+    
     <li>
       <a href="#" target="_self" rel='tooltip' 
         data-slide=23 title='Quiz 3: Coercion rules'>
          23
       </a>
     </li>
+    
     <li>
       <a href="#" target="_self" rel='tooltip' 
         data-slide=24 title='Quiz 4: Coercion rules'>
          24
       </a>
     </li>
+    
     <li>
       <a href="#" target="_self" rel='tooltip' 
         data-slide=25 title='Quiz 5 - Challenge: Coercion rules'>
          25
       </a>
     </li>
+    
     <li>
       <a href="#" target="_self" rel='tooltip' 
         data-slide=26 title='2. Recycling rules'>
          26
       </a>
     </li>
+    
     <li>
       <a href="#" target="_self" rel='tooltip' 
         data-slide=27 title='2. Recycling rules'>
          27
       </a>
     </li>
+    
     <li>
       <a href="#" target="_self" rel='tooltip' 
         data-slide=28 title='Your turn...'>
          28
       </a>
     </li>
+    
     <li>
       <a href="#" target="_self" rel='tooltip' 
         data-slide=29 title='Quiz 6: Recycling rules'>
          29
       </a>
     </li>
+    
     <li>
       <a href="#" target="_self" rel='tooltip' 
         data-slide=30 title='3. Naming vectors'>
          30
       </a>
     </li>
+    
     <li>
       <a href="#" target="_self" rel='tooltip' 
         data-slide=31 title='4. Subsetting'>
          31
       </a>
     </li>
+    
     <li>
       <a href="#" target="_self" rel='tooltip' 
         data-slide=32 title='NA'>
          32
       </a>
     </li>
+    
     <li>
       <a href="#" target="_self" rel='tooltip' 
         data-slide=33 title='NA'>
          33
       </a>
     </li>
+    
     <li>
       <a href="#" target="_self" rel='tooltip' 
         data-slide=34 title='NA'>
          34
       </a>
     </li>
+    
     <li>
       <a href="#" target="_self" rel='tooltip' 
         data-slide=35 title='NA'>
          35
       </a>
     </li>
+    
     <li>
       <a href="#" target="_self" rel='tooltip' 
         data-slide=36 title='NA'>
          36
       </a>
     </li>
+    
     <li>
       <a href="#" target="_self" rel='tooltip' 
         data-slide=37 title='NA'>
          37
       </a>
     </li>
+    
     <li>
       <a href="#" target="_self" rel='tooltip' 
         data-slide=38 title='NA'>
          38
       </a>
     </li>
+    
     <li>
       <a href="#" target="_self" rel='tooltip' 
         data-slide=39 title='Your turn...'>
          39
       </a>
     </li>
+    
     <li>
       <a href="#" target="_self" rel='tooltip' 
         data-slide=40 title='Quiz 7: Subsetting'>
          40
       </a>
     </li>
+    
     <li>
       <a href="#" target="_self" rel='tooltip' 
         data-slide=41 title='Quiz 8: Subsetting'>
          41
       </a>
     </li>
+    
     <li>
       <a href="#" target="_self" rel='tooltip' 
         data-slide=42 title='Quiz 9: Subsetting'>
          42
       </a>
     </li>
+    
     <li>
       <a href="#" target="_self" rel='tooltip' 
         data-slide=43 title='Attributes'>
          43
       </a>
     </li>
+    
     <li>
       <a href="#" target="_self" rel='tooltip' 
         data-slide=44 title='Attributes'>
          44
       </a>
     </li>
+    
     <li>
       <a href="#" target="_self" rel='tooltip' 
         data-slide=45 title='Attributes (cont)'>
          45
       </a>
     </li>
+    
     <li>
       <a href="#" target="_self" rel='tooltip' 
         data-slide=46 title='Attributes (cont)'>
          46
       </a>
     </li>
+    
     <li>
       <a href="#" target="_self" rel='tooltip' 
         data-slide=47 title='Attributes (cont)'>
          47
       </a>
     </li>
+    
     <li>
       <a href="#" target="_self" rel='tooltip' 
         data-slide=48 title='Attributes (cont)'>
          48
       </a>
     </li>
+    
     <li>
       <a href="#" target="_self" rel='tooltip' 
         data-slide=49 title='Factors'>
          49
       </a>
     </li>
+    
     <li>
       <a href="#" target="_self" rel='tooltip' 
         data-slide=50 title='Factors (cont)'>
          50
       </a>
     </li>
+    
     <li>
       <a href="#" target="_self" rel='tooltip' 
         data-slide=51 title='Vectorized operations in R'>
          51
       </a>
     </li>
+    
     <li>
       <a href="#" target="_self" rel='tooltip' 
         data-slide=52 title='Basic calculation example'>
          52
       </a>
     </li>
+    
     <li>
       <a href="#" target="_self" rel='tooltip' 
         data-slide=53 title='Vectorized calculations'>
          53
       </a>
     </li>
+    
     <li>
       <a href="#" target="_self" rel='tooltip' 
         data-slide=54 title='Vectorized calculations'>
          54
       </a>
     </li>
+    
     <li>
       <a href="#" target="_self" rel='tooltip' 
         data-slide=55 title='Vectorized calculations'>
          55
       </a>
     </li>
+    
     <li>
       <a href="#" target="_self" rel='tooltip' 
         data-slide=56 title='Your turn...'>
          56
       </a>
     </li>
+    
     <li>
       <a href="#" target="_self" rel='tooltip' 
         data-slide=57 title='Quiz 10: Total Sums of Squares \(\sum_{i=1}^{n} \left(x_{i} - \bar{x}\right)^{2}\)'>
          57
       </a>
     </li>
+    
     <li>
       <a href="#" target="_self" rel='tooltip' 
         data-slide=58 title='Overview of functions you learned today'>
          58
       </a>
     </li>
+    
     <li>
       <a href="#" target="_self" rel='tooltip' 
         data-slide=59 title='How do you feel now.....?'>
          59
       </a>
     </li>
+    
     <li>
       <a href="#" target="_self" rel='tooltip' 
         data-slide=60 title='Totally confused?'>
          60
       </a>
     </li>
+    
     <li>
       <a href="#" target="_self" rel='tooltip' 
         data-slide=61 title='Totally bored?'>
          61
       </a>
     </li>
+    
     <li>
       <a href="#" target="_self" rel='tooltip' 
         data-slide=62 title='Totally content?'>
          62
       </a>
     </li>
+    
     <li>
       <a href="#" target="_self" rel='tooltip' 
         data-slide=63 title='NA'>
          63
       </a>
     </li>
-  </ul>
+    
+    </ul>
   </div>  <!--[if IE]>
     <script
       src="https://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">
@@ -2400,9 +2648,12 @@ outermost parenthesis (just like a calculator). So your order should be:
   
   <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
   </script> -->
-  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+  
+<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
 </script>
-<script>  
+
+  
+  <script>  
   $(function (){ 
     $("#example").popover(); 
     $("[rel='tooltip']").tooltip(); 
