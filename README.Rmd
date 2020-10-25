@@ -25,7 +25,7 @@ All code (.Rmd) is available in this github repository. Feel free to browse, dow
 
 Source files for the gh-pages doc folder are organized as follows:
 
-- `site` folder for the global webpages
+- `site` folder for the global webpages.
 - `exercises` folder for the case studies and exercise demo codes of specific lectures.
 
 To create the html files for the docs folder, use the Build -> Build All button in RStudio. This button will use the rules defined in `Makefiles` to produce the HTML files. `make` will use the `rmarkdown::render_site()` function to create the files in the `docs` folder.
